@@ -1,0 +1,21 @@
+Breaking Code
+Developed by: Daniel Portnoy , Aaron Wolde , Shahaf Zada , Phillip Katz
+
+Version changelog (current: v0.1):
+-v0.1: added readme file
+
+Description:
+Breaking Code is a puzzle-based game (platform: web). It offers users the experience of either playing the game, learning about
+its puzzle's background, or reading through gathered statistics. 
+
+Usage:
+Requirements: PC, internet connection
+To play, just enter the website and press "play" on the main page.
+All other features are accessed through their appropriate panels in the toolbar. 
+For additional options, a user may create an account (register in our website). This registration option is available
+in every page, and would be suggested to the user automatically after playing a single stage of the game.
+
+Troubleshooting:
+For additional information, reffer to the appropriate "about" section in the website
+If you wish to contact the development team, either leave a message in the "contact us" section, or send an email to
+the following address: allpointlessemail@gmail.com (answer expected to be returned within 2 years)
