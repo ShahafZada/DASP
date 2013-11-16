@@ -13,6 +13,5 @@ function contactFunction(){
 }
 
 function signupFunction(){
-	var email = prompt("Enter your Email:","someone@something.com");
-	var message = prompt("Enter your password:","12345");
+	alert("Not yet my friend");
 }

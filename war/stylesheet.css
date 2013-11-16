@@ -7,41 +7,41 @@ body {
 	position: relative;
 	top: 0px;
 	left: 0px;
-	width: 100%;
 }
 
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	width: 100%;
 	position: relative;
 	left: 0px;
+	width: 1000px;
+	font-family: Calibri;
 }
 
 table td,table th {
 	padding: 0;
 }
 
-#context {
-	position: relative;
+.text {
+	font-family: Calibri;
+	font-size: 20px;
+	padding-top: 25px;
+	padding-left: 50px;
+	width: 1000px;
+}
+
+#center {
+    max-width: 100%;
+    min-height: 500px;
+   	position: relative;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 100%;
-}
-
-.text {
-	font-family: Calibri;
-	width: 80%;
-	font-size: 120%;
-	padding-top: 25px;
-	padding-left: 50px;
 }
 
 #high_scores {
 	font-family: Calibri;
-	width: 60%;
-	font-size: 200%;
+	font-size: 20px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -55,6 +55,16 @@ button {
 	display: inline-block;
 	font-size: 14px;
 	margin-left: 200px;
+}
+
+#footer {
+	font-family: Calibri;
+	font-size: 20px;
+	padding-left: 10px;
+	margin-top: 5px;
+	background-color:#A9A9A9;
+	color: #FFFFFF;
+	width: 1500px;
 }
 
 #canvas {
