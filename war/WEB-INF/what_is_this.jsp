@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <title>Breaking Code</title>
 </head>
 
 <body>
-	<%@ include file="WEB-INF/header.jsp"%>
+	<%@ include file="header.jsp"%>
 	<div id="center">
 		<div class="text">
 			<p>This is an engineering course project, done by a group of
@@ -56,7 +56,7 @@
 				profits/savings you’d get by using our product.</p>
 		</div>
 	</div>
-	<%@ include file="WEB-INF/footer.jsp"%>
+	<%@ include file="footer.jsp"%>
 
 </body>
 </html>

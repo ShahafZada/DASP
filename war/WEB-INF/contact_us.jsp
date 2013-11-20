@@ -4,19 +4,19 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <script type="text/javascript" src="js/scripts.js"></script>
 <title>Breaking Code</title>
 </head>
 
 <body>
-	<%@ include file="WEB-INF/header.jsp"%>
+	<%@ include file="header.jsp"%>
 	<div id="center">
-		<span onclick="donateFunction()"><img
-			src="images/donate/donate.png"></span>
-		<button onclick="donateFunction()">Donate</button>
-	</div>
-	<%@ include file="WEB-INF/footer.jsp"%>
 
+		<span onclick="contactFunction()"><img
+			src="images/contact_us/contact_us.png"></span>
+		<button onclick="contactFunction()">Contact us</button>
+	</div>
+	<%@ include file="footer.jsp"%>
 </body>
 </html>

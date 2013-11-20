@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <script type="text/javascript" src="js/scripts.js"></script>
 <title>Breaking Code</title>
 </head>
 
 <body>
-	<%@ include file="WEB-INF/header.jsp"%>
+	<%@ include file="header.jsp"%>
 	<div id="center">
 
 	<!-- <img src="images/sign_up/sign_up.png">
@@ -34,7 +34,7 @@
 		</table>
 	</form>
 	</div>
-	<%@ include file="WEB-INF/footer.jsp"%>
+	<%@ include file="footer.jsp"%>
 
 </body>
 </html>

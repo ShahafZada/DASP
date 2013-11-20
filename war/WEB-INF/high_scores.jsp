@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <title>Breaking Code</title>
 </head>
 
 <body>
-	<%@ include file="WEB-INF/header.jsp"%>
+	<%@ include file="header.jsp"%>
 	<table id="high_scores">
 		<tr>
 			<td></td>
@@ -45,7 +45,7 @@
 			<td>99,999,999 steps</td>
 		</tr>
 	</table>
-
+    <%@ include file="footer.jsp"%>
 	<!--  <img src="images/high_scores/high_scores.png" id="context"> -->
 </body>
 </html>

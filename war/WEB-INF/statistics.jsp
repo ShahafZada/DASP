@@ -4,16 +4,16 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <title>Breaking Code</title>
 </head>
 
 <body>
-	<%@ include file="WEB-INF/header.jsp"%>
+	<%@ include file="header.jsp"%>
 	<div id="center">
-		<img src="images/learn/learn.png">
+		<img src="images/statistics/statistics.png" width="1000">
 	</div>
-	<%@ include file="WEB-INF/footer.jsp"%>
+	<%@ include file="footer.jsp"%>
 
 </body>
 </html>
