@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns="http://java.sun.com/xml/ns/javaee"
-xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
 	<servlet>
 		<servlet-name>BreakingCode</servlet-name>
 		<servlet-class>com.breakingcode.BreakingCodeServlet</servlet-class>
@@ -15,5 +15,105 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<jsp-file>/WEB-INF/index.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>contact_us</servlet-name>
+		<jsp-file>/WEB-INF/contact_us.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>contact_us</servlet-name>
+		<url-pattern>/contact_us</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>donate</servlet-name>
+		<jsp-file>/WEB-INF/donate.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>donate</servlet-name>
+		<url-pattern>/donate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>high_scores</servlet-name>
+		<jsp-file>/WEB-INF/high_scores.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>high_scores</servlet-name>
+		<url-pattern>/high_scores</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>learn</servlet-name>
+		<jsp-file>/WEB-INF/learn.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>learn</servlet-name>
+		<url-pattern>/learn</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>share</servlet-name>
+		<jsp-file>/WEB-INF/share.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>share</servlet-name>
+		<url-pattern>/share</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>sign_up</servlet-name>
+		<jsp-file>/WEB-INF/sign_up.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>sign_up</servlet-name>
+		<url-pattern>/sign_up</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>contact_us</servlet-name>
+		<jsp-file>/WEB-INF/contact_us.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>contact_us</servlet-name>
+		<url-pattern>/contact_us</url-pattern>
+	</servlet-mapping>
+ 
+	<servlet>
+		<servlet-name>statistics</servlet-name>
+		<jsp-file>/WEB-INF/statistics.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>statistics</servlet-name>
+		<url-pattern>/statistics</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>view_solutions</servlet-name>
+		<jsp-file>/WEB-INF/view_solutions.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>view_solutions</servlet-name>
+		<url-pattern>/view_solutions</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>what_is_this</servlet-name>
+		<jsp-file>/WEB-INF/what_is_this.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>what_is_this</servlet-name>
+		<url-pattern>/what_is_this</url-pattern>
+	</servlet-mapping>
+
 
 </web-app>
