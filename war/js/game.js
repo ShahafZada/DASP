@@ -23,7 +23,7 @@ function domloaded(){
      playImage.src = "images/GameMainManu/Play_regular.png";
      instructImage.src = "images/GameMainManu/Instructions_regular.png";
      settingsImage.src = "images/GameMainManu/Settings_regular.png";
-     creditsImage.src = "iimages/GameMainManu/Credits_regular.png";
+     creditsImage.src = "images/GameMainManu/Credits_regular.png";
      
      var buttonY = [100,140,180,220];
      var buttonX = [];
@@ -217,7 +217,7 @@ function domloaded(){
  				{
  					if (mouseY <= buttonY[1])
  					{
- 						 alert("lol noob tried to pley.... ");
+ 						 alert("lol noob tried to play.... ");
  					}
  					else if(mouseY <= buttonY[2])
  					{
