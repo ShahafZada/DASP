@@ -16,14 +16,14 @@ function domloaded(){
      var settingsImage = new Image();
      var creditsImage = new Image();
      
-     laImage.src = "Images/GameMainManu/arrow_pointing_right.png";
-     raImage.src = "Images/GameMainManu/arrow_pointing_left.png";
-     bgImage.src = "Images/GameMainManu/Background.png";
-     logoImage.src = "Images/GameMainManu/logo.png";
-     playImage.src = "Images/GameMainManu/Play_regular.png";
-     instructImage.src = "Images/GameMainManu/Instructions_regular.png";
-     settingsImage.src = "Images/GameMainManu/Settings_regular.png";
-     creditsImage.src = "Images/GameMainManu/Credits_regular.png";
+     laImage.src = "images/GameMainManu/arrow_pointing_right.png";
+     raImage.src = "images/GameMainManu/arrow_pointing_left.png";
+     bgImage.src = "images/GameMainManu/Background.png";
+     logoImage.src = "images/GameMainManu/logo.png";
+     playImage.src = "images/GameMainManu/Play_regular.png";
+     instructImage.src = "images/GameMainManu/Instructions_regular.png";
+     settingsImage.src = "images/GameMainManu/Settings_regular.png";
+     creditsImage.src = "iimages/GameMainManu/Credits_regular.png";
      
      var buttonY = [100,140,180,220];
      var buttonX = [];
@@ -158,35 +158,35 @@ function domloaded(){
      				{	
      					if (mouseY <= buttonY[1] )
      					{
-     						 playImage.src = "Images/GameMainManu/Play_over.png";
+     						 playImage.src = "images/GameMainManu/Play_over.png";
      						 
-		     		        instructImage.src = "Images/GameMainManu/Instructions_regular.png";
-		     		        settingsImage.src = "Images/GameMainManu/Settings_regular.png";
-		     		        creditsImage.src = "Images/GameMainManu/Credits_regular.png";
+		     		        instructImage.src = "images/GameMainManu/Instructions_regular.png";
+		     		        settingsImage.src = "images/GameMainManu/Settings_regular.png";
+		     		        creditsImage.src = "images/GameMainManu/Credits_regular.png";
      					}
      					else if(mouseY <= buttonY[2])
      					{
-     						instructImage.src = "Images/GameMainManu/Instructions_over.png";
+     						instructImage.src = "images/GameMainManu/Instructions_over.png";
      						
-     						playImage.src = "Images/GameMainManu/Play_regular.png";
-		     		        settingsImage.src = "Images/GameMainManu/Settings_regular.png";
-		     		        creditsImage.src = "Images/GameMainManu/Credits_regular.png";
+     						playImage.src = "images/GameMainManu/Play_regular.png";
+		     		        settingsImage.src = "images/GameMainManu/Settings_regular.png";
+		     		        creditsImage.src = "images/GameMainManu/Credits_regular.png";
      					}
      					else if(mouseY <= buttonY[3])
      					{
-     						settingsImage.src = "Images/GameMainManu/Settings_over.png";
+     						settingsImage.src = "images/GameMainManu/Settings_over.png";
      						
-     						playImage.src = "Images/GameMainManu/Play_regular.png";
-		     		        instructImage.src = "Images/GameMainManu/Instructions_regular.png";
-		     		        creditsImage.src = "Images/GameMainManu/Credits_regular.png";
+     						playImage.src = "images/GameMainManu/Play_regular.png";
+		     		        instructImage.src = "images/GameMainManu/Instructions_regular.png";
+		     		        creditsImage.src = "images/GameMainManu/Credits_regular.png";
      					}
      					else
      					{
-     						creditsImage.src = "Images/GameMainManu/Credits_over.png";
+     						creditsImage.src = "images/GameMainManu/Credits_over.png";
      						
-     						playImage.src = "Images/GameMainManu/Play_regular.png";
-		     		        instructImage.src = "Images/GameMainManu/Instructions_regular.png";
-		     		        settingsImage.src = "Images/GameMainManu/Settings_regular.png";
+     						playImage.src = "images/GameMainManu/Play_regular.png";
+		     		        instructImage.src = "images/GameMainManu/Instructions_regular.png";
+		     		        settingsImage.src = "images/GameMainManu/Settings_regular.png";
      					}
      					
      					arrowsVisible = true;
@@ -199,10 +199,10 @@ function domloaded(){
      			else
      			{
      				arrowsVisible = false;
-     				playImage.src = "Images/GameMainManu/Play_regular.png";
-     		        instructImage.src = "Images/GameMainManu/Instructions_regular.png";
-     		        settingsImage.src = "Images/GameMainManu/Settings_regular.png";
-     		        creditsImage.src = "Images/GameMainManu/Credits_regular.png";
+     				playImage.src = "images/GameMainManu/Play_regular.png";
+     		        instructImage.src = "images/GameMainManu/Instructions_regular.png";
+     		        settingsImage.src = "images/GameMainManu/Settings_regular.png";
+     		        creditsImage.src = "images/GameMainManu/Credits_regular.png";
      			}
      		}
  	}
