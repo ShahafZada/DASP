@@ -14,12 +14,6 @@
 	<%@ include file="header.jsp"%>
 	<div id="center">
 		<canvas id="canvas"  width="480" height="320"></canvas>
-		<audio preload="true" id="collide">
-			<source
-				src="http://dl.dropbox.com/u/26141789/canvas/pingpong/Metal%20Cling%20-%20Hit.mp3" />
-			<source
-				src="http://dl.dropbox.com/u/26141789/canvas/pingpong/Metal%20Cling%20-%20Hit.wav" />
-		</audio>
 	</div>
 	<%@ include file="footer.jsp"%>
 
