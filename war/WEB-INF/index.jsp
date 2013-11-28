@@ -6,7 +6,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <script type="text/javascript" src="js/scripts.js"></script>
-<script type="text/javascript" src="js/game.js"></script>
+<script type="text/javascript" src="js/gameMenu.js"></script>
 <title>Breaking Code</title>
 </head>
 
