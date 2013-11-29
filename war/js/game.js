@@ -59,14 +59,17 @@ function game(){
 	//TODO - initially set every node and edge
 
 
-	var numOfNodes = 2;
+	var numOfNodes = 5;
 
 	var nodes = [];
 	nodes.length = numOfNodes;
 
 
 	for(var i = 0 ; i < numOfNodes ; i++){
-		nodes[i] = new Node(i , 5*(i+1) , 5*(i+1) , 2 , "rgb(155, 0, 0)" , true);
+		if(i ==0)
+			nodes[i] = new Node(i , 5*(i+1) , 5*(i+1) , 2 , "rgb(155, 0, 0)" , true);
+		
+		nodes[i] = new Node(i , 30*(i+1) , 30*(i+1) , 2 , "rgb(155, 0, 0)" , false);
 
 		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
 			if(i != j)	//creating edges from Node i to Node j
