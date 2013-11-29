@@ -14,6 +14,9 @@ function gameManager(){
 		if (e.customData == "GameData") {
 			page = new GameMenu();
 		}
+		else if (e.customData == "GameData") {
+			page = new GameMenu();
+		}
 		
 	}
 	

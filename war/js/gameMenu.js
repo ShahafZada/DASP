@@ -1,10 +1,19 @@
 function GameMenu(){
+	
+	
+// 	-------------------------------------------------------------
 
+// 	variant definitions :
+ 	
+	
+//			canvas :
 	 var canvas = document.getElementById("canvas");
      var context = canvas.getContext("2d");
      var width = canvas.getAttribute('width');
      var height = canvas.getAttribute('height');
      
+     
+//  		images :
      var laImage = new Image();
      var raImage = new Image();
      var bgImage = new Image();
@@ -23,6 +32,9 @@ function GameMenu(){
      settingsImage.src = "images/GameMainMenu/Settings_regular.png";
      creditsImage.src = "images/GameMainMenu/Credits_regular.png";
      
+
+     
+//	buttons and misc data:
      //for 4 buttons only
      var buttonY = [100,140,180,220];
      var buttonX = [];
@@ -31,6 +43,19 @@ function GameMenu(){
      buttonWidth.length =4;
      var buttonHeight = [];
      buttonHeight.length=4;
+     
+     var arrowsX = [0,0];
+     var arrowsY = [0,0];
+     var arrowsWidth = 34;
+     var arrowsHeight = 40;
+     
+     var backgroundX = 0;
+     var bgSpeed = 1;	//going left when positive
+     
+     
+     
+     
+//  	-------------------------------------------------------------
      
      bgImage.onload = function()
      {
@@ -73,19 +98,13 @@ function GameMenu(){
     	    context.drawImage(creditsImage, buttonX[3], buttonY[3]);
      };
      
-     var frames = 30;
-     var timerId = 0;	//not used (yet)
      
-     var backgroundX = 0;
-     var speed = 1;
+
         
      var mouseX;
      var mouseY;
      
-     var arrowsX = [0,0];
-     var arrowsY = [0,0];
-     var arrowsWidth = 34;
-     var arrowsHeight = 40;
+
       
      var arrowsVisible = false;
      var arrowsRotate = 0;
@@ -107,7 +126,7 @@ function GameMenu(){
 
      function move()
      {
-    		backgroundX -= speed;
+    		backgroundX -= bgSpeed;
     		
  			if(backgroundX == -1 * width)
  			{
