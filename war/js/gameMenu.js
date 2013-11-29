@@ -1,4 +1,4 @@
-function GameMenu(){
+function gameMenu(){
 	
 	
 // 	-------------------------------------------------------------
@@ -12,6 +12,9 @@ function GameMenu(){
      var width = canvas.getAttribute('width');
      var height = canvas.getAttribute('height');
      
+//		mouse :  
+     var mouseX;
+     var mouseY;
      
 //  		images :
      var laImage = new Image();
@@ -34,8 +37,8 @@ function GameMenu(){
      
 
      
-//	buttons and misc data:
-     //for 4 buttons only
+//			buttons and misc data :
+     //buttons (for 4 only - TODO: make it flexible)
      var buttonY = [100,140,180,220];
      var buttonX = [];
      buttonX.length =4;
@@ -44,18 +47,21 @@ function GameMenu(){
      var buttonHeight = [];
      buttonHeight.length=4;
      
+     //arrows
      var arrowsX = [0,0];
      var arrowsY = [0,0];
      var arrowsWidth = 34;
      var arrowsHeight = 40;
+     var arrowsVisible = false;
+     var arrowsRotate = 0;
      
+     //background
      var backgroundX = 0;
      var bgSpeed = 1;	//going left when positive
      
-     
-     
-     
 //  	-------------------------------------------------------------
+     
+
      
      bgImage.onload = function()
      {
@@ -99,21 +105,10 @@ function GameMenu(){
      };
      
      
-
-        
-     var mouseX;
-     var mouseY;
+//  	-------------------------------------------------------------
      
+//	page-function implementations :
 
-      
-     var arrowsVisible = false;
-     var arrowsRotate = 0;
-     
-     //var fadeId = 0;	//not used (yet)
-     //var time = 0.0;	//not used (yet)
-      
-     canvas.addEventListener("mousemove", checkPos);
-	 canvas.addEventListener("mouseup", checkClick);
 
  	 this.clear = function()
  	 {
@@ -124,15 +119,7 @@ function GameMenu(){
  		 move();
  	 }
 
-     function move()
-     {
-    		backgroundX -= bgSpeed;
-    		
- 			if(backgroundX == -1 * width)
- 			{
- 				backgroundX = 0;
- 			}	  
-     }
+ 
      
      this.draw = function()
      {     	
@@ -148,6 +135,23 @@ function GameMenu(){
     		}
 
      }
+     
+     
+     function move()
+     {
+    		backgroundX -= bgSpeed;
+    		
+ 			if(backgroundX == -1 * width)
+ 			{
+ 				backgroundX = 0;
+ 			}	  
+     }   
+     
+     
+// 	-------------------------------------------------------------
+      
+//   	event listener implementations :
+      
      
      function checkPos(mouseEvent)
      {
@@ -250,4 +254,14 @@ function GameMenu(){
  			}
  		}
  	}
+     
+     
+//	-------------------------------------------------------------
+     
+//  	event listeners :
+     
+     canvas.addEventListener("mousemove", checkPos);
+	 canvas.addEventListener("mouseup", checkClick);
+     
+//  	-------------------------------------------------------------
 }

@@ -5,17 +5,17 @@ function gameManager(){
 	
 	var everyXmiliseconds = 40;
 	
-	var page = new GameMenu();
+	var page = new gameMenu();
 	
     setInterval(update, everyXmiliseconds);
     
     this.onChangePage = function (e) {
 		alert(e.customData);
 		if (e.customData == "GameData") {
-			page = new GameMenu();
+			page = new gameMenu();
 		}
 		else if (e.customData == "GameData") {
-			page = new GameMenu();
+			page = new gameMenu();
 		}
 		
 	}
