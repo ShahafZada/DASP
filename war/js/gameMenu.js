@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded',domloaded,false);
-
-function domloaded(){
+function GameMenu(){
 
 	 var canvas = document.getElementById("canvas");
      var context = canvas.getContext("2d");
@@ -25,6 +23,7 @@ function domloaded(){
      settingsImage.src = "images/GameMainMenu/Settings_regular.png";
      creditsImage.src = "images/GameMainMenu/Credits_regular.png";
      
+     //for 4 buttons only
      var buttonY = [100,140,180,220];
      var buttonX = [];
      buttonX.length =4;
@@ -75,13 +74,11 @@ function domloaded(){
      };
      
      var frames = 30;
-     var timerId = 0;
+     var timerId = 0;	//not used (yet)
      
      var backgroundX = 0;
      var speed = 1;
         
-     timerId = setInterval(update, 1000/frames);
-
      var mouseX;
      var mouseY;
      
@@ -93,23 +90,19 @@ function domloaded(){
      var arrowsVisible = false;
      var arrowsRotate = 0;
      
-     var fadeId = 0;
-     var time = 0.0;
+     //var fadeId = 0;	//not used (yet)
+     //var time = 0.0;	//not used (yet)
       
      canvas.addEventListener("mousemove", checkPos);
 	 canvas.addEventListener("mouseup", checkClick);
 
-     
-     function update() 
-     {
- 			clear();
- 			move();
- 			draw();
- 	 }
-     
- 	 function clear() 
+ 	 this.clear = function()
  	 {
  			context.clearRect(0, 0, width, height);
+ 	 }
+ 	 
+ 	this.logic = function() {
+ 		 move();
  	 }
 
      function move()
@@ -122,7 +115,7 @@ function domloaded(){
  			}	  
      }
      
-     function draw()
+     this.draw = function()
      {     	
         	context.drawImage(bgImage, backgroundX , 0 );
         	context.drawImage(logoImage, width/2-logoImage.width/2, 10);
@@ -130,7 +123,7 @@ function domloaded(){
     		context.drawImage(instructImage, buttonX[1], buttonY[1]);
     		context.drawImage(settingsImage, buttonX[2], buttonY[2]);
     		context.drawImage(creditsImage, buttonX[3], buttonY[3]);
-    		if(arrowsVisible == true){
+    		if(arrowsVisible){
     			context.drawImage(laImage, arrowsX[0] - (arrowsWidth/2), arrowsY[0]-10, arrowsWidth, arrowsHeight);
     			context.drawImage(raImage, arrowsX[1] - (arrowsWidth/2), arrowsY[1]-10, arrowsWidth, arrowsHeight);
     		}
@@ -218,6 +211,11 @@ function domloaded(){
  					if (mouseY <= buttonY[1])
  					{
  						 alert("lol noob tried to play.... ");
+ 						 
+ 						  var event = document.createEvent("Event");
+ 						  event.initEvent("changePage", true, true);
+ 						  event.customData = getYourCustomData();
+ 						  window.dispatchEvent(event);
  					}
  					else if(mouseY <= buttonY[2])
  					{
