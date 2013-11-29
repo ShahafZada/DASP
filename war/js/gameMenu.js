@@ -61,17 +61,16 @@ function gameMenu(){
      
 //  	-------------------------------------------------------------
      
-
+     //not doing anything!!!!!!!!!!!!!
+//     bgImage.onload = function()
+//     {
+//    	  context.drawImage(bgImage, 0, 0);
+//     };
      
-     bgImage.onload = function()
-     {
-    	    context.drawImage(bgImage, 0, 0);
-     };
-     
-     logoImage.onload = function()
-     {
-    	    context.drawImage(logoImage, width/2-logoImage.width/2, 10);
-     };
+//     logoImage.onload = function()
+//     {
+//    	    context.drawImage(logoImage, width/2-logoImage.width/2, 10);
+//     };
      
      playImage.onload = function()
      {
@@ -123,7 +122,7 @@ function gameMenu(){
      
      this.draw = function()
      {     	
-        	context.drawImage(bgImage, backgroundX , 0 );
+        	context.drawImage(bgImage, backgroundX , 0);
         	context.drawImage(logoImage, width/2-logoImage.width/2, 10);
     		context.drawImage(playImage, buttonX[0], buttonY[0]);
     		context.drawImage(instructImage, buttonX[1], buttonY[1]);
