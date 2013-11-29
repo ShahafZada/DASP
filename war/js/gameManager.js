@@ -11,11 +11,12 @@ function gameManager(){
     
     this.onChangePage = function (e) {
 		alert(e.customData);
-		if (e.customData == "GameData") {
+		if (e.customData == "goToGameMenu") {
 			page = new gameMenu();
 		}
-		else if (e.customData == "GameData") {
-			page = new gameMenu();
+		else if (e.customData == "goToGame") {
+			page = new game();
+			
 		}
 		
 	}

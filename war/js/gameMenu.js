@@ -6,7 +6,7 @@ function gameMenu(){
 // 	variant definitions :
  	
 	
-//			canvas :
+//		canvas :
 	 var canvas = document.getElementById("canvas");
      var context = canvas.getContext("2d");
      var width = canvas.getAttribute('width');
@@ -16,7 +16,7 @@ function gameMenu(){
      var mouseX;
      var mouseY;
      
-//  		images :
+//  	images :
      var laImage = new Image();
      var raImage = new Image();
      var bgImage = new Image();
@@ -37,7 +37,7 @@ function gameMenu(){
      
 
      
-//			buttons and misc data :
+//		buttons and misc data :
      //buttons (for 4 only - TODO: make it flexible)
      var buttonY = [100,140,180,220];
      var buttonX = [];
@@ -235,7 +235,7 @@ function gameMenu(){
  					{ 						 
  						  var event = document.createEvent("Event");
  						  event.initEvent("changePage", true, true);
- 						  event.customData = "GameMenu";	//TODO change to "game"
+ 						  event.customData = "goToGame";
  						  window.dispatchEvent(event);
  					}
  					else if(mouseY <= buttonY[2])
