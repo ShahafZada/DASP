@@ -212,7 +212,7 @@ function GameMenu(){
  					{ 						 
  						  var event = document.createEvent("Event");
  						  event.initEvent("changePage", true, true);
- 						  event.customData = "GameMenu";
+ 						  event.customData = "GameMenu";	//TODO change to "game"
  						  window.dispatchEvent(event);
  					}
  					else if(mouseY <= buttonY[2])

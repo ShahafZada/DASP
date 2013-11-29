@@ -17,7 +17,7 @@ function gameManager(){
 		
 	}
 	
-	function update() {
+	function update() {	//every js script in the game needs to implement these
 		page.clear();
 		page.logic();
 		page.draw();
