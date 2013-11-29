@@ -8,13 +8,13 @@ function gameManager(){
 	var page = new GameMenu();
 	
     setInterval(update, everyXmiliseconds);
-
-    canvas.addEventListener("changePage", onChangePage);
-
-	
-	function onChangePage(e) {
-		alert("yeeeeeeeeeeeeeeeeeeeeees");
-		page = new GameMenu();
+    
+    this.onChangePage = function (e) {
+		alert(e.customData);
+		if (e.customData == "GameData") {
+			page = new GameMenu();
+		}
+		
 	}
 	
 	function update() {
@@ -22,7 +22,7 @@ function gameManager(){
 		page.logic();
 		page.draw();
 	}
-		
-	
+
+    window.addEventListener("changePage", this.onChangePage);
 	
 }

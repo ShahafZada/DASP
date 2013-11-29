@@ -209,12 +209,10 @@ function GameMenu(){
  				if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i])
  				{
  					if (mouseY <= buttonY[1])
- 					{
- 						 alert("lol noob tried to play.... ");
- 						 
+ 					{ 						 
  						  var event = document.createEvent("Event");
  						  event.initEvent("changePage", true, true);
- 						  event.customData = getYourCustomData();
+ 						  event.customData = "GameMenu";
  						  window.dispatchEvent(event);
  					}
  					else if(mouseY <= buttonY[2])
