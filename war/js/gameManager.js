@@ -51,6 +51,7 @@ function gameManager(){
     window.addEventListener("changePage", this.onChangePage);
     canvas.addEventListener("mousemove", this.repositionMouse);
     
+    
     //TODO find a way to activate another script's function through a listen here (so there would be less isteners!)
 	
 }
