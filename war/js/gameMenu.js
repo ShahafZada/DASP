@@ -9,22 +9,30 @@ function gameMenu(){
 //		images :
 	var laImage = new Image();
 	var raImage = new Image();
-	var bgImage = new Image();
+	//var bgImage = new Image();
 	var logoImage = new Image();
 	var playImage = new Image();
 	var instructImage = new Image();
 	var settingsImage = new Image();
 	var creditsImage = new Image();
+	
+	var menuBG = new Image();
+	var menuBG_cover = new Image();
 
 	laImage.src = "images/GameMainMenu/arrow_pointing_right.png";
 	raImage.src = "images/GameMainMenu/arrow_pointing_left.png";
-	bgImage.src = "images/GameMainMenu/Background.png";
 	logoImage.src = "images/GameMainMenu/logo.png";
 	playImage.src = "images/GameMainMenu/Play_regular.png";
 	instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 	settingsImage.src = "images/GameMainMenu/Settings_regular.png";
 	creditsImage.src = "images/GameMainMenu/Credits_regular.png";
+	menuBG.src = "images/GameMainMenu/gameMenu_bg.png";
+	menuBG_cover.src = "images/GameMainMenu/gameMenu_bg_cover.png";
 
+	menuBG.width = width*2;
+	menuBG.height = height;
+	menuBG_cover.width = width/2;
+	menuBG_cover.height = height;
 
 
 //	buttons and misc data :
@@ -46,7 +54,7 @@ function gameMenu(){
 	var arrowsRotate = 0;
 
 	//background
-	var backgroundX = 0;
+	var backgroundX = -menuBG.width/2;
 	var bgSpeed = 1;	//going left when positive
 
 //	-------------------------------------------------------------
@@ -110,7 +118,9 @@ function gameMenu(){
 
 
 	this.draw = function(){     	
-		context.drawImage(bgImage, backgroundX , 0);
+		//context.drawImage(bgImage, backgroundX , 0);
+		context.drawImage(menuBG ,  backgroundX , 0);
+		context.drawImage(menuBG_cover ,  width-menuBG_cover.width , 0);
 		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
 		context.drawImage(playImage, buttonX[0], buttonY[0]);
 		context.drawImage(instructImage, buttonX[1], buttonY[1]);
@@ -130,7 +140,7 @@ function gameMenu(){
 
 		if(backgroundX == -1 * width)
 		{
-			backgroundX = 0;
+			backgroundX = -menuBG.width/2;
 		}	  
 	}   
 
