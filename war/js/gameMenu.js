@@ -6,14 +6,15 @@ function gameMenu(){
 	//	variant definitions :
 	
 	//background (constants' determination): 
-	var backgroundX = -width;
+	var backgroundX = 0;
 	var bgSpeed = 1;	//going left when positive
 	var barGoingDown = true;
 	var barXDist = 1/10;
 	var barYStep = 1/9;
 	var movingBarYPosition = height*(1-barYStep)
-	var magicNumber = 270;	//it appears that can't be applied in ways we know. Until we get the right parameters, this will do
 	
+	var menuBG_cover_width = width/2;
+	var menuBG_cover_height = height;
 
 	
 //		images :
@@ -44,16 +45,12 @@ function gameMenu(){
 	movingBar.src = "images/GameMainMenu/movingBar.png";
 	movingBar2.src = "images/GameMainMenu/movingBar.png";
 
-	//TODO - resize it right. I don't know how...
-	menuBG.style.width = 2*width;	//twice the width of the canvas
-	menuBG.style.height = height;
-	menuBG_cover.width = width/2;
-	menuBG_cover.height = height;
-	movingBar.style.width = (width/2)*(1-2*barXDist)
-	movingBar.style.height = 'auto';
-	movingBar2.style.width = 30;
-	var movingBarXPosition = magicNumber;	//width-movingBar.width-(barXDist*width/2);
-	var movingBar2XPosition = magicNumber+15;
+		
+	var movingBarXPosition = width-movingBar.width-(barXDist*width/2);
+	var movingBar2XPosition = movingBarXPosition;
+	var movingBar_width = (width/2)*(1-2*barXDist)
+	var movingBar_height = movingBar.height*(movingBar.height/movingBar_width);
+	var movingBar2_width = movingBar_width*0.75;
 	
 //	buttons and misc data :
 	//buttons (for 4 only - TODO: make it flexible)
@@ -134,10 +131,18 @@ function gameMenu(){
 	}
 
 
+	
+//	var menuBG_cover_width = width/2;
+//	var menuBG_cover_height = height;
+//	var movingBarXPosition = width-movingBar.width-(barXDist*width/2);
+//	var movingBar2XPosition = movingBarXPosition;
+//	var movingBar_width = (width/2)*(1-2*barXDist)
+//	var movingBar_height = movingBar.height*(movingBar.height/movingBar_width);
+//	var movingBar2_width = movingBar_width*0.75;
 
 	this.draw = function(){     	
 		context.drawImage(menuBG ,  backgroundX , 0);
-		context.drawImage(menuBG_cover ,  width-menuBG_cover.width , 0);
+		context.drawImage(menuBG_cover ,  width-menuBG_cover_width , 0 , menuBG_cover_width , menuBG_cover_height);
 		context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition);
 		context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition);
 		
@@ -158,9 +163,9 @@ function gameMenu(){
 	{
 		backgroundX -= bgSpeed;
 
-		if(backgroundX <= -2*width)
+		if(backgroundX <= -menuBG.width/2)	//the middle is similar to the start
 		{
-			backgroundX = -width;
+			backgroundX = 0;
 		}
 		
 		if(barGoingDown){
