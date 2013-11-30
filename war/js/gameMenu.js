@@ -4,16 +4,27 @@ function gameMenu(){
 //	-------------------------------------------------------------
 
 	//	variant definitions :
-	
+
 	//background (constants' determination): 
 	var backgroundX = 0;
 	var bgSpeed = 1;	//going left when positive
 	var barGoingDown = true;
-	var barXDist = 1/10;
-	var barYStep = 1/9;
+	var barXDist = 1/10;	//distance from cover's edge
+	var barYStep = 1/9;		//distance travelled in a frame
 
-	
-//		images :
+	//randomizing right-side effect thingy
+	var booleans=[];
+	var effectNames = [];
+
+	effectNames.push("scissorEffect");
+	effectNames.push("passByEffect");
+	effectNames.push("spinEffect");
+
+	randomizeEffect();
+
+
+
+//	images :
 	var laImage = new Image();
 	var raImage = new Image();;
 	var logoImage = new Image();
@@ -25,7 +36,7 @@ function gameMenu(){
 	var menuBG_cover = new Image();
 	var movingBar = new Image();
 	var movingBar2 = new Image();
-	
+
 
 	laImage.src = "images/GameMainMenu/arrow_pointing_right.png";
 	raImage.src = "images/GameMainMenu/arrow_pointing_left.png";
@@ -34,7 +45,7 @@ function gameMenu(){
 	instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 	settingsImage.src = "images/GameMainMenu/Settings_regular.png";
 	creditsImage.src = "images/GameMainMenu/Credits_regular.png";
-	
+
 	menuBG.src = "images/GameMainMenu/gameMenu_bg.png";
 	menuBG_cover.src = "images/GameMainMenu/gameMenu_bg_cover.png";
 	movingBar.src = "images/GameMainMenu/movingBar.png";
@@ -43,16 +54,24 @@ function gameMenu(){
 
 	//image handling
 	var menuBG_width;
-	var menuBG_height;
-	
+	var menuBG_height = height;;
+
+	var menuBG_cover_width = width/2;
+	var menuBG_cover_height = height
+
 	var movingBar_width = (width/2)*(1-2*barXDist);
-	var movingBar_height = movingBar.height/(movingBar.width/movingBar_width);
-	
+	var movingBar_height;
+
 	var movingBarYPosition = height*(1-barYStep);
 	var movingBarXPosition = width-movingBar_width-(barXDist*width/2);
-	var movingBar2_width = movingBar_width*0.75;
-	var movingBar2XPosition = movingBarXPosition + barXDist*width/4;
-	
+
+	var movingBar2_width;
+	var movingBar2_height;
+	var movingBar2XPosition;
+
+
+
+
 //	buttons and misc data :
 	//buttons (for 4 only - TODO: make it flexible)
 	var buttonY = [100,140,180,220];
@@ -70,40 +89,42 @@ function gameMenu(){
 	var arrowsHeight = 40;
 	var arrowsVisible = false;
 	var arrowsRotate = 0;
-	
-	
+
+
 //	function resizeMenuOption(){
-//		
+
 //	}
 
 
 //	-------------------------------------------------------------
 
-	//not doing anything!!!!!!!!!!!!!
-//	bgImage.onload = function()
-//	{
-//	context.drawImage(bgImage, 0, 0);
-//	};
-
-//	logoImage.onload = function()
-//	{
-//	context.drawImage(logoImage, width/2-logoImage.width/2, 10);
-//	};
+//	onload functions : 
 
 	//onload is called once the images are done loading into the page - then (and after) you can get their width/height
 	menuBG.onload = function(){
 		menuBG_width = menuBG.width*height/menuBG.height;	//keeping ratio
-		menuBG_height = height;
+
 	}
-	
-	menuBG_cover.onload = function(){
-		menuBG_cover.width = width/2;
-		menuBG_cover.height = height
-			
+
+	//no need
+	//menuBG_cover.onload = function(){}
+
+	movingBar.onload = function(){
+		movingBar_height = movingBar.height*movingBar_width/movingBar.width;
+		
+		//same type of image, so we can pre-define here
+		if(isStrTrue("passByEffect")){	//bar 2 is shorter, with no offset
+			movingBar2_width = movingBar_width*0.75;
+			movingBar2XPosition = movingBarXPosition;
+		}
+		else if(isStrTrue("scissorEffect")){	//moving bar 2 is same length, but off-set
+			movingBar2_width = movingBar_width;
+			movingBar2XPosition = movingBarXPosition + barXDist*width/4;
+		}
+		movingBar2_height = movingBar2.height*movingBar2_width/movingBar2.width;
 	}
-	 
-	
-	
+
+
 	playImage.onload = function()
 	{
 		buttonX[0]=width/2-playImage.width/2;
@@ -138,7 +159,7 @@ function gameMenu(){
 
 //	-------------------------------------------------------------
 
-//page-function implementations :
+//	page-function implementations :
 
 
 	this.clear = function(){
@@ -153,12 +174,18 @@ function gameMenu(){
 //	var movingBar_height = movingBar.height*(movingBar.height/movingBar_width);
 //	var movingBar2_width = movingBar_width*0.75;
 
-	this.draw = function(){     	
+	this.draw = function(){
+		//background
 		context.drawImage(menuBG ,  backgroundX , 0 , menuBG_width , menuBG_height);
-		context.drawImage(menuBG_cover ,  width/2 , 0);
-		context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
-		context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition);
+		context.drawImage(menuBG_cover ,  width/2 , 0 , menuBG_cover_width , menuBG_cover_height);
 		
+		//background side-effect
+		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect"))
+			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
+		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect"))	//when bar 2 is needed (in this manner)
+			context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition , movingBar2_width , movingBar2_height);
+
+		//options ("buttons")
 		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
 		context.drawImage(playImage, buttonX[0], buttonY[0]);
 		context.drawImage(instructImage, buttonX[1], buttonY[1]);
@@ -180,27 +207,60 @@ function gameMenu(){
 		{
 			backgroundX = 0;
 		}
-		
-		if(barGoingDown){
-			movingBarYPosition += height*barYStep;
-			if(movingBarYPosition > height){
-				movingBarYPosition -= 2*height*barYStep;
-				barGoingDown = false;
+
+		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect")){	//when bar 1 goes up and down
+			if(barGoingDown){
+				movingBarYPosition += height*barYStep;
+				if(movingBarYPosition > height){
+					movingBarYPosition -= 2*height*barYStep;
+					barGoingDown = false;
+				}
 			}
-		}
-		else{
-			movingBarYPosition -= height*barYStep;
-			if(movingBarYPosition < 0){
-				movingBarYPosition += 2*height*barYStep;
-				barGoingDown = true;
+			else{
+				movingBarYPosition -= height*barYStep;
+				if(movingBarYPosition < 0){
+					movingBarYPosition += 2*height*barYStep;
+					barGoingDown = true;
+				}
 			}
 		}
 	}   
 
+//	-------------------------------------------------------------
+
+//	other private functions :
+
+	function isStrTrue(str){
+
+		for(var i = 0 ; i < effectNames.length ; i++){
+			if(effectNames[i] == str)	//match found
+				return booleans[i];
+		}
+
+		alert("error: keyword isn't registered");
+		return false;
+	}
+
+
+
+	function randomizeEffect(){
+
+		if(booleans.length > effectNames)
+			booleans = [];
+
+		var rand = Math.random();	//between 0 and 1
+		for(var i = 0 ; i < effectNames.length ; i++){	//makes 1 of the variables true (even distribution of chances)
+			if(i/effectNames.length < rand && rand < (i+1)/effectNames.length)
+				booleans.push(true);
+			else
+				booleans.push(false);
+		}
+
+	}
 
 //	-------------------------------------------------------------
 
-//event listener implementations :
+//	event listener implementations :
 
 
 	function checkPos()
@@ -265,7 +325,7 @@ function gameMenu(){
 
 	function checkClick()
 	{
-		
+
 		for(i = 0; i < buttonX.length; i++)
 		{
 			if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i])
