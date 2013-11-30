@@ -17,8 +17,18 @@ function game(){
 
 
 //		images : 
-	var hollow_circle_20px = new Image();
-	hollow_circle_20px.src = "images/game/hollow_circle_20px.png";
+	var current_regular = new image();
+	var current_over = new image();
+	var unmarkedNode_regular = new Image();
+	var unmarkedNode_over = new Image();
+	var markedNode_regular = new Image();
+	var markedNode_over = new Image();
+	current_regular.src = "images/game/hollow_circle_current_20px.png";
+	current_over.src = "images/game/hollow_circle_current_over_30px.png";
+	unmarkedNode_regular.src = "images/game/hollow_circle_20px.png";
+	unmarkedNode_over.src = "images/game/hollow_circle_over_30px.png";
+	markedNode_regular.src = "images/game/hollow_circle_marked_20px.png";
+	markedNode_over.src = "images/game/hollow_circle_marked_over_30px.png";
 
 //	-------------------------------------------------------------
 
@@ -108,18 +118,48 @@ function game(){
 
 
 		for(var i = 0 ; i < nodes.length ; i++){
-			context.drawImage(hollow_circle_20px, nodes[i].x, nodes[i].y);
-
+			if(nodes[i].isCurrent){
+				if(mouseInNodeRange(nodes[i]))
+					context.drawImage(current_over, nodes[i].x, nodes[i].y);
+				else
+					context.drawImage(current_regular, nodes[i].x, nodes[i].y);
+			}
+			
+			else if(nodes[i].isMarked){
+				if(mouseInNodeRange(nodes[i]))
+					context.drawImage(markedNode_over, nodes[i].x, nodes[i].y);
+				else
+					context.drawImage(markedNode_regular, nodes[i].x, nodes[i].y);
+			}
+			else{
+				if(mouseInNodeRange(nodes[i]))
+					context.drawImage(unmarkedNode_over, nodes[i].x, nodes[i].y);
+				else
+					context.drawImage(unmarkedNode_regular, nodes[i].x, nodes[i].y);
+			}
+			
+			
 			for(var j = 0 ; j < nodes[i].edges.length ; j++){
 				if(nodes[i].id > nodes[i].edges[j].nodeID){	//connecting through one direction only
 					context.moveTo(nodes[i].x , nodes[i].y);
 					context.lineTo(nodes[i].edges[j].pointedNode.x , nodes[i].edges[j].pointedNode.y);
+					context.stroke();
 				}
 			}
 
 		}
 	}
 
+	function mouseInNodeRange(node){
+		var r = node.radius;
+		var xDist = node.x - mouseX;
+		var ydist = node.y - mouseY;
+		
+		if(r*r > xDist*xDist + yDist*yDist)
+			return true;
+		else
+			return false;
+	}
 
 //	-------------------------------------------------------------
 
