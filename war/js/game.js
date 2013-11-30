@@ -181,7 +181,7 @@ function game(){
 			event.initEvent("changePage", true, true);
 			event.customData = "goToGameMenu";
 			window.dispatchEvent(event);
-			removeEventListener("mouseup", checkClick);
+			this.removeEventListener("mouseup", checkClick);
 		}
 	}
 
