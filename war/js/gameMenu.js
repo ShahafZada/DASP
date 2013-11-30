@@ -6,15 +6,6 @@ function gameMenu(){
 //	variant definitions :
 	var isOnGameMenu = true;
 
-//		canvas :
-	var canvas = document.getElementById("canvas");
-	var context = canvas.getContext("2d");
-	var width = canvas.getAttribute('width');
-	var height = canvas.getAttribute('height');
-
-//		mouse :  
-
-
 //		images :
 	var laImage = new Image();
 	var raImage = new Image();

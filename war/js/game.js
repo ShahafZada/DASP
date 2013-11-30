@@ -5,12 +5,6 @@ function game(){
 //	variant definitions :
 	var isOnGame = true;
 
-//		canvas :
-	var canvas = document.getElementById("canvas");
-	var context = canvas.getContext("2d");
-	var width = canvas.getAttribute('width');
-	var height = canvas.getAttribute('height');
-
 
 //		images : 
 	var current_regular = new Image();
