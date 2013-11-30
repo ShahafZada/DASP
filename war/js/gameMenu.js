@@ -16,9 +16,12 @@ function gameMenu(){
 	var booleans=[];
 	var effectNames = [];
 
-	effectNames.push("scissorEffect");
-	effectNames.push("passByEffect");
-	effectNames.push("spinEffect");
+	effectNames.push("scissorEffect");	//2 bars
+	effectNames.push("passByEffect");	//2 bars
+	effectNames.push("spinEffect");		//1 bar
+	effectNames.push("hourglass");		//1 bar
+	effectNames.push("single");			//1 bar
+	//want a new effect? add it here!
 
 	randomizeEffect();
 
@@ -180,11 +183,17 @@ function gameMenu(){
 		context.drawImage(menuBG_cover ,  width/2 , 0 , menuBG_cover_width , menuBG_cover_height);
 		
 		//background side-effect
-		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect"))
+		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect")){
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
-		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect"))	//when bar 2 is needed (in this manner)
 			context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition , movingBar2_width , movingBar2_height);
-
+		}
+		if(isStrTrue("single"))
+			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
+		if(isStrTrue("hourglass")){
+			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width * (Math.abs(movingBarYPosition - height/2))/(height/2) , movingBar_height);
+		}
+			
+		
 		//options ("buttons")
 		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
 		context.drawImage(playImage, buttonX[0], buttonY[0]);
@@ -208,7 +217,7 @@ function gameMenu(){
 			backgroundX = 0;
 		}
 
-		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect")){	//when bar 1 goes up and down
+		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect") || isStrTrue("single") || isStrTrue("hourglass")){	//when bar 1 goes up and down
 			if(barGoingDown){
 				movingBarYPosition += height*barYStep;
 				if(movingBarYPosition > height){
