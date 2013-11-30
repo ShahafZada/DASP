@@ -139,22 +139,8 @@ function domloaded(){
 
 
 
-if(nodes[i].isCurrent){
-	if(mouseInNodeRange(nodes[i]))
-		context.drawImage(current_over, nodes[i].x - current_over.width/2;, nodes[i].y - current_over.height/2);
-	else
-		context.drawImage(current_regular, nodes[i].x - current_regular.width/2;, nodes[i].y - current_regular.height/2);
-}
-
-else if(nodes[i].isMarked){
-	if(mouseInNodeRange(nodes[i]))
-		context.drawImage(markedNode_over, nodes[i].x - markedNode_over.width/2;, nodes[i].y - markedNode_over.height/2);
-	else
-		context.drawImage(markedNode_regular, nodes[i].x - markedNode_regular.width/2;, nodes[i].y - markedNode_regular.height/2);
-}
-else{
-	if(mouseInNodeRange(nodes[i]))
-		context.drawImage(unmarkedNode_over, nodes[i].x - unmarkedNode_over.width/2;, nodes[i].y - unmarkedNode_over.height/2);
-	else
-		context.drawImage(unmarkedNode_regular, nodes[i].x - unmarkedNode_regular.width/2;, nodes[i].y - unmarkedNode_regular.height/2);
-}
+//back button drawing
+if((width - backButton.width. < mouseX && mouseX < width) && (height - backButton.height. < mouseY && mouseY < height))
+	context.drawImage(backButton , width - backButton.width , height - backButton.height);
+else
+	context.drawImage(backButton_over , width - backButton.width , height - backButton.height);

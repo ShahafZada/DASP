@@ -114,7 +114,11 @@ function game(){
 
 	this.draw = function(){     	
 		drawPlayElements();
-		context.drawImage(backButton , width - backButton.width , height - backButton.height);
+		//back button drawing
+		if((width - backButton.width < mouseX && mouseX < width) && (height - backButton.height < mouseY && mouseY < height))
+			context.drawImage(backButton_over , width - backButton_over.width , height - backButton_over.height);
+		else
+			context.drawImage(backButton , width - backButton.width , height - backButton.height);
 	}
 
 	
@@ -169,9 +173,21 @@ function game(){
 		else
 			return false;
 	}
+	
+	function checkClick()
+	{
+		if(!isOnGame)
+			return;
+		
+			
+	}
 
 //	-------------------------------------------------------------
 
+//	event listeners :
 
+	canvas.addEventListener("mouseup", checkClick);
+
+//	-------------------------------------------------------------
 
 }

@@ -99,8 +99,7 @@ function gameMenu(){
 //page-function implementations :
 
 
-	this.clear = function()
-	{
+	this.clear = function(){
 		context.clearRect(0, 0, width, height);
 	}
 
@@ -110,8 +109,7 @@ function gameMenu(){
 
 
 
-	this.draw = function()
-	{     	
+	this.draw = function(){     	
 		context.drawImage(bgImage, backgroundX , 0);
 		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
 		context.drawImage(playImage, buttonX[0], buttonY[0]);
