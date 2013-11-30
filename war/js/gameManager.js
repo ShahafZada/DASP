@@ -3,7 +3,15 @@ document.addEventListener('DOMContentLoaded' , gameManager , false);
 
 function gameManager(){
 	
+	
+	//Global variables:
+	mouseX = 0;
+	mouseY = 0;
+	
+	//other constants:
 	var everyXmiliseconds = 40;
+
+	
 	
 	var page = new gameMenu();
 	
@@ -21,12 +29,28 @@ function gameManager(){
 		
 	}
 	
+    this.repositionMouse= function(mouseEvent) {
+    	if(mouseEvent.pageX || mouseEvent.pageY == 0)
+		{
+			mouseX = mouseEvent.pageX - this.offsetLeft;
+			mouseY = mouseEvent.pageY - this.offsetTop;
+		}
+		else if(mouseEvent.offsetX || mouseEvent.offsetY == 0)
+		{
+			mouseX = mouseEvent.offsetX;
+			mouseY = mouseEvent.offsetY;
+		}
+    }
+    
 	function update() {	//every js script in the game needs to implement these
 		page.clear();
 		page.logic();
 		page.draw();
-	}
+	}	
 
     window.addEventListener("changePage", this.onChangePage);
+    canvas.addEventListener("mousemove", this.repositionMouse);
+    
+    //TODO find a way to activate another script's function through a listen here (so there would be less isteners!)
 	
 }

@@ -13,8 +13,7 @@ function gameMenu(){
 	var height = canvas.getAttribute('height');
 
 //		mouse :  
-	var mouseX;
-	var mouseY;
+
 
 //		images :
 	var laImage = new Image();
@@ -152,21 +151,10 @@ function gameMenu(){
 //event listener implementations :
 
 
-	function checkPos(mouseEvent)
+	function checkPos()
 	{
 		if(!isOnGameMenu)
 			return;
-		
-		if(mouseEvent.pageX || mouseEvent.pageY == 0)
-		{
-			mouseX = mouseEvent.pageX - this.offsetLeft;
-			mouseY = mouseEvent.pageY - this.offsetTop;
-		}
-		else if(mouseEvent.offsetX || mouseEvent.offsetY == 0)
-		{
-			mouseX = mouseEvent.offsetX;
-			mouseY = mouseEvent.offsetY;
-		}
 
 		for(var i = 0; i < buttonX.length; i++)
 		{
@@ -225,7 +213,7 @@ function gameMenu(){
 		}
 	}
 
-	function checkClick(mouseEvent)
+	function checkClick()
 	{
 		if(!isOnGameMenu)
 			return;
