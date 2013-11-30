@@ -3,8 +3,12 @@ function gameMenu(){
 
 //	-------------------------------------------------------------
 
-//	variant definitions :
-	var isOnGameMenu = true;
+	//	variant definitions :
+	
+	//background (constants' determination): 
+	var backgroundX = -width;
+	var bgSpeed = 1;	//going left when positive
+	
 
 //		images :
 	var laImage = new Image();
@@ -29,8 +33,9 @@ function gameMenu(){
 	menuBG.src = "images/GameMainMenu/gameMenu_bg.png";
 	menuBG_cover.src = "images/GameMainMenu/gameMenu_bg_cover.png";
 
-	menuBG.width = width*2;
-	menuBG.height = height;
+	//TODO - resize it right. I don't know how...
+	menuBG.style.width = 2*width;	//twice the width of the canvas
+	menuBG.style.height = height;
 	menuBG_cover.width = width/2;
 	menuBG_cover.height = height;
 
@@ -53,9 +58,7 @@ function gameMenu(){
 	var arrowsVisible = false;
 	var arrowsRotate = 0;
 
-	//background
-	var backgroundX = -menuBG.width/2;
-	var bgSpeed = 1;	//going left when positive
+	
 
 //	-------------------------------------------------------------
 
@@ -112,13 +115,12 @@ function gameMenu(){
 	}
 
 	this.logic = function() {
-		move();
+		animateBG();
 	}
 
 
 
 	this.draw = function(){     	
-		//context.drawImage(bgImage, backgroundX , 0);
 		context.drawImage(menuBG ,  backgroundX , 0);
 		context.drawImage(menuBG_cover ,  width-menuBG_cover.width , 0);
 		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
@@ -134,13 +136,13 @@ function gameMenu(){
 	}
 
 
-	function move()
+	function animateBG()
 	{
 		backgroundX -= bgSpeed;
 
-		if(backgroundX == -1 * width)
+		if(backgroundX <= -2*width)
 		{
-			backgroundX = -menuBG.width/2;
+			backgroundX = -width;
 		}	  
 	}   
 
@@ -152,8 +154,6 @@ function gameMenu(){
 
 	function checkPos()
 	{
-		if(!isOnGameMenu)
-			return;
 
 		for(var i = 0; i < buttonX.length; i++)
 		{
@@ -214,8 +214,6 @@ function gameMenu(){
 
 	function checkClick()
 	{
-		if(!isOnGameMenu)
-			return;
 		
 		for(i = 0; i < buttonX.length; i++)
 		{
@@ -225,11 +223,13 @@ function gameMenu(){
 				{
 					if (mouseY <= buttonY[1])
 					{ 						
-						isOnGameMenu = false;
 						var event = document.createEvent("Event");
 						event.initEvent("changePage", true, true);
 						event.customData = "goToGame";
 						window.dispatchEvent(event);
+						this.removeEventListener('mousemove' , checkPos);
+						this.removeEventListener('mouseup' , checkClick);
+
 					}
 					else if(mouseY <= buttonY[2])
 					{
