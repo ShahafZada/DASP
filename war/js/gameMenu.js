@@ -11,22 +11,16 @@ function gameMenu(){
 	var barGoingDown = true;
 	var barXDist = 1/10;
 	var barYStep = 1/9;
-	var movingBarYPosition = height*(1-barYStep)
-	
-	var menuBG_cover_width = width/2;
-	var menuBG_cover_height = height;
 
 	
 //		images :
 	var laImage = new Image();
-	var raImage = new Image();
-	//var bgImage = new Image();
+	var raImage = new Image();;
 	var logoImage = new Image();
 	var playImage = new Image();
 	var instructImage = new Image();
 	var settingsImage = new Image();
 	var creditsImage = new Image();
-	
 	var menuBG = new Image();
 	var menuBG_cover = new Image();
 	var movingBar = new Image();
@@ -40,17 +34,24 @@ function gameMenu(){
 	instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 	settingsImage.src = "images/GameMainMenu/Settings_regular.png";
 	creditsImage.src = "images/GameMainMenu/Credits_regular.png";
+	
 	menuBG.src = "images/GameMainMenu/gameMenu_bg.png";
 	menuBG_cover.src = "images/GameMainMenu/gameMenu_bg_cover.png";
 	movingBar.src = "images/GameMainMenu/movingBar.png";
 	movingBar2.src = "images/GameMainMenu/movingBar.png";
 
-		
-	var movingBarXPosition = width-movingBar.width-(barXDist*width/2);
-	var movingBar2XPosition = movingBarXPosition;
-	var movingBar_width = (width/2)*(1-2*barXDist)
-	var movingBar_height = movingBar.height*(movingBar.height/movingBar_width);
+
+	//image handling
+	var menuBG_width;
+	var menuBG_height;
+	
+	var movingBar_width = (width/2)*(1-2*barXDist);
+	var movingBar_height = movingBar.height/(movingBar.width/movingBar_width);
+	
+	var movingBarYPosition = height*(1-barYStep);
+	var movingBarXPosition = width-movingBar_width-(barXDist*width/2);
 	var movingBar2_width = movingBar_width*0.75;
+	var movingBar2XPosition = movingBarXPosition + barXDist*width/4;
 	
 //	buttons and misc data :
 	//buttons (for 4 only - TODO: make it flexible)
@@ -69,8 +70,12 @@ function gameMenu(){
 	var arrowsHeight = 40;
 	var arrowsVisible = false;
 	var arrowsRotate = 0;
-
 	
+	
+//	function resizeMenuOption(){
+//		
+//	}
+
 
 //	-------------------------------------------------------------
 
@@ -85,6 +90,20 @@ function gameMenu(){
 //	context.drawImage(logoImage, width/2-logoImage.width/2, 10);
 //	};
 
+	//onload is called once the images are done loading into the page - then (and after) you can get their width/height
+	menuBG.onload = function(){
+		menuBG_width = menuBG.width*height/menuBG.height;	//keeping ratio
+		menuBG_height = height;
+	}
+	
+	menuBG_cover.onload = function(){
+		menuBG_cover.width = width/2;
+		menuBG_cover.height = height
+			
+	}
+	 
+	
+	
 	playImage.onload = function()
 	{
 		buttonX[0]=width/2-playImage.width/2;
@@ -130,20 +149,14 @@ function gameMenu(){
 		animateBG();
 	}
 
-
-	
-//	var menuBG_cover_width = width/2;
-//	var menuBG_cover_height = height;
-//	var movingBarXPosition = width-movingBar.width-(barXDist*width/2);
-//	var movingBar2XPosition = movingBarXPosition;
 //	var movingBar_width = (width/2)*(1-2*barXDist)
 //	var movingBar_height = movingBar.height*(movingBar.height/movingBar_width);
 //	var movingBar2_width = movingBar_width*0.75;
 
 	this.draw = function(){     	
-		context.drawImage(menuBG ,  backgroundX , 0);
-		context.drawImage(menuBG_cover ,  width-menuBG_cover_width , 0 , menuBG_cover_width , menuBG_cover_height);
-		context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition);
+		context.drawImage(menuBG ,  backgroundX , 0 , menuBG_width , menuBG_height);
+		context.drawImage(menuBG_cover ,  width/2 , 0);
+		context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
 		context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition);
 		
 		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
