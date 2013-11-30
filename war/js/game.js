@@ -179,7 +179,13 @@ function game(){
 		if(!isOnGame)
 			return;
 		
-			
+		if((width - backButton.width < mouseX && mouseX < width) && (height - backButton.height < mouseY && mouseY < height)){	//clicked on back arrow
+			isOnGame = false;
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToGameMenu";
+			window.dispatchEvent(event);
+		}
 	}
 
 //	-------------------------------------------------------------
