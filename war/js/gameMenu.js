@@ -12,7 +12,7 @@ function gameMenu(){
 	var barXDist = 1/10;
 	var barYStep = 1/9;
 	var movingBarYPosition = height*(1-barYStep)
-	var magicNumber = 270;	//it appears that the canvas isn't the actual visible area, until we get the right parameters, this will do
+	var magicNumber = 270;	//it appears that can't be applied in ways we know. Until we get the right parameters, this will do
 	
 
 	

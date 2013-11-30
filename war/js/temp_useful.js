@@ -137,10 +137,3 @@ function domloaded(){
 }
 
 
-
-
-//back button drawing
-if((width - backButton.width. < mouseX && mouseX < width) && (height - backButton.height. < mouseY && mouseY < height))
-	context.drawImage(backButton , width - backButton.width , height - backButton.height);
-else
-	context.drawImage(backButton_over , width - backButton.width , height - backButton.height);
