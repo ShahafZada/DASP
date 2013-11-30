@@ -17,8 +17,8 @@ function game(){
 
 
 //		images : 
-	var current_regular = new image();
-	var current_over = new image();
+	var current_regular = new Image();
+	var current_over = new Image();
 	var unmarkedNode_regular = new Image();
 	var unmarkedNode_over = new Image();
 	var markedNode_regular = new Image();
@@ -114,6 +114,10 @@ function game(){
 		drawElements();
 	}
 
+	
+	
+	
+	
 	function drawElements(){     	
 
 
@@ -153,7 +157,7 @@ function game(){
 	function mouseInNodeRange(node){
 		var r = node.radius;
 		var xDist = node.x - mouseX;
-		var ydist = node.y - mouseY;
+		var yDist = node.y - mouseY;
 		
 		if(r*r > xDist*xDist + yDist*yDist)
 			return true;
