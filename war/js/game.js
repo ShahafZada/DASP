@@ -24,6 +24,7 @@ function game(){
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton_over.png";
 	
+	
 //	current_regular.style.margin = "0 auto";
 //	current_over.style.margin = "0 auto";
 //	unmarkedNode_regular.style.margin = "0 auto";

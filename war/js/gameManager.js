@@ -9,8 +9,8 @@ function gameManager(){
 	mouseY = 0;
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
-	width = canvas.getAttribute('width');
-	height = canvas.getAttribute('height');
+	width = canvas.getAttribute('width');	//canvas.scrollWidth;
+	height = canvas.getAttribute('height'); //canvas.scrollHeight;
 	
 	//other constants:
 	var everyXmiliseconds = 40;
