@@ -1,8 +1,6 @@
 function gameMenu(){
 
-//	TODO arrange buttons and their listeners
-//	TODO arrange arrows closing in
-//	TODO add a function which handles button over when using onload
+	
 //	-------------------------------------------------------------
 
 	//		variant definitions :
@@ -27,6 +25,10 @@ function gameMenu(){
 	var buttonsStartHeight = 1/3;	//the height rate (relative to canvas height) where the first button is
 	//adding a new button image requires the addition of its push to the buttons and buttonsOver array, its onload function definition, and printing function
 
+	//	button arrows :
+	var arrowToPageHeightRatio = 1/8;
+	var arrowStep = (1/20)*width;
+	
 	//	other small extras 
 	//glitches
 	var glitchRisk = 0.05;
@@ -52,8 +54,6 @@ function gameMenu(){
 
 
 //	images :
-	var laImage = new Image();
-	var raImage = new Image();;
 
 	var menuBG = new Image();
 	var menuBG_cover = new Image();
@@ -83,9 +83,9 @@ function gameMenu(){
 
 	var buttons = [];
 	var buttonsOver = [];
-
-	laImage.src = "images/GameMainMenu/arrow_pointing_right.png";
-	raImage.src = "images/GameMainMenu/arrow_pointing_left.png";
+	
+	var leftArrow = new Image();
+	var rightArrow = new Image();
 
 	menuBG.src = "images/GameMainMenu/gameMenu_bg.png";
 	menuBG_cover.src = "images/GameMainMenu/gameMenu_bg_cover.png";
@@ -113,6 +113,9 @@ function gameMenu(){
 	instructionsButtonOver.src = "images/GameMainMenu/Instructions_over.png";
 	settingsButtonOver.src = "images/GameMainMenu/Settings_over.png";
 	creditsButtonOver.src = "images/GameMainMenu/Credits_over.png";
+	
+	leftArrow.src = "images/GameMainMenu/arrow_pointing_right.png";
+	rightArrow.src = "images/GameMainMenu/arrow_pointing_left.png";
 
 
 	//image handling
@@ -148,8 +151,6 @@ function gameMenu(){
 
 	setButtonHeightAndYPosition(buttons , buttonToPageHeightRatio);
 
-
-
 	//must be same order of normal button push!
 	buttonsOver.push(playButtonOver);
 	buttonsOver.push(instructionsButtonOver);
@@ -158,13 +159,27 @@ function gameMenu(){
 
 	setButtonHeightAndYPosition(buttonsOver , buttonOverToPageHeightRatio);
 
+	
 
+	var arrowHeight = arrowToPageHeightRatio * height;
+	var arrowWidth;
 
-
+	
+	
+	
+	
+	
+	
 //	-------------------------------------------------------------
 
 //	onload functions : 
 
+	
+	
+	
+	
+	
+	
 	//onload is called once the images are done loading into the page - then (and after) you can get their width/height
 	menuBG.onload = function(){
 		menuBG_width = menuBG.width*height/menuBG.height;	//keeping ratio
@@ -212,7 +227,15 @@ function gameMenu(){
 
 	creditsButtonOver.onload = function(){setButtonStats(creditsButtonOver , buttonsOver);}
 
-
+	
+	leftArrow.onload = function(){	//technically could have been rightArrow.onload, because we assume they're the same width
+		arrowWidth = leftArrow.width * (leftArrow.height/arrowHeight);
+	}
+	
+	
+	
+	
+	
 
 
 //	-------------------------------------------------------------
@@ -220,20 +243,21 @@ function gameMenu(){
 //	page-function implementations :
 
 
+	
+	
+	
+	
+	
+	
+	
 	this.clear = function(){
 		context.clearRect(0, 0, width, height);
 	}
 
 	this.logic = function() {
 		animateBG();
-
-		for(var i = 0 ; i < buttons.length ; i++){
-			if(buttonsOver[i].isOver)	//if icon is already enlarged, check it
-				buttonsOver[i].isOver = isMouseOver(buttonsOver[i] , buttonsOver);
-			else
-				buttonsOver[i].isOver = isMouseOver(buttons[i] , buttons);
-
-		}
+		detectButtonOver();
+		
 	}
 
 
@@ -312,38 +336,23 @@ function gameMenu(){
 		default:
 			alert("An error has occured. Error type: a glitch in the matrix");
 		}
-
-
-//		alert(playButton);
-//		alert(playButtonOver);
-
+		
+		
+		
 
 		//		options ("buttons") :
 
-
 		for(var i = 0 ; i < buttons.length ; i++){
-			if(buttonsOver[i].isOver)
+			if(buttonsOver[i].isOver){
 				printButton(buttonsOver[i] , buttonsOver);
-			else
-				printButton(buttons[i] , buttons);
+				buttonsOver[i].arrowProgress++;
+				paintArrows(buttonsOver[i].yPosition , buttonsOver[i].arrowProgress);
+			}
+			else{
+				buttonsOver[i].arrowProgress = 0;
+				printButton(buttons[i] , buttons);				
+			}
 		}
-
-
-//		printButtonAccordingTodState(playButton);
-//		printButtonAccordingTodState(instructionsButton);
-//		printButtonAccordingTodState(settingsButton);
-//		printButtonAccordingTodState(creditsButton);
-
-
-
-
-//		context.drawImage(instructionsButton, buttonX[1], buttonY[1]);
-//		context.drawImage(settingsButton, buttonX[2], buttonY[2]);
-//		context.drawImage(creditsButton, buttonX[3], buttonY[3]);
-//		if(arrowsVisible){
-//		context.drawImage(laImage, arrowsX[0] - (arrowsWidth/2), arrowsY[0]-10, arrowsWidth, arrowsHeight);
-//		context.drawImage(raImage, arrowsX[1] - (arrowsWidth/2), arrowsY[1]-10, arrowsWidth, arrowsHeight);
-//		}
 
 	}
 
@@ -384,11 +393,27 @@ function gameMenu(){
 
 			barAngle = 2* Math.PI * (barRotationalStep * barRotationFractionOfCircle);
 		}
-	}   
+	}  
+	
+	function detectButtonOver(){
+		for(var i = 0 ; i < buttons.length ; i++){
+			if(buttonsOver[i].isOver)	//if icon is already enlarged, check it
+				buttonsOver[i].isOver = isMouseOver(buttonsOver[i] , buttonsOver);
+			else
+				buttonsOver[i].isOver = isMouseOver(buttons[i] , buttons);
+
+		}
+	}
 
 //	-------------------------------------------------------------
 
 //	other private functions :
+	
+	
+	
+	
+	
+	
 
 	function isStrTrue(str){
 
@@ -466,11 +491,20 @@ function gameMenu(){
 		return false;
 	}
 
-	//for arrows: 0 progress in dist if mouse is off , +1 if (still) on
+	function paintArrows(arrowY , progress){
+		context.drawImage(leftArrow , -arrowWidth + progress*arrowStep  , arrowY , arrowWidth , arrowHeight);
+		context.drawImage(rightArrow , width -progress*arrowStep  , arrowY , arrowWidth , arrowHeight);
+	}
+	
 
 //	-------------------------------------------------------------
 
 //	event listener implementations :
+	
+	
+	
+	
+	
 
 
 	function checkClick(){
