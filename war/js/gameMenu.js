@@ -310,6 +310,18 @@ function gameMenu(){
 			context.drawImage(movingBar ,  -movingBar_height/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
 			context.rotate(-barAngle);
 			context.translate(-width , -height);
+			
+			//for something that looks like opening doors:
+//			context.translate(width , 0);	// going to upper-right corner
+//			context.rotate(barAngle);
+//			context.drawImage(movingBar ,  -movingBar_height/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
+//			context.rotate(-barAngle);
+//			context.translate(-width , 0);
+//			context.translate(width , height);	// going to lower-right corner
+//			context.rotate(-barAngle);
+//			context.drawImage(movingBar ,  -movingBar_height/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
+//			context.rotate(barAngle);
+//			context.translate(-width , -height);
 		}
 
 
