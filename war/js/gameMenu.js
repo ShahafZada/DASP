@@ -292,7 +292,6 @@ function gameMenu(){
 		}
 
 		if(isStrTrue("spinEffect")){
-
 			context.translate(width*3/4 , height/2);
 			context.rotate(barAngle);
 			context.drawImage(movingBar , -movingBar_width/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
@@ -301,9 +300,16 @@ function gameMenu(){
 		}
 
 		if(isStrTrue("radarEffect")){
+			context.translate(width , 0);	// going to upper-right corner
 			context.rotate(barAngle);
-			context.drawImage(movingBar ,  0 , 0 , width * 2 , movingBar_height);
+			context.drawImage(movingBar ,  -movingBar_height/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
 			context.rotate(-barAngle);
+			context.translate(-width , 0);
+			context.translate(width , height);	// going to lower-right corner
+			context.rotate(barAngle);
+			context.drawImage(movingBar ,  -movingBar_height/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
+			context.rotate(-barAngle);
+			context.translate(-width , -height);
 		}
 
 
