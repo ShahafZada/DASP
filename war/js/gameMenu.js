@@ -42,6 +42,7 @@ function gameMenu(){
 
 	effectNames.push("scissorEffect");		//2 bars
 	effectNames.push("passByEffect");		//2 bars
+	effectNames.push("passThroughEffect");	//4 bars
 	effectNames.push("spinEffect");			//1 bar
 	effectNames.push("radarEffect");			//1 bar
 	effectNames.push("hourglassEffect");		//1 bar
@@ -202,6 +203,11 @@ function gameMenu(){
 			movingBar2XPosition = movingBarXPosition + barXDist*width/4;
 			movingBar2_height = movingBar2.height*movingBar2_width/movingBar2.width;
 		}
+		else if(isStrTrue("passThroughEffect")){
+			movingBar2_width = movingBar_height;
+			movingBar2_height = movingBar_height;
+			movingBar2XPosition = movingBarXPosition + movingBar_width/2 - movingBar2_width/2;
+		}
 	}
 
 	title.onload = function(){
@@ -271,6 +277,12 @@ function gameMenu(){
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
 			context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition , movingBar2_width , movingBar2_height);
 		}
+		if(isStrTrue("passThroughEffect")){
+			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
+			context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition , movingBar2_width , movingBar2_height);
+			context.drawImage(movingBar2 ,  movingBar2XPosition , movingBarYPosition/2 , movingBar2_width , movingBar2_height);
+			context.drawImage(movingBar2 ,  movingBar2XPosition , height - movingBarYPosition/2 , movingBar2_width , movingBar2_height);
+		}
 
 		if(isStrTrue("singleEffect"))
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
@@ -286,7 +298,6 @@ function gameMenu(){
 			context.drawImage(movingBar , -movingBar_width/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
 			context.rotate(-barAngle);
 			context.translate(-width*3/4 , -height/2);
-
 		}
 
 		if(isStrTrue("radarEffect")){
@@ -380,7 +391,7 @@ function gameMenu(){
 
 
 
-		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect") || isStrTrue("singleEffect") || isStrTrue("hourglassEffect")){	//when bar 1 goes up and down
+		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect") || isStrTrue("singleEffect") || isStrTrue("hourglassEffect") || isStrTrue("passThroughEffect")){	//when bar 1 goes up and down
 			if(barGoingDown){
 				movingBarYPosition += height*barYStep;
 				if(movingBarYPosition > height){
