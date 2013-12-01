@@ -3,9 +3,9 @@ function gameMenu(){
 
 //	-------------------------------------------------------------
 
-	//	variant definitions :
-
-	//background (constants' determination): 
+	//		variant definitions :
+	
+	//	background (constants' determination) : 
 	var backgroundX = 0;
 	var bgSpeed = 1;	//going left when positive
 	var barGoingDown = true;
@@ -13,7 +13,14 @@ function gameMenu(){
 	var barYStep = 1/9;		//distance travelled in a frame
 	var barRotationFractionOfCircle = 1/36;
 	var barRotationalStep = 0;
-	var angle;
+	var barAngle;
+	
+	//	other small extras 
+	//glitches
+	var glitchRisk = 0.05;
+	var numOfGlitches = 9;
+	var dErr = glitchRisk/numOfGlitches;
+	
 
 	//randomizing right-side effect thingy
 	var booleans=[];
@@ -35,20 +42,31 @@ function gameMenu(){
 //	images :
 	var laImage = new Image();
 	var raImage = new Image();;
-	var logoImage = new Image();
+	var title = new Image();
 	var playImage = new Image();
 	var instructImage = new Image();
 	var settingsImage = new Image();
 	var creditsImage = new Image();
+	
 	var menuBG = new Image();
 	var menuBG_cover = new Image();
 	var movingBar = new Image();
 	var movingBar2 = new Image();
+	
+	var title_glitch1 = new Image();
+	var title_glitch2 = new Image();
+	var title_glitch3 = new Image();
+	var title_glitch4 = new Image();
+	var title_glitch5 = new Image();
+	var title_glitch6 = new Image();
+	var title_glitch7 = new Image();
+	var title_glitch8 = new Image();
+	var title_glitch9 = new Image();
 
 
 	laImage.src = "images/GameMainMenu/arrow_pointing_right.png";
 	raImage.src = "images/GameMainMenu/arrow_pointing_left.png";
-	logoImage.src = "images/GameMainMenu/logo.png";
+	title.src = "images/GameMainMenu/title.png";
 	playImage.src = "images/GameMainMenu/Play_regular.png";
 	instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 	settingsImage.src = "images/GameMainMenu/Settings_regular.png";
@@ -59,7 +77,17 @@ function gameMenu(){
 	movingBar.src = "images/GameMainMenu/movingBar.png";
 	movingBar2.src = "images/GameMainMenu/movingBar.png";
 
-
+	title_glitch1 = "images/GameMainMenu/Title_glitch1.png";
+	title_glitch2 = "images/GameMainMenu/Title_glitch2.png";
+	title_glitch3 = "images/GameMainMenu/Title_glitch3.png";
+	title_glitch4 = "images/GameMainMenu/Title_glitch4.png";
+	title_glitch5 = "images/GameMainMenu/Title_glitch5.png";
+	title_glitch6 = "images/GameMainMenu/Title_glitch6.png";
+	title_glitch7 = "images/GameMainMenu/Title_glitch7.png";
+	title_glitch8 = "images/GameMainMenu/Title_glitch8.png";
+	title_glitch9 = "images/GameMainMenu/Title_glitch9.png";
+	
+	
 	//image handling
 	var menuBG_width;
 	var menuBG_height = height;;
@@ -78,6 +106,11 @@ function gameMenu(){
 	var movingBar2XPosition;
 
 
+	var titleXPosition;	//by default the title would be 3/4 down its height
+	var titleYPosition;
+	var title_width;
+	var title_height = height/6;
+	
 
 
 //	buttons and misc data :
@@ -104,6 +137,9 @@ function gameMenu(){
 
 //	}
 
+	function adjustTitle(titleImg){
+		
+	}
 
 //	-------------------------------------------------------------
 
@@ -132,6 +168,10 @@ function gameMenu(){
 		}
 		movingBar2_height = movingBar2.height*movingBar2_width/movingBar2.width;
 	}
+	
+	
+	
+	
 
 
 	playImage.onload = function()
@@ -179,9 +219,6 @@ function gameMenu(){
 		animateBG();
 	}
 
-//	var movingBar_width = (width/2)*(1-2*barXDist)
-//	var movingBar_height = movingBar.height*(movingBar.height/movingBar_width);
-//	var movingBar2_width = movingBar_width*0.75;
 
 	this.draw = function(){
 		//background
@@ -206,23 +243,23 @@ function gameMenu(){
 		if(isStrTrue("spinEffect")){
 			
 			context.translate(width*3/4 , height/2);
-			context.rotate(angle);
+			context.rotate(barAngle);
 			context.drawImage(movingBar , -movingBar_width/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
-			context.rotate(-angle);
+			context.rotate(-barAngle);
 			context.translate(-width*3/4 , -height/2);
 			
 		}
 		
 		if(isStrTrue("radarEffect")){
-			context.rotate(angle);
+			context.rotate(barAngle);
 			context.drawImage(movingBar ,  0 , 0 , width * 2 , movingBar_height);
-			context.rotate(-angle);
+			context.rotate(-barAngle);
 		}
 		
 		
 		
 		//options ("buttons")
-		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
+		context.drawImage(title , width/2-titleImage.width/2, 10);
 		context.drawImage(playImage, buttonX[0], buttonY[0]);
 		context.drawImage(instructImage, buttonX[1], buttonY[1]);
 		context.drawImage(settingsImage, buttonX[2], buttonY[2]);
@@ -267,7 +304,7 @@ function gameMenu(){
 			if(barRotationalStep * barRotationFractionOfCircle >= 1)
 				barRotationalStep = 0;
 			
-			angle = 2* Math.PI * (barRotationalStep * barRotationFractionOfCircle);
+			barAngle = 2* Math.PI * (barRotationalStep * barRotationFractionOfCircle);
 		}
 	}   
 
@@ -301,6 +338,23 @@ function gameMenu(){
 				booleans.push(false);
 		}
 
+	}
+	
+	function glitch(){	//distorts the title in one way or another
+		var glitchOccasion = Math.Random();
+		if(glitchOccasion < glitchRisk){
+			var i = 0;
+			while(glitchOccasion > 0){
+				glitchOccasion -= dErr;
+				i++;
+			}
+			
+			//TODO - print
+			
+		
+			if(i > numOfGlitches)
+				alert("error at purposely made glitches (yes, they're on purpose)");
+		}
 	}
 
 //	-------------------------------------------------------------
