@@ -1,6 +1,6 @@
 function gameMenu(){
 
-	
+
 //	-------------------------------------------------------------
 
 	//		variant definitions :
@@ -28,7 +28,7 @@ function gameMenu(){
 	//	button arrows :
 	var arrowToPageHeightRatio = 1/8;
 	var arrowStep = (1/20)*width;
-	
+
 	//	other small extras 
 	//glitches
 	var glitchRisk = 0.05;
@@ -83,7 +83,7 @@ function gameMenu(){
 
 	var buttons = [];
 	var buttonsOver = [];
-	
+
 	var leftArrow = new Image();
 	var rightArrow = new Image();
 
@@ -113,7 +113,7 @@ function gameMenu(){
 	instructionsButtonOver.src = "images/GameMainMenu/Instructions_over.png";
 	settingsButtonOver.src = "images/GameMainMenu/Settings_over.png";
 	creditsButtonOver.src = "images/GameMainMenu/Credits_over.png";
-	
+
 	leftArrow.src = "images/GameMainMenu/arrow_pointing_right.png";
 	rightArrow.src = "images/GameMainMenu/arrow_pointing_left.png";
 
@@ -159,27 +159,27 @@ function gameMenu(){
 
 	setButtonHeightAndYPosition(buttonsOver , buttonOverToPageHeightRatio);
 
-	
+
 
 	var arrowHeight = arrowToPageHeightRatio * height;
 	var arrowWidth;
 
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 //	-------------------------------------------------------------
 
 //	onload functions : 
 
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	//onload is called once the images are done loading into the page - then (and after) you can get their width/height
 	menuBG.onload = function(){
 		menuBG_width = menuBG.width*height/menuBG.height;	//keeping ratio
@@ -227,15 +227,15 @@ function gameMenu(){
 
 	creditsButtonOver.onload = function(){setButtonStats(creditsButtonOver , buttonsOver);}
 
-	
+
 	leftArrow.onload = function(){	//technically could have been rightArrow.onload, because we assume they're the same width
 		arrowWidth = leftArrow.width * (leftArrow.height/arrowHeight);
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 
 //	-------------------------------------------------------------
@@ -243,13 +243,13 @@ function gameMenu(){
 //	page-function implementations :
 
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	this.clear = function(){
 		context.clearRect(0, 0, width, height);
 	}
@@ -257,7 +257,7 @@ function gameMenu(){
 	this.logic = function() {
 		animateBG();
 		detectButtonOver();
-		
+
 	}
 
 
@@ -336,9 +336,9 @@ function gameMenu(){
 		default:
 			alert("An error has occured. Error type: a glitch in the matrix");
 		}
-		
-		
-		
+
+
+
 
 		//		options ("buttons") :
 
@@ -346,7 +346,7 @@ function gameMenu(){
 			if(buttonsOver[i].isOver){
 				printButton(buttonsOver[i] , buttonsOver);
 				buttonsOver[i].arrowProgress++;
-				paintArrows(buttonsOver[i].yPosition , buttonsOver[i].arrowProgress);
+				paintArrows(buttonsOver[i].yPosition , buttonsOver[i].arrowProgress , buttonsOver[i].widthStretch/2);
 			}
 			else{
 				buttonsOver[i].arrowProgress = 0;
@@ -355,6 +355,17 @@ function gameMenu(){
 		}
 
 	}
+
+
+
+
+
+
+//	-------------------------------------------------------------
+
+//	other private functions :
+
+
 
 
 
@@ -394,7 +405,7 @@ function gameMenu(){
 			barAngle = 2* Math.PI * (barRotationalStep * barRotationFractionOfCircle);
 		}
 	}  
-	
+
 	function detectButtonOver(){
 		for(var i = 0 ; i < buttons.length ; i++){
 			if(buttonsOver[i].isOver)	//if icon is already enlarged, check it
@@ -405,15 +416,7 @@ function gameMenu(){
 		}
 	}
 
-//	-------------------------------------------------------------
 
-//	other private functions :
-	
-	
-	
-	
-	
-	
 
 	function isStrTrue(str){
 
@@ -464,7 +467,7 @@ function gameMenu(){
 	function getTitleWidth(titleImg){
 		return titleImg.width * (title_height/titleImg.height);
 	}
-	
+
 	function setButtonHeightAndYPosition(array , relativeHeight){
 		for(var i = 0 ; i < array.length ; i++){
 			array[i].heightStretch = height * relativeHeight;
@@ -491,20 +494,26 @@ function gameMenu(){
 		return false;
 	}
 
-	function paintArrows(arrowY , progress){
+	function paintArrows(arrowY , progress , halfButton){
+		if(progress*arrowStep >= width/2 - halfButton){	//if left arrow's tip is getting into button's area
+			context.drawImage(leftArrow , width/2 - halfButton - arrowWidth  , arrowY , arrowWidth , arrowHeight);
+			context.drawImage(rightArrow , width/2 + halfButton  , arrowY , arrowWidth , arrowHeight);
+			return;
+		}
+		
 		context.drawImage(leftArrow , -arrowWidth + progress*arrowStep  , arrowY , arrowWidth , arrowHeight);
 		context.drawImage(rightArrow , width -progress*arrowStep  , arrowY , arrowWidth , arrowHeight);
 	}
-	
+
 
 //	-------------------------------------------------------------
 
 //	event listener implementations :
-	
-	
-	
-	
-	
+
+
+
+
+
 
 
 	function checkClick(){
