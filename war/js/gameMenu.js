@@ -11,17 +11,22 @@ function gameMenu(){
 	var barGoingDown = true;
 	var barXDist = 1/10;	//distance from cover's edge
 	var barYStep = 1/9;		//distance travelled in a frame
+	var barRotationFractionOfCircle = 1/36;
+	var barRotationalStep = 0;
+	var angle;
 
 	//randomizing right-side effect thingy
 	var booleans=[];
 	var effectNames = [];
 
-	effectNames.push("scissorEffect");	//2 bars
-	effectNames.push("passByEffect");	//2 bars
-	effectNames.push("spinEffect");		//1 bar
-	effectNames.push("hourglass");		//1 bar
-	effectNames.push("single");			//1 bar
+	effectNames.push("scissorEffect");		//2 bars
+	effectNames.push("passByEffect");		//2 bars
+	effectNames.push("spinEffect");			//1 bar
+	effectNames.push("radarEffect");			//1 bar
+	effectNames.push("hourglassEffect");		//1 bar
+	effectNames.push("singleEffect");			//1 bar
 	//want a new effect? add it here!
+	//all effects are filtered through the isStrTrue function, and checked before every step which involves the effect-bars
 
 	randomizeEffect();
 
@@ -94,6 +99,7 @@ function gameMenu(){
 	var arrowsRotate = 0;
 
 
+	//TODO - uniformal edit
 //	function resizeMenuOption(){
 
 //	}
@@ -182,17 +188,38 @@ function gameMenu(){
 		context.drawImage(menuBG ,  backgroundX , 0 , menuBG_width , menuBG_height);
 		context.drawImage(menuBG_cover ,  width/2 , 0 , menuBG_cover_width , menuBG_cover_height);
 		
+		
+
 		//background side-effect
 		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect")){
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
 			context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition , movingBar2_width , movingBar2_height);
 		}
-		if(isStrTrue("single"))
+		
+		if(isStrTrue("singleEffect"))
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
-		if(isStrTrue("hourglass")){
+		
+		if(isStrTrue("hourglassEffect")){
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width * (Math.abs(movingBarYPosition - height/2))/(height/2) , movingBar_height);
 		}
 			
+		if(isStrTrue("spinEffect")){
+			
+			context.translate(width*3/4 , height/2);
+			context.rotate(angle);
+			context.drawImage(movingBar , -movingBar_width/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
+			context.rotate(-angle);
+			context.translate(-width*3/4 , -height/2);
+			
+		}
+		
+		if(isStrTrue("radarEffect")){
+			context.rotate(angle);
+			context.drawImage(movingBar ,  0 , 0 , width * 2 , movingBar_height);
+			context.rotate(-angle);
+		}
+		
+		
 		
 		//options ("buttons")
 		context.drawImage(logoImage, width/2-logoImage.width/2, 10);
@@ -206,18 +233,19 @@ function gameMenu(){
 		}
 
 	}
+	
+	
 
 
-	function animateBG()
-	{
+	function animateBG(){
 		backgroundX -= bgSpeed;
 
-		if(backgroundX <= -menuBG.width/2)	//the middle is similar to the start
-		{
+		if(backgroundX <= -menuBG_width/2)	//the middle is similar to the start
 			backgroundX = 0;
-		}
 
-		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect") || isStrTrue("single") || isStrTrue("hourglass")){	//when bar 1 goes up and down
+		
+		
+		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect") || isStrTrue("singleEffect") || isStrTrue("hourglassEffect")){	//when bar 1 goes up and down
 			if(barGoingDown){
 				movingBarYPosition += height*barYStep;
 				if(movingBarYPosition > height){
@@ -232,6 +260,14 @@ function gameMenu(){
 					barGoingDown = true;
 				}
 			}
+		}
+		
+		if(isStrTrue("spinEffect") || isStrTrue("radarEffect")){
+			barRotationalStep++;
+			if(barRotationalStep * barRotationFractionOfCircle >= 1)
+				barRotationalStep = 0;
+			
+			angle = 2* Math.PI * (barRotationalStep * barRotationFractionOfCircle);
 		}
 	}   
 
