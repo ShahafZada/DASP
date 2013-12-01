@@ -4,7 +4,7 @@ function gameMenu(){
 //	-------------------------------------------------------------
 
 	//		variant definitions :
-	
+
 	//	background (constants' determination) : 
 	var backgroundX = 0;
 	var bgSpeed = 1;	//going left when positive
@@ -14,13 +14,17 @@ function gameMenu(){
 	var barRotationFractionOfCircle = 1/36;
 	var barRotationalStep = 0;
 	var barAngle;
-	
+
+	//	title :
+	var titleDistFromTopInRatio = 1/6;	//by default the title would be 1/6 down its height
+	var titleToPageHeightRatio = 1/5;
+
 	//	other small extras 
 	//glitches
 	var glitchRisk = 0.05;
 	var numOfGlitches = 9;
 	var dErr = glitchRisk/numOfGlitches;
-	
+
 
 	//randomizing right-side effect thingy
 	var booleans=[];
@@ -47,12 +51,12 @@ function gameMenu(){
 	var instructImage = new Image();
 	var settingsImage = new Image();
 	var creditsImage = new Image();
-	
+
 	var menuBG = new Image();
 	var menuBG_cover = new Image();
 	var movingBar = new Image();
 	var movingBar2 = new Image();
-	
+
 	var title_glitch1 = new Image();
 	var title_glitch2 = new Image();
 	var title_glitch3 = new Image();
@@ -86,8 +90,8 @@ function gameMenu(){
 	title_glitch7 = "images/GameMainMenu/Title_glitch7.png";
 	title_glitch8 = "images/GameMainMenu/Title_glitch8.png";
 	title_glitch9 = "images/GameMainMenu/Title_glitch9.png";
-	
-	
+
+
 	//image handling
 	var menuBG_width;
 	var menuBG_height = height;;
@@ -106,11 +110,11 @@ function gameMenu(){
 	var movingBar2XPosition;
 
 
-	var titleXPosition;	//by default the title would be 3/4 down its height
+	var titleXPosition;
 	var titleYPosition;
 	var title_width;
-	var title_height = height/6;
-	
+	var title_height = height * titleToPageHeightRatio;
+
 
 
 //	buttons and misc data :
@@ -137,9 +141,7 @@ function gameMenu(){
 
 //	}
 
-	function adjustTitle(titleImg){
-		
-	}
+	
 
 //	-------------------------------------------------------------
 
@@ -148,7 +150,6 @@ function gameMenu(){
 	//onload is called once the images are done loading into the page - then (and after) you can get their width/height
 	menuBG.onload = function(){
 		menuBG_width = menuBG.width*height/menuBG.height;	//keeping ratio
-
 	}
 
 	//no need
@@ -156,7 +157,7 @@ function gameMenu(){
 
 	movingBar.onload = function(){
 		movingBar_height = movingBar.height*movingBar_width/movingBar.width;
-		
+
 		//same type of image, so we can pre-define here
 		if(isStrTrue("passByEffect")){	//bar 2 is shorter, with no offset
 			movingBar2_width = movingBar_width*0.75;
@@ -168,10 +169,14 @@ function gameMenu(){
 		}
 		movingBar2_height = movingBar2.height*movingBar2_width/movingBar2.width;
 	}
+
+	title.onload = function(){
+		title_width = getTitleWidth(title);
+		titleXPosition = width/2 - title_width/2;
+		titleYPosition = titleDistFromTopInRatio * title_height;
+	}
 	
-	
-	
-	
+
 
 
 	playImage.onload = function()
@@ -224,42 +229,83 @@ function gameMenu(){
 		//background
 		context.drawImage(menuBG ,  backgroundX , 0 , menuBG_width , menuBG_height);
 		context.drawImage(menuBG_cover ,  width/2 , 0 , menuBG_cover_width , menuBG_cover_height);
-		
-		
+
+
 
 		//background side-effect
 		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect")){
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
 			context.drawImage(movingBar2 ,  movingBar2XPosition , height-movingBarYPosition , movingBar2_width , movingBar2_height);
 		}
-		
+
 		if(isStrTrue("singleEffect"))
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width , movingBar_height);
-		
+
 		if(isStrTrue("hourglassEffect")){
 			context.drawImage(movingBar ,  movingBarXPosition , movingBarYPosition , movingBar_width * (Math.abs(movingBarYPosition - height/2))/(height/2) , movingBar_height);
 		}
-			
+
 		if(isStrTrue("spinEffect")){
-			
+
 			context.translate(width*3/4 , height/2);
 			context.rotate(barAngle);
 			context.drawImage(movingBar , -movingBar_width/2 , -movingBar_height/2 , movingBar_width , movingBar_height);
 			context.rotate(-barAngle);
 			context.translate(-width*3/4 , -height/2);
-			
+
 		}
-		
+
 		if(isStrTrue("radarEffect")){
 			context.rotate(barAngle);
 			context.drawImage(movingBar ,  0 , 0 , width * 2 , movingBar_height);
 			context.rotate(-barAngle);
 		}
-		
-		
-		
-		//options ("buttons")
-		context.drawImage(title , width/2-titleImage.width/2, 10);
+
+
+
+
+
+
+		//		title :
+		//in glitch: x , y and height are constant, but not width
+		switch(glitch()){
+		case 0: //default title
+			context.drawImage(title , titleXPosition , titleYPosition , title_width , title_height);
+			break;
+		case 1:
+			//context.drawImage(title_glitch1 , titleXPosition , titleYPosition , getTitleWidth(title_glitch1) , title_height);
+			break;
+		case 2:
+			//context.drawImage(title_glitch2 , titleXPosition , titleYPosition , getTitleWidth(title_glitch2) , title_height);
+			break;
+		case 3:
+			//context.drawImage(title_glitch3 , titleXPosition , titleYPosition , getTitleWidth(title_glitch3) , title_height);
+			break;
+		case 4:
+			//context.drawImage(title_glitch4 , titleXPosition , titleYPosition , getTitleWidth(title_glitch4) , title_height);
+			break;
+		case 5:
+			//context.drawImage(title_glitch5 , titleXPosition , titleYPosition , getTitleWidth(title_glitch5) , title_height);
+			break;
+		case 6:
+			//context.drawImage(title_glitch6 , titleXPosition , titleYPosition , getTitleWidth(title_glitch6) , title_height);
+			break;
+		case 7:
+			//context.drawImage(title_glitch7 , titleXPosition , titleYPosition , getTitleWidth(title_glitch7) , title_height);
+			break;
+		case 8:
+			//context.drawImage(title_glitch8 , titleXPosition , titleYPosition , getTitleWidth(title_glitch8) , title_height);
+			break;
+		case 9:
+			context.drawImage(title_glitch9 , titleXPosition , titleYPosition;
+			break;
+		default:
+			alert("An error has occured. Error type: a glitch in the matrix");
+		}
+
+
+		//		options ("buttons") :
+
 		context.drawImage(playImage, buttonX[0], buttonY[0]);
 		context.drawImage(instructImage, buttonX[1], buttonY[1]);
 		context.drawImage(settingsImage, buttonX[2], buttonY[2]);
@@ -270,8 +316,8 @@ function gameMenu(){
 		}
 
 	}
-	
-	
+
+
 
 
 	function animateBG(){
@@ -280,8 +326,8 @@ function gameMenu(){
 		if(backgroundX <= -menuBG_width/2)	//the middle is similar to the start
 			backgroundX = 0;
 
-		
-		
+
+
 		if(isStrTrue("scissorEffect") || isStrTrue("passByEffect") || isStrTrue("singleEffect") || isStrTrue("hourglassEffect")){	//when bar 1 goes up and down
 			if(barGoingDown){
 				movingBarYPosition += height*barYStep;
@@ -298,12 +344,12 @@ function gameMenu(){
 				}
 			}
 		}
-		
+
 		if(isStrTrue("spinEffect") || isStrTrue("radarEffect")){
 			barRotationalStep++;
 			if(barRotationalStep * barRotationFractionOfCircle >= 1)
 				barRotationalStep = 0;
-			
+
 			barAngle = 2* Math.PI * (barRotationalStep * barRotationFractionOfCircle);
 		}
 	}   
@@ -339,24 +385,30 @@ function gameMenu(){
 		}
 
 	}
-	
+
 	function glitch(){	//distorts the title in one way or another
-		var glitchOccasion = Math.Random();
+		var glitchOccasion = Math.random();
 		if(glitchOccasion < glitchRisk){
 			var i = 0;
 			while(glitchOccasion > 0){
 				glitchOccasion -= dErr;
 				i++;
 			}
-			
-			//TODO - print
-			
-		
+			return i;
+
 			if(i > numOfGlitches)
 				alert("error at purposely made glitches (yes, they're on purpose)");
 		}
+
+		return 0;
 	}
 
+	
+	function getTitleWidth(titleImg){
+		return titleImg.width * (title_height/titleImg.height);
+	}
+	
+	
 //	-------------------------------------------------------------
 
 //	event listener implementations :
