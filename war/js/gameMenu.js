@@ -146,10 +146,9 @@ function gameMenu(){
 	buttons.push(settingsButton);
 	buttons.push(creditsButton);
 
-	for(var i = 0 ; i < buttons.length ; i++){
-		buttons[i].heightStretch = height * buttonToPageHeightRatio;
-		buttons[i].yPosition = buttonsStartHeight*height + i * (height - buttonsStartHeight*height)/buttons.length;
-	}
+	setButtonHeightAndYPosition(buttons , buttonToPageHeightRatio);
+
+
 
 	//must be same order of normal button push!
 	buttonsOver.push(playButtonOver);
@@ -157,27 +156,8 @@ function gameMenu(){
 	buttonsOver.push(settingsButtonOver);
 	buttonsOver.push(creditsButtonOver);
 
-	for(var i = 0 ; i < buttonsOver.length ; i++){
-		buttonsOver[i].heightStretch = height * buttonOverToPageHeightRatio;
-		buttonsOver[i].yPosition = buttonsStartHeight*height + i * (height - buttonsStartHeight*height)/buttonsOver.length;
-	}
+	setButtonHeightAndYPosition(buttonsOver , buttonOverToPageHeightRatio);
 
-	//buttons (for 4 only - TODO: make it flexible)
-//	var buttonY = [100,140,180,220];
-//	var buttonX = [];
-//	buttonX.length =4;
-//	var buttonWidth = [];
-//	buttonWidth.length =4;
-//	var buttonHeight = [];
-//	buttonHeight.length=4;
-
-//	//arrows
-//	var arrowsX = [0,0];
-//	var arrowsY = [0,0];
-//	var arrowsWidth = 34;
-//	var arrowsHeight = 40;
-//	var arrowsVisible = false;
-//	var arrowsRotate = 0;
 
 
 
@@ -252,7 +232,7 @@ function gameMenu(){
 				buttonsOver[i].isOver = isMouseOver(buttonsOver[i] , buttonsOver);
 			else
 				buttonsOver[i].isOver = isMouseOver(buttons[i] , buttons);
-			
+
 		}
 	}
 
@@ -333,7 +313,7 @@ function gameMenu(){
 			alert("An error has occured. Error type: a glitch in the matrix");
 		}
 
-		
+
 //		alert(playButton);
 //		alert(playButtonOver);
 
@@ -348,7 +328,7 @@ function gameMenu(){
 				printButton(buttons[i] , buttons);
 		}
 
-		
+
 //		printButtonAccordingTodState(playButton);
 //		printButtonAccordingTodState(instructionsButton);
 //		printButtonAccordingTodState(settingsButton);
@@ -459,7 +439,13 @@ function gameMenu(){
 	function getTitleWidth(titleImg){
 		return titleImg.width * (title_height/titleImg.height);
 	}
-
+	
+	function setButtonHeightAndYPosition(array , relativeHeight){
+		for(var i = 0 ; i < array.length ; i++){
+			array[i].heightStretch = height * relativeHeight;
+			array[i].yPosition = (buttonsStartHeight*height + i * (height - buttonsStartHeight*height)/array.length) - array[i].heightStretch/2;
+		}
+	}
 
 	function setButtonStats(menuButton , array){
 		array[array.indexOf(menuButton)].widthStretch = array[array.indexOf(menuButton)].width * array[array.indexOf(menuButton)].heightStretch/array[array.indexOf(menuButton)].height;
@@ -495,15 +481,15 @@ function gameMenu(){
 			window.dispatchEvent(event);
 			this.removeEventListener('mouseup' , checkClick);
 		}
-		
+
 		if(instructionsButtonOver.isOver){
 			alert("lol noob tried to learn.... ");
 		}
-		
+
 		if(settingsButtonOver.isOver){
 			alert("lol noob tried to set.... ");
 		}
-		
+
 		if(creditsButtonOver.isOver){
 			alert("lol noob tried to watch.... ");
 		}
