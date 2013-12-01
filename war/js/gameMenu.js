@@ -105,15 +105,15 @@ function gameMenu(){
 
 	title.src = "images/GameMainMenu/title.png";
 
-	playButton.src = "images/GameMainMenu/Play_regular.png";
-	instructionsButton.src = "images/GameMainMenu/Instructions_regular.png";
-	settingsButton.src = "images/GameMainMenu/Settings_regular.png";
-	creditsButton.src = "images/GameMainMenu/Credits_regular.png";
+	playButton.src = "images/GameMainMenu/Play_bold.png";
+	instructionsButton.src = "images/GameMainMenu/Instructions_bold.png";
+	settingsButton.src = "images/GameMainMenu/Settings_bold.png";
+	creditsButton.src = "images/GameMainMenu/Credits_bold.png";
 
-	playButtonOver.src = "images/GameMainMenu/Play_over.png";
-	instructionsButtonOver.src = "images/GameMainMenu/Instructions_over.png";
-	settingsButtonOver.src = "images/GameMainMenu/Settings_over.png";
-	creditsButtonOver.src = "images/GameMainMenu/Credits_over.png";
+	playButtonOver.src = "images/GameMainMenu/Play_bold.png";
+	instructionsButtonOver.src = "images/GameMainMenu/Instructions_bold.png";
+	settingsButtonOver.src = "images/GameMainMenu/Settings_bold.png";
+	creditsButtonOver.src = "images/GameMainMenu/Credits_bold.png";
 
 	leftArrow.src = "images/GameMainMenu/arrow_pointing_right.png";
 	rightArrow.src = "images/GameMainMenu/arrow_pointing_left.png";
