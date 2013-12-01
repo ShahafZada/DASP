@@ -248,15 +248,13 @@ function gameMenu(){
 
 		for(var i = 0 ; i < buttons.length ; i++){
 			buttons[i].isOver = isMouseOver(buttons[i] , buttons);
-			//buttonsOver[i].isOver = isMouseOver(buttonsOver[i] , buttonsOver);
+
+
+//			if(buttonsOver[i].isOver)	//if icon is already enlarged, check it
+//				buttonsOver[i].isOver = isMouseOver(buttonsOver[i] , buttonsOver);
+//			else
+//				buttonsOver[i].isOver = isMouseOver(buttons[i] , buttons);
 			
-			if(playButton.isOver){
-				printButton(playButtonOver , buttonsOver);
-			}
-			
-//			if(buttons[buttons.indexOf(playButton)].isOver)
-//				alert(playButton);
-//				alert(playButtonOver);
 		}
 	}
 
@@ -337,16 +335,32 @@ function gameMenu(){
 			alert("An error has occured. Error type: a glitch in the matrix");
 		}
 
-
+		
+//		alert(playButton);
+//		alert(playButtonOver);
 
 
 		//		options ("buttons") :
 
+		if(buttons[buttons.indexOf(playButton)].isOver)
+			printButton(playButtonOver , buttonsOver);
+		else
+			printButton(playButton , buttons);
+		
+		if(buttons[buttons.indexOf(instructionsButton)].isOver)
+			printButton(instructionsButtonOver , buttonsOver);
+		else
+			printButton(instructionsButton , buttons);
 
-		printButton(playButton , buttons);
-		printButton(instructionsButton , buttons);
-		printButton(settingsButton , buttons);
-		printButton(creditsButton , buttons);
+		if(buttons[buttons.indexOf(settingsButton)].isOver)
+			printButton(settingsButtonOver , buttonsOver);
+		else
+			printButton(settingsButton , buttons);
+		
+		if(buttons[buttons.indexOf(creditsButton)].isOver)
+			printButton(creditsButtonOver , buttonsOver);
+		else
+			printButton(creditsButton , buttons);
 
 		
 //		printButtonAccordingTodState(playButton);
