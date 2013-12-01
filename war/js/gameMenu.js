@@ -81,15 +81,15 @@ function gameMenu(){
 	movingBar.src = "images/GameMainMenu/movingBar.png";
 	movingBar2.src = "images/GameMainMenu/movingBar.png";
 
-	title_glitch1 = "images/GameMainMenu/Title_glitch1.png";
-	title_glitch2 = "images/GameMainMenu/Title_glitch2.png";
-	title_glitch3 = "images/GameMainMenu/Title_glitch3.png";
-	title_glitch4 = "images/GameMainMenu/Title_glitch4.png";
-	title_glitch5 = "images/GameMainMenu/Title_glitch5.png";
-	title_glitch6 = "images/GameMainMenu/Title_glitch6.png";
-	title_glitch7 = "images/GameMainMenu/Title_glitch7.png";
-	title_glitch8 = "images/GameMainMenu/Title_glitch8.png";
-	title_glitch9 = "images/GameMainMenu/Title_glitch9.png";
+	title_glitch1.src = "images/GameMainMenu/Title_glitch1.png";
+	title_glitch2.src = "images/GameMainMenu/Title_glitch2.png";
+	title_glitch3.src = "images/GameMainMenu/Title_glitch3.png";
+	title_glitch4.src = "images/GameMainMenu/Title_glitch4.png";
+	title_glitch5.src = "images/GameMainMenu/Title_glitch5.png";
+	title_glitch6.src = "images/GameMainMenu/Title_glitch6.png";
+	title_glitch7.src = "images/GameMainMenu/Title_glitch7.png";
+	title_glitch8.src = "images/GameMainMenu/Title_glitch8.png";
+	title_glitch9.src = "images/GameMainMenu/Title_glitch9.png";
 
 
 	//image handling
@@ -176,7 +176,9 @@ function gameMenu(){
 		titleYPosition = titleDistFromTopInRatio * title_height;
 	}
 	
-
+	title_glitch9.onload = function(){
+		
+	}
 
 
 	playImage.onload = function()
@@ -273,34 +275,35 @@ function gameMenu(){
 			context.drawImage(title , titleXPosition , titleYPosition , title_width , title_height);
 			break;
 		case 1:
-			//context.drawImage(title_glitch1 , titleXPosition , titleYPosition , getTitleWidth(title_glitch1) , title_height);
+			context.drawImage(title_glitch1 , titleXPosition , titleYPosition , getTitleWidth(title_glitch1) , title_height);
 			break;
 		case 2:
-			//context.drawImage(title_glitch2 , titleXPosition , titleYPosition , getTitleWidth(title_glitch2) , title_height);
+			context.drawImage(title_glitch2 , titleXPosition , titleYPosition , getTitleWidth(title_glitch2) , title_height);
 			break;
 		case 3:
-			//context.drawImage(title_glitch3 , titleXPosition , titleYPosition , getTitleWidth(title_glitch3) , title_height);
+			context.drawImage(title_glitch3 , titleXPosition , titleYPosition , getTitleWidth(title_glitch3) , title_height);
 			break;
 		case 4:
-			//context.drawImage(title_glitch4 , titleXPosition , titleYPosition , getTitleWidth(title_glitch4) , title_height);
+			context.drawImage(title_glitch4 , titleXPosition , titleYPosition , getTitleWidth(title_glitch4) , title_height);
 			break;
 		case 5:
-			//context.drawImage(title_glitch5 , titleXPosition , titleYPosition , getTitleWidth(title_glitch5) , title_height);
+			context.drawImage(title_glitch5 , titleXPosition , titleYPosition , getTitleWidth(title_glitch5) , title_height);
 			break;
 		case 6:
-			//context.drawImage(title_glitch6 , titleXPosition , titleYPosition , getTitleWidth(title_glitch6) , title_height);
+			context.drawImage(title_glitch6 , titleXPosition , titleYPosition , getTitleWidth(title_glitch6) , title_height);
 			break;
 		case 7:
-			//context.drawImage(title_glitch7 , titleXPosition , titleYPosition , getTitleWidth(title_glitch7) , title_height);
+			context.drawImage(title_glitch7 , titleXPosition , titleYPosition , getTitleWidth(title_glitch7) , title_height);
 			break;
 		case 8:
-			//context.drawImage(title_glitch8 , titleXPosition , titleYPosition , getTitleWidth(title_glitch8) , title_height);
+			context.drawImage(title_glitch8 , titleXPosition , titleYPosition , getTitleWidth(title_glitch8) , title_height);
 			break;
 		case 9:
-			context.drawImage(title_glitch9 , titleXPosition , titleYPosition;
+			context.drawImage(title_glitch9 , titleXPosition , titleYPosition , getTitleWidth(title_glitch9) , title_height);
 			break;
 		default:
 			alert("An error has occured. Error type: a glitch in the matrix");
+			break;
 		}
 
 
