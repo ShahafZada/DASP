@@ -22,8 +22,9 @@ function gameMenu(){
 	
 	//	buttons :
 	var buttonToPageHeightRatio = 1/15;
+	var buttonOverToPageHeightRatio = 1/10;	//for mouse-over
 	var buttonsStartHeight = 1/3;	//the height rate (relative to canvas height) where the first button is
-	//adding a new button image requires the addition of its push to the buttons array, its onload function definition, and printing function
+	//adding a new button image requires the addition of its push to the buttons and buttonsOver array, its onload function definition, and printing function
 
 	//	other small extras 
 	//glitches
@@ -52,11 +53,6 @@ function gameMenu(){
 //	images :
 	var laImage = new Image();
 	var raImage = new Image();;
-	var title = new Image();
-	var playButton = new Image();
-	var instructImage = new Image();
-	var settingsImage = new Image();
-	var creditsImage = new Image();
 
 	var menuBG = new Image();
 	var menuBG_cover = new Image();
@@ -72,17 +68,24 @@ function gameMenu(){
 	var title_glitch7 = new Image();
 	var title_glitch8 = new Image();
 	var title_glitch9 = new Image();
+	
+	var title = new Image();
+	var playButton = new Image();
+	var instructionsButton = new Image();
+	var settingsButton = new Image();
+	var creditsButton = new Image();
+	
+	var playButtonOver = new Image();
+	var instructionsButtonOver = new Image();
+	var settingsButtonOver = new Image();
+	var creditsButtonOver = new Image();
 
 	var buttons = [];
+	var buttonsOver = [];
 	
 	laImage.src = "images/GameMainMenu/arrow_pointing_right.png";
 	raImage.src = "images/GameMainMenu/arrow_pointing_left.png";
-	title.src = "images/GameMainMenu/title.png";
-	playButton.src = "images/GameMainMenu/Play_regular.png";
-	instructImage.src = "images/GameMainMenu/Instructions_regular.png";
-	settingsImage.src = "images/GameMainMenu/Settings_regular.png";
-	creditsImage.src = "images/GameMainMenu/Credits_regular.png";
-
+	
 	menuBG.src = "images/GameMainMenu/gameMenu_bg.png";
 	menuBG_cover.src = "images/GameMainMenu/gameMenu_bg_cover.png";
 	movingBar.src = "images/GameMainMenu/movingBar.png";
@@ -97,6 +100,18 @@ function gameMenu(){
 	title_glitch7.src = "images/GameMainMenu/Title_glitch7.png";
 	title_glitch8.src = "images/GameMainMenu/Title_glitch8.png";
 	title_glitch9.src = "images/GameMainMenu/Title_glitch9.png";
+	
+	title.src = "images/GameMainMenu/title.png";
+	
+	playButton.src = "images/GameMainMenu/Play_regular.png";
+	instructionsButton.src = "images/GameMainMenu/Instructions_regular.png";
+	settingsButton.src = "images/GameMainMenu/Settings_regular.png";
+	creditsButton.src = "images/GameMainMenu/Credits_regular.png";
+	
+	playButtonOver = "images/GameMainMenu/Play_over.png";
+	instructionsButtonOver = "images/GameMainMenu/Instructions_over.png";
+	settingsButtonOver = "images/GameMainMenu/Settings_over.png";
+	creditsButtonOver = "images/GameMainMenu/Credits_over.png";
 
 
 	//image handling
@@ -126,15 +141,25 @@ function gameMenu(){
 //	buttons and misc data :
 
 	buttons.push(playButton);
-	buttons.push(instructImage);
-	buttons.push(settingsImage);
-	buttons.push(creditsImage);
+	buttons.push(instructionsButton);
+	buttons.push(settingsButton);
+	buttons.push(creditsButton);
 	
 	for(var i = 0 ; i < buttons.length ; i++){
 		buttons[i].heightStretch = height * buttonToPageHeightRatio;
 		buttons[i].yPosition = buttonsStartHeight*height + i * (height - buttonsStartHeight*height)/buttons.length;
 	}
 	
+	
+	buttonsOver.push(playButtonOver);
+	buttonsOver.push(instructionsButtonOver);
+	buttonsOver.push(settingsButtonOver);
+	buttonsOver.push(creditsButtonOver);
+	
+	for(var i = 0 ; i < buttonsOver.length ; i++){
+		buttonsOver[i].heightStretch = height * buttonOverToPageHeightRatio;
+		buttonsOver[i].yPosition = buttonsStartHeight*height + i * (height - buttonsStartHeight*height)/buttonsOver.length;
+	}
 	
 	//buttons (for 4 only - TODO: make it flexible)
 //	var buttonY = [100,140,180,220];
@@ -189,49 +214,24 @@ function gameMenu(){
 		titleYPosition = titleDistFromTopInRatio * title_height;
 	}
 	
-	playButton.onload = function(){setButtonStats(playButton);}
+	playButton.onload = function(){setButtonStats(playButton , buttons);}
 	
-	instructImage.onload = function(){setButtonStats(instructImage);}
+	instructionsButton.onload = function(){setButtonStats(instructionsButton , buttons);}
 	
-	settingsImage.onload = function(){setButtonStats(settingsImage);}
+	settingsButton.onload = function(){setButtonStats(settingsButton , buttons);}
 	
-	creditsImage.onload = function(){setButtonStats(creditsImage);}
+	creditsButton.onload = function(){setButtonStats(creditsButton , buttons);}
+	
+	
+	playButtonOver.onload = function(){setButtonStats(playButtonOver , buttonsOver);}
+	
+	instructionsButtonOver.onload = function(){setButtonStats(instructionsButtonOver , buttonsOver);}
+	
+	settingsButtonOver.onload = function(){setButtonStats(settingsButtonOver , buttonsOver);}
+	
+	creditsButtonOver.onload = function(){setButtonStats(creditsButtonOver , buttonsOver);}
 	
 
-
-	
-	
-
-//	playButton.onload = function()
-//	{
-//		buttonX[0]=width/2-playButton.width/2;
-//		buttonWidth[0]=playButton.width;
-//		buttonHeight[0]=playButton.height;
-//		context.drawImage(playButton, buttonX[0], buttonY[0]);
-//	};
-//
-//	instructImage.onload = function()
-//	{
-//		buttonX[1]=width/2-instructImage.width/2;
-//		buttonWidth[1]=instructImage.width;
-//		buttonHeight[1]=instructImage.height;
-//		context.drawImage(instructImage, buttonX[1], buttonY[1]);
-//	};
-//
-//	settingsImage.onload = function()
-//	{
-//		buttonX[2]=width/2-settingsImage.width/2;
-//		buttonWidth[2]=settingsImage.width;
-//		buttonHeight[2]=settingsImage.height;
-//		context.drawImage(settingsImage, buttonX[2], buttonY[2]);
-//	};
-//	creditsImage.onload = function()
-//	{
-//		buttonX[3]=width/2-creditsImage.width/2;
-//		buttonWidth[3]=creditsImage.width;
-//		buttonHeight[3]=creditsImage.height;
-//		context.drawImage(creditsImage, buttonX[3], buttonY[3]);
-//	};
 
 
 //	-------------------------------------------------------------
@@ -332,14 +332,14 @@ function gameMenu(){
 		
 		//		options ("buttons") :
 
-		printButtonRegular(playButton);
-		printButtonRegular(instructImage);
-		printButtonRegular(settingsImage);
-		printButtonRegular(creditsImage);
+		printButton(playButton , buttons);
+		printButton(instructionsButton , buttons);
+		printButton(settingsButton , buttons);
+		printButton(creditsButton , buttons);
 		
-//		context.drawImage(instructImage, buttonX[1], buttonY[1]);
-//		context.drawImage(settingsImage, buttonX[2], buttonY[2]);
-//		context.drawImage(creditsImage, buttonX[3], buttonY[3]);
+//		context.drawImage(instructionsButton, buttonX[1], buttonY[1]);
+//		context.drawImage(settingsButton, buttonX[2], buttonY[2]);
+//		context.drawImage(creditsButton, buttonX[3], buttonY[3]);
 //		if(arrowsVisible){
 //			context.drawImage(laImage, arrowsX[0] - (arrowsWidth/2), arrowsY[0]-10, arrowsWidth, arrowsHeight);
 //			context.drawImage(raImage, arrowsX[1] - (arrowsWidth/2), arrowsY[1]-10, arrowsWidth, arrowsHeight);
@@ -441,77 +441,30 @@ function gameMenu(){
 	}
 	
 	
-	function setButtonStats(menuOption){
-		buttons[buttons.indexOf(menuOption)].widthStretch = buttons[buttons.indexOf(menuOption)].width * buttons[buttons.indexOf(menuOption)].heightStretch/buttons[buttons.indexOf(menuOption)].height;
-		buttons[buttons.indexOf(menuOption)].xPosition = width/2 - buttons[buttons.indexOf(menuOption)].widthStretch/2;
+	function setButtonStats(menuOption , array){
+		array[array.indexOf(menuOption)].widthStretch = array[array.indexOf(menuOption)].width * array[array.indexOf(menuOption)].heightStretch/array[array.indexOf(menuOption)].height;
+		array[array.indexOf(menuOption)].xPosition = width/2 - array[array.indexOf(menuOption)].widthStretch/2;
+		array[array.indexOf(menuOption)].isOver = false;
 	}
 	
-	function printButtonRegular(menuButton){
-		context.drawImage(menuButton, buttons[buttons.indexOf(menuButton)].xPosition , buttons[buttons.indexOf(menuButton)].yPosition , buttons[buttons.indexOf(menuButton)].widthStretch , buttons[buttons.indexOf(menuButton)].heightStretch);
+	function printButton(menuButton , array){
+		context.drawImage(menuButton, array[array.indexOf(menuButton)].xPosition , array[array.indexOf(menuButton)].yPosition , array[array.indexOf(menuButton)].widthStretch , array[array.indexOf(menuButton)].heightStretch);
 	}
+	
+	
+	function isMouseOver(menuButton , array){
+		if(array[array.indexOf(menuButton)].xPosition < mouseX && mouseX < array[array.indexOf(menuButton)].xPosition + array[array.indexOf(menuOption)].widthStretch)
+			if(array[array.indexOf(menuButton)].yPosition < mouseX && mouseX < array[array.indexOf(menuButton)].yPosition + array[array.indexOf(menuOption)].heightStretch)
+				return true;
+		return false
+	}
+	
+	//for arrows: 0 progress in dist if mouse is off , +1 if (still) on
 	
 //	-------------------------------------------------------------
 
 //	event listener implementations :
 
-
-	function checkPos(){
-//		for(var i = 0; i < buttonX.length; i++)
-//		{
-//			if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i])
-//			{
-//				if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i])
-//				{	
-//					if (mouseY <= buttonY[1] )
-//					{
-//						playButton.src = "images/GameMainMenu/Play_over.png";
-//
-//						instructImage.src = "images/GameMainMenu/Instructions_regular.png";
-//						settingsImage.src = "images/GameMainMenu/Settings_regular.png";
-//						creditsImage.src = "images/GameMainMenu/Credits_regular.png";
-//					}
-//					else if(mouseY <= buttonY[2])
-//					{
-//						instructImage.src = "images/GameMainMenu/Instructions_over.png";
-//
-//						playButton.src = "images/GameMainMenu/Play_regular.png";
-//						settingsImage.src = "images/GameMainMenu/Settings_regular.png";
-//						creditsImage.src = "images/GameMainMenu/Credits_regular.png";
-//					}
-//					else if(mouseY <= buttonY[3])
-//					{
-//						settingsImage.src = "images/GameMainMenu/Settings_over.png";
-//
-//						playButton.src = "images/GameMainMenu/Play_regular.png";
-//						instructImage.src = "images/GameMainMenu/Instructions_regular.png";
-//						creditsImage.src = "images/GameMainMenu/Credits_regular.png";
-//					}
-//					else
-//					{
-//						creditsImage.src = "images/GameMainMenu/Credits_over.png";
-//
-//						playButton.src = "images/GameMainMenu/Play_regular.png";
-//						instructImage.src = "images/GameMainMenu/Instructions_regular.png";
-//						settingsImage.src = "images/GameMainMenu/Settings_regular.png";
-//					}
-//
-//					arrowsVisible = true;
-//					arrowsX[0] = buttonX[i] - (arrowsWidth/2) - 2;
-//					arrowsY[0] = buttonY[i] + 2;
-//					arrowsX[1] = buttonX[i] + buttonWidth[i] + (arrowsWidth/2); 
-//					arrowsY[1] = buttonY[i] + 2;
-//				}	
-//			}
-//			else
-//			{
-//				arrowsVisible = false;
-//				playButton.src = "images/GameMainMenu/Play_regular.png";
-//				instructImage.src = "images/GameMainMenu/Instructions_regular.png";
-//				settingsImage.src = "images/GameMainMenu/Settings_regular.png";
-//				creditsImage.src = "images/GameMainMenu/Credits_regular.png";
-//			}
-//		}
-	}
 
 	function checkClick(){
 //		for(i = 0; i < buttonX.length; i++)
@@ -551,8 +504,7 @@ function gameMenu(){
 //	-------------------------------------------------------------
 
 //	event listeners :
-
-	canvas.addEventListener("mousemove", checkPos);
+	//no need to check position - the position is global and updating all the time
 	canvas.addEventListener("mouseup", checkClick);
 
 //	-------------------------------------------------------------
