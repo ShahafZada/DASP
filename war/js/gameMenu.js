@@ -555,15 +555,27 @@ function gameMenu(){
 		}
 
 		if(instructionsButtonOver.isOver){
-			alert("lol noob tried to learn.... ");
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToGameInstructions";
+			window.dispatchEvent(event);
+			this.removeEventListener('mouseup' , checkClick);
 		}
 
 		if(settingsButtonOver.isOver){
-			alert("lol noob tried to set.... ");
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToGameSettings";
+			window.dispatchEvent(event);
+			this.removeEventListener('mouseup' , checkClick);
 		}
 
 		if(creditsButtonOver.isOver){
-			alert("lol noob tried to watch.... ");
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToGameCredits";
+			window.dispatchEvent(event);
+			this.removeEventListener('mouseup' , checkClick);
 		}
 	}
 

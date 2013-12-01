@@ -27,8 +27,16 @@ function gameManager(){
 			page = new gameMenu();
 		}
 		else if (e.customData == "goToGame") {
-			page = new game();
-			
+			page = new game();	
+		}
+		else if (e.customData == "goToGameInstructions") {
+			page = new gameInstructions();	
+		}
+		else if (e.customData == "goToGameSettings") {
+			page = new gameSettings();	
+		}
+		else if (e.customData == "goToGameCredits") {
+			page = new gameCredits();	
 		}
 		
 	}

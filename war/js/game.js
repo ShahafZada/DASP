@@ -101,8 +101,7 @@ function game(){
 //	page-function implementations :
 
 
-	this.clear = function()
-	{
+	this.clear = function(){
 		context.clearRect(0, 0, width, height);
 	}
 
