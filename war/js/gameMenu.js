@@ -1,6 +1,7 @@
 function gameMenu(){
 
-
+//TODO arrange buttons and their listeners
+//TODO arrange arrows closing in
 //	-------------------------------------------------------------
 
 	//		variant definitions :
@@ -18,6 +19,10 @@ function gameMenu(){
 	//	title :
 	var titleDistFromTopInRatio = 1/6;	//by default the title would be 1/6 down its height
 	var titleToPageHeightRatio = 1/5;
+	
+	//	buttons :
+	var buttonToPageHeightRatio = 1/10;
+	var button_height = height * buttonToPageHeightRatio;
 
 	//	other small extras 
 	//glitches
@@ -47,7 +52,7 @@ function gameMenu(){
 	var laImage = new Image();
 	var raImage = new Image();;
 	var title = new Image();
-	var playImage = new Image();
+	var playButton = new Image();
 	var instructImage = new Image();
 	var settingsImage = new Image();
 	var creditsImage = new Image();
@@ -71,7 +76,7 @@ function gameMenu(){
 	laImage.src = "images/GameMainMenu/arrow_pointing_right.png";
 	raImage.src = "images/GameMainMenu/arrow_pointing_left.png";
 	title.src = "images/GameMainMenu/title.png";
-	playImage.src = "images/GameMainMenu/Play_regular.png";
+	playButton.src = "images/GameMainMenu/Play_regular.png";
 	instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 	settingsImage.src = "images/GameMainMenu/Settings_regular.png";
 	creditsImage.src = "images/GameMainMenu/Credits_regular.png";
@@ -118,6 +123,14 @@ function gameMenu(){
 
 
 //	buttons and misc data :
+	
+	var buttons = [];
+	buttons.push(playButton);
+	buttons.push(instructImage);
+	buttons.push(settingsImage);
+	buttons.push(creditsImage);
+	
+	
 	//buttons (for 4 only - TODO: make it flexible)
 	var buttonY = [100,140,180,220];
 	var buttonX = [];
@@ -136,10 +149,6 @@ function gameMenu(){
 	var arrowsRotate = 0;
 
 
-	//TODO - uniformal edit
-//	function resizeMenuOption(){
-
-//	}
 
 	
 
@@ -181,12 +190,12 @@ function gameMenu(){
 	}
 
 
-	playImage.onload = function()
+	playButton.onload = function()
 	{
-		buttonX[0]=width/2-playImage.width/2;
-		buttonWidth[0]=playImage.width;
-		buttonHeight[0]=playImage.height;
-		context.drawImage(playImage, buttonX[0], buttonY[0]);
+		buttonX[0]=width/2-playButton.width/2;
+		buttonWidth[0]=playButton.width;
+		buttonHeight[0]=playButton.height;
+		context.drawImage(playButton, buttonX[0], buttonY[0]);
 	};
 
 	instructImage.onload = function()
@@ -309,7 +318,7 @@ function gameMenu(){
 
 		//		options ("buttons") :
 
-		context.drawImage(playImage, buttonX[0], buttonY[0]);
+		context.drawImage(playButton, buttonX[0], buttonY[0]);
 		context.drawImage(instructImage, buttonX[1], buttonY[1]);
 		context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 		context.drawImage(creditsImage, buttonX[3], buttonY[3]);
@@ -411,6 +420,12 @@ function gameMenu(){
 		return titleImg.width * (title_height/titleImg.height);
 	}
 	
+	//TODO - uniformal edit
+	function resizeButton(Button){
+
+	}
+
+	
 	
 //	-------------------------------------------------------------
 
@@ -428,7 +443,7 @@ function gameMenu(){
 				{	
 					if (mouseY <= buttonY[1] )
 					{
-						playImage.src = "images/GameMainMenu/Play_over.png";
+						playButton.src = "images/GameMainMenu/Play_over.png";
 
 						instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 						settingsImage.src = "images/GameMainMenu/Settings_regular.png";
@@ -438,7 +453,7 @@ function gameMenu(){
 					{
 						instructImage.src = "images/GameMainMenu/Instructions_over.png";
 
-						playImage.src = "images/GameMainMenu/Play_regular.png";
+						playButton.src = "images/GameMainMenu/Play_regular.png";
 						settingsImage.src = "images/GameMainMenu/Settings_regular.png";
 						creditsImage.src = "images/GameMainMenu/Credits_regular.png";
 					}
@@ -446,7 +461,7 @@ function gameMenu(){
 					{
 						settingsImage.src = "images/GameMainMenu/Settings_over.png";
 
-						playImage.src = "images/GameMainMenu/Play_regular.png";
+						playButton.src = "images/GameMainMenu/Play_regular.png";
 						instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 						creditsImage.src = "images/GameMainMenu/Credits_regular.png";
 					}
@@ -454,7 +469,7 @@ function gameMenu(){
 					{
 						creditsImage.src = "images/GameMainMenu/Credits_over.png";
 
-						playImage.src = "images/GameMainMenu/Play_regular.png";
+						playButton.src = "images/GameMainMenu/Play_regular.png";
 						instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 						settingsImage.src = "images/GameMainMenu/Settings_regular.png";
 					}
@@ -469,7 +484,7 @@ function gameMenu(){
 			else
 			{
 				arrowsVisible = false;
-				playImage.src = "images/GameMainMenu/Play_regular.png";
+				playButton.src = "images/GameMainMenu/Play_regular.png";
 				instructImage.src = "images/GameMainMenu/Instructions_regular.png";
 				settingsImage.src = "images/GameMainMenu/Settings_regular.png";
 				creditsImage.src = "images/GameMainMenu/Credits_regular.png";
