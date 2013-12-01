@@ -2,6 +2,7 @@ function gameMenu(){
 
 //	TODO arrange buttons and their listeners
 //	TODO arrange arrows closing in
+//	TODO add a function which handles button over when using onload
 //	-------------------------------------------------------------
 
 	//		variant definitions :
@@ -247,13 +248,10 @@ function gameMenu(){
 		animateBG();
 
 		for(var i = 0 ; i < buttons.length ; i++){
-			buttons[i].isOver = isMouseOver(buttons[i] , buttons);
-
-
-//			if(buttonsOver[i].isOver)	//if icon is already enlarged, check it
-//				buttonsOver[i].isOver = isMouseOver(buttonsOver[i] , buttonsOver);
-//			else
-//				buttonsOver[i].isOver = isMouseOver(buttons[i] , buttons);
+			if(buttonsOver[i].isOver)	//if icon is already enlarged, check it
+				buttonsOver[i].isOver = isMouseOver(buttonsOver[i] , buttonsOver);
+			else
+				buttonsOver[i].isOver = isMouseOver(buttons[i] , buttons);
 			
 		}
 	}
@@ -342,25 +340,13 @@ function gameMenu(){
 
 		//		options ("buttons") :
 
-		if(buttons[buttons.indexOf(playButton)].isOver)
-			printButton(playButtonOver , buttonsOver);
-		else
-			printButton(playButton , buttons);
-		
-		if(buttons[buttons.indexOf(instructionsButton)].isOver)
-			printButton(instructionsButtonOver , buttonsOver);
-		else
-			printButton(instructionsButton , buttons);
 
-		if(buttons[buttons.indexOf(settingsButton)].isOver)
-			printButton(settingsButtonOver , buttonsOver);
-		else
-			printButton(settingsButton , buttons);
-		
-		if(buttons[buttons.indexOf(creditsButton)].isOver)
-			printButton(creditsButtonOver , buttonsOver);
-		else
-			printButton(creditsButton , buttons);
+		for(var i = 0 ; i < buttons.length ; i++){
+			if(buttonsOver[i].isOver)
+				printButton(buttonsOver[i] , buttonsOver);
+			else
+				printButton(buttons[i] , buttons);
+		}
 
 		
 //		printButtonAccordingTodState(playButton);
@@ -502,37 +488,25 @@ function gameMenu(){
 
 
 	function checkClick(){
-//		for(i = 0; i < buttonX.length; i++)
-//		{
-//		if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i])
-//		{
-//		if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i])
-//		{
-//		if (mouseY <= buttonY[1])
-//		{ 						
-//		var event = document.createEvent("Event");
-//		event.initEvent("changePage", true, true);
-//		event.customData = "goToGame";
-//		window.dispatchEvent(event);
-//		this.removeEventListener('mousemove' , checkPos);
-//		this.removeEventListener('mouseup' , checkClick);
-
-//		}
-//		else if(mouseY <= buttonY[2])
-//		{
-//		alert("lol noob tried to learn.... ");
-//		}
-//		else if(mouseY <= buttonY[3])
-//		{
-//		alert("lol noob tried to set.... ");
-//		}
-//		else
-//		{
-//		alert("lol noob tried to watch.... ");
-//		}
-//		}
-//		}
-//		}
+		if (playButtonOver.isOver){
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToGame";
+			window.dispatchEvent(event);
+			this.removeEventListener('mouseup' , checkClick);
+		}
+		
+		if(instructionsButtonOver.isOver){
+			alert("lol noob tried to learn.... ");
+		}
+		
+		if(settingsButtonOver.isOver){
+			alert("lol noob tried to set.... ");
+		}
+		
+		if(creditsButtonOver.isOver){
+			alert("lol noob tried to watch.... ");
+		}
 	}
 
 
