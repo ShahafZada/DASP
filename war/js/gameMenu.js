@@ -578,7 +578,11 @@ function gameMenu(){
 			this.removeEventListener('mouseup' , checkClick);
 		}
 	}
-
+	
+	//TODO find out why eliminating the listeners through an external function (right here where this comment is) causes problems
+	//problems description: alerts get multiplied and eventually prevent the passage between pages
+	//possible solution: call the listeners' removal before the gameManager's event creation (as opposed to the current situation: termination is called last)
+	//possible solution failed... *sigh*
 
 //	-------------------------------------------------------------
 
