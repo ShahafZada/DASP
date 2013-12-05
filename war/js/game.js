@@ -3,15 +3,19 @@ function game(){
 //	-------------------------------------------------------------
 
 //	variant definitions :
-	
+
 	//back-button:
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var buttonDistFromEdges = height/8;
 	
+	// lines :
+	var lineWidth = "4";
+	var lineColor = "cyan";
+	var markedLineColor = "magenta";
+	
 	//nodes:
 	var nodeSize = height/10; //height and width are the same
-	
 
 //		images : 
 	var current_regular = new Image();
@@ -24,17 +28,19 @@ function game(){
 	var backButton = new Image();
 	var backButton_over = new Image();
 	
+	
+	var backButton = new Image();
+	var backButton_over = new Image();
+	
 	current_regular.src = "images/game/hollow_circle_current_20px.png";
 	current_over.src = "images/game/hollow_circle_current_over_30px.png";
 	unmarkedNode_regular.src = "images/game/hollow_circle_20px.png";
 	unmarkedNode_over.src = "images/game/hollow_circle_over_30px.png";
 	markedNode_regular.src = "images/game/hollow_circle_marked_20px.png";
 	markedNode_over.src = "images/game/hollow_circle_marked_over_30px.png";
-	
-	backButton.src = "images/backButton.png";
+		backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton_over.png";
 	
-
 //	-------------------------------------------------------------
 
 
@@ -61,7 +67,7 @@ function game(){
 
 	function Edge(pointedNode , color , weight){
 		this.pointedNode = pointedNode;	//the other edge being pointed to
-
+		
 		this.color = color;
 		this.weight = weight; 
 	}
@@ -190,9 +196,8 @@ function game(){
 //	other private functions :
 
 	
-	function drawPlayElements(){     	
-
-
+	function drawPlayElements(){     
+		
 		for(var i = 0 ; i < nodes.length ; i++){
 			
 			if(nodes[i].isCurrent){				
@@ -214,16 +219,21 @@ function game(){
 				else
 					drawNode(unmarkedNode_regular , nodes[i]);
 			}
-			
-			
-			
-			for(var j = 0 ; j < nodes[i].edges.length ; j++){
-				if(nodes[i].id > nodes[i].edges[j].nodeID){	//connecting through one direction only
-					context.moveTo(nodes[i].x , nodes[i].y);
-					context.lineTo(nodes[i].edges[j].pointedNode.x , nodes[i].edges[j].pointedNode.y);
+				
+			for(var j = 0 ; j < nodes[i].edges.length ; j++){				
+				if(nodes[i].id > nodes[i].edges[j].pointedNode){	//connecting through one direction only
+					var indexTo = nodes[i].edges[j].pointedNode;
+					context.beginPath();
+					context.lineWidth=lineWidth;
+					context.strokeStyle=lineColor;
+					context.moveTo(nodes[i].x , nodes[i].y);					
+					context.lineTo(nodes[indexTo].x , nodes[indexTo].y);
 					context.stroke();
 				}
 			}
+			
+
+			
 
 		}
 	}
@@ -262,6 +272,7 @@ function game(){
 			event.customData = "goToGameMenu";
 			window.dispatchEvent(event);
 			this.removeEventListener("mouseup", checkClick);
+			
 		}
 	}
 
