@@ -12,8 +12,8 @@ function game(){
 	// lines :
 	var lineWidth = "4";
 	var lineColor = "cyan";
-	var markedLineColor = "magenta";
-	var boldLine = lineWidth + 1;
+	var markedLineColor = "cyan";
+	var boldLineWidth = "8";	//must be larger than lineWidth
 	var boldLineColor = "black";
 
 	//nodes:
@@ -71,6 +71,7 @@ function game(){
 	function Edge(pointedNode , color , weight){
 		this.pointedNode = pointedNode;	//the other edge being pointed to
 		this.isMarked = false;
+		this.passedThrough = false;
 		this.color = color;
 		this.weight = weight; 
 	}
@@ -118,9 +119,6 @@ function game(){
 
 	this.logic = function() {
 
-		//traces path
-//		for(var i = 0 ; i < nodes.length ; i++){
-		
 		
 		//check "closed" edges
 		for(var i = 0 ; i < nodes.length - 1 ; i++){
@@ -145,7 +143,7 @@ function game(){
 	for(var i = 0 ; i < nodes.length ; i++){
 		if(nodes[i].isMarked){
 			if(i == nodes.length - 1){
-				alert("YAAY!! :)");
+				alert("YAAY!! :) \n your steps:" + clickHistory.length);
 				exit();//yay, finished game!
 			}
 			else{
@@ -162,8 +160,8 @@ function game(){
 
 
 this.draw = function(){     	
-	drawNodes();
 	drawEdges();
+	drawNodes();
 
 	//back button drawing
 	drawBackButton();
@@ -202,6 +200,7 @@ function drawEdges(){
 	for(var i = 0 ; i < nodes.length ; i++)
 		for(var j = 0 ; j < nodes[i].edges.length ; j++)				
 			if(nodes[i].id > nodes[i].edges[j].pointedNode)	//connecting through one direction only
+			//if(i != j)
 				drawEdge(i , j);	
 }
 
@@ -248,13 +247,28 @@ function checkClick(){
 
 
 function clickNode(i){
+	if(i == lastClickedID)
+		return;
+	
 	for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 		if(nodes[lastClickedID].edges[j].pointedNode == i){
-			nodes[i].isMarked = true; //TODO somewhere else input !nodes[i].isMarked;
+			nodes[lastClickedID].edges[j].passedThrough = true;
+			nodes[i].edges[getEdge(i , lastClickedID)].passedThrough = true;
+			nodes[i].isMarked = true;
 			lastClickedID = i;
 			clickHistory.push(lastClickedID);
 		}
+		//TODO cancel node mark
 	}
+}
+
+function getEdge(from , to){
+	for(var i = 0 ; i < nodes[from].edges.length ; i++){
+		if(nodes[from].edges[i].pointedNode == to){
+			return i;	//edge index
+		}	
+	}
+
 }
 
 
@@ -278,13 +292,24 @@ function drawNode(imageHolder , node , isMouseOver){
 
 
 function drawEdge(nodeID , edgeIndex){
+	
+	if(nodes[nodeID].edges[edgeIndex].passedThrough)
+		drawAFuckingLine(nodeID , edgeIndex , boldLineColor , boldLineWidth);
+	
+	if(nodes[nodeID].edges[edgeIndex].isMarked)
+		drawAFuckingLine(nodeID , edgeIndex , markedLineColor , lineWidth);
+	else
+		drawAFuckingLine(nodeID , edgeIndex , lineColor , lineWidth);
+	
+
+
+}
+
+function drawAFuckingLine(nodeID , edgeIndex , color , lineW){
 	var indexTo = nodes[nodeID].edges[edgeIndex].pointedNode;
 	context.beginPath();
-	context.lineWidth=lineWidth;
-	if(nodes[nodeID].edges[edgeIndex].isMarked)
-		context.strokeStyle = markedLineColor;
-	else
-		context.strokeStyle = lineColor;
+	context.lineWidth = lineW;
+	context.strokeStyle = color;
 	context.moveTo(nodes[nodeID].x , nodes[nodeID].y);					
 	context.lineTo(nodes[indexTo].x , nodes[indexTo].y);
 	context.stroke();
