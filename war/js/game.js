@@ -176,7 +176,6 @@ function game(){
 		drawPlayElements();
 		
 		//back button drawing
-		
 		drawBackButton();
 		
 	}
