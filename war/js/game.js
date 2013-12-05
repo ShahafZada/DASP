@@ -198,22 +198,22 @@ function game(){
 			
 			if(nodes[i].isCurrent){				
 				if(mouseInNodeRange(nodes[i]))
-					context.drawImage(current_over, nodes[i].x - nodeSize/2 , nodes[i].y - nodeSize/2 , nodeSize , nodeSize);
+					drawNode(current_over , nodes[i]);
 				else
-					context.drawImage(current_regular, nodes[i].x - nodeSize/2 , nodes[i].y - nodeSize/2 , nodeSize , nodeSize);
+					drawNode(current_regular , nodes[i]);
 			}
 			
-			if(nodes[i].isMarked){	
+			else if(nodes[i].isMarked){	
 				if(mouseInNodeRange(nodes[i]))
-					context.drawImage(markedNode_over, nodes[i].x - markedNode_over.width/2 , nodes[i].y - markedNode_over.height/2);
+					drawNode(markedNode_over , nodes[i]);
 				else
-					context.drawImage(markedNode_regular, nodes[i].x - markedNode_regular.width/2 , nodes[i].y - markedNode_regular.height/2);
+					drawNode(markedNode_regular , nodes[i]);
 			}
 			else{					
 				if(mouseInNodeRange(nodes[i]))
-					context.drawImage(unmarkedNode_over, nodes[i].x - unmarkedNode_over.width/2 , nodes[i].y - unmarkedNode_over.height/2);
+					drawNode(unmarkedNode_over , nodes[i]);
 				else
-					context.drawImage(unmarkedNode_regular, nodes[i].x - unmarkedNode_regular.width/2 , nodes[i].y - unmarkedNode_regular.height/2);
+					drawNode(unmarkedNode_regular , nodes[i]);
 			}
 			
 			
@@ -275,8 +275,8 @@ function game(){
 			return false;
 	}
 	
-	function drawNode(imageHolder){
-		
+	function drawNode(imageHolder , node){
+		context.drawImage(imageHolder , node.x - nodeSize/2 , node.y - nodeSize/2 , nodeSize , nodeSize);
 	}
 	
 	function exit(){
