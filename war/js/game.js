@@ -61,8 +61,8 @@ function game(height, width){
 	function Edge(pointedNode , color , weight){
 		this.pointedNode = pointedNode;	//the other edge being pointed to
 
-		this.color
-		this.weight 
+		this.color = color;
+		this.weight = weight; 
 	}
 
 //	-------------------------------------------------------------
@@ -74,44 +74,73 @@ function game(height, width){
 
 
 	var numOfNodes = 5;
-
 	var nodes = [];
 	nodes.length = numOfNodes;
-
-	var randX;
-	var randY;
-	var xPosition;
-	var yPosition;
-	var spreadFactor = 300;	
-	var rightLimit = 40;
-	var leftLimit = width-40;
-	var topLimit = 40;
-	var bottomLimit = height-40;
+	var xPosition = 0;
+	var yPosition = 0;
+	var normalRadius = 20;
+	
 	for(var i = 0 ; i < numOfNodes ; i++){
+		
+		randomPoint(i);
+		if(i ==0)
+			nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , true);
+		else
+			nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , false);
+
+		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
+			if(i != j)							//creating edges from Node i to Node j
+				 addEdge(i , j);
+		}		
+	}
+	
+	function addEdge(fromNodeID , toNode){
+		var newEdge = new Edge(toNode , "rgb(15, 15, 15)" , 1);
+		nodes[fromNodeID].edges.push(newEdge);
+	}	
+
+	function randomPoint(i){		
+		var randX;
+		var randY;
+		var spreadFactor = width;
+		var rightLimit = normalRadius;
+		var leftLimit = width - normalRadius;
+		var topLimit = normalRadius;
+		var bottomLimit = height - normalRadius;	
 		do{
 			randX = Math.random();			
 			randY = Math.random();
 			xPosition =  randX*spreadFactor;
 			yPosition =  randY*spreadFactor;
 			
-		}while(!(xPosition > rightLimit && xPosition < leftLimit && yPosition > topLimit && yPosition < bottomLimit));
+		}while(!isPositionOk(xPosition, yPosition, rightLimit, leftLimit, topLimit, bottomLimit)
+				|| areNodesCollide(i, xPosition, yPosition, normalRadius));
 		
-		
-		if(i ==0)
-			nodes[i] = new Node(i , xPosition , yPosition , 40 , "rgb(155, 0, 0)" , true);
-		else
-			nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , false);
-
-		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
-			if(i != j)	//creating edges from Node i to Node j
-				 addEdge(i , j);
-		}
 	}
-
-	function addEdge(fromNodeID , toNode){
-		var newEdge = new Edge(toNode , "rgb(15, 15, 15)" , 1);
-		nodes[fromNodeID].edges.push(newEdge);
-	}	
+	function isPositionOk(x, y, right, left, top, bottom){
+		if(x > right && x < left && y > top && y < bottom)
+			return true;
+		else
+			return false;
+	}
+	
+	function areNodesCollide(i,x,y,radius){
+		var xDist;
+		var yDist;
+		var minRadius = 0;		
+		for(i = i-1 ;i >= 0; i--)
+		{			
+			xDist = Math.abs(nodes[i].x - x);
+			yDist = Math.abs(nodes[i].y - y);
+			minRadius = Math.min(nodes[i].radius, radius);
+			if(xDist < minRadius && yDist < minRadius)
+			{
+				//alert("BOOM!");				
+				return true;
+			}
+		}
+		return false;
+	}
 
 	
 	
@@ -251,48 +280,7 @@ function game(height, width){
 	canvas.addEventListener("mouseup", checkClick);
 
 //	-------------------------------------------------------------
+	
 
-	//===========TODO==============
-	
-	function randomPoint(height , width){
-		var randX;
-		var randY;
-		var xPosition;
-		var yPosition;
-		var spreadFactor = 300;	
-		var rightLimit = 0;
-		var leftLimit = width;
-		var topLimit = 0;
-		var bottomLimit = height;	
-		do{
-			randX = Math.random();			
-			randY = Math.random();
-			xPosition =  randX*spreadFactor;
-			yPosition =  randY*spreadFactor;
-			
-		}while(!(xPosition > rightLimit && xPosition < leftLimit && yPosition > topLimit && yPosition < bottomLimit))
-		
-	}
-	function isPositionOk(node){
-		var r = node.radius;
-		var xDist = node.x - mouseX;
-		var yDist = node.y - mouseY;
-		
-		if(r*r > xDist*xDist + yDist*yDist)
-			return true;
-		else
-			return false;
-	}
-	
-	function areNodesCollide(node1, node2){
-		var xDist = Math.abs(node1.x - node2.x);
-		var yDist = Math.abs(node1.y - node2.y);
-		var r = Math.min(node1.radius, node2.radius)
-		if(xDist < r || yDist < r)
-			return true;
-		else
-			return false;
-	}
-	
 }
 
