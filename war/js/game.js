@@ -1,5 +1,6 @@
 function game(){
 
+	//TODO draw new images, including a new current node
 //	-------------------------------------------------------------
 
 //	variant definitions :
@@ -9,12 +10,15 @@ function game(){
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var buttonDistFromEdges = height/8;
 
-	// lines :
+	// edges :
 	var lineWidth = "4";
 	var lineColor = "cyan";
 	var markedLineColor = "cyan";
 	var boldLineWidth = "8";	//must be larger than lineWidth
 	var boldLineColor = "black";
+//	var passedThroughEdges = [];
+//	var
+	//TODO add an array of edges in history (so they'll get drawn after the rest of the edges)
 
 	//nodes:
 	var nodeSize = height/10; //height and width are the same
@@ -72,7 +76,7 @@ function game(){
 		this.pointedNode = pointedNode;	//the other edge being pointed to
 		this.isMarked = false;
 		this.passedThrough = false;
-		this.color = color;
+		this.color = color;	//TODO call this instead of the global variable. change it in edges whenever a node gets clicked
 		this.weight = weight; 
 	}
 
@@ -81,7 +85,6 @@ function game(){
 //	object creation :
 	//this data is supposed to be taken from another file (a "stage" file)
 
-	//TODO - initially set every node and edge
 
 
 	var numOfNodes = 5;
@@ -197,11 +200,22 @@ function drawNodes(){
 }
 
 function drawEdges(){
-	for(var i = 0 ; i < nodes.length ; i++)
-		for(var j = 0 ; j < nodes[i].edges.length ; j++)				
-			if(nodes[i].id > nodes[i].edges[j].pointedNode)	//connecting through one direction only
-			//if(i != j)
-				drawEdge(i , j);	
+	for(var i = 0 ; i < nodes.length ; i++){
+		for(var j = 0 ; j < nodes[i].edges.length ; j++){				
+			if(nodes[i].id > nodes[i].edges[j].pointedNode){	//connecting through one direction only
+				
+				if(nodes[i].edges[j].passedThrough)
+					drawAFuckingLine(i , j , boldLineColor , boldLineWidth);
+				
+				if(nodes[i].edges[j].isMarked)
+					drawAFuckingLine(i , j , markedLineColor , lineWidth);
+				else
+					drawAFuckingLine(i , j , lineColor , lineWidth);	
+				
+				//TODO place the bold/marked lines above others
+			}
+		}
+	}
 }
 
 
@@ -291,20 +305,6 @@ function drawNode(imageHolder , node , isMouseOver){
 }
 
 
-function drawEdge(nodeID , edgeIndex){
-	
-	if(nodes[nodeID].edges[edgeIndex].passedThrough)
-		drawAFuckingLine(nodeID , edgeIndex , boldLineColor , boldLineWidth);
-	
-	if(nodes[nodeID].edges[edgeIndex].isMarked)
-		drawAFuckingLine(nodeID , edgeIndex , markedLineColor , lineWidth);
-	else
-		drawAFuckingLine(nodeID , edgeIndex , lineColor , lineWidth);
-	
-
-
-}
-
 function drawAFuckingLine(nodeID , edgeIndex , color , lineW){
 	var indexTo = nodes[nodeID].edges[edgeIndex].pointedNode;
 	context.beginPath();
@@ -336,7 +336,7 @@ function randomPoint(i){
 		yPosition =  randY*spreadFactor;
 
 	}while(!isPositionOk(xPosition, yPosition, rightLimit, leftLimit, topLimit, bottomLimit)
-			|| areNodesCollide(i, xPosition, yPosition, nodeSize/2));
+			|| areNodesCollide(i, xPosition, yPosition, (nodeSize/2)*(1+mouseOverEnlarger)));
 
 
 	if(i ==0)
