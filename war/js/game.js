@@ -56,11 +56,11 @@ function game(){
 		this.color = color;
 		if(isStart){
 			this.isStart = true;	//is the 
-			this.isMouseOver = false;			
+			this.isMarked = true;	
 		}
 		else{
 			this.isStart = false;
-			this.isMouseOver = false;
+			this.isMarked = false;
 		}
 
 		this.edges = [];
@@ -69,7 +69,7 @@ function game(){
 
 	function Edge(pointedNode , color , weight){
 		this.pointedNode = pointedNode;	//the other edge being pointed to
-		this.isMouseOver;
+		this.isMarked;
 		this.color = color;
 		this.weight = weight; 
 	}
@@ -204,17 +204,12 @@ function game(){
 				drawNode(current_regular , nodes[i] , mouseInNodeRange(nodes[i]));
 			}
 
-			else if(nodes[i].isMouseOver){	
+			else if(nodes[i].isMarked){
 				drawNode(markedNode_regular , nodes[i] , mouseInNodeRange(nodes[i]));
 			}
 			else{
 				drawNode(unmarkedNode_regular , nodes[i] , mouseInNodeRange(nodes[i]));
 			}
-
-
-
-
-
 
 		}
 	}
@@ -259,7 +254,7 @@ function game(){
 		//Node click check
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(mouseInNodeRange(nodes[i]))							
-				nodes[i].isMouseOver = !nodes[i].isMouseOver;														
+				nodes[i].isMarked = !nodes[i].isMarked;														
 		}
 
 		//Back-button check
