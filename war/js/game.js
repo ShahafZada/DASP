@@ -54,13 +54,16 @@ function game(){
 		this.radius = radius;
 		this.color = color;
 		if(isStart){
-			this.isCurrent = true;	//is the 
-			this.isMarked = false;
+			this.isCurrent = true;
+			this.isStart = true;	//is the 
+			this.isMarked = true;			
 		}
 		else{
 			this.isCurrent = false;
+			this.isStart = false;
 			this.isMarked = false;
 		}
+		
 		this.edges = [];
 	}
 
@@ -200,7 +203,7 @@ function game(){
 		
 		for(var i = 0 ; i < nodes.length ; i++){
 			
-			if(nodes[i].isCurrent){				
+			if(nodes[i].isStart){				
 				if(mouseInNodeRange(nodes[i]))
 					drawNode(current_over , nodes[i]);
 				else
