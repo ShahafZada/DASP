@@ -3,6 +3,8 @@ function game(){
 //	-------------------------------------------------------------
 
 //	variant definitions :
+
+	//back-button:
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var buttonDistFromEdges = height/8;
@@ -11,6 +13,9 @@ function game(){
 	var lineWidth = "4";
 	var lineColor = "cyan";
 	var markedLineColor = "magenta";
+	
+	//nodes:
+	var nodeSize = height/10; //height and width are the same
 
 //		images : 
 	var current_regular = new Image();
@@ -19,26 +24,23 @@ function game(){
 	var unmarkedNode_over = new Image();
 	var markedNode_regular = new Image();
 	var markedNode_over = new Image();
+	
+	var backButton = new Image();
+	var backButton_over = new Image();
+	
+	
+	var backButton = new Image();
+	var backButton_over = new Image();
+	
 	current_regular.src = "images/game/hollow_circle_current_20px.png";
 	current_over.src = "images/game/hollow_circle_current_over_30px.png";
 	unmarkedNode_regular.src = "images/game/hollow_circle_20px.png";
 	unmarkedNode_over.src = "images/game/hollow_circle_over_30px.png";
 	markedNode_regular.src = "images/game/hollow_circle_marked_20px.png";
 	markedNode_over.src = "images/game/hollow_circle_marked_over_30px.png";
-	
-	var backButton = new Image();
-	var backButton_over = new Image();
-	backButton.src = "images/backButton.png";
+		backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton_over.png";
 	
-	
-//	current_regular.style.margin = "0 auto";
-//	current_over.style.margin = "0 auto";
-//	unmarkedNode_regular.style.margin = "0 auto";
-//	unmarkedNode_over.style.margin = "0 auto";
-//	markedNode_regular.style.margin = "0 auto";
-//	markedNode_over.style.margin = "0 auto";
-
 //	-------------------------------------------------------------
 
 
@@ -83,15 +85,14 @@ function game(){
 	nodes.length = numOfNodes;
 	var xPosition = 0;
 	var yPosition = 0;
-	var normalRadius = 20;
 	
 	for(var i = 0 ; i < numOfNodes ; i++){
 		
 		randomPoint(i);
 		if(i ==0)
-			nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , true);
+			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , true);
 		else
-			nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , false);
+			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , false);
 
 		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
 			if(i != j)							//creating edges from Node i to Node j
@@ -108,10 +109,10 @@ function game(){
 		var randX;
 		var randY;
 		var spreadFactor = width;
-		var rightLimit = normalRadius;
-		var leftLimit = width - normalRadius;
-		var topLimit = normalRadius;
-		var bottomLimit = height - normalRadius;	
+		var rightLimit = nodeSize/2;
+		var leftLimit = width - nodeSize/2;
+		var topLimit = nodeSize/2;
+		var bottomLimit = height - nodeSize/2;	
 		do{
 			randX = Math.random();			
 			randY = Math.random();
@@ -119,8 +120,19 @@ function game(){
 			yPosition =  randY*spreadFactor;
 			
 		}while(!isPositionOk(xPosition, yPosition, rightLimit, leftLimit, topLimit, bottomLimit)
-				|| areNodesCollide(i, xPosition, yPosition, normalRadius));
+				|| areNodesCollide(i, xPosition, yPosition, nodeSize/2));
 		
+		
+		if(i ==0)
+			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , true);
+		else
+			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , false);
+
+		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
+			if(i != j)	//creating edges from Node i to Node j
+				 addEdge(i , j);
+		}
+
 	}
 	function isPositionOk(x, y, right, left, top, bottom){
 		if(x > right && x < left && y > top && y < bottom)
@@ -191,22 +203,22 @@ function game(){
 			
 			if(nodes[i].isCurrent){				
 				if(mouseInNodeRange(nodes[i]))
-					context.drawImage(current_over, nodes[i].x - current_over.width/2 , nodes[i].y - current_over.height/2);
+					drawNode(current_over , nodes[i]);
 				else
-					context.drawImage(current_regular, nodes[i].x - current_regular.width/2 , nodes[i].y - current_regular.height/2);
+					drawNode(current_regular , nodes[i]);
 			}
 			
-			if(nodes[i].isMarked){	
+			else if(nodes[i].isMarked){	
 				if(mouseInNodeRange(nodes[i]))
-					context.drawImage(markedNode_over, nodes[i].x - markedNode_over.width/2 , nodes[i].y - markedNode_over.height/2);
+					drawNode(markedNode_over , nodes[i]);
 				else
-					context.drawImage(markedNode_regular, nodes[i].x - markedNode_regular.width/2 , nodes[i].y - markedNode_regular.height/2);
+					drawNode(markedNode_regular , nodes[i]);
 			}
 			else{					
 				if(mouseInNodeRange(nodes[i]))
-					context.drawImage(unmarkedNode_over, nodes[i].x - unmarkedNode_over.width/2 , nodes[i].y - unmarkedNode_over.height/2);
+					drawNode(unmarkedNode_over , nodes[i]);
 				else
-					context.drawImage(unmarkedNode_regular, nodes[i].x - unmarkedNode_regular.width/2 , nodes[i].y - unmarkedNode_regular.height/2);
+					drawNode(unmarkedNode_regular , nodes[i]);
 			}
 				
 			for(var j = 0 ; j < nodes[i].edges.length ; j++){				
@@ -272,6 +284,10 @@ function game(){
 			return true;
 		else
 			return false;
+	}
+	
+	function drawNode(imageHolder , node){
+		context.drawImage(imageHolder , node.x - nodeSize/2 , node.y - nodeSize/2 , nodeSize , nodeSize);
 	}
 	
 	function exit(){
