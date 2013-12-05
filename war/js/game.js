@@ -1,4 +1,4 @@
-function game(){
+function game(height, width){
 
 //	-------------------------------------------------------------
 
@@ -46,11 +46,11 @@ function game(){
 		this.color = color;
 		if(isStart){
 			this.isCurrent = true;	//is the 
-			this.isMarker = false;
+			this.isMarked = false;
 		}
 		else{
 			this.isCurrent = false;
-			this.isMarker = false;
+			this.isMarked = false;
 		}
 		this.edges = [];
 	}
@@ -76,12 +76,29 @@ function game(){
 	var nodes = [];
 	nodes.length = numOfNodes;
 
-
+	var randX;
+	var randY;
+	var xPosition;
+	var yPosition;
+	var spreadFactor = 300;	
+	var rightLimit = 40;
+	var leftLimit = width-40;
+	var topLimit = 40;
+	var bottomLimit = height-40;
 	for(var i = 0 ; i < numOfNodes ; i++){
-		if(i ==0)
-			nodes[i] = new Node(i , 5*(i+1) , 5*(i+1) , 20 , "rgb(155, 0, 0)" , true);
+		do{
+			randX = Math.random();			
+			randY = Math.random();
+			xPosition =  randX*spreadFactor;
+			yPosition =  randY*spreadFactor;
+			
+		}while(!(xPosition > rightLimit && xPosition < leftLimit && yPosition > topLimit && yPosition < bottomLimit));
 		
-		nodes[i] = new Node(i , 30*(i+1) , 30*(i+1) , 20 , "rgb(155, 0, 0)" , false);
+		
+		if(i ==0)
+			nodes[i] = new Node(i , xPosition , yPosition , 40 , "rgb(155, 0, 0)" , true);
+		
+		nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , false);
 
 		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
 			if(i != j)	//creating edges from Node i to Node j
@@ -92,8 +109,10 @@ function game(){
 	function addEdge(fromNodeID , toNode){
 		var newEdge = new Edge(toNode , "rgb(15, 15, 15)" , 1);
 		nodes[fromNodeID].edges.push(newEdge);
-	}
+	}	
 
+	
+	
 //	-------------------------------------------------------------
 
 
@@ -129,20 +148,20 @@ function game(){
 
 		for(var i = 0 ; i < nodes.length ; i++){
 			
-			if(nodes[i].isCurrent){
+			if(nodes[i].isCurrent){				
 				if(mouseInNodeRange(nodes[i]))
 					context.drawImage(current_over, nodes[i].x - current_over.width/2 , nodes[i].y - current_over.height/2);
 				else
 					context.drawImage(current_regular, nodes[i].x - current_regular.width/2 , nodes[i].y - current_regular.height/2);
 			}
-
-			else if(nodes[i].isMarked){
+			
+			if(nodes[i].isMarked){	
 				if(mouseInNodeRange(nodes[i]))
 					context.drawImage(markedNode_over, nodes[i].x - markedNode_over.width/2 , nodes[i].y - markedNode_over.height/2);
 				else
 					context.drawImage(markedNode_regular, nodes[i].x - markedNode_regular.width/2 , nodes[i].y - markedNode_regular.height/2);
 			}
-			else{
+			else{					
 				if(mouseInNodeRange(nodes[i]))
 					context.drawImage(unmarkedNode_over, nodes[i].x - unmarkedNode_over.width/2 , nodes[i].y - unmarkedNode_over.height/2);
 				else
@@ -173,9 +192,16 @@ function game(){
 			return false;
 	}
 	
+	
 	function checkClick()
 	{
-		
+		//Node click check
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(mouseInNodeRange(nodes[i]))							
+				nodes[i].isMarked = !nodes[i].isMarked;														
+		}
+			
+		//Back button check
 		if((width - backButton.width < mouseX && mouseX < width) && (height - backButton.height < mouseY && mouseY < height)){	//clicked on back arrow
 			var event = document.createEvent("Event");
 			event.initEvent("changePage", true, true);
@@ -183,6 +209,14 @@ function game(){
 			window.dispatchEvent(event);
 			this.removeEventListener("mouseup", checkClick);
 		}
+	}
+	function exit()
+	{
+		var event = document.createEvent("Event");
+		event.initEvent("changePage", true, true);
+		event.customData = "goToGameMenu";
+		window.dispatchEvent(event);
+		this.removeEventListener("mouseup", checkClick);
 	}
 
 //	-------------------------------------------------------------
@@ -193,4 +227,47 @@ function game(){
 
 //	-------------------------------------------------------------
 
+	//===========TODO==============
+	
+	function randomPoint(height , width){
+		var randX;
+		var randY;
+		var xPosition;
+		var yPosition;
+		var spreadFactor = 300;	
+		var rightLimit = 0;
+		var leftLimit = width;
+		var topLimit = 0;
+		var bottomLimit = height;	
+		do{
+			randX = Math.random();			
+			randY = Math.random();
+			xPosition =  randX*spreadFactor;
+			yPosition =  randY*spreadFactor;
+			
+		}while(!(xPosition > rightLimit && xPosition < leftLimit && yPosition > topLimit && yPosition < bottomLimit))
+		
+	}
+	function isPositionOk(node){
+		var r = node.radius;
+		var xDist = node.x - mouseX;
+		var yDist = node.y - mouseY;
+		
+		if(r*r > xDist*xDist + yDist*yDist)
+			return true;
+		else
+			return false;
+	}
+	
+	function areNodesCollide(node1, node2){
+		var xDist = Math.abs(node1.x - node2.x);
+		var yDist = Math.abs(node1.y - node2.y);
+		var r = Math.min(node1.radius, node2.radius)
+		if(xDist < r || yDist < r)
+			return true;
+		else
+			return false;
+	}
+	
 }
+

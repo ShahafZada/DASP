@@ -22,12 +22,12 @@ function gameManager(){
     setInterval(update, everyXmiliseconds);
     
     this.onChangePage = function (e) {
-		alert(e.customData);
+		//alert(e.customData);
 		if (e.customData == "goToGameMenu") {
 			page = new gameMenu();
 		}
 		else if (e.customData == "goToGame") {
-			page = new game();	
+			page = new game(height, width);	
 		}
 		else if (e.customData == "goToGameInstructions") {
 			page = new gameInstructions();	
