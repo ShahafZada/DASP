@@ -31,7 +31,7 @@ function gameMenu(){
 
 	//	other small extras 
 	//glitches
-	var glitchRisk = 0.05;
+	var glitchRisk = 0.01;
 	var numOfGlitches = 9;
 	var dErr = glitchRisk/numOfGlitches;
 
