@@ -3,7 +3,9 @@ function game(height, width){
 //	-------------------------------------------------------------
 
 //	variant definitions :
-
+	var backButtonSize = height/10;	// the button area is square
+	var backButtonEnlargedSize = height/8;	// the button area is square
+	var buttonDistFromEdges = height/8;
 
 //		images : 
 	var current_regular = new Image();
@@ -97,8 +99,8 @@ function game(height, width){
 		
 		if(i ==0)
 			nodes[i] = new Node(i , xPosition , yPosition , 40 , "rgb(155, 0, 0)" , true);
-		
-		nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , false);
+		else
+			nodes[i] = new Node(i , xPosition , yPosition , 20 , "rgb(155, 0, 0)" , false);
 
 		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
 			if(i != j)	//creating edges from Node i to Node j
@@ -132,16 +134,22 @@ function game(height, width){
 
 	this.draw = function(){     	
 		drawPlayElements();
+		
 		//back button drawing
-		if((width - backButton.width < mouseX && mouseX < width) && (height - backButton.height < mouseY && mouseY < height))
-			context.drawImage(backButton_over , width - backButton_over.width , height - backButton_over.height);
-		else
-			context.drawImage(backButton , width - backButton.width , height - backButton.height);
+		
+		drawBackButton();
+		
 	}
 
 	
+
 	
-	
+//	-------------------------------------------------------------
+
+
+
+//	other private functions :
+
 	
 	function drawPlayElements(){     	
 
@@ -180,6 +188,14 @@ function game(height, width){
 
 		}
 	}
+	
+	function drawBackButton(){
+		if(isMouseOverBackButton())
+			context.drawImage(backButton_over , width - backButtonEnlargedSize/2 - buttonDistFromEdges , height - backButtonEnlargedSize/2 - buttonDistFromEdges , backButtonEnlargedSize , backButtonEnlargedSize);
+		else
+			context.drawImage(backButton , width - backButtonSize/2 - buttonDistFromEdges , height - backButtonSize/2 - buttonDistFromEdges , backButtonSize , backButtonSize);
+	}
+	
 
 	function mouseInNodeRange(node){
 		var r = node.radius;
@@ -193,16 +209,15 @@ function game(height, width){
 	}
 	
 	
-	function checkClick()
-	{
+	function checkClick(){
 		//Node click check
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(mouseInNodeRange(nodes[i]))							
 				nodes[i].isMarked = !nodes[i].isMarked;														
 		}
 			
-		//Back button check
-		if((width - backButton.width < mouseX && mouseX < width) && (height - backButton.height < mouseY && mouseY < height)){	//clicked on back arrow
+		//Back-button check
+		if(isMouseOverBackButton()){	//clicked on back arrow
 			var event = document.createEvent("Event");
 			event.initEvent("changePage", true, true);
 			event.customData = "goToGameMenu";
@@ -210,14 +225,24 @@ function game(height, width){
 			this.removeEventListener("mouseup", checkClick);
 		}
 	}
-	function exit()
-	{
+
+	
+	function isMouseOverBackButton(){
+		if((width - backButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + backButtonSize/2) &&
+				(height - backButtonSize/2 - buttonDistFromEdges < mouseY && mouseY < height - buttonDistFromEdges + backButtonSize/2))	//clicked on back arrow
+			return true;
+		else
+			return false;
+	}
+	
+	function exit(){
 		var event = document.createEvent("Event");
 		event.initEvent("changePage", true, true);
 		event.customData = "goToGameMenu";
 		window.dispatchEvent(event);
 		this.removeEventListener("mouseup", checkClick);
 	}
+
 
 //	-------------------------------------------------------------
 
