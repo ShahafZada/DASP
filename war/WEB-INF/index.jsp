@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
@@ -18,7 +19,7 @@
 
 <body>
 	<%@ include file="header.jsp"%>
-	<div id="center">
+	<div id="GameDiv">
 		<canvas id="canvas"  width="480" height="320"></canvas>
 	</div>
 	<%@ include file="footer.jsp"%>

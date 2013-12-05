@@ -1,3 +1,4 @@
+
 body {
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -31,6 +32,15 @@ table td,table th {
 }
 
 #center {
+    max-width: 100%;
+    min-height: 500px;
+   	position: static;
+	display: block;
+	margin-left: auto;
+	margin-top: auto;
+}
+
+#GameDiv {
     max-width: 100%;
     min-height: 500px;
    	position: static;
@@ -73,3 +83,5 @@ button {
 	margin-right: auto;
 	overflow: hidden;
 }
+
+
