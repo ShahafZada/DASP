@@ -6,6 +6,11 @@ function game(){
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var buttonDistFromEdges = height/8;
+	
+	// lines :
+	var lineWidth = "4";
+	var lineColor = "cyan";
+	var markedLineColor = "magenta";
 
 //		images : 
 	var current_regular = new Image();
@@ -60,7 +65,7 @@ function game(){
 
 	function Edge(pointedNode , color , weight){
 		this.pointedNode = pointedNode;	//the other edge being pointed to
-
+		
 		this.color = color;
 		this.weight = weight; 
 	}
@@ -180,9 +185,8 @@ function game(){
 //	other private functions :
 
 	
-	function drawPlayElements(){     	
-
-
+	function drawPlayElements(){     
+		
 		for(var i = 0 ; i < nodes.length ; i++){
 			
 			if(nodes[i].isCurrent){				
@@ -204,16 +208,21 @@ function game(){
 				else
 					context.drawImage(unmarkedNode_regular, nodes[i].x - unmarkedNode_regular.width/2 , nodes[i].y - unmarkedNode_regular.height/2);
 			}
-			
-			
-			
-			for(var j = 0 ; j < nodes[i].edges.length ; j++){
-				if(nodes[i].id > nodes[i].edges[j].nodeID){	//connecting through one direction only
-					context.moveTo(nodes[i].x , nodes[i].y);
-					context.lineTo(nodes[i].edges[j].pointedNode.x , nodes[i].edges[j].pointedNode.y);
+				
+			for(var j = 0 ; j < nodes[i].edges.length ; j++){				
+				if(nodes[i].id > nodes[i].edges[j].pointedNode){	//connecting through one direction only
+					var indexTo = nodes[i].edges[j].pointedNode;
+					context.beginPath();
+					context.lineWidth=lineWidth;
+					context.strokeStyle=lineColor;
+					context.moveTo(nodes[i].x , nodes[i].y);					
+					context.lineTo(nodes[indexTo].x , nodes[indexTo].y);
 					context.stroke();
 				}
 			}
+			
+
+			
 
 		}
 	}
@@ -252,6 +261,7 @@ function game(){
 			event.customData = "goToGameMenu";
 			window.dispatchEvent(event);
 			this.removeEventListener("mouseup", checkClick);
+			
 		}
 	}
 
