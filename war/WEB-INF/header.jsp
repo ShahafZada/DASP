@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <img alt="logo" src="images/logo.png" id="logo">
-<table>
+<table id="header_linkes">
 	<tr>
 		<td><img src="images/navigation/tool_bar.png"></td>
 		<td><a href="index" title="Try solving it!"><img

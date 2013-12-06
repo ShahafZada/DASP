@@ -10,7 +10,7 @@ body {
 	left: 0px;
 }
 
-table {
+ #header_linkes , #high_scores {
 	border-collapse: collapse;
 	border-spacing: 0;
 	position: relative;
@@ -83,5 +83,3 @@ button {
 	margin-right: auto;
 	overflow: hidden;
 }
-
-

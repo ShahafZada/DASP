@@ -1,5 +1,5 @@
 function game(){
-
+	
 	//TODO draw new images, including a new current node
 //	-------------------------------------------------------------
 
@@ -37,7 +37,6 @@ function game(){
 
 	var backButton = new Image();
 	var backButton_over = new Image();
-
 
 	var backButton = new Image();
 	var backButton_over = new Image();
@@ -146,7 +145,7 @@ function game(){
 	for(var i = 0 ; i < nodes.length ; i++){
 		if(nodes[i].isMarked){
 			if(i == nodes.length - 1){
-				alert("YAAY!! :) \n your steps:" + clickHistory.length);
+				//alert("YAAY!! :) \n your steps:" + clickHistory.length);
 				exit();//yay, finished game!
 			}
 			else{
@@ -375,13 +374,16 @@ function areNodesCollide(i,x,y,radius){
 }
 
 
-
 function exit(){
 	var event = document.createEvent("Event");
 	event.initEvent("changePage", true, true);
 	event.customData = "goToGameMenu";
 	window.dispatchEvent(event);
 	this.removeEventListener("mouseup", checkClick);
+	$("#score").text(clickHistory.length);
+	$("#scoreField").val(clickHistory.length);
+	score_popup();
+	//$("#scoreField").text("is"+ clickHistory.length);
 }
 
 
