@@ -87,7 +87,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>contact_us</servlet-name>
 		<url-pattern>/contact_us</url-pattern>
 	</servlet-mapping>
- 
+
 	<servlet>
 		<servlet-name>statistics</servlet-name>
 		<jsp-file>/WEB-INF/statistics.jsp</jsp-file>
@@ -115,5 +115,35 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/what_is_this</url-pattern>
 	</servlet-mapping>
 
+
+	<servlet>
+		<servlet-name>serverServlet</servlet-name>
+		<servlet-class>backend.breakingcode.client.server_side_breakingcode</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>serverServlet</servlet-name>
+		<url-pattern>/server</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>greetServlet</servlet-name>
+		<servlet-class>backend.breakingcode.server.GreetingServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>greetServlet</servlet-name>
+		<url-pattern>/greet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveGameScores</servlet-name>
+		<servlet-class>gaming.SaveGameScores</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveGameScores</servlet-name>
+		<url-pattern>/SaveGameScores</url-pattern>
+	</servlet-mapping>
+	
+	
 
 </web-app>
