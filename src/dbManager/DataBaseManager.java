@@ -25,7 +25,8 @@ public final class DataBaseManager
     {
     	pm.makePersistent(s);
     }
-    public List<GameScore> getScoreForPlayer(String name)
+    @SuppressWarnings("unchecked")
+	public List<GameScore> getScoreForPlayer(String name)
     {
     	System.out.println("getting scores for player " + name);
     	javax.jdo.Query q = pm.newQuery(GameScore.class);
@@ -33,7 +34,8 @@ public final class DataBaseManager
     	q.declareParameters("String theName");
     	return (List<GameScore>)q.execute(name);
     }
-    public List<GameScore> getAllScores()
+    @SuppressWarnings("unchecked")
+	public List<GameScore> getAllScores()
     {
     	javax.jdo.Query q = pm.newQuery(GameScore.class);
     	return (List<GameScore>)q.execute();

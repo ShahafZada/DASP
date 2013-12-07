@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-@SuppressWarnings("serial")
+
 public class BreakingCodeServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
