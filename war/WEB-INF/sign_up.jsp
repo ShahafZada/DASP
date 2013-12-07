@@ -13,9 +13,7 @@
 	<%@ include file="header.jsp"%>
 	<div id="center">
 
-	<!-- <img src="images/sign_up/sign_up.png">
-		<button onclick="signupFunction()">Sign up</button> -->	
-	<form action="LoginServlet">
+	<form action="sign_up">
 		<table>
 			<tr>
 				<th colspan="2">Login Form</th>
