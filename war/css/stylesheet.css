@@ -45,8 +45,8 @@ table td,table th {
     min-height: 500px;
    	position: static;
 	display: block;
-	margin-left: 400px;
-	margin-top: 100px;
+	margin-left: 200px;
+	margin-top: 10px;
 }
 
 #high_scores {
