@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<%@page import="gaming.GameScore"%>
+<%@page import="datastoreEntities.GameScore"%>
 <%@page import="dbManager.DataBaseManager"%>
 <%@page import="java.util.List;"%>
 <html>

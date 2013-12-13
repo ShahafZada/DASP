@@ -23,12 +23,19 @@ table td,table th {
 	padding: 0;
 }
 
-.text {
+.about_us {
 	font-family: Calibri;
 	font-size: 20px;
 	padding-top: 25px;
 	padding-left: 50px;
 	width: 1000px;
+}
+
+.text {
+	font-family: Calibri;
+	font-size: 20px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 #center {

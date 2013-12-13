@@ -10,8 +10,8 @@
 
 <body>
 	<%@ include file="header.jsp"%>
-	<div id="center">
-		<div class="text">
+	
+		<div class="about_us">
 			<p>This is an engineering course project, done by a group of
 				people no one heard of... yeah, I know you don't care, but since
 				you're reading this you might actually enjoy wasting time, so by all
@@ -55,7 +55,7 @@
 				more effective. All we'd ask for is a small slice of the
 				profits/savings you'd get by using our product.</p>
 		</div>
-	</div>
+	
 	<%@ include file="footer.jsp"%>
 
 </body>

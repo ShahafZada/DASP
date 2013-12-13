@@ -124,26 +124,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>serverServlet</servlet-name>
 		<url-pattern>/server</url-pattern>
 	</servlet-mapping>
-	
-	
-	<servlet>
-		<servlet-name>greetServlet</servlet-name>
-		<servlet-class>backend.breakingcode.server.GreetingServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>greetServlet</servlet-name>
-		<url-pattern>/greet</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>SaveGameScores</servlet-name>
-		<servlet-class>gaming.SaveGameScores</servlet-class>
+		<servlet-class>datastoreEntities.SaveGameScores</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SaveGameScores</servlet-name>
 		<url-pattern>/SaveGameScores</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>SaveNewPlayer</servlet-name>
+		<servlet-class>datastoreEntities.SaveNewPlayer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveNewPlayer</servlet-name>
+		<url-pattern>/SaveNewPlayer</url-pattern>
+	</servlet-mapping>
 	
 
 </web-app>

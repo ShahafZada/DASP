@@ -1,12 +1,13 @@
 package dbManager;
 import java.util.List;
 
-import gaming.GameScore;
-
 import javax.jdo.PersistenceManager;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+
+import datastoreEntities.GameScore;
+import datastoreEntities.Player;
 public final class DataBaseManager
  {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -40,5 +41,11 @@ public final class DataBaseManager
     	javax.jdo.Query q = pm.newQuery(GameScore.class);
     	return (List<GameScore>)q.execute();
     }
+
+
+	public void insertNewPlayer(Player player) {
+		pm.makePersistent(player);
+		
+	}
 
 }
