@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -38,23 +38,23 @@
     <fieldset class="text">
         <div>
             <label for="first_name">First Name</label>
-            <input id="first_name" type="text" name="theFirstName" placeholder="First name">
+            <input id="first_name" type="text" name="theFirstName" required placeholder="First name">
         </div>
         <div>
             <label for="last_name">Last Name</label>
-            <input id="last_name" type="text" name="theLastName" placeholder="Last name">
+            <input id="last_name" type="text" name="theLastName" required placeholder="Last name">
         </div>
         <div>
             <label for="password">Password</label>
-            <input id="password" name="thePassword" type="password" placeholder="Password">
+            <input id="password" name="thePassword" type="password" required placeholder="Password">
         </div>
         <div>
             <label for="email">Email Address</label>
-            <input id="email" name="theEmail" type="email" placeholder="Email Address">
+            <input id="email" name="theEmail" type="email" required placeholder="Email Address">
         </div>
         <div>
             <label for="age">Age</label>
-            <input id="age" name="theAge" type="text" placeholder="Your age">
+            <input id="age" name="theAge" type="text" required placeholder="Your age">
         </div>
 		<div>
             <label for="sex">Sex</label>
@@ -78,22 +78,22 @@
         
 		<div>
             <label for="Country">Country</label>
-            <input id="country" name="theCountry" type="text" placeholder="Your country">
+            <input id="country" name="theCountry" type="text" required placeholder="Your country">
         </div>
         
         <div>
             <label for="city">City</label>
-            <input id="city" name="theCity" type="text" placeholder="Your city">
+            <input id="city" name="theCity" type="text" required placeholder="Your city">
         </div>
         
         <div>
             <label for="picture">Picture</label>
-            <input id="picture" name="thePicture" type="file">
+            <input id="picture" name="thePicture" required type="file">
         </div>
 
         <div>
             <label for="checkbox">
-                <input id="checkbox" name="theCheckbox" type="checkbox"> I've read the terms and conditions
+                <input id="checkbox" name="theCheckbox" required type="checkbox"> I've read the terms and conditions
             </label>
 
             <button type="submit">Submit</button>

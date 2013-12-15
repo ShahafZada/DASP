@@ -49,6 +49,7 @@ public class SaveNewPlayer extends HttpServlet {
 		Object picture = request.getParameter("thePicture");//TODO upload this
 		Object checkbox = request.getParameter("theCheckbox");//TODO check this
 		
+	
 		if (first_name != null && last_name != null && password != null && email != null && age != null && sex != null && education != null && country != null && city != null && picture != null && checkbox != null)
 		{
 			Player player = new Player(first_name.toString(), last_name.toString(), email.toString(), password.toString(), age.toString(), sex.toString(), country.toString(), city.toString(), education.toString(), picture.toString() );
