@@ -1,6 +1,7 @@
 package dbManager;
 import java.util.List;
 
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -46,6 +47,19 @@ public final class DataBaseManager
 	public void insertNewPlayer(Player player) {
 		pm.makePersistent(player);
 		
+	}
+
+
+	public boolean findElementById(Object oid) {
+		
+		try {
+			pm.getObjectById(Player.class, oid);
+	
+		} catch (JDOObjectNotFoundException  e) {
+			//New User
+			return false;
+		}
+		return true;
 	}
 
 }

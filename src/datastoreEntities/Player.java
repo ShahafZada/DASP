@@ -1,26 +1,21 @@
 package datastoreEntities;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class Player {
-	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;
+    @PrimaryKey
+    @Persistent
+    private String email;
 
     @Persistent
     private String firstName;
     
     @Persistent
     private String lastName;
-
-    @Persistent
-    private String email;
 
     @Persistent
     private String password;
@@ -61,11 +56,6 @@ public class Player {
 	    this.totalPlayTime = 0;
 	    this.picture = picture;
 	}
-
-	
-    public Key getKey() {
-        return key;
-    }
 
     
     public String getFirstName() {

@@ -39,19 +39,26 @@ public class SaveNewPlayer extends HttpServlet {
 	
 		Object first_name = request.getParameter("theFirstName");
 		Object last_name = request.getParameter("theLastName");
-		Object password = request.getParameter("thePassword");
+		Object password = request.getParameter("thePassword");//TODO use hash
 		Object email = request.getParameter("theEmail");
 		Object age = request.getParameter("theAge");
 		Object sex = request.getParameter("theSex");
 		Object education = request.getParameter("theEducation");
 		Object country = request.getParameter("theCountry");
 		Object city = request.getParameter("theCity");
-		Object picture = request.getParameter("thePicture");//TODO upload this
-		Object checkbox = request.getParameter("theCheckbox");//TODO check this
-		
+		Object picture = request.getParameter("thePicture");
+		Object checkbox = request.getParameter("theCheckbox");
 	
 		if (first_name != null && last_name != null && password != null && email != null && age != null && sex != null && education != null && country != null && city != null && picture != null && checkbox != null)
 		{
+			boolean exists = DataBaseManager.getInstance().findElementById(email);
+			if(exists) {
+				System.out.println("found");
+				request.setAttribute("error", "User with this email is already exists in the Database");
+				request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
+				//response.sendRedirect("sign_up");
+				return;
+			}
 			Player player = new Player(first_name.toString(), last_name.toString(), email.toString(), password.toString(), age.toString(), sex.toString(), country.toString(), city.toString(), education.toString(), picture.toString() );
 			
 			HttpSession session = request.getSession();
@@ -59,6 +66,6 @@ public class SaveNewPlayer extends HttpServlet {
 	
 			DataBaseManager.getInstance().insertNewPlayer(player);
 		}
-		//response.sendRedirect("sign_up");
+		response.sendRedirect("sign_up");
 	}
 }

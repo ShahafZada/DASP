@@ -34,7 +34,7 @@
 	
 	
 	
-	<form id="player_form" action="SaveNewPlayer" method="post">
+	<form id="player_form" action=SaveNewPlayer method="post">
     <fieldset class="text">
         <div>
             <label for="first_name">First Name</label>
@@ -54,7 +54,7 @@
         </div>
         <div>
             <label for="age">Age</label>
-            <input id="age" name="theAge" type="text" required placeholder="Your age">
+            <input id="age" name="theAge" type="number" min="1" max="200" required placeholder="Your age">
         </div>
 		<div>
             <label for="sex">Sex</label>
@@ -99,6 +99,7 @@
             <button type="submit">Submit</button>
         </div>
     </fieldset>
+    <span class="error">${error}</span>
 </form>
 	
 	
