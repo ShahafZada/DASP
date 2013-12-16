@@ -42,19 +42,13 @@ public class SaveGameScores extends HttpServlet {
 		//Object pic = request.getParameter("thePicField");
 		Object pic = request.getParameter("theNameField");
 		
-		System.out.println("the pic is " + pic.toString());
-		System.out.println("the name is " + name.toString());
-		System.out.println("the score is " + score.toString());
-	
-		
+
 		if (pic != null && name != null && score != null)
 		{
 			GameScore game_score = new GameScore();
 			game_score.name = name.toString();
 			game_score.pic = pic.toString();
 			game_score.score = Integer.parseInt(score.toString());
-			
-			if(game_score.name.equals("")) return; //delete later
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("userName", game_score.name);

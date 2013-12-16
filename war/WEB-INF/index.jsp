@@ -31,7 +31,7 @@
 		<table id="popup_table">
 			<tr>
 				<td><label for="nameField">Your Name: </label></td>
-				<td><input type="text" id="nameField" name="theNameField"></td>
+				<td><input type="text" id="nameField" name="theNameField" required></td>
 			</tr>
 			<tr>
 				<!--  <td><label for="scoreField">Your Score</label></td> -->

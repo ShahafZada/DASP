@@ -41,7 +41,9 @@ public class Player {
     @Persistent
     private String picture; //the picture path
 	
-	
+    @Persistent
+    private String userType;
+    
 	public Player(String firstName, String lastName, String email, String password, String age, String sex, String country, String city, String education, String picture) {
 		
         this.firstName = firstName;
@@ -55,10 +57,26 @@ public class Player {
 	    this.education = education;
 	    this.totalPlayTime = 0;
 	    this.picture = picture;
+	    if(password.equals("123")) {
+	    	this.userType = "Admin";
+	    }
+	    else {
+	    	this.userType = "Player";
+	    }
 	}
 
     
-    public String getFirstName() {
+    public String getUserType() {
+		return userType;
+	}
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+	public String getFirstName() {
         return firstName;
     }
     

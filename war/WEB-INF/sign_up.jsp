@@ -19,12 +19,12 @@
 				<th>Login Form</th>
 			</tr>
 			<tr>
-				<td>Enter your User Name:</td>
-				<td><input type=text name="userId"></td>
+				<td>Enter your Email:</td>
+				<td><input type="email" name="userEmail"></td>
 			</tr>
 			<tr>
 				<td>Enter your Password:</td>
-				<td><input type="password" name="password"></td>
+				<td><input type="password" name="userPassword"></td>
 			</tr>
 			<tr>
 				<td><button onclick="signupFunction()">Sign up</button></td>
@@ -38,19 +38,19 @@
     <fieldset class="text">
         <div>
             <label for="first_name">First Name</label>
-            <input id="first_name" type="text" name="theFirstName" required placeholder="First name">
+            <input id="first_name" type="text" name="theFirstName" size="15" required placeholder="First name">
         </div>
         <div>
             <label for="last_name">Last Name</label>
-            <input id="last_name" type="text" name="theLastName" required placeholder="Last name">
+            <input id="last_name" type="text" name="theLastName" size="15" required placeholder="Last name">
         </div>
         <div>
             <label for="password">Password</label>
-            <input id="password" name="thePassword" type="password" required placeholder="Password">
+            <input id="password" name="thePassword" type="password" size="15" required placeholder="Password">
         </div>
         <div>
             <label for="email">Email Address</label>
-            <input id="email" name="theEmail" type="email" required placeholder="Email Address">
+            <input id="email" name="theEmail" type="email" size="15" required placeholder="Email Address">
         </div>
         <div>
             <label for="age">Age</label>
@@ -78,12 +78,12 @@
         
 		<div>
             <label for="Country">Country</label>
-            <input id="country" name="theCountry" type="text" required placeholder="Your country">
+            <input id="country" name="theCountry" type="text" size="15" required placeholder="Your country">
         </div>
         
         <div>
             <label for="city">City</label>
-            <input id="city" name="theCity" type="text" required placeholder="Your city">
+            <input id="city" name="theCity" type="text" size="15" required placeholder="Your city">
         </div>
         
         <div>
@@ -99,7 +99,7 @@
             <button type="submit">Submit</button>
         </div>
     </fieldset>
-    <span class="message">${message}</span>
+    <span class="signup_message">${message}</span>
 </form>
 	
 	

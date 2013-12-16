@@ -46,14 +46,14 @@ public class SaveNewPlayer extends HttpServlet {
 		Object education = request.getParameter("theEducation");
 		Object country = request.getParameter("theCountry");
 		Object city = request.getParameter("theCity");
-		Object picture = request.getParameter("thePicture");
+		Object picture = request.getParameter("thePicture"); //TODO add functionality choose picture from database
 		Object checkbox = request.getParameter("theCheckbox");
 	
 		if (first_name != null && last_name != null && password != null && email != null && age != null && sex != null && education != null && country != null && city != null && picture != null && checkbox != null)
 		{
 			boolean exists = DataBaseManager.getInstance().findElementById(email);
 			if(exists) {
-				request.setAttribute("message", "User with this email is already exists in the Database");
+				request.setAttribute("message", "Error: User with this email is already exists");
 				request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
 				return;
 			}
@@ -64,7 +64,7 @@ public class SaveNewPlayer extends HttpServlet {
 	
 			DataBaseManager.getInstance().insertNewPlayer(player);
 		}
-		request.setAttribute("message", "Welcome "+first_name+ " "+last_name);
+		request.setAttribute("message", "Welcome "+first_name+ " "+last_name+", You are now logged in!");
 		request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
 	}
 }

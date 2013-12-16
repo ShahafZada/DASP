@@ -133,7 +133,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>SaveGameScores</servlet-name>
 		<url-pattern>/SaveGameScores</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SaveNewPlayer</servlet-name>
 		<servlet-class>datastoreEntities.SaveNewPlayer</servlet-class>
@@ -142,6 +142,34 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>SaveNewPlayer</servlet-name>
 		<url-pattern>/SaveNewPlayer</url-pattern>
 	</servlet-mapping>
-	
+
+
+	<security-constraint>
+		<display-name>Security Configuration</display-name>
+		<web-resource-collection>
+			<web-resource-name>Restricted</web-resource-name>
+			<url-pattern>/sign_up</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>AuthorizedUser</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/sign_up</form-login-page>
+			<form-error-page>/sign_up</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-role>
+		<role-name>*</role-name>
+	</security-role>
+
+
 
 </web-app>
