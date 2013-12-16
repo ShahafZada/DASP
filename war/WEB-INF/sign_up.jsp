@@ -99,7 +99,7 @@
             <button type="submit">Submit</button>
         </div>
     </fieldset>
-    <span class="error">${error}</span>
+    <span class="message">${message}</span>
 </form>
 	
 	

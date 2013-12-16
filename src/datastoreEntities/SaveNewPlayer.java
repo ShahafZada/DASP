@@ -53,10 +53,8 @@ public class SaveNewPlayer extends HttpServlet {
 		{
 			boolean exists = DataBaseManager.getInstance().findElementById(email);
 			if(exists) {
-				System.out.println("found");
-				request.setAttribute("error", "User with this email is already exists in the Database");
+				request.setAttribute("message", "User with this email is already exists in the Database");
 				request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
-				//response.sendRedirect("sign_up");
 				return;
 			}
 			Player player = new Player(first_name.toString(), last_name.toString(), email.toString(), password.toString(), age.toString(), sex.toString(), country.toString(), city.toString(), education.toString(), picture.toString() );
@@ -66,6 +64,7 @@ public class SaveNewPlayer extends HttpServlet {
 	
 			DataBaseManager.getInstance().insertNewPlayer(player);
 		}
-		response.sendRedirect("sign_up");
+		request.setAttribute("message", "Welcome "+first_name+ " "+last_name);
+		request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
 	}
 }
