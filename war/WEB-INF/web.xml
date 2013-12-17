@@ -145,15 +145,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 
 	<security-constraint>
-		<display-name>Security Configuration</display-name>
+		<display-name>SecurityConstraint</display-name>
 		<web-resource-collection>
-			<web-resource-name>Restricted</web-resource-name>
+			<web-resource-name>WRCollection</web-resource-name>
 			<url-pattern>/sign_up</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>AuthorizedUser</role-name>
+			<role-name>*</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
