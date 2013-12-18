@@ -38,6 +38,9 @@ function gameManager(){
 		else if (e.customData == "goToGameCredits") {
 			page = new gameCredits();	
 		}
+		else if (e.customData == "goToCreateGame") {
+			page = new createGame();	
+		}
 		
 	}
 	

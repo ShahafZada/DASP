@@ -589,7 +589,16 @@ function gameMenu(){
 			window.dispatchEvent(event);
 			this.removeEventListener('mouseup' , checkClick);
 		}
+		
+		if(createButtonOver.isOver){
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToCreateGame";
+			window.dispatchEvent(event);
+			this.removeEventListener('mouseup' , checkClick);
+		}
 	}
+	
 	
 	//TODO find out why eliminating the listeners through an external function (right here where this comment is) causes problems
 	//problems description: alerts get multiplied and eventually prevent the passage between pages
