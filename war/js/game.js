@@ -38,13 +38,11 @@ function game(){
 	var backButton = new Image();
 	var backButton_over = new Image();
 
-	var backButton = new Image();
-	var backButton_over = new Image();
-
 	current_regular.src = "images/game/hollow_circle_current_20px.png";
 	unmarkedNode_regular.src = "images/game/hollow_circle_20px.png";
 	markedNode_regular.src = "images/game/hollow_circle_marked_20px.png";
 	backButton.src = "images/backButton.png";
+	backButton_over.src = "images/backButton.png";
 
 //	-------------------------------------------------------------
 
@@ -174,8 +172,6 @@ this.draw = function(){
 
 
 //-------------------------------------------------------------
-
-
 
 //other private functions :
 
@@ -323,7 +319,7 @@ function addEdge(fromNodeID , toNodeID){
 function randomPoint(i){		
 	var randX;
 	var randY;
-	var spreadFactor = width;
+	var spreadFactor = width - backButtonEnlargedSize - buttonDistFromEdges;
 	var rightLimit = nodeSize/2;
 	var leftLimit = width - nodeSize/2;
 	var topLimit = nodeSize/2;
@@ -333,8 +329,8 @@ function randomPoint(i){
 		randY = Math.random();
 		xPosition =  randX*spreadFactor;
 		yPosition =  randY*spreadFactor;
-
-	}while(!isPositionOk(xPosition, yPosition, rightLimit, leftLimit, topLimit, bottomLimit)
+//width - backButtonEnlargedSize - buttonDistFromEdges
+	}while(!isInsideWindow(xPosition, yPosition, rightLimit, leftLimit, topLimit, bottomLimit)
 			|| areNodesCollide(i, xPosition, yPosition, (nodeSize/2)*(1+mouseOverEnlarger)));
 
 
@@ -350,7 +346,7 @@ function randomPoint(i){
 
 }
 
-function isPositionOk(x, y, right, left, top, bottom){
+function isInsideWindow(x, y, right, left, top, bottom){
 	if(x > right && x < left && y > top && y < bottom)
 		return true;
 	else
@@ -360,12 +356,12 @@ function isPositionOk(x, y, right, left, top, bottom){
 function areNodesCollide(i,x,y,radius){
 	var xDist;
 	var yDist;
-	var minRadius = 0;		
+	var minRadius;		
 	for(i = i-1 ;i >= 0; i--){			
 		xDist = Math.abs(nodes[i].x - x);
 		yDist = Math.abs(nodes[i].y - y);
-		minRadius = Math.min(nodes[i].radius, radius);
-		if(xDist < minRadius && yDist < minRadius){
+		maxRadius = Math.max(nodes[i].radius, radius);
+		if(xDist*xDist + yDist*yDist < maxRadius*maxRadius){
 			//alert("BOOM!");				
 			return true;
 		}
