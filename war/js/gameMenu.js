@@ -76,11 +76,13 @@ function gameMenu(){
 	var instructionsButton = new Image();
 	var settingsButton = new Image();
 	var creditsButton = new Image();
+	var createButton = new Image();
 
 	var playButtonOver = new Image();
 	var instructionsButtonOver = new Image();
 	var settingsButtonOver = new Image();
 	var creditsButtonOver = new Image();
+	var createButtonOver = new Image();
 
 	var buttons = [];
 	var buttonsOver = [];
@@ -109,11 +111,13 @@ function gameMenu(){
 	instructionsButton.src = "images/GameMainMenu/Instructions_bold.png";
 	settingsButton.src = "images/GameMainMenu/Settings_bold.png";
 	creditsButton.src = "images/GameMainMenu/Credits_bold.png";
+	createButton.src = "images/GameMainMenu/map_generation.png";
 
 	playButtonOver.src = "images/GameMainMenu/Play_bold.png";
 	instructionsButtonOver.src = "images/GameMainMenu/Instructions_bold.png";
 	settingsButtonOver.src = "images/GameMainMenu/Settings_bold.png";
 	creditsButtonOver.src = "images/GameMainMenu/Credits_bold.png";
+	createButtonOver.src = "images/GameMainMenu/map_generation.png";
 
 	leftArrow.src = "images/GameMainMenu/arrow_pointing_right.png";
 	rightArrow.src = "images/GameMainMenu/arrow_pointing_left.png";
@@ -149,6 +153,8 @@ function gameMenu(){
 	buttons.push(instructionsButton);
 	buttons.push(settingsButton);
 	buttons.push(creditsButton);
+	buttons.push(createButton);
+
 
 	setButtonHeightAndYPosition(buttons , buttonToPageHeightRatio);
 
@@ -157,6 +163,8 @@ function gameMenu(){
 	buttonsOver.push(instructionsButtonOver);
 	buttonsOver.push(settingsButtonOver);
 	buttonsOver.push(creditsButtonOver);
+	buttonsOver.push(createButtonOver);
+
 
 	setButtonHeightAndYPosition(buttonsOver , buttonOverToPageHeightRatio);
 
@@ -223,6 +231,8 @@ function gameMenu(){
 	settingsButton.onload = function(){setButtonStats(settingsButton , buttons);}
 
 	creditsButton.onload = function(){setButtonStats(creditsButton , buttons);}
+	
+	createButton.onload = function(){setButtonStats(createButton , buttons);}
 
 
 	playButtonOver.onload = function(){setButtonStats(playButtonOver , buttonsOver);}
@@ -232,6 +242,8 @@ function gameMenu(){
 	settingsButtonOver.onload = function(){setButtonStats(settingsButtonOver , buttonsOver);}
 
 	creditsButtonOver.onload = function(){setButtonStats(creditsButtonOver , buttonsOver);}
+
+	createButtonOver.onload = function(){setButtonStats(createButtonOver , buttonsOver);}
 
 
 	leftArrow.onload = function(){	//technically could have been rightArrow.onload, because we assume they're the same width
