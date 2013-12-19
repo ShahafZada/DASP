@@ -27,7 +27,8 @@ function gameManager(){
 			page = new gameMenu();
 		}
 		else if (e.customData == "goToGameChoice") {
-			page = new gameChoice();	
+			page = new gameChoice();
+			//page = new game();
 		}
 		else if (e.customData == "goToGameInstructions") {
 			page = new gameInstructions();	
