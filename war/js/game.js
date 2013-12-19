@@ -28,19 +28,22 @@ function game(){
 	clickHistory.push(lastClickedID);
 
 //	images : 
-	var current_regular = new Image();
-	var current_over = new Image();
-	var unmarkedNode_regular = new Image();
-	var unmarkedNode_over = new Image();
-	var markedNode_regular = new Image();
-	var markedNode_over = new Image();
-
+	var startNode = new Image();
+	var start_currentNode = new Image();
+	var markedNode = new Image();
+	var marked_currentNode = new Image();
+	var nonvisitedNode = new Image();
+	
 	var backButton = new Image();
 	var backButton_over = new Image();
-
-	current_regular.src = "images/game/hollow_circle_current_20px.png";
-	unmarkedNode_regular.src = "images/game/hollow_circle_20px.png";
-	markedNode_regular.src = "images/game/hollow_circle_marked_20px.png";
+	
+	
+	startNode.src = "images/game/start_node.png";
+	start_currentNode.src = "images/game/start_current_node.png";
+	markedNode.src = "images/game/marked_node.png";
+	marked_currentNode.src = "images/game/marked_current_node.png";
+	nonvisitedNode.src = "images/game/nonvisited_node.png";
+	
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
 
@@ -58,7 +61,7 @@ function game(){
 		this.color = color;
 		if(isStart){
 			this.isStart = true;	//is the 
-			this.isMarked = true;	
+			this.isMarked = true;
 		}
 		else{
 			this.isStart = false;
@@ -180,15 +183,23 @@ function drawNodes(){
 
 	for(var i = 0 ; i < nodes.length ; i++){
 
-		if(nodes[i].isStart){				
-			drawNode(current_regular , nodes[i] , mouseInNodeRange(nodes[i]));
+		if(nodes[i].isStart){
+			if(nodes[i].id == lastClickedID)	//current
+				drawNode(start_currentNode , nodes[i] , mouseInNodeRange(nodes[i]));
+			
+			else
+				drawNode(startNode , nodes[i] , mouseInNodeRange(nodes[i]));
 		}
 
 		else if(nodes[i].isMarked){
-			drawNode(markedNode_regular , nodes[i] , mouseInNodeRange(nodes[i]));
+			if(nodes[i].id == lastClickedID)	//current
+				drawNode(marked_currentNode , nodes[i] , mouseInNodeRange(nodes[i]));
+			else
+				drawNode(markedNode , nodes[i] , mouseInNodeRange(nodes[i]));
 		}
+		
 		else{
-			drawNode(unmarkedNode_regular , nodes[i] , mouseInNodeRange(nodes[i]));
+			drawNode(nonvisitedNode , nodes[i] , mouseInNodeRange(nodes[i]));
 		}
 
 	}
@@ -360,8 +371,8 @@ function areNodesCollide(i,x,y,radius){
 	for(i = i-1 ;i >= 0; i--){			
 		xDist = Math.abs(nodes[i].x - x);
 		yDist = Math.abs(nodes[i].y - y);
-		maxRadius = Math.max(nodes[i].radius, radius);
-		if(xDist*xDist + yDist*yDist < maxRadius*maxRadius){
+		circularDistance = nodes[i].radius + radius;
+		if(xDist*xDist + yDist*yDist < circularDistance*circularDistance){
 			//alert("BOOM!");				
 			return true;
 		}

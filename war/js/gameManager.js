@@ -44,7 +44,7 @@ function gameManager(){
 		
 	}
 	
-    this.repositionMouse= function(mouseEvent) {
+    this.repositionMouse = function(mouseEvent) {
     	if(mouseEvent.pageX || mouseEvent.pageY == 0)
 		{
 			mouseX = mouseEvent.pageX - this.offsetLeft;
@@ -65,8 +65,5 @@ function gameManager(){
 
     window.addEventListener("changePage", this.onChangePage);
     canvas.addEventListener("mousemove", this.repositionMouse);
-    
-    
-    //TODO find a way to activate another script's function through a listen here (so there would be less isteners!)
-	
+    	
 }
