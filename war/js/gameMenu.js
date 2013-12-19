@@ -474,7 +474,7 @@ function gameMenu(){
 
 	function randomizeEffect(){
 
-		if(booleans.length > effectNames)
+		if(booleans.length > effectNames.length)
 			booleans = [];
 
 		var rand = Math.random();	//between 0 and 1

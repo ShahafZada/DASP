@@ -4,36 +4,86 @@ function createGame(){
 
 	//		variant definitions :
 
-	
+
 	//tools (modes) :
-	var isModeSetStart = true;
-	var isModeCreateNodes = false;
-	var isModeEraseNodes = false;
-	var isModeCreateEdges = false;
-	var isModeEraseEdges = false;
-	
-	
+//	var isModeSetStart = true;
+//	var isModeCreateNodes = false;
+//	var isModeEraseNodes = false;
+//	var isModeCreateEdges = false;
+//	var isModeEraseEdges = false;
+
+
 	//mode buttons :
+	var buttonHeight = height/6;
+	var buttonWidth = buttonHeight;
+	var saveButtonWidth;
+	//var distanceBetweenButtons;	//eventually not used
+	var buttonDistFromEdges = -1;	//needs to be any negative value, which would trigger a fail-safe loop below
+
 	var buttons = [];
+	var buttonsOver = [];
+	var buttonsActive = [];
+	var buttonPositions = [];
+
 	var createNodeButton = new Image();
 	var eraseNodeButton = new Image();
 	var createEdgeButton = new Image();
 	var eraseEdgeButton = new Image();
-	var setStartButtons = new Image();
+	var setStartButton = new Image();
 	var randomizeButton = new Image();
-	
-//	var createNodeButton = new Image();
-//	var eraseNodeButton = new Image();
-//	var createEdgeButton = new Image();
-//	var eraseEdgeButton = new Image();
-//	var setStartButtons = new Image();
-//	var randomizeButton = new Image();
-	
-	
+	var saveButton = new Image();
+
+	var createNodeButton_Over = new Image();
+	var eraseNodeButton_Over = new Image();
+	var createEdgeButton_Over = new Image();
+	var eraseEdgeButton_Over = new Image();
+	var setStartButton_Over = new Image();
+	var randomizeButton_Over = new Image();
+	var saveButton_Over = new Image();
+
+	var createNodeButton_Active = new Image();
+	var eraseNodeButton_Active = new Image();
+	var createEdgeButton_Active = new Image();
+	var eraseEdgeButton_Active = new Image();
+	var setStartButton_Active = new Image();
+	var randomizeButton_Active = new Image();
+	var saveButton_Active = new Image();
+
+
+	createNodeButton.src = "images/createGame/Create_Nodes_Button.png";
+	eraseNodeButton.src = "images/createGame/Erase_Nodes_Button.png";
+	createEdgeButton.src = "images/createGame/Create_Edges_Button.png";
+	eraseEdgeButton.src = "images/createGame/Erase_Edges_Button.png";
+	setStartButton.src = "images/createGame/Set_Start_Button.png";
+	randomizeButton.src = "images/createGame/Rand_Button.png";
+	saveButton.src = "images/createGame/Save_Button.png";
+
+	createNodeButton_Over.src = "images/createGame/Create_Nodes_Button_Over.png";
+	eraseNodeButton_Over.src = "images/createGame/Erase_Nodes_Button_Over.png";
+	createEdgeButton_Over.src = "images/createGame/Create_Edges_Button_Over.png";
+	eraseEdgeButton_Over.src = "images/createGame/Erase_Edges_Button_Over.png";
+	setStartButton_Over.src = "images/createGame/Set_Start_Button_Over.png";
+	randomizeButton_Over.src = "images/createGame/Rand_Button_Over.png";
+	saveButton_Over.src = "images/createGame/Save_Button_Over.png";
+
+	createNodeButton_Active.src = "images/createGame/Create_Nodes_Button_Active.png";
+	eraseNodeButton_Active.src = "images/createGame/Erase_Nodes_Button_Active.png";
+	createEdgeButton_Active.src = "images/createGame/Create_Edges_Button_Active.png";
+	eraseEdgeButton_Active.src = "images/createGame/Erase_Edges_Button_Active.png";
+	setStartButton_Active.src = "images/createGame/Set_Start_Button_Active.png";
+	randomizeButton_Active.src = "images/createGame/Rand_Button_Active.png";
+	saveButton_Active.src = "images/createGame/Save_Button_Active.png";
+
+
+
+
 	//back-button : (not counted as a mode button)
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
-	var buttonDistFromEdges = height/8;
+	var backButtonDistFromEdges = height/8;
+
+	var backButton = new Image();
+	var backButton_over = new Image();
 
 
 	//nodes:
@@ -42,12 +92,11 @@ function createGame(){
 	var markedNode = new Image();
 	var marked_currentNode = new Image();
 	var nonvisitedNode = new Image();
-	
 
-	var backButton = new Image();
-	var backButton_over = new Image();
-	
-	
+
+
+
+
 	startNode.src = "images/game/start_node.png";
 	start_currentNode.src = "images/game/start_current_node.png";
 	markedNode.src = "images/game/marked_node.png";
@@ -56,17 +105,75 @@ function createGame(){
 
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
-	
-	
+
+
+
+
+
 	buttons.push(createNodeButton);
 	buttons.push(eraseNodeButton);
 	buttons.push(createEdgeButton);
 	buttons.push(eraseEdgeButton);
-	buttons.push(setStartButtons);
+	buttons.push(setStartButton);
 	buttons.push(randomizeButton);
-	
+	buttons.push(saveButton);
+
+	buttonsOver.push(createNodeButton_Over);
+	buttonsOver.push(eraseNodeButton_Over);
+	buttonsOver.push(createEdgeButton_Over);
+	buttonsOver.push(eraseEdgeButton_Over);
+	buttonsOver.push(setStartButton_Over);
+	buttonsOver.push(randomizeButton_Over);
+	buttonsOver.push(saveButton_Over);
+
+	buttonsActive.push(createNodeButton_Active);
+	buttonsActive.push(eraseNodeButton_Active);
+	buttonsActive.push(createEdgeButton_Active);
+	buttonsActive.push(eraseEdgeButton_Active);
+	buttonsActive.push(setStartButton_Active);
+	buttonsActive.push(randomizeButton_Active);
+	buttonsActive.push(saveButton_Active);
+
+
+	while(buttonDistFromEdges < 0){	//fail-safe
+		buttonHeight *= 0.95;
+		buttonWidth = buttonHeight;
+		buttonDistFromEdges = (height - backButtonSize/2 - backButtonDistFromEdges - ((buttons.length/2 + 1) * buttonHeight)) / (buttons.length/2);	//average of free height per button
+	}
 
 //	-------------------------------------------------------------
+
+//	onload functions : 
+
+
+	saveButton.onload = function(){
+		saveButtonWidth = saveButton.width / (saveButton.height / buttonHeight);
+		//distanceBetweenButtons = saveButtonWidth - 2*buttonWidth;	//not used
+
+		determinePositions(buttonPositions , buttons);
+
+	}
+
+
+
+
+
+
+//	-------------------------------------------------------------
+
+//	classes : 
+
+	function coord(x,y){
+		this.xPos = x;
+		this.yPos = y;
+	}
+
+
+
+//	-------------------------------------------------------------
+
+
+
 
 //	page-function implementations :
 
@@ -75,18 +182,26 @@ function createGame(){
 	}
 
 	this.logic = function() {
-		
+
 	}
 
 
 	this.draw = function(){
 
+		for(var i = 0 ; i < buttons.length ; i++){
 
+			if(isMouseOverButton(buttons , i))
+				drawButton(buttonsOver , i);
+			//else if(button is active){
+			//	drawButton(buttonsActive , i);
+			//}
+			else{
+				drawButton(buttons , i);
+			}
+		}
 
 		drawBackButton();
 	}
-
-
 
 
 
@@ -96,16 +211,59 @@ function createGame(){
 
 	//other private functions :
 
+	function determinePositions(positionsArray , buttonArray){
+		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
+		var rightColX = width - buttonDistFromEdges - buttonWidth;
+		var xCoord , yCoord;
+		var yCoord = buttonDistFromEdges;
+		for(var i = 0 ; i < buttonArray.length ; i++){
+
+			if(i % 2 == 0){
+				xCoord = leftColX;
+				if(i != 0)
+					yCoord += (buttonHeight + buttonDistFromEdges);
+			}
+			else{
+				xCoord = rightColX;
+			}
+
+			positionsArray.push(new coord(xCoord , yCoord));
+		}
+	}
+
+	function isMouseOverButton(array , i){
+		if(i == array.indexOf(saveButton)){	//save button
+			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + saveButtonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
+				return true;
+			else
+				return false;
+		}
+		else{
+			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + buttonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
+				return true;
+			else
+				return false;
+		}
+	}
+
+	function drawButton(array , i){
+		if(i == buttons.indexOf(saveButton))
+			context.drawImage(array[i] , buttonPositions[i].xPos , buttonPositions[i].yPos , saveButtonWidth , buttonHeight);	//save button. It's larger than the rest
+		else	
+			context.drawImage(array[i] , buttonPositions[i].xPos , buttonPositions[i].yPos , buttonWidth , buttonHeight);
+	}
+
+	//TODO
 	function setMode(mode){
-		
-			
+		//if(mouseX < && mouseY)
+
 	}
 
 	function drawBackButton(){
 		if(isMouseOverBackButton())
-			context.drawImage(backButton_over , width - backButtonEnlargedSize/2 - buttonDistFromEdges , height - backButtonEnlargedSize/2 - buttonDistFromEdges , backButtonEnlargedSize , backButtonEnlargedSize);
+			context.drawImage(backButton_over , width - backButtonEnlargedSize/2 - backButtonDistFromEdges , height - backButtonEnlargedSize/2 - backButtonDistFromEdges , backButtonEnlargedSize , backButtonEnlargedSize);
 		else
-			context.drawImage(backButton , width - backButtonSize/2 - buttonDistFromEdges , height - backButtonSize/2 - buttonDistFromEdges , backButtonSize , backButtonSize);
+			context.drawImage(backButton , width - backButtonSize/2 - backButtonDistFromEdges , height - backButtonSize/2 - backButtonDistFromEdges , backButtonSize , backButtonSize);
 	}
 
 
@@ -121,12 +279,12 @@ function createGame(){
 			this.removeEventListener("mouseup", checkClick);
 
 		}
-		
+
 	}
-	
+
 	function isMouseOverBackButton(){
-		if((width - backButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + backButtonSize/2) &&
-				(height - backButtonSize/2 - buttonDistFromEdges < mouseY && mouseY < height - buttonDistFromEdges + backButtonSize/2))	//clicked on back arrow
+		if((width - backButtonSize/2 - backButtonDistFromEdges < mouseX && mouseX < width - backButtonDistFromEdges + backButtonSize/2) &&
+				(height - backButtonSize/2 - backButtonDistFromEdges < mouseY && mouseY < height - backButtonDistFromEdges + backButtonSize/2))	//clicked on back arrow
 			return true;
 		else
 			return false;
