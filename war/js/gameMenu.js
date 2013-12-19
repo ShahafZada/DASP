@@ -561,7 +561,7 @@ function gameMenu(){
 		if (playButtonOver.isOver){
 			var event = document.createEvent("Event");
 			event.initEvent("changePage", true, true);
-			event.customData = "goToGame";
+			event.customData = "goToGameChoice";
 			window.dispatchEvent(event);
 			this.removeEventListener('mouseup' , checkClick);
 		}

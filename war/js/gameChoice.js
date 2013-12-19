@@ -1,70 +1,25 @@
-function createGame(){
+function gameChoice(){
 
 //	-------------------------------------------------------------
 
 	//		variant definitions :
 
-	
-	//tools (modes) :
-	var isModeSetStart = true;
-	var isModeCreateNodes = false;
-	var isModeEraseNodes = false;
-	var isModeCreateEdges = false;
-	var isModeEraseEdges = false;
-	
-	
-	//mode buttons :
-	var buttons = [];
-	var createNodeButton = new Image();
-	var eraseNodeButton = new Image();
-	var createEdgeButton = new Image();
-	var eraseEdgeButton = new Image();
-	var setStartButtons = new Image();
-	var randomizeButton = new Image();
-	
-//	var createNodeButton = new Image();
-//	var eraseNodeButton = new Image();
-//	var createEdgeButton = new Image();
-//	var eraseEdgeButton = new Image();
-//	var setStartButtons = new Image();
-//	var randomizeButton = new Image();
-	
-	
-	//back-button : (not counted as a mode button)
+	//back-button:
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var buttonDistFromEdges = height/8;
 
 
-	//nodes:
-	var startNode = new Image();
-	var start_currentNode = new Image();
-	var markedNode = new Image();
-	var marked_currentNode = new Image();
-	var nonvisitedNode = new Image();
-	
+
+
 
 	var backButton = new Image();
 	var backButton_over = new Image();
-	
-	
-	startNode.src = "images/game/start_node.png";
-	start_currentNode.src = "images/game/start_current_node.png";
-	markedNode.src = "images/game/marked_node.png";
-	marked_currentNode.src = "images/game/marked_current_node.png";
-	nonvisitedNode.src = "images/game/nonvisited_node.png";
 
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
-	
-	
-	buttons.push(createNodeButton);
-	buttons.push(eraseNodeButton);
-	buttons.push(createEdgeButton);
-	buttons.push(eraseEdgeButton);
-	buttons.push(setStartButtons);
-	buttons.push(randomizeButton);
-	
+
+
 
 //	-------------------------------------------------------------
 
@@ -75,7 +30,7 @@ function createGame(){
 	}
 
 	this.logic = function() {
-		
+
 	}
 
 
@@ -96,10 +51,6 @@ function createGame(){
 
 	//other private functions :
 
-	function setMode(mode){
-		
-			
-	}
 
 	function drawBackButton(){
 		if(isMouseOverBackButton())
@@ -143,4 +94,5 @@ function createGame(){
 
 
 
+	
 }

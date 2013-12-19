@@ -10,6 +10,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/form.js"></script>
 <script type="text/javascript" src="js/createGame.js"></script>
+<script type="text/javascript" src="js/gameChoice.js"></script>
 <script type="text/javascript" src="js/gameCredits.js"></script>
 <script type="text/javascript" src="js/gameSettings.js"></script>
 <script type="text/javascript" src="js/gameInstructions.js"></script>
