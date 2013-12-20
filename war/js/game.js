@@ -72,8 +72,8 @@ function game(){
 	}
 
 
-	function Edge(pointedNode , color , weight){
-		this.pointedNode = pointedNode;	//the other edge being pointed to
+	function Edge(pointedNodeID , color , weight){
+		this.pointedNodeID = pointedNodeID;	//the other edge being pointed to
 		this.isMarked = false;
 		this.passedThrough = false;
 		this.color = color;	//TODO call this instead of the global variable. change it in edges whenever a node gets clicked
@@ -128,11 +128,11 @@ function game(){
 			for(var j = i+1 ; j < nodes.length ; j++){
 				if(nodes[i].isMarked && nodes[j].isMarked){
 					for(var k = 0 ; k < nodes[i].edges.length ; k++){
-						if(j == nodes[i].edges[k].pointedNode)
+						if(j == nodes[i].edges[k].pointedNodeID)
 							nodes[i].edges[k].isMarked = true;
 					}
 					for(var k = 0 ; k < nodes[j].edges.length ; k++){
-						if(i == nodes[j].edges[k].pointedNode)
+						if(i == nodes[j].edges[k].pointedNodeID)
 							nodes[j].edges[k].isMarked = true;
 					}
 
@@ -208,7 +208,7 @@ function drawNodes(){
 function drawEdges(){
 	for(var i = 0 ; i < nodes.length ; i++){
 		for(var j = 0 ; j < nodes[i].edges.length ; j++){				
-			if(nodes[i].id > nodes[i].edges[j].pointedNode){	//connecting through one direction only
+			if(nodes[i].id > nodes[i].edges[j].pointedNodeID){	//connecting through one direction only
 				
 				if(nodes[i].edges[j].passedThrough)
 					drawAFuckingLine(i , j , boldLineColor , boldLineWidth);
@@ -271,7 +271,7 @@ function clickNode(i){
 		return;
 	
 	for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
-		if(nodes[lastClickedID].edges[j].pointedNode == i){
+		if(nodes[lastClickedID].edges[j].pointedNodeID == i){
 			nodes[lastClickedID].edges[j].passedThrough = true;
 			nodes[i].edges[getEdge(i , lastClickedID)].passedThrough = true;
 			nodes[i].isMarked = true;
@@ -284,7 +284,7 @@ function clickNode(i){
 
 function getEdge(from , to){
 	for(var i = 0 ; i < nodes[from].edges.length ; i++){
-		if(nodes[from].edges[i].pointedNode == to){
+		if(nodes[from].edges[i].pointedNodeID == to){
 			return i;	//edge index
 		}	
 	}
@@ -312,7 +312,7 @@ function drawNode(imageHolder , node , isMouseOver){
 
 
 function drawAFuckingLine(nodeID , edgeIndex , color , lineW){
-	var indexTo = nodes[nodeID].edges[edgeIndex].pointedNode;
+	var indexTo = nodes[nodeID].edges[edgeIndex].pointedNodeID;
 	context.beginPath();
 	context.lineWidth = lineW;
 	context.strokeStyle = color;

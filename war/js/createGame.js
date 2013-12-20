@@ -108,7 +108,7 @@ function createGame(){
 
 
 
-	//nodes:
+	// nodes :
 	var nodeSize = height/10; //height and width are the same
 	var nodeRadius = nodeSize/2;
 
@@ -136,7 +136,14 @@ function createGame(){
 	backButton_over.src = "images/backButton.png";
 
 
-
+	// edges :
+	
+	var defaultWeight = 1;
+	var defaultColor = "cyan";
+	
+	
+	
+	
 
 
 	buttons.push(createNodeButton);
@@ -237,11 +244,11 @@ function createGame(){
 	}
 
 
-	function Edge(pointedNode , color , weight){
-		this.pointedNode = pointedNode;	//the other edge being pointed to
+	function Edge(pointedNodeID , color , weight){
+		this.pointedNodeID = pointedNodeID;	//the other node being pointed to
 		this.isMarked = false;
 		this.passedThrough = false;
-		this.color = color;	//TODO call this instead of the global variable. change it in edges whenever a node gets clicked
+		this.color = color;
 		this.weight = weight; 
 	}
 
@@ -269,6 +276,7 @@ function createGame(){
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
 			;
 		}
+		//TODO
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
 			;
 		}
@@ -302,6 +310,11 @@ function createGame(){
 
 
 		//drawing map elements
+		//edges
+		for(var i = 0 ; i < nodes.length ; i++){	//TODO
+			
+		}
+		//nodes
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(nodes[i].isStart)
 				drawNode(startNode , nodes[i]);
@@ -439,9 +452,11 @@ function createGame(){
 				destroyByTouch(mouseX , mouseY);
 			}
 		}
+		//TODO
 		else if(currentMode == buttons.indexOf(createEdgeButton)){	//Create Edges
 			;
 		}
+		//TODO
 		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
 			;
 		}
@@ -459,7 +474,10 @@ function createGame(){
 					nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , true));
 					setMode(buttons.indexOf(createNodeButton));
 				}
-				else{	//touching an existing Node 
+				else if(isNotTouchingOtherNodes(mouseX , mouseY , 0)){	//tried to add in a space that's too small (mouse itself touched no nodes)
+					alert("That's too close to another node");
+				}
+				else{	//mouse touching an existing Node 
 					//assigning start to existing point, or canceling it
 					var touchX = mouseX;
 					var touchY = mouseY;
