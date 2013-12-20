@@ -5,10 +5,12 @@ function createGame(){
 	//		variant definitions :
 
 
+
+
 	//mode (chosen tool) :
 	var modes = [];
 
-	
+
 	//mode buttons :
 	var buttonHeight = height/6;
 	var buttonWidth = buttonHeight;
@@ -21,7 +23,19 @@ function createGame(){
 	var buttonsOver = [];
 	var buttonsActive = [];
 	var buttonPositions = [];
-	
+
+
+
+	//GUI control :
+	var showTools = true;
+	var arrowHeight = buttonHeight/2;
+	var arrowOverHeight = arrowHeight*1.1;
+	var expandArrowWidth , collapseArrowWidth;
+	var expandArrowOverWidth , collapseArrowOverWidth;
+	var collapseArrow = new Image();
+	var expandArrow = new Image();
+
+
 
 	var createNodeButton = new Image();
 	var eraseNodeButton = new Image();
@@ -46,9 +60,14 @@ function createGame(){
 	var setStartButton_Active = new Image();
 	var randomizeButton_Active = new Image();
 	var saveButton_Active = new Image();
-	
+
 	var buttonFrame = new Image();
 
+
+
+
+	collapseArrow.src =  "images/createGame/collapseArrow.png";
+	expandArrow.src =  "images/createGame/expandArrow.png";
 
 	createNodeButton.src = "images/createGame/Create_Nodes_Button.png";
 	eraseNodeButton.src = "images/createGame/Erase_Nodes_Button.png";
@@ -142,12 +161,14 @@ function createGame(){
 		else
 			modes.push(false);
 	}
-	
-	
+
+
 	while(buttonDistFromEdges < 0){	//fail-safe
 		buttonHeight *= 0.95;
 		buttonWidth *= 0.95;
 		frameSize *= 0.95;
+		arrowHeight *= 0.95;
+		arrowOverHeight *= 0.95;
 		buttonDistFromEdges = (height - backButtonSize/2 - backButtonDistFromEdges - ((buttons.length/2 + 1) * buttonHeight)) / (buttons.length/2);	//average of free height per button
 	}
 
@@ -161,9 +182,18 @@ function createGame(){
 		//distanceBetweenButtons = saveButtonWidth - 2*buttonWidth;	//not used
 
 		determinePositions(buttonPositions , buttons);
-
 	}
 
+
+	expandArrow.onload = function(){
+		expandArrowWidth = expandArrow.width * (arrowHeight / expandArrow.height);
+		expandArrowOverWidth = expandArrowWidth * (arrowOverHeight / arrowHeight);
+	}
+
+	collapseArrow.onload = function(){
+		collapseArrowWidth = collapseArrow.width * (arrowHeight / collapseArrow.height);
+		collapseArrowOverWidth = collapseArrowWidth * (arrowOverHeight / arrowHeight);
+	}
 
 
 
@@ -180,7 +210,10 @@ function createGame(){
 
 
 
+
+
 //	-------------------------------------------------------------
+
 
 
 
@@ -192,23 +225,29 @@ function createGame(){
 	}
 
 	this.logic = function() {
-
+		//TODO if / elif for each mode
+		//if mouse is on collapse or right to upper left point of first button - ignore
 	}
 
 
 	this.draw = function(){
+		if(showTools){
+			for(var i = 0 ; i < buttons.length ; i++){
 
-		for(var i = 0 ; i < buttons.length ; i++){
-
-			if(isMouseOverButton(i))
-				drawButton(buttonsOver , i);
-			else if(modes[i]){
-				drawFrame(i);
-				drawButton(buttonsActive , i);
+				if(isMouseOverButton(i))
+					drawButton(buttonsOver , i);
+				else if(modes[i]){
+					drawFrame(i);
+					drawButton(buttonsActive , i);
+				}
+				else{
+					drawButton(buttons , i);
+				}
 			}
-			else{
-				drawButton(buttons , i);
-			}
+			drawCollapseArrow();
+		}
+		else{	//GUI isn't shown
+			drawExpandArrow();
 		}
 
 		drawBackButton();
@@ -218,9 +257,14 @@ function createGame(){
 
 
 
+
+
+
 	//-------------------------------------------------------------
 
+
 	//other private functions :
+
 
 	function determinePositions(positionsArray , buttonArray){
 		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
@@ -272,8 +316,8 @@ function createGame(){
 		else
 			context.drawImage(buttonFrame , buttonPositions[i].xPos + buttonWidth/2 - frameSize/2 , buttonPositions[i].yPos + buttonHeight/2 - frameSize/2 , frameSize , frameSize);
 	}
-	
-	
+
+
 	function setMode(index){
 		for(var i = 0 ; i < modes.length ; i++){	//initializing in mode setStart
 			if(i == index)
@@ -281,6 +325,19 @@ function createGame(){
 			else
 				modes[i] = false;
 		}
+	}
+
+
+	function drawCollapseArrow(){
+		if(isMouseOverCollapseButton)
+			context.drawImage(collapseArrow , buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges , buttonPositions[0].yPos - ((arrowOverHeight - arrowHeight)/2), collapseArrowWidth , arrowHeight);
+		else
+			context.drawImage(collapseArrow , buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges , buttonPositions[0].yPos , collapseArrowWidth , arrowHeight);
+	}
+
+	function drawExpandArrow(){
+		context.drawImage(expandArrow , width - expandArrowWidth , buttonPositions[0].yPos , expandArrowWidth , arrowHeight);
+
 	}
 
 	function drawBackButton(){
@@ -293,6 +350,16 @@ function createGame(){
 
 	function checkClick(){
 
+		//collapse button check
+//		if(isMouseOverCollapseButton){
+//			showTools = false;
+//		}
+//		else if(isMouseOverExpandButton){
+//			showTools = true;
+//		}
+
+
+		//tool button check
 		for(var i = 0 ; i < buttons.length ; i++){
 			if(isMouseOverButton(i))
 				setMode(i);
@@ -308,6 +375,24 @@ function createGame(){
 
 		}
 
+	}
+
+	//TODO
+	function isMouseOverCollapseButton(){
+		if(showTools){	//GUI is visible
+			if(buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges < mouseX && mouseX < buttonPositions[0].xPos - buttonDistFromEdges &&
+					buttonPositions[0].yPos < mouseY && mouseY < buttonPositions[0].yPos + arrowHeight)
+				return true;
+		}
+		return false;
+	}
+
+	function isMouseOverExpandButton(){
+		if(!showTools){	//GUI is not visible
+			if(width - expandArrowWidth < mouseX && mouseX < width && buttonPositions[0].yPos < mouseY && mouseY < buttonPositions[0].yPos + arrowHeight)
+				return true;
+		}
+		return false;
 	}
 
 	function isMouseOverBackButton(){
