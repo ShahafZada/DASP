@@ -106,13 +106,22 @@ function createGame(){
 	var backButton_over = new Image();
 
 
+	
+	
 	//nodes:
+	var nodeSize = height/10; //height and width are the same
+	var nodeRadius = nodeSize/2;
+	
 	var startNode = new Image();
 	var start_currentNode = new Image();
 	var markedNode = new Image();
 	var marked_currentNode = new Image();
 	var nonvisitedNode = new Image();
+	
+	var farthestAvailableID = 0;
+	var releasedIDs = [];	//IDs of erased nodes, yet to be re-used in new nodes
 
+	var nodes = [];
 
 
 
@@ -210,7 +219,31 @@ function createGame(){
 	}
 
 
+	function Node(id , x, y, radius , isStart){
+		this.id = id;
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+		if(isStart){
+			this.isStart = true;	//is the 
+			this.isMarked = true;
+		}
+		else{
+			this.isStart = false;
+			this.isMarked = false;
+		}
 
+		this.edges = [];
+	}
+
+
+	function Edge(pointedNode , color , weight){
+		this.pointedNode = pointedNode;	//the other edge being pointed to
+		this.isMarked = false;
+		this.passedThrough = false;
+		this.color = color;	//TODO call this instead of the global variable. change it in edges whenever a node gets clicked
+		this.weight = weight; 
+	}
 
 
 //	-------------------------------------------------------------
@@ -232,23 +265,8 @@ function createGame(){
 		//finding the mode
 		currentMode = modes.indexOf(true);
 		
-		//applying the according action
-		if(currentMode == buttons.indexOf(createNodeButton)){	//Create Nodes
-			;
-		}
-		else if(currentMode == buttons.indexOf(eraseNodeButton)){	//Erase Nodes
-			;
-		}
-		else if(currentMode == buttons.indexOf(createEdgeButton)){	//Create Edges
-			;
-		}
-		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
-			;
-		}
-		else if(currentMode == buttons.indexOf(setStartButton)){	//Set Start
-			;
-		}
-		else if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
+		//TODO
+		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
 			;
 		}
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
@@ -384,7 +402,33 @@ function createGame(){
 	}
 
 
+	
+	
+	
 	function checkClick(){
+		
+		//applying the according action to mode
+		if(currentMode == buttons.indexOf(createNodeButton)){	//Create Nodes
+			if(isInDrawableArea)
+				nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , false));
+		}
+		else if(currentMode == buttons.indexOf(eraseNodeButton)){	//Erase Nodes
+			;
+		}
+		else if(currentMode == buttons.indexOf(createEdgeButton)){	//Create Edges
+			;
+		}
+		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
+			;
+		}
+		else if(currentMode == buttons.indexOf(setStartButton)){	//Set Start
+			;
+		}
+
+		
+		
+		
+		
 		//collapse button check
 		if(isMouseOverCollapseButton()){
 			showTools = false;
@@ -392,6 +436,7 @@ function createGame(){
 		else if(isMouseOverExpandButton()){
 			showTools = true;
 		}
+		
 
 
 		//tool button check
@@ -400,6 +445,8 @@ function createGame(){
 				setMode(i);
 		}
 
+		
+		
 		//Back-button check
 		if(isMouseOverBackButton()){	//clicked on back arrow
 			var really = confirm("Back to menu? Your progress won't be saved!");
@@ -412,6 +459,33 @@ function createGame(){
 			}
 		}
 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	function isInDrawableArea(){
+		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
+			if(nodeRadius < mouseY && mouseY < height - nodeRadius)
+				if(!isMouseOverCollapseButton() && !isMouseOverExpandButton())
+					return true;
+		return false;
+	}
+	
+	function generateID(){	//TODO		
+		if(releasedIDs.length == 0){
+			farthestAvailableID++;
+			return (farthestAvailableID-1);
+		}
+		else{	//still some old (smaller) IDs available
+			var reusedID = releasedIDs[releasedIDs.length - 1];	//value of last vaccant ID (LIFO)
+			releasedIDs.pop();
+			return reusedID;
+		}
 	}
 
 

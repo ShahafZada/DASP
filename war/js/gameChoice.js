@@ -22,7 +22,7 @@ function gameChoice(){
 
 	//		Display settings	
 	var maps = [];
-	
+
 	var map1 = new Image();
 	var map2 = new Image();
 	var map3 = new Image();
@@ -32,7 +32,7 @@ function gameChoice(){
 	var map7 = new Image();
 	var map8 = new Image();
 	var map9 = new Image();
-	
+
 	map1.src = "images/gameChoice/Map1.png";
 	map2.src = "images/gameChoice/Map2.png";
 	map3.src = "images/gameChoice/Map3.png";
@@ -42,7 +42,7 @@ function gameChoice(){
 	map7.src = "images/gameChoice/Map7.png";
 	map8.src = "images/gameChoice/Map8.png";
 	map9.src = "images/gameChoice/Map9.png";
-	
+
 	maps.push(map1);
 	maps.push(map2);
 	maps.push(map3);
@@ -52,10 +52,10 @@ function gameChoice(){
 	maps.push(map7);
 	maps.push(map8);
 	maps.push(map9);
-	
+
 	var rows = 3;
 	var cols = Math.ceil(maps.length / rows);
-	
+
 	var margin = 30;
 	var rightLimit = width - cols*margin;
 	var leftLimit = 0;
@@ -63,8 +63,8 @@ function gameChoice(){
 	var bottomLimit = (height - backButtonSize/2 - buttonDistFromEdges) - rows*margin;	
 	var imageWidth = Math.abs(leftLimit-rightLimit) / cols;
 	var imageHeight = Math.abs(topLimit-bottomLimit) / rows;
-	
-	
+
+
 //	-------------------------------------------------------------
 
 //	page-function implementations :
@@ -105,21 +105,30 @@ function gameChoice(){
 
 	//Assuming each map image has the same size
 	function drawMapsGrid(){
-		
+
 		for(var x = 0; x < cols; x++)
 			for(var y = 0; y < rows; y++){
 				context.drawImage(maps[x*cols+y] , y*imageWidth + y*margin, x*imageHeight  + x*margin , imageWidth , imageHeight);
 			}
-				
+
 	}
-	
+
 	function checkClick(){
 		//Map click check
 		for(var x = 0; x < cols; x++)
 			for(var y = 0; y < rows; y++)
 				if(isMouseOverMap(x,y))				
-					clickMap(x,y);
-		
+				{
+					//clickMap(x,y);	//using a function to cancel the event listener doesn't work!!!!!!!!!!!!!!
+					
+					//temporarily - until we'd have actual maps
+					var event = document.createEvent("Event");
+					event.initEvent("changePage", true, true);
+					event.customData = "goToGame";
+					window.dispatchEvent(event);
+					this.removeEventListener("mouseup" , checkClick);
+				}
+
 
 		//Back-button check
 		if(isMouseOverBackButton()){	//clicked on back arrow
@@ -130,21 +139,21 @@ function gameChoice(){
 			this.removeEventListener("mouseup", checkClick);
 
 		}
-		
+
 	}
-	
+
 	function isMouseOverMap(x,y){
 		if((mouseX > y*imageWidth + y*margin) && (mouseX < y*imageWidth + y*margin + imageWidth) &&
-			(mouseY > x*imageHeight  + x*margin) && (mouseY <  x*imageHeight  + x*margin + imageHeight))	
+				(mouseY > x*imageHeight  + x*margin) && (mouseY <  x*imageHeight  + x*margin + imageHeight))	
 			return true;
 		else
 			return false;
 	}
-	
+
 	function clickMap(x,y){
 		
 	}
-	
+
 	function isMouseOverBackButton(){
 		if((width - backButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + backButtonSize/2) &&
 				(height - backButtonSize/2 - buttonDistFromEdges < mouseY && mouseY < height - buttonDistFromEdges + backButtonSize/2))	//clicked on back arrow
@@ -164,5 +173,5 @@ function gameChoice(){
 
 
 
-	
+
 }
