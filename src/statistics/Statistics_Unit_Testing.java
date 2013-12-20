@@ -72,4 +72,16 @@ public class Statistics_Unit_Testing {
 	
 // ------------------------  array_to_vector & vector_to_array tests  ---------------------------------
 	
+	@Test
+	public void AverageEmptyArray()
+	{
+		assertEquals(0, j_statistics.average(new double[]{}),0);
+	}
+	
+	@Test
+	public void AverageEmptyVector()
+	{
+		assertEquals(0, j_statistics.average(new Vector<Double>()),0);
+	}
+	
 }
