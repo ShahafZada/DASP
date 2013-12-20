@@ -225,6 +225,7 @@ function createGame(){
 	}
 
 	this.logic = function() {
+		
 		//TODO if / elif for each mode
 		//if mouse is on collapse or right to upper left point of first button - ignore
 	}
@@ -336,7 +337,10 @@ function createGame(){
 	}
 
 	function drawExpandArrow(){
-		context.drawImage(expandArrow , width - expandArrowWidth , buttonPositions[0].yPos , expandArrowWidth , arrowHeight);
+		if(isMouseOverExpandButton())
+			context.drawImage(expandArrow , width - expandArrowWidth - (((expandArrowOverWidth - expandArrowWidth))/2) , buttonPositions[0].yPos - ((arrowOverHeight - arrowHeight)/2) , expandArrowOverWidth , arrowOverHeight);
+		else
+			context.drawImage(expandArrow , width - expandArrowWidth , buttonPositions[0].yPos , expandArrowWidth , arrowHeight);
 
 	}
 
