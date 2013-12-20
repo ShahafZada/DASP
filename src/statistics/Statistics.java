@@ -55,7 +55,7 @@ public class Statistics
 	
 	public double average(double[] d) 
 	{
-		if(d.length == 0.0)
+		if(d.length == 0)
 			return 0.0;
 		
 		double tot = 0.0;
@@ -77,5 +77,35 @@ public class Statistics
 		for (Double d : v)
 			tot += d;
 		return tot / v.size();
+	}
+	
+	/**
+	* Returns the variance of the array of double.
+	*/
+	public double variance(double[] d) 
+	{
+		if(d.length == 0)
+			return 0.0;
+		
+		double mu = average(d);
+		double sumsq = 0.0;
+		for (int i = 0; i < d.length; i++)
+			sumsq += square(mu - d[i]);
+		return sumsq / (d.length);
+	}
+	
+	/**
+	* Returns the variance of the vector of double.
+	*/
+	public double variance(Vector<Double> v) 
+	{
+		if(v.isEmpty())
+			return 0.0;
+		
+		double mu = average(v);
+		double sumsq = 0.0;
+		for (Double d : v)
+			sumsq += square(mu - d);
+		return sumsq / (v.size());
 	}
 }
