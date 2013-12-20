@@ -431,11 +431,13 @@ function createGame(){
 				else
 					alert("That's too close to another node");
 			}
-			//else, the player probably tried to activate a button
+			//else, the player probably tried to activate a button, or "missed" the canvas
 
 		}
 		else if(currentMode == buttons.indexOf(eraseNodeButton)){	//Erase Nodes
-			;
+			if(isInDrawableArea()){
+				destroyByTouch(mouseX , mouseY);
+			}
 		}
 		else if(currentMode == buttons.indexOf(createEdgeButton)){	//Create Edges
 			;
@@ -502,7 +504,7 @@ function createGame(){
 		var radiusesCombined;
 		for(var i = 0 ; i < nodes.length ; i++){
 			radiusesCombined = rad + nodes[i].radius;
-			if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x , nodes[i].y))
+			if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
 				return false;	//intersecting with each other
 		}
 		return true;
@@ -524,6 +526,18 @@ function createGame(){
 			var reusedID = releasedIDs[releasedIDs.length - 1];	//value of last vaccant ID (LIFO)
 			releasedIDs.pop();
 			return reusedID;
+		}
+	}
+	
+	function destroyByTouch(x , y){
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
+				releasedIDs.push(nodes[i].id);
+				nodes[i] = nodes[nodes.length - 1];
+				nodes.pop();
+				return;
+			}
+				
 		}
 	}
 
