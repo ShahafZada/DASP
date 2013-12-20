@@ -374,6 +374,9 @@ function createGame(){
 	}
 
 	function isMouseOverButton(i){
+		if(!showTools)
+			return false;
+		
 		if(i == buttons.indexOf(saveButton)){	//save button
 			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + saveButtonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
 				return true;
