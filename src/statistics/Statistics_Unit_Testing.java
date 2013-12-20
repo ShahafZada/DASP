@@ -1,37 +1,75 @@
 package statistics;
 
 import static org.junit.Assert.*;
+
 import java.util.Vector;
+
 import org.junit.Test;
 import org.junit.Before;
 
 public class Statistics_Unit_Testing {
-
-	private static final int NUMBER_OF_DOUBLES = 100;
 	
 	private Statistics j_statistics;
-	
-	private Vector<Double> vec;
-	private double[] arr;
 	
 	@Before
 	public void initialize()
 	{
 		j_statistics = new Statistics();
-		vec = new Vector<Double>();
-		arr = new double[NUMBER_OF_DOUBLES];
 	}
+
+// ------------------------  array_to_vector & vector_to_array tests  ---------------------------------
+
 	
 	@Test
 	public void EmptyVectorToArray()
 	{
-		assertTrue(j_statistics.vector_to_array(vec) instanceof double[]);
+		assertTrue(j_statistics.vector_to_array(new Vector<Double>()) instanceof double[]);
 	}
 	
 	@Test
 	public void EmptyArrayToVector()
 	{
-		assertTrue(j_statistics.array_to_vector(arr).getClass().equals(vec.getClass()));
+		Vector<Double> vec = new Vector<Double>();
+		assertTrue(j_statistics.array_to_vector(new double[]{}).getClass().equals(vec.getClass()));
 	}
+	
+	@Test
+	public void OneVal_VectorToArray()
+	{
+		Vector<Double> vec = new Vector<Double>();
+		vec.add(1.0);
+		assertArrayEquals(new double[]{1.0} , j_statistics.vector_to_array(vec), 0);
+	}
+	
+	@Test
+	public void OneVal_ArrayToVector()
+	{
+		Vector<Double> vec = new Vector<Double>();
+		vec.add(1.0);
+		assertTrue(vec.equals(j_statistics.array_to_vector(new double[]{1.0})));
+	}
+	
+	@Test
+	public void MultipleVal_VectorToArray()
+	{
+		Vector<Double> vec = new Vector<Double>();
+		vec.add(1.0);
+		vec.add(2.0);
+		vec.add(3.0);
+		assertArrayEquals(new double[] {1.0 , 2.0 , 3.0 }, j_statistics.vector_to_array(vec), 0);
+	}
+	
+	@Test
+	public void MultipleVal_ArrayToVector()
+	{
+		Vector<Double> vec = new Vector<Double>();
+		vec.add(1.0);
+		vec.add(2.0);
+		vec.add(3.0);
+		assertTrue(vec.equals(j_statistics.array_to_vector(new double[] {1.0 , 2.0 , 3.0 })));
+	}
+	
+	
+// ------------------------  array_to_vector & vector_to_array tests  ---------------------------------
 	
 }
