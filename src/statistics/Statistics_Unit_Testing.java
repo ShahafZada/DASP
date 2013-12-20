@@ -116,7 +116,7 @@ public class Statistics_Unit_Testing {
 	
 // ------------------------  average tests  -----------------------------------------------------------
 	
-// ------------------------  variance tests  -----------------------------------------------------------
+// ------------------------  variance tests  ----------------------------------------------------------
 	
 		@Test
 		public void VarianceEmptyArray()
@@ -162,5 +162,97 @@ public class Statistics_Unit_Testing {
 			assertEquals(2.0, j_statistics.variance(vec),0);
 		}
 		
-// ------------------------  variance tests  -----------------------------------------------------------
+// ------------------------  variance tests  ----------------------------------------------------------
+		
+// ------------------------  standard deviation & standard error tests  -------------------------------
+		
+		@Test
+		public void StandardDeviationEmptyArray()
+		{
+			assertEquals(0, j_statistics.Standard_deviation(new double[]{}),0);
+		}
+		
+		@Test
+		public void StandardDeviationEmptyVector()
+		{
+			assertEquals(0, j_statistics.Standard_deviation(new Vector<Double>()),0);
+		}
+		
+		@Test
+		public void StandardDeviationOneValArray()
+		{
+			assertEquals(0, j_statistics.Standard_deviation(new double[]{1.0}),0);
+		}
+		
+		@Test
+		public void StandardDeviationOneValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			assertEquals(0, j_statistics.Standard_deviation(vec),0);
+		}
+		
+		@Test
+		public void StandardDeviationMultipleValArray()
+		{
+			assertEquals(Math.sqrt(2), j_statistics.Standard_deviation(new double[]{1.0,2.0,3.0,4.0,5.0}),0);
+		}
+		
+		@Test
+		public void StandardDeviationMultipleValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			vec.add(2.0);
+			vec.add(3.0);
+			vec.add(4.0);
+			vec.add(5.0);
+			assertEquals(Math.sqrt(2), j_statistics.Standard_deviation(vec),0);
+		}
+		
+		@Test
+		public void StandardErrorEmptyArray()
+		{
+			assertEquals(0, j_statistics.Standard_error(new double[]{}),0);
+		}
+		
+		@Test
+		public void StandardErrorEmptyVector()
+		{
+			assertEquals(0, j_statistics.Standard_error(new Vector<Double>()),0);
+		}
+		
+		@Test
+		public void StandardErrorOneValArray()
+		{
+			assertEquals(0, j_statistics.Standard_error(new double[]{1.0}),0);
+		}
+		
+		@Test
+		public void StandardErrorOneValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			assertEquals(0, j_statistics.Standard_error(vec),0);
+		}
+		
+		@Test
+		public void StandardErrorMultipleValArray()
+		{
+			assertEquals((Math.sqrt(2)/Math.sqrt(5)), j_statistics.Standard_error(new double[]{1.0,2.0,3.0,4.0,5.0}),0);
+		}
+		
+		@Test
+		public void StandardErrorMultipleValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			vec.add(2.0);
+			vec.add(3.0);
+			vec.add(4.0);
+			vec.add(5.0);
+			assertEquals((Math.sqrt(2)/Math.sqrt(5)), j_statistics.Standard_error(vec),0);
+		}
+		
+// ------------------------  standard deviation & standard error tests  --------------------------------
 }

@@ -108,4 +108,48 @@ public class Statistics
 			sumsq += square(mu - d);
 		return sumsq / (v.size());
 	}
+	
+	/**
+	* Returns the sample standard deviation of an array of double.
+	*/
+	
+	public double Standard_deviation(double[] d) 
+	{
+		return Math.sqrt(variance(d));
+	}
+	
+	/**
+	* Returns the sample standard deviation of an vector of double.
+	*/
+	
+	public double Standard_deviation(Vector<Double> d) 
+	{
+		return Math.sqrt(variance(d));
+	}
+	
+	/**
+	* Returns the standard error of an array of double, where this is defined
+	* as the standard deviation of the sample divided by the square root of the
+	* sample size.
+	*/
+	
+	public double Standard_error(double[] d)
+	{
+		if( d.length == 0)
+			return 0;
+		return Standard_deviation(d) / Math.sqrt(d.length);
+	}
+	
+	/**
+	* Returns the standard error of an vector of double, where this is defined
+	* as the standard deviation of the sample divided by the square root of the
+	* sample size.
+	*/
+	
+	public double Standard_error(Vector<Double> v)
+	{
+		if(v.isEmpty())
+			return 0;
+		return Standard_deviation(v) / Math.sqrt(v.size());
+	}
 }
