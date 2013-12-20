@@ -329,8 +329,8 @@ function createGame(){
 
 
 	function drawCollapseArrow(){
-		if(isMouseOverCollapseButton)
-			context.drawImage(collapseArrow , buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges , buttonPositions[0].yPos - ((arrowOverHeight - arrowHeight)/2), collapseArrowWidth , arrowHeight);
+		if(isMouseOverCollapseButton())
+			context.drawImage(collapseArrow , buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges - (((collapseArrowOverWidth - collapseArrowWidth))/2) , buttonPositions[0].yPos - ((arrowOverHeight - arrowHeight)/2), collapseArrowOverWidth , arrowOverHeight);
 		else
 			context.drawImage(collapseArrow , buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges , buttonPositions[0].yPos , collapseArrowWidth , arrowHeight);
 	}
@@ -349,14 +349,13 @@ function createGame(){
 
 
 	function checkClick(){
-
 		//collapse button check
-//		if(isMouseOverCollapseButton){
-//			showTools = false;
-//		}
-//		else if(isMouseOverExpandButton){
-//			showTools = true;
-//		}
+		if(isMouseOverCollapseButton()){
+			showTools = false;
+		}
+		else if(isMouseOverExpandButton()){
+			showTools = true;
+		}
 
 
 		//tool button check
