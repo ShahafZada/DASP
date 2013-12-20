@@ -8,6 +8,7 @@ function createGame(){
 
 
 	//mode (chosen tool) :
+	var currentMode
 	var modes = [];
 
 
@@ -224,12 +225,41 @@ function createGame(){
 		context.clearRect(0, 0, width, height);
 	}
 
+	
+	
+	
 	this.logic = function() {
+		//finding the mode
+		currentMode = modes.indexOf(true);
 		
-		//TODO if / elif for each mode
+		//applying the according action
+		if(currentMode == buttons.indexOf(createNodeButton)){	//Create Nodes
+			;
+		}
+		else if(currentMode == buttons.indexOf(eraseNodeButton)){	//Erase Nodes
+			;
+		}
+		else if(currentMode == buttons.indexOf(createEdgeButton)){	//Create Edges
+			;
+		}
+		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
+			;
+		}
+		else if(currentMode == buttons.indexOf(setStartButton)){	//Set Start
+			;
+		}
+		else if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
+			;
+		}
+		else if(currentMode == buttons.indexOf(saveButton)){	//Save
+			;
+		}
+		
 		//if mouse is on collapse or right to upper left point of first button - ignore
 	}
 
+	
+	
 
 	this.draw = function(){
 		if(showTools){
@@ -257,6 +287,8 @@ function createGame(){
 
 
 
+	
+	
 
 
 
@@ -370,17 +402,19 @@ function createGame(){
 
 		//Back-button check
 		if(isMouseOverBackButton()){	//clicked on back arrow
-			var event = document.createEvent("Event");
-			event.initEvent("changePage", true, true);
-			event.customData = "goToGameMenu";
-			window.dispatchEvent(event);
-			this.removeEventListener("mouseup", checkClick);
-
+			var really = confirm("Back to menu? Your progress won't be saved!");
+			if(really == true){
+				var event = document.createEvent("Event");
+				event.initEvent("changePage", true, true);
+				event.customData = "goToGameMenu";
+				window.dispatchEvent(event);
+				this.removeEventListener("mouseup", checkClick);
+			}
 		}
 
 	}
 
-	//TODO
+
 	function isMouseOverCollapseButton(){
 		if(showTools){	//GUI is visible
 			if(buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges < mouseX && mouseX < buttonPositions[0].xPos - buttonDistFromEdges &&
