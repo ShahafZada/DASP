@@ -33,7 +33,7 @@ public class Statistics_Unit_Testing {
 	}
 	
 	@Test
-	public void OneVal_VectorToArray()
+	public void OneValVectorToArray()
 	{
 		Vector<Double> vec = new Vector<Double>();
 		vec.add(1.0);
@@ -41,7 +41,7 @@ public class Statistics_Unit_Testing {
 	}
 	
 	@Test
-	public void OneVal_ArrayToVector()
+	public void OneValArrayToVector()
 	{
 		Vector<Double> vec = new Vector<Double>();
 		vec.add(1.0);
@@ -49,7 +49,7 @@ public class Statistics_Unit_Testing {
 	}
 	
 	@Test
-	public void MultipleVal_VectorToArray()
+	public void MultipleValVectorToArray()
 	{
 		Vector<Double> vec = new Vector<Double>();
 		vec.add(1.0);
@@ -59,7 +59,7 @@ public class Statistics_Unit_Testing {
 	}
 	
 	@Test
-	public void MultipleVal_ArrayToVector()
+	public void MultipleValArrayToVector()
 	{
 		Vector<Double> vec = new Vector<Double>();
 		vec.add(1.0);
@@ -353,4 +353,92 @@ public class Statistics_Unit_Testing {
 		}
 		
 // ------------------------  covariance & correlation tests  ------------------------------------------
+		
+// ------------------------  max & min tests  ---------------------------------------------------------
+		
+		@Test
+		public void MaxEmptyArray()
+		{
+			assertEquals(0, j_statistics.max(new double[]{}),0);
+		}
+		
+		@Test
+		public void MinEmptyArray()
+		{
+			assertEquals(0, j_statistics.min(new double[]{}),0);
+		}
+		
+		@Test
+		public void MaxEmptyVector()
+		{
+			assertEquals(0, j_statistics.max(new Vector<Double>()),0);
+		}
+		
+		@Test
+		public void MinEmptyVector()
+		{
+			assertEquals(0, j_statistics.min(new Vector<Double>()),0);
+		}
+		
+		@Test
+		public void MaxOneValArray()
+		{
+			assertEquals(1.0, j_statistics.max(new double[]{1.0}),0);
+		}
+		
+		@Test
+		public void MinOneValArray()
+		{
+			assertEquals(1.0, j_statistics.min(new double[]{1.0}),0);
+		}
+		
+		@Test
+		public void MaxOneValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			assertEquals(1.0, j_statistics.max(vec),0);
+		}
+		
+		@Test
+		public void MinOneValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			assertEquals(1.0, j_statistics.min(vec),0);
+		}
+		
+		@Test
+		public void MaxMultipleValArray()
+		{
+			assertEquals(3.0, j_statistics.max(new double[]{1.0,2.0,3.0}),0);
+		}
+		
+		@Test
+		public void MinMultipleValArray()
+		{
+			assertEquals(1.0, j_statistics.min(new double[]{1.0,2.0,3.0}),0);
+		}
+		
+		@Test
+		public void MaxMultipleValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			vec.add(2.0);
+			vec.add(3.0);
+			assertEquals(3.0, j_statistics.max(vec),0);
+		}
+		
+		@Test
+		public void MinMultipleValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			vec.add(2.0);
+			vec.add(3.0);
+			assertEquals(1.0, j_statistics.min(vec),0);
+		}
+		
+// ------------------------  max & min tests  ---------------------------------------------------------
 }

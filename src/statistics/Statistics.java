@@ -209,4 +209,63 @@ public class Statistics
 		return ( co_variance(v1, v2) / ( Standard_deviation(v1) * Standard_deviation(v2) ) );
 	}
 	
+	/**
+	* Returns the maximum value in the array.
+	*/
+	
+	public double max(double[] d) 
+	{
+		if(d.length == 0)
+			return 0;
+		
+		double m = d[0];
+		for (int i = 1; i < d.length; i++)
+			m = Math.max(m, d[i]);
+		return m;
+	}
+	
+	/**
+	* Returns the minimum value in the array.
+	*/
+	
+	public double min(double[] d) 
+	{
+		if(d.length == 0)
+			return 0;
+		
+		double m = d[0];
+		for (int i = 1; i < d.length; i++)
+			m = Math.min(m, d[i]);
+		return m;
+	}
+	
+	/**
+	* Returns the maximum value in the vector.
+	*/
+	public double max(Vector<Double> v) 
+	{
+		if(v.isEmpty())
+			return 0;
+		
+		double m = ((Double)v.firstElement()).doubleValue();
+		for (Double d : v) 
+			m = Math.max(m, d);
+		return m;
+	}
+	
+	/**
+	* Returns the minimum value in the vector.
+	*/
+	
+	public double min(Vector<Double> v) 
+	{
+		if(v.isEmpty())
+			return 0;
+		
+		double m = ((Double)v.firstElement()).doubleValue();
+		for (Double d : v)
+			m = Math.min(m, d);
+		return m;
+	}
+	
 }
