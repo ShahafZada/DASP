@@ -106,18 +106,18 @@ function createGame(){
 	var backButton_over = new Image();
 
 
-	
-	
+
+
 	//nodes:
 	var nodeSize = height/10; //height and width are the same
 	var nodeRadius = nodeSize/2;
-	
+
 	var startNode = new Image();
-	var start_currentNode = new Image();
-	var markedNode = new Image();
-	var marked_currentNode = new Image();
+	//var start_currentNode = new Image();	//not needed when just creating a map
+	//var markedNode = new Image();
+	//var marked_currentNode = new Image();
 	var nonvisitedNode = new Image();
-	
+
 	var farthestAvailableID = 0;
 	var releasedIDs = [];	//IDs of erased nodes, yet to be re-used in new nodes
 
@@ -127,9 +127,9 @@ function createGame(){
 
 
 	startNode.src = "images/game/start_node.png";
-	start_currentNode.src = "images/game/start_current_node.png";
-	markedNode.src = "images/game/marked_node.png";
-	marked_currentNode.src = "images/game/marked_current_node.png";
+	//start_currentNode.src = "images/game/start_current_node.png";
+	//markedNode.src = "images/game/marked_node.png";
+	//marked_currentNode.src = "images/game/marked_current_node.png";
 	nonvisitedNode.src = "images/game/nonvisited_node.png";
 
 	backButton.src = "images/backButton.png";
@@ -258,13 +258,13 @@ function createGame(){
 		context.clearRect(0, 0, width, height);
 	}
 
-	
-	
-	
+
+
+
 	this.logic = function() {
 		//finding the mode
 		currentMode = modes.indexOf(true);
-		
+
 		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
 			;
@@ -272,14 +272,15 @@ function createGame(){
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
 			;
 		}
-		
+
 		//if mouse is on collapse or right to upper left point of first button - ignore
 	}
 
-	
-	
+
+
 
 	this.draw = function(){
+		//drawing buttons and collapse arrow
 		if(showTools){
 			for(var i = 0 ; i < buttons.length ; i++){
 
@@ -299,14 +300,26 @@ function createGame(){
 			drawExpandArrow();
 		}
 
+
+		//drawing map elements
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(nodes[i].isStart)
+				drawNode(startNode , nodes[i]);
+			else
+				drawNode(nonvisitedNode , nodes[i]);
+		}
+
+
+
+
 		drawBackButton();
 	}
 
 
 
 
-	
-	
+
+
 
 
 
@@ -401,16 +414,25 @@ function createGame(){
 			context.drawImage(backButton , width - backButtonSize/2 - backButtonDistFromEdges , height - backButtonSize/2 - backButtonDistFromEdges , backButtonSize , backButtonSize);
 	}
 
+	function drawNode(nodeTypeToDraw , theNodeObject){
+		context.drawImage(nodeTypeToDraw , theNodeObject.x , theNodeObject.y , theNodeObject.radius * 2 , theNodeObject.radius * 2);
+	}
 
-	
-	
-	
+
+
 	function checkClick(){
-		
+
 		//applying the according action to mode
 		if(currentMode == buttons.indexOf(createNodeButton)){	//Create Nodes
-			if(isInDrawableArea)
-				nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , false));
+			if(isInDrawableArea()){
+				if(isNotTouchingOtherNodes(mouseX , mouseY , nodeRadius)){
+					nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , false));
+				}
+				else
+					alert("That's too close to another node");
+			}
+			//else, the player probably tried to activate a button
+
 		}
 		else if(currentMode == buttons.indexOf(eraseNodeButton)){	//Erase Nodes
 			;
@@ -425,10 +447,10 @@ function createGame(){
 			;
 		}
 
-		
-		
-		
-		
+
+
+
+
 		//collapse button check
 		if(isMouseOverCollapseButton()){
 			showTools = false;
@@ -436,7 +458,7 @@ function createGame(){
 		else if(isMouseOverExpandButton()){
 			showTools = true;
 		}
-		
+
 
 
 		//tool button check
@@ -445,8 +467,8 @@ function createGame(){
 				setMode(i);
 		}
 
-		
-		
+
+
 		//Back-button check
 		if(isMouseOverBackButton()){	//clicked on back arrow
 			var really = confirm("Back to menu? Your progress won't be saved!");
@@ -460,14 +482,14 @@ function createGame(){
 		}
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	function isInDrawableArea(){
 		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
 			if(nodeRadius < mouseY && mouseY < height - nodeRadius)
@@ -475,8 +497,25 @@ function createGame(){
 					return true;
 		return false;
 	}
-	
-	function generateID(){	//TODO		
+
+	function isNotTouchingOtherNodes(x , y , rad){
+		var radiusesCombined;
+		for(var i = 0 ; i < nodes.length ; i++){
+			radiusesCombined = rad + nodes[i].radius;
+			if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x , nodes[i].y))
+				return false;	//intersecting with each other
+		}
+		return true;
+	}
+
+	function pitagorasSquareDistance(x1 , y1 , x2 , y2){
+		var xDist = x1 - x2;
+		var yDist = y1 - y2;
+		var distSquare = xDist*xDist + yDist*yDist;
+		return distSquare;
+	}
+
+	function generateID(){	
 		if(releasedIDs.length == 0){
 			farthestAvailableID++;
 			return (farthestAvailableID-1);
