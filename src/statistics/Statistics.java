@@ -152,4 +152,61 @@ public class Statistics
 			return 0;
 		return Standard_deviation(v) / Math.sqrt(v.size());
 	}
+	
+	/**
+	* Returns the covariance of the paired arrays of double.
+	*/
+	
+	public double co_variance(double[] d1, double[] d2) 
+	{
+		if(d1.length == 0 || d2.length == 0)
+			return 0;
+		
+		double m1 = average(d1);
+		double m2 = average(d2);
+		double sumsq = 0.0;
+		for (int i = 0; i < d1.length; i++)
+			sumsq += (m1 - d1[i]) * (m2 - d2[i]);
+		return sumsq / (d1.length);
+	}
+	
+	/**
+	* Returns the covariance of the paired vector of double.
+	*/
+	
+	public double co_variance(Vector<Double> v1 , Vector<Double> v2) 
+	{
+		if(v1.isEmpty() || v2.isEmpty())
+			return 0;
+		
+		double m1 = average(v1);
+		double m2 = average(v2);
+		double sumsq = 0.0;
+		for (int i = 0; i < v1.size(); i++)
+			sumsq += (m1 - v1.elementAt(i)) * (m2 - v2.elementAt(i));
+		return sumsq / (v1.size());
+	}
+	
+	public double correlation(double[] d1, double[] d2) 
+	{
+		if(d1.length == 0 || d2.length == 0)
+			return 0;
+		
+		if(Standard_deviation(d1) == 0 || Standard_deviation(d2) == 0)
+			return 0;
+		
+		return ( co_variance(d1, d2) / ( Standard_deviation(d1) * Standard_deviation(d2) ) );
+	}
+	
+	public double correlation(Vector<Double> v1, Vector<Double> v2) 
+	{
+		if(v1.isEmpty() || v2.isEmpty())
+		return 0;
+		
+		if(Standard_deviation(v1) == 0 || Standard_deviation(v2) == 0)
+			return 0;
+		
+		return ( co_variance(v1, v2) / ( Standard_deviation(v1) * Standard_deviation(v2) ) );
+	}
+	
 }

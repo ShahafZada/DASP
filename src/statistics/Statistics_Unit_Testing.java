@@ -254,5 +254,103 @@ public class Statistics_Unit_Testing {
 			assertEquals((Math.sqrt(2)/Math.sqrt(5)), j_statistics.Standard_error(vec),0);
 		}
 		
-// ------------------------  standard deviation & standard error tests  --------------------------------
+// ------------------------  standard deviation & standard error tests  -------------------------------
+		
+// ------------------------  covariance & correlation tests  ------------------------------------------
+		
+		@Test
+		public void CoVarianceEmptyArrays()
+		{
+			assertEquals(0, j_statistics.co_variance(new double[]{},new double[]{}),0);
+		}
+				
+		@Test
+		public void CoVarianceEmptyVectors()
+		{
+			assertEquals(0, j_statistics.co_variance(new Vector<Double>(),new Vector<Double>()),0);
+		}
+		
+		@Test
+		public void CoVarianceOneValArrays()
+		{
+			assertEquals(0, j_statistics.co_variance(new double[]{1.0},new double[]{1.0}),0);
+		}
+		
+		@Test
+		public void CoVarianceOneValVectors()
+		{
+			Vector<Double> vec1 = new Vector<Double>();
+			vec1.add(1.0);
+			Vector<Double> vec2 = new Vector<Double>();
+			vec2.add(1.0);
+			assertEquals(0, j_statistics.co_variance(vec1,vec2),0);
+		}
+		
+		@Test
+		public void CoVarianceMultipleValArrays()
+		{
+			assertEquals(2, j_statistics.co_variance(new double[]{1.0,2.0,3.0,4.0,5.0},new double[]{1.0,2.0,3.0,4.0,5.0}),0);
+		}
+		
+		@Test
+		public void CoVarianceMultipleValVectors()
+		{
+			Vector<Double> vec1 = new Vector<Double>();
+			Vector<Double> vec2 = new Vector<Double>();
+			vec1.add(1.0);	vec2.add(1.0);
+			vec1.add(2.0);	vec2.add(2.0);
+			vec1.add(3.0);	vec2.add(3.0);
+			vec1.add(4.0);	vec2.add(4.0);
+			vec1.add(5.0);	vec2.add(5.0);
+			assertEquals(2, j_statistics.co_variance(vec1,vec2),0);
+		}
+		
+		@Test
+		public void CorrelationEmptyArray()
+		{
+					assertEquals(0, j_statistics.correlation(new double[]{},new double[]{}),0);
+		}
+		
+		@Test
+		public void CorrelationEmptyVector()
+		{
+			assertEquals(0, j_statistics.correlation(new Vector<Double>(),new Vector<Double>()),0);
+		}
+		
+		@Test
+		public void CorrelationOneValArray()
+		{
+			assertEquals(0, j_statistics.correlation(new double[]{1.0},new double[]{1.0}),0);
+		}
+		
+		@Test
+		public void CorrelationOneValVector()
+		{
+			Vector<Double> vec1 = new Vector<Double>();
+			vec1.add(1.0);
+			Vector<Double> vec2 = new Vector<Double>();
+			vec2.add(1.0);
+			assertEquals(0, j_statistics.correlation(vec1,vec2),0);
+		}
+		
+		@Test
+		public void CorrelationMultipleValArray()
+		{
+			assertEquals((2/( Math.sqrt(2)*Math.sqrt(2) )), j_statistics.correlation(new double[]{1.0,2.0,3.0,4.0,5.0},new double[]{1.0,2.0,3.0,4.0,5.0}),0);
+		}
+		
+		@Test
+		public void CorrelationMultipleValVector()
+		{
+			Vector<Double> vec1 = new Vector<Double>();
+			Vector<Double> vec2 = new Vector<Double>();
+			vec1.add(1.0);	vec2.add(1.0);
+			vec1.add(2.0);	vec2.add(2.0);
+			vec1.add(3.0);	vec2.add(3.0);
+			vec1.add(4.0);	vec2.add(4.0);
+			vec1.add(5.0);	vec2.add(5.0);
+			assertEquals((2/( Math.sqrt(2)*Math.sqrt(2) )), j_statistics.correlation(vec1,vec2),0);
+		}
+		
+// ------------------------  covariance & correlation tests  ------------------------------------------
 }
