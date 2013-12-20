@@ -441,4 +441,125 @@ public class Statistics_Unit_Testing {
 		}
 		
 // ------------------------  max & min tests  ---------------------------------------------------------
+		
+// ------------------------  analyze_one_array & analyze_one_vector tests  ----------------------------
+		
+		@Test
+		public void AnalyzeOneEmptyArray()
+		{
+			assertTrue(j_statistics.analyze_one_array(new double[]{}).equals
+					("Average = 0.0  variance = 0.0  Standard deviation = 0.0  Standard error = 0.0  min = 0.0  max = 0.0"));
+		}
+		
+		@Test
+		public void AnalyzeOneEmptyVector()
+		{
+			assertTrue(j_statistics.analyze_one_vector(new Vector<Double>()).equals
+					("Average = 0.0  variance = 0.0  Standard deviation = 0.0  Standard error = 0.0  min = 0.0  max = 0.0"));
+		}
+		
+		@Test
+		public void AnalyzeOneOneValArray()
+		{
+			assertTrue(j_statistics.analyze_one_array(new double[]{1.0}).equals
+					("Average = 1.0  variance = 0.0  Standard deviation = 0.0  Standard error = 0.0  min = 1.0  max = 1.0"));
+		}
+		
+		@Test
+		public void AnalyzeOneOneValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(1.0);
+			
+			assertTrue(j_statistics.analyze_one_vector(vec).equals
+					("Average = 1.0  variance = 0.0  Standard deviation = 0.0  Standard error = 0.0  min = 1.0  max = 1.0"));
+		}
+		
+		@Test
+		public void AnalyzeOneMultipleValArray()
+		{
+			assertTrue(j_statistics.analyze_one_array(new double[]{2.0,2.0,2.0,2.0,2.0}).equals
+					("Average = 2.0  variance = 0.0  Standard deviation = 0.0  Standard error = 0.0  min = 2.0  max = 2.0"));
+		}
+		
+		@Test
+		public void AnalyzeOneMultipleValVector()
+		{
+			Vector<Double> vec = new Vector<Double>();
+			vec.add(2.0);
+			vec.add(2.0);
+			vec.add(2.0);
+			vec.add(2.0);
+			vec.add(2.0);
+			assertTrue(j_statistics.analyze_one_vector(vec).equals
+					("Average = 2.0  variance = 0.0  Standard deviation = 0.0  Standard error = 0.0  min = 2.0  max = 2.0"));
+		}
+
+// ------------------------  analyze_one_array & analyze_one_vector tests  ----------------------------	
+		
+// ------------------------  analyze_two_arrays & analyze_two_vectors tests  --------------------------
+		
+				@Test
+				public void AnalyzeTwoEmptyArrays()
+				{
+					assertTrue(j_statistics.analyze_two_arrays(new double[]{},new double[]{}).equals
+							("Covariance = 0.0  correlation = 0.0"));
+				}
+				
+				@Test
+				public void AnalyzeTwoEmptyVectors()
+				{
+					assertTrue(j_statistics.analyze_two_vectors(new Vector<Double>(),new Vector<Double>()).equals
+							("Covariance = 0.0  correlation = 0.0"));
+				}
+				
+				@Test
+				public void AnalyzeTwoOneValArrays()
+				{
+					assertTrue(j_statistics.analyze_two_arrays(new double[]{1.0},new double[]{1.0}).equals
+							("Covariance = 0.0  correlation = 0.0"));
+				}
+				
+				@Test
+				public void AnalyzeTwoOneValVectors()
+				{
+					Vector<Double> vec1 = new Vector<Double>();
+					vec1.add(1.0);
+					
+					Vector<Double> vec2 = new Vector<Double>();
+					vec2.add(1.0);
+					
+					assertTrue(j_statistics.analyze_two_vectors(vec1,vec2).equals
+							("Covariance = 0.0  correlation = 0.0"));
+				}
+				
+				@Test
+				public void AnalyzeTwoMultipleValArrays()
+				{
+					assertTrue(j_statistics.analyze_two_arrays(new double[]{1.0,2.0,3.0,2.0,1.0},new double[]{1.0,2.0,3.0,2.0,1.0}).equals
+							("Covariance = 0.56  correlation = 1.0"));
+				}
+				
+				@Test
+				public void AnalyzeTwoMultipleValVectors()
+				{
+					Vector<Double> vec1 = new Vector<Double>();
+					vec1.add(1.0);
+					vec1.add(2.0);
+					vec1.add(3.0);
+					vec1.add(2.0);
+					vec1.add(1.0);
+					
+					Vector<Double> vec2 = new Vector<Double>();
+					vec2.add(1.0);
+					vec2.add(2.0);
+					vec2.add(3.0);
+					vec2.add(2.0);
+					vec2.add(1.0);
+					
+					assertTrue(j_statistics.analyze_two_vectors(vec1,vec2).equals
+							("Covariance = 0.56  correlation = 1.0"));
+				}
+				
+// ------------------------  analyze_two_arrays & analyze_two_vectors tests  --------------------------
 }

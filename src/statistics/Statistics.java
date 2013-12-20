@@ -268,4 +268,56 @@ public class Statistics
 		return m;
 	}
 	
+	/**
+	* Prints the averages and standard deviation of the data to the standard
+	* output. array version
+	*/
+	
+	public String analyze_one_array(double[] d) 
+	{
+	return(
+				"Average = " + average(d) 
+				+ "  variance = " + variance(d) 
+				+ "  Standard deviation = " + Standard_deviation(d) 
+				+ "  Standard error = "+ Standard_error(d) +"  min = "
+				+ min(d) + "  max = " + max(d)
+				);
+	}
+	
+	/**
+	* Prints the averages and standard deviation of the data to the standard
+	* output. vector varsion
+	*/
+	
+	public String analyze_one_vector(Vector<Double> v) 
+	{
+		return(
+				"Average = " + average(v) 
+				+ "  variance = " + variance(v) 
+				+ "  Standard deviation = " + Standard_deviation(v) 
+				+ "  Standard error = "+ Standard_error(v) +"  min = "
+				+ min(v) + "  max = " + max(v)
+				);
+	}
+	
+	public String analyze_two_arrays(double[] d1,double[] d2) 
+	{
+		return(
+				"Covariance = " + co_variance(d1,d2) 
+				+ "  correlation = " + correlation(d1,d2) 
+				);
+	}
+	
+	/**
+	* Prints the averages and standard deviation of the data to the standard
+	* output. vector varsion
+	*/
+	
+	public String analyze_two_vectors(Vector<Double> v1,Vector<Double> v2) 
+	{
+		return(
+				"Covariance = " + co_variance(v1,v2) 
+				+ "  correlation = " + correlation(v1,v2) 
+				);
+	}
 }
