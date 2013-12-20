@@ -350,6 +350,16 @@ function createGame(){
 		}
 	}
 
+
+	function setMode(index){
+		for(var i = 0 ; i < modes.length ; i++){	//initializing in mode setStart
+			if(i == index)
+				modes[i] = true;
+			else
+				modes[i] = false;
+		}
+	}
+
 	function isMouseOverButton(i){
 		if(i == buttons.indexOf(saveButton)){	//save button
 			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + saveButtonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
@@ -379,16 +389,6 @@ function createGame(){
 		}
 		else
 			context.drawImage(buttonFrame , buttonPositions[i].xPos + buttonWidth/2 - frameSize/2 , buttonPositions[i].yPos + buttonHeight/2 - frameSize/2 , frameSize , frameSize);
-	}
-
-
-	function setMode(index){
-		for(var i = 0 ; i < modes.length ; i++){	//initializing in mode setStart
-			if(i == index)
-				modes[i] = true;
-			else
-				modes[i] = false;
-		}
 	}
 
 
@@ -446,7 +446,51 @@ function createGame(){
 			;
 		}
 		else if(currentMode == buttons.indexOf(setStartButton)){	//Set Start
-			;
+			if(isInDrawableArea()){
+				if(isNotTouchingOtherNodes(mouseX , mouseY , nodeRadius)){
+					//canceling previous start
+					for(var i = 0 ; i < nodes.length ; i++){
+						if(nodes[i].isStart){
+							nodes[i].isStart = false;
+							break;
+						}
+					}
+
+					nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , true));
+					setMode(buttons.indexOf(createNodeButton));
+				}
+				else{	//touching an existing Node 
+					//assigning start to existing point, or canceling it
+					var touchX = mouseX;
+					var touchY = mouseY;
+					var leaveSetStart = true;
+					var foundIt = false; //just to save the extra scan
+					for(var i = 0 ; i < nodes.length ; i++){
+						if(nodes[i].isStart){
+							if(!foundIt){
+								if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(touchX , touchY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
+									leaveSetStart = false	//click wasted on cancelling a start, so no reason to leave it yet
+									foundIt = true;
+								}
+							}
+							nodes[i].isStart = false;	//if touched or not, any previous start is cancelled
+						}
+						else{
+							if(!foundIt){
+								if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(touchX , touchY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
+									nodes[i].isStart = true;
+									foundIt = true;
+								}
+							}
+						}
+					}
+					
+					if(leaveSetStart)
+						setMode(buttons.indexOf(createNodeButton));
+				}
+			}
+
+
 		}
 
 
@@ -495,8 +539,14 @@ function createGame(){
 	function isInDrawableArea(){
 		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
 			if(nodeRadius < mouseY && mouseY < height - nodeRadius)
-				if(!isMouseOverCollapseButton() && !isMouseOverExpandButton())
+				if(!isMouseOverCollapseButton() && !isMouseOverExpandButton()){
+					for(var i = 0 ; i < buttons.length ; i++){
+						if(isMouseOverButton(i))
+							return false;
+					}
 					return true;
+				}
+
 		return false;
 	}
 
@@ -528,7 +578,7 @@ function createGame(){
 			return reusedID;
 		}
 	}
-	
+
 	function destroyByTouch(x , y){
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
@@ -537,10 +587,9 @@ function createGame(){
 				nodes.pop();
 				return;
 			}
-				
+
 		}
 	}
-
 
 	function isMouseOverCollapseButton(){
 		if(showTools){	//GUI is visible
@@ -568,13 +617,13 @@ function createGame(){
 	}
 
 
-	//-------------------------------------------------------------
+//	-------------------------------------------------------------
 
-	//event listeners :
+//	event listeners :
 
 	canvas.addEventListener("mouseup", checkClick);
 
-	//-------------------------------------------------------------
+//	-------------------------------------------------------------
 
 
 
