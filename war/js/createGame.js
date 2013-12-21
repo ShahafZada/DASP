@@ -4,7 +4,7 @@ function createGame(){
 
 	//		variant definitions :
 
-
+	var arbitraryNegativeValue = -1;
 
 
 	//mode (chosen tool) :
@@ -18,7 +18,7 @@ function createGame(){
 	var frameSize = buttonHeight * 1.1;
 	var saveButtonWidth;
 	//var distanceBetweenButtons;	//eventually not used
-	var buttonDistFromEdges = -1;	//needs to be any negative value, which would trigger a fail-safe loop below
+	var buttonDistFromEdges = arbitraryNegativeValue;	//needs to be any negative value, which would trigger a fail-safe loop below
 
 	var buttons = [];
 	var buttonsOver = [];
@@ -118,7 +118,7 @@ function createGame(){
 	//var marked_currentNode = new Image();
 	var nonvisitedNode = new Image();
 
-	var farthestAvailableID = 0;
+	var farthestAvailableID = 0;	//the value here is the lowest ID (the count's start) 
 	var releasedIDs = [];	//IDs of erased nodes, yet to be re-used in new nodes
 
 	var nodes = [];
@@ -140,6 +140,7 @@ function createGame(){
 	
 	var defaultWeight = 1;
 	var defaultColor = "cyan";
+	var lastClickedNodeID = arbitraryNegativeValue;	//while it's negative: no node was touched
 	
 	
 	
@@ -288,6 +289,24 @@ function createGame(){
 
 
 	this.draw = function(){
+		
+
+
+		//drawing map elements
+		//edges
+		for(var i = 0 ; i < nodes.length ; i++){	//TODO
+			
+		}
+		//nodes
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(nodes[i].isStart)
+				drawNode(startNode , nodes[i]);
+			else
+				drawNode(nonvisitedNode , nodes[i]);
+		}
+		
+		
+
 		//drawing buttons and collapse arrow
 		if(showTools){
 			for(var i = 0 ; i < buttons.length ; i++){
@@ -307,22 +326,6 @@ function createGame(){
 		else{	//GUI isn't shown
 			drawExpandArrow();
 		}
-
-
-		//drawing map elements
-		//edges
-		for(var i = 0 ; i < nodes.length ; i++){	//TODO
-			
-		}
-		//nodes
-		for(var i = 0 ; i < nodes.length ; i++){
-			if(nodes[i].isStart)
-				drawNode(startNode , nodes[i]);
-			else
-				drawNode(nonvisitedNode , nodes[i]);
-		}
-
-
 
 
 		drawBackButton();
