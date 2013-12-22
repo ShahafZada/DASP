@@ -297,11 +297,11 @@ function createGame(){
 		for(var i = 0 ; i < nodes.length ; i++){
 			for(var j = 0 ; j < nodes[i].edges.length ; j++){
 				if(i < nodes[i].edges[j].pointedNodeID){	//makes sure we only draw every edge once (because there are 2 directions)
-					var pointedNodeIndex = getNodesIndexFromNodeID(nodes[i].nodes[j].pointedNodeID);	//finds the other end's position in nodes
+					var pointedNodeIndex = getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID);	//finds the other end's position in nodes
 					if(allowingMultiColoredEdges)
-						drawLineFromPointToPoint(nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius , nodes[pointedNodeIndex].x , nodes[pointedNodeIndex].y , nodes[i].edges[j].color);
+						drawLineFromPointToPoint(nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius , nodes[pointedNodeIndex].x + nodes[pointedNodeIndex].radius , nodes[pointedNodeIndex].y + nodes[pointedNodeIndex].radius , nodes[i].edges[j].color);
 					else
-						drawLineFromPointToPoint(nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius , nodes[pointedNodeIndex].x , nodes[pointedNodeIndex].y , defaultEdgeColor);
+						drawLineFromPointToPoint(nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius , nodes[pointedNodeIndex].x + nodes[pointedNodeIndex].radius , nodes[pointedNodeIndex].y + nodes[pointedNodeIndex].radius , defaultEdgeColor);
 				}
 			}
 
@@ -641,6 +641,8 @@ function createGame(){
 							
 							if(!nahForgetItAlreadyExists)//if doesn't exist, set edges
 								addEdgeBetween(lastClickedNodeIndex , i);
+							else
+								alert("I didn't create new edges");
 							
 							
 							setEdgeOrigin(i);	//anyway the next origin should be the clicked node
