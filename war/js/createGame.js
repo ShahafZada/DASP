@@ -360,60 +360,6 @@ function createGame(){
 
 	//other private functions :
 
-
-	function determinePositions(positionsArray , buttonArray){
-		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
-		var rightColX = width - buttonDistFromEdges - buttonWidth;
-		var xCoord , yCoord;
-		var yCoord = buttonDistFromEdges;
-		for(var i = 0 ; i < buttonArray.length ; i++){
-
-			if(i % 2 == 0){
-				xCoord = leftColX;
-				if(i != 0)
-					yCoord += (buttonHeight + buttonDistFromEdges);
-			}
-			else{
-				xCoord = rightColX;
-			}
-
-			positionsArray.push(new coord(xCoord , yCoord));
-		}
-	}
-
-
-	function setMode(index){
-		if(currentMode = buttons.indexOf(createEdgeButton))	//canceling the previously chosen node in edge creation
-			lastClickedNodeID = ARBITRARY_NEGATIVE;
-
-		for(var i = 0 ; i < modes.length ; i++){	//initializing in mode setStart
-			if(i == index)
-				modes[i] = true;
-			else
-				modes[i] = false;
-		}
-
-		currentMode = modes.indexOf(true);
-	}
-
-	function isMouseOverButton(i){
-		if(!showTools)
-			return false;
-
-		if(i == buttons.indexOf(saveButton)){	//save button
-			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + saveButtonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
-				return true;
-			else
-				return false;
-		}
-		else{
-			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + buttonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
-				return true;
-			else
-				return false;
-		}
-	}
-
 	function drawButton(array , i){
 		if(i == buttons.indexOf(saveButton))
 			context.drawImage(array[i] , buttonPositions[i].xPos , buttonPositions[i].yPos , saveButtonWidth , buttonHeight);	//save button. It's larger than the rest
@@ -458,7 +404,200 @@ function createGame(){
 	}
 
 
+	function drawLineFromPointToPoint(xA , yA , xB , yB , lineColor){
+		context.beginPath();
+		context.lineWidth = defaultEdgeWidth;
+		context.strokeStyle = lineColor;
+		context.moveTo(xA , yA);					
+		context.lineTo(xB , yB);
+		context.stroke();
+	}
+	
+	
+	function determinePositions(positionsArray , buttonArray){
+		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
+		var rightColX = width - buttonDistFromEdges - buttonWidth;
+		var xCoord , yCoord;
+		var yCoord = buttonDistFromEdges;
+		for(var i = 0 ; i < buttonArray.length ; i++){
 
+			if(i % 2 == 0){
+				xCoord = leftColX;
+				if(i != 0)
+					yCoord += (buttonHeight + buttonDistFromEdges);
+			}
+			else{
+				xCoord = rightColX;
+			}
+
+			positionsArray.push(new coord(xCoord , yCoord));
+		}
+	}
+
+
+	function setMode(index){
+		if(currentMode = buttons.indexOf(createEdgeButton))	//canceling the previously chosen node in edge creation
+			lastClickedNodeID = ARBITRARY_NEGATIVE;
+
+		for(var i = 0 ; i < modes.length ; i++){	//initializing in mode setStart
+			if(i == index)
+				modes[i] = true;
+			else
+				modes[i] = false;
+		}
+
+		currentMode = modes.indexOf(true);
+	}
+
+
+	function addEdgeBetween(nodeIndex1 , nodeIndex2){
+		if(allowingMultiColoredEdges){
+			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , defaultEdgeColor , defaultEdgeWeight));
+			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , defaultEdgeColor , defaultEdgeWeight));
+		}
+		else{
+			//var randomColor = use a random function	//TODO
+			//nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , randomColor , defaultEdgeWeight));
+			//nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
+		}
+	}
+
+	function getNodesIndexFromNodeID(nodeID){
+		if(lastClickedNodeID >= 0){
+			for(var i = 0 ; i < nodes.length ; i++){
+				if(nodes[i].id == nodeID)
+					return i;
+			}
+		}
+		alert("hey, there's a bug here, come fix me!");	//happens when last clicked node ID isn't an existing node's ID
+		return -1;
+	}
+
+	function setEdgeOrigin(index){
+		lastClickedNodeID = nodes[index].id;
+		lastClickedNodeIndex = index;
+	}
+
+	function isNodeITouchedByMouse(i){
+		if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(mouseX , mouseY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
+			return true;
+		else
+			return false;
+	}
+
+	function isInDrawableArea(){
+		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
+			if(nodeRadius < mouseY && mouseY < height - nodeRadius)
+				if(!isMouseOverCollapseButton() && !isMouseOverExpandButton()){
+					for(var i = 0 ; i < buttons.length ; i++){
+						if(isMouseOverButton(i))
+							return false;
+					}
+					return true;
+				}
+
+		return false;
+	}
+
+	function isCircleNotTouchingOtherNodes(x , y , rad){
+		var radiusesCombined;
+		for(var i = 0 ; i < nodes.length ; i++){
+			radiusesCombined = rad + nodes[i].radius;
+			if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
+				return false;	//intersecting with each other
+		}
+		return true;
+	}
+
+	function pitagorasSquareDistance(x1 , y1 , x2 , y2){
+		var xDist = x1 - x2;
+		var yDist = y1 - y2;
+		var distSquare = xDist*xDist + yDist*yDist;
+		return distSquare;
+	}
+
+	function generateID(){	
+		if(releasedIDs.length == 0){
+			farthestAvailableID++;
+			return (farthestAvailableID-1);
+		}
+		else{	//still some old (smaller) IDs available
+			var reusedID = releasedIDs[releasedIDs.length - 1];	//value of last vaccant ID (LIFO)
+			releasedIDs.pop();
+			return reusedID;
+		}
+	}
+
+	function destroyByTouch(x , y){
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
+				releasedIDs.push(nodes[i].id);
+				nodes[i] = nodes[nodes.length - 1];
+				nodes.pop();
+				return;
+			}
+
+		}
+	}
+	
+	
+	function isMouseOverButton(i){
+		if(!showTools)
+			return false;
+
+		if(i == buttons.indexOf(saveButton)){	//save button
+			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + saveButtonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
+				return true;
+			else
+				return false;
+		}
+		else{
+			if(buttonPositions[i].xPos < mouseX && mouseX < buttonPositions[i].xPos + buttonWidth && buttonPositions[i].yPos < mouseY && mouseY < buttonPositions[i].yPos + buttonHeight)
+				return true;
+			else
+				return false;
+		}
+	}
+
+	function isMouseOverCollapseButton(){
+		if(showTools){	//GUI is visible
+			if(buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges < mouseX && mouseX < buttonPositions[0].xPos - buttonDistFromEdges &&
+					buttonPositions[0].yPos < mouseY && mouseY < buttonPositions[0].yPos + arrowHeight)
+				return true;
+		}
+		return false;
+	}
+
+	function isMouseOverExpandButton(){
+		if(!showTools){	//GUI is not visible
+			if(width - expandArrowWidth < mouseX && mouseX < width && buttonPositions[0].yPos < mouseY && mouseY < buttonPositions[0].yPos + arrowHeight)
+				return true;
+		}
+		return false;
+	}
+
+	function isMouseOverBackButton(){
+		if((width - backButtonSize/2 - backButtonDistFromEdges < mouseX && mouseX < width - backButtonDistFromEdges + backButtonSize/2) &&
+				(height - backButtonSize/2 - backButtonDistFromEdges < mouseY && mouseY < height - backButtonDistFromEdges + backButtonSize/2))	//clicked on back arrow
+			return true;
+		else
+			return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	function checkClick(){
 
 		//applying the according action to mode
@@ -478,7 +617,7 @@ function createGame(){
 				destroyByTouch(mouseX , mouseY);
 			}
 		}
-		//TODO
+		
 		else if(currentMode == buttons.indexOf(createEdgeButton)){	//Create Edges
 			if(lastClickedNodeID < 0){	//line's starting node isn't already picked
 				for(var i = 0 ; i < nodes.length ; i++){
@@ -490,7 +629,8 @@ function createGame(){
 			else{
 				for(var i = 0 ; i < nodes.length ; i++){
 					if(isNodeITouchedByMouse(i)){
-						if(lastClickedNodeIndex = i){	//cancel the mark
+						if(lastClickedNodeIndex == i){	//cancel the mark
+							alert(i + " desu");
 							lastClickedNodeID = ARBITRARY_NEGATIVE;
 						}
 						else{
@@ -600,140 +740,6 @@ function createGame(){
 			}
 		}
 
-	}
-
-
-
-
-
-
-
-
-
-
-
-	function drawLineFromPointToPoint(xA , yA , xB , yB , lineColor){
-		context.beginPath();
-		context.lineWidth = defaultEdgeWidth;
-		context.strokeStyle = lineColor;
-		context.moveTo(xA , yA);					
-		context.lineTo(xB , yB);
-		context.stroke();
-	}
-
-	function addEdgeBetween(nodeIndex1 , nodeIndex2){
-		if(allowingMultiColoredEdges){
-			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , defaultEdgeColor , defaultEdgeWeight));
-			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , defaultEdgeColor , defaultEdgeWeight));
-		}
-		else{
-			//var randomColor = use a random function	//TODO
-			//nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , randomColor , defaultEdgeWeight));
-			//nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
-		}
-	}
-
-	function getNodesIndexFromNodeID(nodeID){
-		if(lastClickedNodeID >= 0){
-			for(var i = 0 ; i < nodes.length ; i++){
-				if(nodes[i].id == nodeID)
-					return i;
-			}
-		}
-		alert("hey, there's a bug here, come fix me!");	//happens when last clicked node ID isn't an existing node's ID
-		return -1;
-	}
-
-	function setEdgeOrigin(index){
-		lastClickedNodeID = nodes[index].id;
-		lastClickedNodeIndex = index;
-	}
-
-	function isNodeITouchedByMouse(i){
-		if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(mouseX , mouseY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
-			return true;
-		else
-			return false;
-	}
-
-	function isInDrawableArea(){
-		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
-			if(nodeRadius < mouseY && mouseY < height - nodeRadius)
-				if(!isMouseOverCollapseButton() && !isMouseOverExpandButton()){
-					for(var i = 0 ; i < buttons.length ; i++){
-						if(isMouseOverButton(i))
-							return false;
-					}
-					return true;
-				}
-
-		return false;
-	}
-
-	function isCircleNotTouchingOtherNodes(x , y , rad){
-		var radiusesCombined;
-		for(var i = 0 ; i < nodes.length ; i++){
-			radiusesCombined = rad + nodes[i].radius;
-			if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
-				return false;	//intersecting with each other
-		}
-		return true;
-	}
-
-	function pitagorasSquareDistance(x1 , y1 , x2 , y2){
-		var xDist = x1 - x2;
-		var yDist = y1 - y2;
-		var distSquare = xDist*xDist + yDist*yDist;
-		return distSquare;
-	}
-
-	function generateID(){	
-		if(releasedIDs.length == 0){
-			farthestAvailableID++;
-			return (farthestAvailableID-1);
-		}
-		else{	//still some old (smaller) IDs available
-			var reusedID = releasedIDs[releasedIDs.length - 1];	//value of last vaccant ID (LIFO)
-			releasedIDs.pop();
-			return reusedID;
-		}
-	}
-
-	function destroyByTouch(x , y){
-		for(var i = 0 ; i < nodes.length ; i++){
-			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
-				releasedIDs.push(nodes[i].id);
-				nodes[i] = nodes[nodes.length - 1];
-				nodes.pop();
-				return;
-			}
-
-		}
-	}
-
-	function isMouseOverCollapseButton(){
-		if(showTools){	//GUI is visible
-			if(buttonPositions[0].xPos - collapseArrowWidth - buttonDistFromEdges < mouseX && mouseX < buttonPositions[0].xPos - buttonDistFromEdges &&
-					buttonPositions[0].yPos < mouseY && mouseY < buttonPositions[0].yPos + arrowHeight)
-				return true;
-		}
-		return false;
-	}
-
-	function isMouseOverExpandButton(){
-		if(!showTools){	//GUI is not visible
-			if(width - expandArrowWidth < mouseX && mouseX < width && buttonPositions[0].yPos < mouseY && mouseY < buttonPositions[0].yPos + arrowHeight)
-				return true;
-		}
-		return false;
-	}
-
-	function isMouseOverBackButton(){
-		if((width - backButtonSize/2 - backButtonDistFromEdges < mouseX && mouseX < width - backButtonDistFromEdges + backButtonSize/2) &&
-				(height - backButtonSize/2 - backButtonDistFromEdges < mouseY && mouseY < height - backButtonDistFromEdges + backButtonSize/2))	//clicked on back arrow
-			return true;
-		else
-			return false;
 	}
 
 
