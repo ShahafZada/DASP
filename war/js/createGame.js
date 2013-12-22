@@ -451,7 +451,7 @@ function createGame(){
 
 
 	function addEdgeBetween(nodeIndex1 , nodeIndex2){
-		if(allowingMultiColoredEdges){
+		if(!allowingMultiColoredEdges){
 			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , defaultEdgeColor , defaultEdgeWeight));
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , defaultEdgeColor , defaultEdgeWeight));
 		}
@@ -630,19 +630,19 @@ function createGame(){
 				for(var i = 0 ; i < nodes.length ; i++){
 					if(isNodeITouchedByMouse(i)){
 						if(lastClickedNodeIndex == i){	//cancel the mark
-							alert(i + " desu");
 							lastClickedNodeID = ARBITRARY_NEGATIVE;
 						}
 						else{
 							var nahForgetItAlreadyExists = false;
-							for(var j = 0 ; j < nodes[i].edges.length ; j++){	//checking if the node we're connecting holds an edge which leads back to our previous one
+							
+							for(var j = 0 ; j < nodes[i].edges.length ; j++)	//checking if the node we're connecting holds an edge which leads back to our previous one
 								if(nodes[i].edges[j].id == lastClickedNodeID)//checks if edges exist
 									nahForgetItAlreadyExists = true;
-
-							}
-							if(!nahForgetItAlreadyExists){//if doesn't exist, set edges
+							
+							if(!nahForgetItAlreadyExists)//if doesn't exist, set edges
 								addEdgeBetween(lastClickedNodeIndex , i);
-							}
+							
+							
 							setEdgeOrigin(i);	//anyway the next origin should be the clicked node
 						}
 					}
