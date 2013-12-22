@@ -311,7 +311,7 @@ function createGame(){
 			}
 
 		}
-		if(lastClickedNodeID >= 0){	//need to draw line from picked node
+		if(lastClickedNodeID >= 0){	//need to draw line from picked node towards mouse
 			if(allowingMultiColoredEdges){
 				if(restRandomizingCounter == restColorRandomizing){	//saving some work for your computer :)
 					restRandomizingCounter = 0;
@@ -319,7 +319,7 @@ function createGame(){
 				}
 				restRandomizingCounter++;
 			}
-			else
+			else	// if using uni-color
 				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , defaultEdgeColor);	//drawing line from node to nothing (where the mouse is)	
 		}
 
@@ -650,16 +650,15 @@ function createGame(){
 						else{
 							var nahForgetItAlreadyExists = false;
 
-							for(var j = 0 ; j < nodes[i].edges.length ; j++)	//checking if the node we're connecting holds an edge which leads back to our previous one
-								if(nodes[i].edges[j].id == lastClickedNodeID)//checks if edges exist
+							for(var j = 0 ; j < nodes[i].edges.length ; j++){	//checking if the node we're connecting holds an edge which leads back to our previous one
+								if(nodes[i].edges[j].pointedNodeID == lastClickedNodeID)	//checks if there's an edge from clicked node
 									nahForgetItAlreadyExists = true;
+							}
 
 							if(!nahForgetItAlreadyExists)//if doesn't exist, set edges
 								addEdgeBetween(lastClickedNodeIndex , i);	//TODO move the randomization of color here and send it as a parameter
-							else
-								alert("I didn't create new edges");
 
-
+							
 							setEdgeOrigin(i);	//anyway the next origin should be the clicked node
 						}
 					}
