@@ -66,7 +66,6 @@ function createGame(){
 
 
 
-
 	collapseArrow.src =  "images/createGame/collapseArrow.png";
 	expandArrow.src =  "images/createGame/expandArrow.png";
 
@@ -144,7 +143,9 @@ function createGame(){
 	var lastClickedNodeID = ARBITRARY_NEGATIVE;	//while it's negative: no node was touched. Use this to know if node was touched, for that DO NOT use the index identifier (lastClickedNodeIndex) 
 	var lastClickedNodeIndex;
 
-	var allowingMultiColoredEdges = false;
+	var allowingMultiColoredEdges = true;
+	var restColorRandomizing = 2;	//there's a certain edge which would get randomized every 'restColorRandomizing' cycles. In other words, this is sleep for randomize
+	var restRandomizingCounter = 0;
 
 
 
@@ -277,11 +278,11 @@ function createGame(){
 		
 		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
-			;
+			alert("tool isn't ready yet");
 		}
 		//TODO
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
-			;
+			alert("tool isn't ready yet");
 		}
 
 		//if mouse is on collapse or right to upper left point of first button - ignore
@@ -307,8 +308,13 @@ function createGame(){
 
 		}
 		if(lastClickedNodeID >= 0){	//need to draw line from picked node
-			if(allowingMultiColoredEdges)
-				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , "black");	//TODO add random color for flashy thing
+			if(allowingMultiColoredEdges){
+				if(restRandomizingCounter == restColorRandomizing){	//saving some work for your computer :)
+					restRandomizingCounter = 0;
+					drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , randomRGBColor());
+				}
+				restRandomizingCounter++;
+			}
 			else
 				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , defaultEdgeColor);	//drawing line from node to nothing (where the mouse is)	
 		}
@@ -414,6 +420,10 @@ function createGame(){
 	}
 	
 	
+	function randomRGBColor(){
+		return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+	}
+	
 	function determinePositions(positionsArray , buttonArray){
 		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
 		var rightColX = width - buttonDistFromEdges - buttonWidth;
@@ -456,9 +466,9 @@ function createGame(){
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , defaultEdgeColor , defaultEdgeWeight));
 		}
 		else{
-			//var randomColor = use a random function	//TODO
-			//nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , randomColor , defaultEdgeWeight));
-			//nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
+			var randomColor = randomRGBColor();
+			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , randomColor , defaultEdgeWeight));
+			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
 		}
 	}
 
