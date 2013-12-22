@@ -274,8 +274,6 @@ function createGame(){
 
 
 	this.logic = function() {
-
-		//currentMode = modes.indexOf(true);
 		
 		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
@@ -298,21 +296,21 @@ function createGame(){
 		//edges
 		for(var i = 0 ; i < nodes.length ; i++){
 			for(var j = 0 ; j < nodes[i].edges.length ; j++){
-				if(i < nodes[i].nodes[j].pointedNodeID){	//makes sure we only draw every edge once (because there are 2 directions)
+				if(i < nodes[i].edges[j].pointedNodeID){	//makes sure we only draw every edge once (because there are 2 directions)
 					var pointedNodeIndex = getNodesIndexFromNodeID(nodes[i].nodes[j].pointedNodeID);	//finds the other end's position in nodes
 					if(allowingMultiColoredEdges)
-						drawLineFromPointToPoint(nodes[i].x , nodes[i].y , nodes[pointedNodeIndex].x , nodes[pointedNodeIndex].y , nodes[i].edges[j].color);
+						drawLineFromPointToPoint(nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius , nodes[pointedNodeIndex].x , nodes[pointedNodeIndex].y , nodes[i].edges[j].color);
 					else
-						drawLineFromPointToPoint(nodes[i].x , nodes[i].y , nodes[pointedNodeIndex].x , nodes[pointedNodeIndex].y , defaultEdgeColor);
+						drawLineFromPointToPoint(nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius , nodes[pointedNodeIndex].x , nodes[pointedNodeIndex].y , defaultEdgeColor);
 				}
 			}
 
 		}
 		if(lastClickedNodeID >= 0){	//need to draw line from picked node
 			if(allowingMultiColoredEdges)
-				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x , nodes[lastClickedNodeIndex].y , mouseX , mouseY , "black");	//TODO add random color for flashy thing
+				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , "black");	//TODO add random color for flashy thing
 			else
-				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x , nodes[lastClickedNodeIndex].y , mouseX , mouseY , defaultEdgeColor);	//drawing line from node to nothing (where the mouse is)	
+				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , defaultEdgeColor);	//drawing line from node to nothing (where the mouse is)	
 		}
 
 		//nodes
