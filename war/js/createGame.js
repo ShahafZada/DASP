@@ -287,6 +287,7 @@ function createGame(){
 		//TODO
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
 			alert("tool isn't ready yet");
+			//TODO check if map is legal (every node is reachable)
 		}
 
 		//if mouse is on collapse or right to upper left point of first button - ignore
@@ -477,6 +478,20 @@ function createGame(){
 		}
 	}
 
+	function removeEdgeBetween(nodeIndex1 , nodeIndex2){
+		removeEdgeSingleDirection(nodeIndex1 , nodeIndex2);
+		removeEdgeSingleDirection(nodeIndex2 , nodeIndex1);
+	}
+	
+	function removeEdgeSingleDirection(nodeIndexFrom , nodeIndexTo){
+		for(var j = 0 ; j < nodes[nodeIndexFrom].edges.length ; j++){
+			if(nodes[nodeIndexFrom].edges[j].pointedNodeID == nodes[nodeIndexTo].id){
+				nodes[nodeIndexFrom].edges[j] = nodes[nodeIndexFrom].edges[nodes[nodeIndexFrom].edges.length - 1];
+				nodes[nodeIndexFrom].edges.pop();
+			}
+		}
+	}
+
 	function getNodesIndexFromNodeID(nodeID){
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(nodes[i].id == nodeID)
@@ -545,7 +560,11 @@ function createGame(){
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
 				releasedIDs.push(nodes[i].id);
-				//TODO release nodes[i].edges and all opposite directed edges (into nodes[i])
+				
+				for(var j = 0 ; j < nodes[i].edges.length ; j++){	//release all opposite directed edges (into nodes[i])
+					removeEdgeSingleDirection(getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID) , i);
+				}
+				
 				nodes[i] = nodes[nodes.length - 1];
 				//no need to redirect edges back to moved to node - they are guided by ID, not index
 				nodes.pop();
@@ -658,7 +677,7 @@ function createGame(){
 							if(!nahForgetItAlreadyExists)//if doesn't exist, set edges
 								addEdgeBetween(lastClickedNodeIndex , i);	//TODO move the randomization of color here and send it as a parameter
 
-							
+
 							setEdgeOrigin(i);	//anyway the next origin should be the clicked node
 						}
 					}
