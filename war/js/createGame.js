@@ -1,5 +1,8 @@
 function createGame(){
 
+	//the script generates an array of Nodes, which all contain arrays of edges
+	//the nodes array is possibly messed, by "incorrect" indexing to each node (not matching ID) - but fear not, for if it matters, the array can be sorted. Besides, the edge drawing utilizes IDs (and not indexes) anyway
+
 //	-------------------------------------------------------------
 
 	//		variant definitions :
@@ -140,6 +143,7 @@ function createGame(){
 	var defaultEdgeWeight = 1;
 	var defaultEdgeWidth = 1;
 	var defaultEdgeColor = "cyan";
+
 	var lastClickedNodeID = ARBITRARY_NEGATIVE;	//while it's negative: no node was touched. Use this to know if node was touched, for that DO NOT use the index identifier (lastClickedNodeIndex) 
 	var lastClickedNodeIndex;
 
@@ -275,7 +279,7 @@ function createGame(){
 
 
 	this.logic = function() {
-		
+
 		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
 			alert("tool isn't ready yet");
@@ -418,12 +422,12 @@ function createGame(){
 		context.lineTo(xB , yB);
 		context.stroke();
 	}
-	
-	
+
+
 	function randomRGBColor(){
 		return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
 	}
-	
+
 	function determinePositions(positionsArray , buttonArray){
 		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
 		var rightColX = width - buttonDistFromEdges - buttonWidth;
@@ -446,8 +450,9 @@ function createGame(){
 
 
 	function setMode(index){
-		if(currentMode = buttons.indexOf(createEdgeButton))	//canceling the previously chosen node in edge creation
+		if(currentMode == buttons.indexOf(createEdgeButton))	//canceling the previously chosen node in edge creation
 			lastClickedNodeID = ARBITRARY_NEGATIVE;
+
 
 		for(var i = 0 ; i < modes.length ; i++){	//initializing in mode setStart
 			if(i == index)
@@ -473,11 +478,9 @@ function createGame(){
 	}
 
 	function getNodesIndexFromNodeID(nodeID){
-		if(lastClickedNodeID >= 0){
-			for(var i = 0 ; i < nodes.length ; i++){
-				if(nodes[i].id == nodeID)
-					return i;
-			}
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(nodes[i].id == nodeID)
+				return i;
 		}
 		alert("hey, there's a bug here, come fix me!");	//happens when last clicked node ID isn't an existing node's ID
 		return -1;
@@ -542,15 +545,17 @@ function createGame(){
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
 				releasedIDs.push(nodes[i].id);
+				//TODO release nodes[i].edges and all opposite directed edges (into nodes[i])
 				nodes[i] = nodes[nodes.length - 1];
+				//no need to redirect edges back to moved to node - they are guided by ID, not index
 				nodes.pop();
 				return;
 			}
 
 		}
 	}
-	
-	
+
+
 	function isMouseOverButton(i){
 		if(!showTools)
 			return false;
@@ -593,21 +598,21 @@ function createGame(){
 		else
 			return false;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	function checkClick(){
 
 		//applying the according action to mode
@@ -627,7 +632,7 @@ function createGame(){
 				destroyByTouch(mouseX , mouseY);
 			}
 		}
-		
+
 		else if(currentMode == buttons.indexOf(createEdgeButton)){	//Create Edges
 			if(lastClickedNodeID < 0){	//line's starting node isn't already picked
 				for(var i = 0 ; i < nodes.length ; i++){
@@ -644,17 +649,17 @@ function createGame(){
 						}
 						else{
 							var nahForgetItAlreadyExists = false;
-							
+
 							for(var j = 0 ; j < nodes[i].edges.length ; j++)	//checking if the node we're connecting holds an edge which leads back to our previous one
 								if(nodes[i].edges[j].id == lastClickedNodeID)//checks if edges exist
 									nahForgetItAlreadyExists = true;
-							
+
 							if(!nahForgetItAlreadyExists)//if doesn't exist, set edges
-								addEdgeBetween(lastClickedNodeIndex , i);
+								addEdgeBetween(lastClickedNodeIndex , i);	//TODO move the randomization of color here and send it as a parameter
 							else
 								alert("I didn't create new edges");
-							
-							
+
+
 							setEdgeOrigin(i);	//anyway the next origin should be the clicked node
 						}
 					}
@@ -667,7 +672,7 @@ function createGame(){
 
 		//TODO
 		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
-			alert("tool isn't ready yet");
+			;
 		}
 		else if(currentMode == buttons.indexOf(setStartButton)){	//Set Start
 			if(isInDrawableArea()){
