@@ -8,7 +8,7 @@ function createGame(){
 
 
 	//mode (chosen tool) :
-	var currentMode
+	var currentMode = 0;
 	var modes = [];
 
 
@@ -181,7 +181,8 @@ function createGame(){
 			modes.push(true);
 		else
 			modes.push(false);
-	}
+	}	
+	currentMode = modes.indexOf(true);
 
 
 	while(buttonDistFromEdges < 0){	//fail-safe
@@ -274,7 +275,7 @@ function createGame(){
 
 	this.logic = function() {
 
-		currentMode = modes.indexOf(true);
+		//currentMode = modes.indexOf(true);
 		
 		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
