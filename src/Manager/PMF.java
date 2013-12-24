@@ -1,4 +1,4 @@
-package dbManager;
+package Manager;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;

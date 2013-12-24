@@ -5,9 +5,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Aaron/git/DASP/war/WEB-INF/lib/gson-2.2.4.jar" sourcepath="C:/Users/Aaron/git/DASP/war/WEB-INF/lib/gson-2.2.4-sources.jar">
+	<classpathentry kind="lib" path="C:/Users/DAN/git/DASP/war/WEB-INF/lib/gson-2.2.4.jar" sourcepath="C:/Users/DAN/git/DASP/war/WEB-INF/lib/gson-2.2.4-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Aaron/git/DASP/war/WEB-INF/lib/gson-2.2.4-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/DAN/git/DASP/war/WEB-INF/lib/gson-2.2.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>

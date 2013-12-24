@@ -1,39 +1,36 @@
-
-package dbManager;
+package statistics;
 
 import java.util.List;
+import java.util.Vector;
 
 import javax.jdo.JDOObjectNotFoundException;
 
-import datastoreEntities.GameScore;
-import datastoreEntities.Player;
+import datastoreEntities.*;
 import Manager.*;
 
-public final class DataBaseManager
-{  
-    private DataBaseManager() {}
-    private static DataBaseManager instance = null;
-    public static DataBaseManager getInstance()
+
+public final class StatisticsManager
+ { 
+    private StatisticsManager() {}
+    private static StatisticsManager instance = null;
+    
+    
+    
+    public static StatisticsManager getInstance()
     {
         if (instance == null)
-            instance = new DataBaseManager();
+            instance = new StatisticsManager();
         return instance;
     }
     
-    
-    public void insertNewScore(GameScore s)
-    {
-    	Manager.getPM().makePersistent(s);
-    }
-    
     @SuppressWarnings("unchecked")
-	public List<GameScore> getScoreForPlayer(String name)
+	public Vector<Double> getScoreForMap(int MapNum)
     {
-    	System.out.println("getting scores for player " + name);
+    	System.out.println("getting scores for Map " + MapNum);
     	javax.jdo.Query q = Manager.getPM().newQuery(GameScore.class);
-    	q.setFilter("name==theName");
-    	q.declareParameters("String theName");
-    	return (List<GameScore>)q.execute(name);
+    	q.setFilter("SELECT Player,score ");//"MapNum==MapNum");
+    	q.declareParameters("int MapNum");
+    	return (Vector<Double>)q.execute(MapNum);
     }
     @SuppressWarnings("unchecked")
 	public List<GameScore> getAllScores()
@@ -62,4 +59,3 @@ public final class DataBaseManager
 	}
 
 }
-
