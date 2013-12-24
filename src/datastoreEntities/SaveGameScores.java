@@ -46,13 +46,13 @@ public class SaveGameScores extends HttpServlet {
 		if (pic != null && name != null && score != null)
 		{
 			GameScore game_score = new GameScore();
-			game_score.name = name.toString();
-			game_score.pic = pic.toString();
+			game_score.player.setFirstName(name.toString());
+			game_score.player.setPicture(pic.toString());
 			game_score.score = Integer.parseInt(score.toString());
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("userName", game_score.name);
-			System.out.println("edited the user name in the session with " + game_score.name);
+			session.setAttribute("userName", game_score.player.getFirstName());
+			System.out.println("edited the user name in the session with " + game_score.player.getFirstName());
 			DataBaseManager.getInstance().insertNewScore(game_score);
 		}
 		response.sendRedirect("high_scores");
