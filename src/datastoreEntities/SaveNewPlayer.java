@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import datastoreEntities.Player;
 import dbManager.DataBaseManager;
 
@@ -63,6 +65,17 @@ public class SaveNewPlayer extends HttpServlet {
 			session.setAttribute("Player", player.getFirstName()+" "+player.getLastName());
 	
 			DataBaseManager.getInstance().insertNewPlayer(player);
+			
+			
+			Gson gson = new Gson(); // GSON - java json library from Google. I prefer it
+			String content = gson.toJson(player);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(content);
+		    
+			//response.getWriter().write(content);
+			//response.getWriter().print(content);
+			
 		}
 		request.setAttribute("message", "Welcome "+first_name+ " "+last_name+", You are now logged in!");
 		request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
