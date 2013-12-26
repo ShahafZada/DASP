@@ -9,6 +9,8 @@ function createGame(){
 
 	var ARBITRARY_NEGATIVE = -1;
 
+	var allowConsoleMessages = true;
+
 
 	//mode (chosen tool) :
 	var currentMode = 0;
@@ -180,7 +182,6 @@ function createGame(){
 	buttonsActive.push(saveButton_Active);
 
 
-
 	for(var i = 0 ; i < buttons.length ; i++){	//initializing in mode setStart
 		if(i == buttons.indexOf(setStartButton))
 			modes.push(true);
@@ -282,12 +283,16 @@ function createGame(){
 
 		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
-			alert("tool isn't ready yet");
+			if(allowConsoleMessages)
+				console.log("tool isn't ready yet");
 		}
 		//TODO
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
-			alert("tool isn't ready yet");
+			if(allowConsoleMessages)
+				console.log("tool isn't ready yet");
 			//TODO check if map is legal (every node is reachable)
+			//Ajax.post()	//"not this way exactly, find a tutorial"
+			//{}
 		}
 
 		//if mouse is on collapse or right to upper left point of first button - ignore
@@ -295,8 +300,6 @@ function createGame(){
 
 
 	this.draw = function(){
-
-
 
 		//drawing map elements
 		//edges
@@ -432,7 +435,7 @@ function createGame(){
 	function determinePositions(positionsArray , buttonArray){
 		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
 		var rightColX = width - buttonDistFromEdges - buttonWidth;
-		var xCoord , yCoord;
+		var xCoord;
 		var yCoord = buttonDistFromEdges;
 		for(var i = 0 ; i < buttonArray.length ; i++){
 
@@ -477,12 +480,20 @@ function createGame(){
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
 		}
 	}
+	
+	function addNode(isStartNode){
+		nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , isStartNode));
+		if(allowConsoleMessages){
+			console.log("created node; index: " + (nodes.length-1) + " id: " + nodes[nodes.length-1].id);
+		}
+
+	}
 
 	function removeEdgeBetween(nodeIndex1 , nodeIndex2){
 		removeEdgeSingleDirection(nodeIndex1 , nodeIndex2);
 		removeEdgeSingleDirection(nodeIndex2 , nodeIndex1);
 	}
-	
+
 	function removeEdgeSingleDirection(nodeIndexFrom , nodeIndexTo){
 		for(var j = 0 ; j < nodes[nodeIndexFrom].edges.length ; j++){
 			if(nodes[nodeIndexFrom].edges[j].pointedNodeID == nodes[nodeIndexTo].id){
@@ -497,7 +508,8 @@ function createGame(){
 			if(nodes[i].id == nodeID)
 				return i;
 		}
-		alert("hey, there's a bug here, come fix me!");	//happens when last clicked node ID isn't an existing node's ID
+		if(allowConsoleMessages)
+			console.log("hey, there's a bug here, come fix me!");	//happens when last clicked node ID isn't an existing node's ID
 		return -1;
 	}
 
@@ -558,14 +570,23 @@ function createGame(){
 
 	function destroyByTouch(x , y){
 		for(var i = 0 ; i < nodes.length ; i++){
+
+
 			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
 				releasedIDs.push(nodes[i].id);
-				
+
 				for(var j = 0 ; j < nodes[i].edges.length ; j++){	//release all opposite directed edges (into nodes[i])
 					removeEdgeSingleDirection(getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID) , i);
 				}
-				
-				nodes[i] = nodes[nodes.length - 1];
+
+				if(allowConsoleMessages)
+					console.log("destroyed node; index: " + i + " id: " + nodes[i].id);
+
+				if(i != nodes.length-1){
+					nodes[i] = nodes[nodes.length - 1];
+					if(allowConsoleMessages)
+						console.log("now the id for this index is: " + nodes[i].id);
+				}
 				//no need to redirect edges back to moved to node - they are guided by ID, not index
 				nodes.pop();
 				return;
@@ -638,10 +659,13 @@ function createGame(){
 		if(currentMode == buttons.indexOf(createNodeButton)){	//Create Nodes
 			if(isInDrawableArea()){
 				if(isCircleNotTouchingOtherNodes(mouseX , mouseY , nodeRadius)){
-					nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , false));
+					addNode(false);
 				}
-				else
-					alert("That's too close to another node");
+				else{
+					if(allowConsoleMessages)
+						console.log("That's too close to another node");
+				}
+
 			}
 			//else, the player probably tried to activate a button, or "missed" the canvas
 
@@ -674,10 +698,11 @@ function createGame(){
 									nahForgetItAlreadyExists = true;
 							}
 
-							if(!nahForgetItAlreadyExists)//if doesn't exist, set edges
+							if(!nahForgetItAlreadyExists){	//if doesn't exist, set edges
 								addEdgeBetween(lastClickedNodeIndex , i);	//TODO move the randomization of color here and send it as a parameter
-
-
+								if(allowConsoleMessages)
+									console.log("created edge between node IDs: " + lastClickedNodeID + " and " + nodes[i].id);
+							}
 							setEdgeOrigin(i);	//anyway the next origin should be the clicked node
 						}
 					}
@@ -703,11 +728,13 @@ function createGame(){
 						}
 					}
 
-					nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , true));
+					addNode(true);
+
 					setMode(buttons.indexOf(createNodeButton));
 				}
 				else if(isCircleNotTouchingOtherNodes(mouseX , mouseY , 0)){	//tried to add in a space that's too small (mouse itself touched no nodes)
-					alert("That's too close to another node");
+					if(allowConsoleMessages)
+						console.log("That's too close to another node");
 				}
 				else{	//mouse touching an existing Node 
 					//assigning start to existing point, or canceling it
