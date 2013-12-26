@@ -305,7 +305,7 @@ function createGame(){
 		//edges
 		for(var i = 0 ; i < nodes.length ; i++){
 			for(var j = 0 ; j < nodes[i].edges.length ; j++){
-				if(i < nodes[i].edges[j].pointedNodeID){	//makes sure we only draw every edge once (because there are 2 directions)
+				if(nodes[i].id < nodes[i].edges[j].pointedNodeID){	//makes sure we only draw every edge once (because there are 2 directions)
 					var pointedNodeIndex = getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID);	//finds the other end's position in nodes
 					if(allowingMultiColoredEdges)
 						drawLineFromPointToPoint(nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius , nodes[pointedNodeIndex].x + nodes[pointedNodeIndex].radius , nodes[pointedNodeIndex].y + nodes[pointedNodeIndex].radius , nodes[i].edges[j].color);
@@ -568,11 +568,9 @@ function createGame(){
 		}
 	}
 
-	function destroyByTouch(x , y){
+	function destroyTouchedNode(){
 		for(var i = 0 ; i < nodes.length ; i++){
-
-
-			if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius)){
+			if(isNodeITouchedByMouse(i)){
 				releasedIDs.push(nodes[i].id);
 
 				for(var j = 0 ; j < nodes[i].edges.length ; j++){	//release all opposite directed edges (into nodes[i])
@@ -672,7 +670,7 @@ function createGame(){
 		}
 		else if(currentMode == buttons.indexOf(eraseNodeButton)){	//Erase Nodes
 			if(isInDrawableArea()){
-				destroyByTouch(mouseX , mouseY);
+				destroyTouchedNode();
 			}
 		}
 
