@@ -3,17 +3,14 @@ package datastoreEntities;
 import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
-import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class Map {
 	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;
+    @Persistent
+    private int mapNum;
 
     @Persistent
     private String mapName;
@@ -24,19 +21,19 @@ public class Map {
 	@Persistent
     private List<Node> nodes;
 
-	public Map(Key key, String mapName, String level, List<Node> nodes) {
-		this.key = key;
+	public Map(int mapNum, String mapName, String level, List<Node> nodes) {
+		this.mapNum = mapNum;
 		this.mapName = mapName;
 		this.level = level;
 		this.nodes = nodes;
 	}
 
-	public Key getKey() {
-		return key;
+	public int getmapNum() {
+		return mapNum;
 	}
 
-	public void setKey(Key key) {
-		this.key = key;
+	public void setmapNum(int mapNum) {
+		this.mapNum = mapNum;
 	}
 
 	public String getMapName() {
