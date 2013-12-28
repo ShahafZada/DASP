@@ -9,7 +9,7 @@
         	request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
         }
 %>
-	<form action=sign_in  method="post">
+	<form action="sign_in"  method="post">
 		<table class="text">
 			<tr>
 				<th>Login Form</th>
@@ -23,7 +23,7 @@
 				<td><input type="password" name="userPassword"></td>
 			</tr>
 			<tr>
-				<td><button type="submit">Sign up</button></td>
+				<td><button >Sign up</button></td>
 			</tr>
 		</table>
 	</form>

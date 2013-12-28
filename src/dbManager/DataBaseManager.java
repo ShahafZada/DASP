@@ -4,7 +4,6 @@ package dbManager;
 import java.util.List;
 
 import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import datastoreEntities.GameScore;
@@ -78,6 +77,19 @@ public final class DataBaseManager
 		}
 		return null; //password not correct case
 		 
+	}
+
+
+	public Player getPlayerByEmail(String email) {
+		Player player = null;
+
+		try {
+			 player = Manager.getPM().getObjectById(Player.class, email);
+		}
+		catch (JDOObjectNotFoundException  e) {
+			return null;  
+		}
+		return player; //password not correct case
 	}
 
 

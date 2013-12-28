@@ -14,7 +14,7 @@
 	<div id="center">
 		<%
  			session = request.getSession(false);
-			if (session!=null) {
+			if (session != null) {
     			session.invalidate();
     			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 			}

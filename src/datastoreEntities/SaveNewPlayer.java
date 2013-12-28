@@ -73,7 +73,8 @@ public class SaveNewPlayer extends HttpServlet {
 			}
 			
 			HttpSession session = request.getSession(true);
-			session.setAttribute("theFullName", first_name+" "+last_name);
+			session.setAttribute("theFullName", first_name+" "+last_name);	
+			session.setAttribute("theEmailName", email);	
 		}		 
 		
 		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);

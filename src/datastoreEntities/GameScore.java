@@ -20,6 +20,47 @@ public class GameScore {
 	public Map map;
 	
 	@Persistent
-	public int score;
+	public String score;
+	
+	
+	public GameScore(Player player, Map map, String score) {
+		super();
+		this.player = player;
+		this.map = map;
+		this.score = score;
+	}
+	
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
 
 }

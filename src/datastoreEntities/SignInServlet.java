@@ -49,9 +49,9 @@ public class SignInServlet extends HttpServlet {
 			return;
 		}
 
-		
 		HttpSession session = request.getSession(true);
 		session.setAttribute("theFullName", player.getFirstName()+" "+player.getLastName());
+		session.setAttribute("theEmailName", email.toString());
 		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 

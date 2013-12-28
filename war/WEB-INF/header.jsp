@@ -6,12 +6,12 @@
 
 <span id="login_icon">Welcome
 <%
-		String full_name = (String)session.getAttribute("theFullName");
-		if(full_name == null) {
+		String user_name = (String)session.getAttribute("theFullName");
+		if(user_name == null) {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		else {
-       		out.println(full_name);
+       		out.println(user_name);
 		}
 %>
 </span>
