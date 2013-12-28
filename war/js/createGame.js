@@ -25,6 +25,10 @@ function createGame(){
 	//var distanceBetweenButtons;	//eventually not used
 	var buttonDistFromEdges = ARBITRARY_NEGATIVE;	//needs to be any negative value, which would trigger a fail-safe loop below
 
+	var nodesInRandomizedMap = 10;
+	var maxRandomizingAttempts = 1000;
+
+
 	var buttons = [];
 	var buttonsOver = [];
 	var buttonsActive = [];
@@ -280,8 +284,58 @@ function createGame(){
 
 		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
-			if(allowConsoleMessages)
-				console.log("tool isn't ready yet");
+			var screwThisImStartingOver = confirm("A map would be generated with " + nodesInRandomizedMap + " nodes.\nYou do know that the current layout would be wiped out... right?");
+			if(screwThisImStartingOver == true){
+
+				//destroy all nodes (or better described: start over)
+				nodes = [];
+
+				var nodeRandomX , nodeRandomY;
+				var randomizingAttempts;
+				var successfullyAddedNode;
+
+				for(var i = 0 ; i < nodesInRandomizedMap ; i++){
+					randomizingAttempts = 0;
+					successfullyAddedNode = false;
+					
+					do{
+						randomizingAttempts++;
+						
+						nodeRandomX = Math.random();
+						nodeRandomX *= width - backButtonSize/2 - backButtonDistFromEdges - 2*nodeRadius;
+						nodeRandomX += nodeRadius;
+
+						nodeRandomY = Math.random();
+						nodeRandomY *= height - 2*nodeRadius;
+						nodeRandomY += nodeRadius;
+
+						if(isCircleNotTouchingOtherNodes(nodeRandomX , nodeRandomY , nodeRadius)){
+							addNode(nodeRandomX , nodeRandomY , false);
+							successfullyAddedNode = true;
+						}
+					}while( (!successfullyAddedNode) && (randomizingAttempts < maxRandomizingAttempts) );
+					
+					if(randomizingAttempts >= maxRandomizingAttempts){	//quit because couldn't add node
+						alert("Was able to create " + i + " nodes (out of " + nodesInRandomizedMap + ")before failing to place the recent one");
+						break;
+					}
+
+				}
+
+				//add edges
+
+				//setting a start point (it's all random, so why not the first...)
+				nodes[0].isStart = true;
+				nodes[0].isMarked = true;
+
+			}
+
+
+			else{
+				alert("be more careful with that button...");
+			}
+
+			setMode(buttons.indexOf(createNodeButton));
 		}
 		//TODO
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
@@ -292,7 +346,6 @@ function createGame(){
 			//{}
 		}
 
-		//if mouse is on collapse or right to upper left point of first button - ignore
 	}
 
 
@@ -371,6 +424,12 @@ function createGame(){
 
 	//other private functions :
 
+
+
+	//////////////////////////draw functions
+
+
+
 	function drawButton(array , i){
 		if(i == buttons.indexOf(saveButton))
 			context.drawImage(array[i] , buttonPositions[i].xPos , buttonPositions[i].yPos , saveButtonWidth , buttonHeight);	//save button. It's larger than the rest
@@ -425,9 +484,48 @@ function createGame(){
 	}
 
 
+
+
+
+
+	//////////////////////////measurement functions
+
+
+
+	function pitagorasSquareDistance(x1 , y1 , x2 , y2){
+		var xDist = x1 - x2;
+		var yDist = y1 - y2;
+		var distSquare = xDist*xDist + yDist*yDist;
+		return distSquare;
+	}
+
+
+
+	//////////////////////////generation functions
+
+
+
+	function generateID(){	
+		if(releasedIDs.length == 0){
+			farthestAvailableID++;
+			return (farthestAvailableID-1);
+		}
+		else{	//still some old (smaller) IDs available
+			var reusedID = releasedIDs[releasedIDs.length - 1];	//value of last vaccant ID (LIFO)
+			releasedIDs.pop();
+			return reusedID;
+		}
+	}
+
 	function randomRGBColor(){
 		return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
 	}
+
+
+
+	//////////////////////////getting, setting, creating and destroying functions
+
+
 
 	function determinePositions(positionsArray , buttonArray){
 		var leftColX = width - buttonDistFromEdges - saveButtonWidth;
@@ -449,6 +547,20 @@ function createGame(){
 		}
 	}
 
+	function getNodesIndexFromNodeID(nodeID){
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(nodes[i].id == nodeID)
+				return i;
+		}
+		if(allowConsoleMessages)
+			console.log("hey, there's a bug here, come fix me!");	//happens when last clicked node ID isn't an existing node's ID
+		return -1;
+	}
+
+	function setEdgeOrigin(index){
+		lastClickedNodeID = nodes[index].id;
+		lastClickedNodeIndex = index;
+	}
 
 	function setMode(index){
 		if(currentMode == buttons.indexOf(createEdgeButton))	//canceling the previously chosen node in edge creation
@@ -478,8 +590,8 @@ function createGame(){
 		}
 	}
 
-	function addNode(isStartNode){
-		nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , isStartNode));
+	function addNode(x , y , isStartNode){
+		nodes.push(new Node(generateID() , x-nodeRadius , y-nodeRadius , nodeRadius , isStartNode));
 		if(allowConsoleMessages){
 			console.log("created node; index: " + (nodes.length-1) + " id: " + nodes[nodes.length-1].id);
 		}
@@ -500,70 +612,7 @@ function createGame(){
 		}
 	}
 
-	function getNodesIndexFromNodeID(nodeID){
-		for(var i = 0 ; i < nodes.length ; i++){
-			if(nodes[i].id == nodeID)
-				return i;
-		}
-		if(allowConsoleMessages)
-			console.log("hey, there's a bug here, come fix me!");	//happens when last clicked node ID isn't an existing node's ID
-		return -1;
-	}
 
-	function setEdgeOrigin(index){
-		lastClickedNodeID = nodes[index].id;
-		lastClickedNodeIndex = index;
-	}
-
-	function isNodeITouchedByMouse(i){
-		if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(mouseX , mouseY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
-			return true;
-		else
-			return false;
-	}
-
-	function isInDrawableArea(){
-		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
-			if(nodeRadius < mouseY && mouseY < height - nodeRadius)
-				if(!isMouseOverCollapseButton() && !isMouseOverExpandButton()){
-					for(var i = 0 ; i < buttons.length ; i++){
-						if(isMouseOverButton(i))
-							return false;
-					}
-					return true;
-				}
-
-		return false;
-	}
-
-	function isCircleNotTouchingOtherNodes(x , y , rad){
-		var radiusesCombined;
-		for(var i = 0 ; i < nodes.length ; i++){
-			radiusesCombined = rad + nodes[i].radius;
-			if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
-				return false;	//intersecting with each other
-		}
-		return true;
-	}
-
-	function pitagorasSquareDistance(x1 , y1 , x2 , y2){
-		var xDist = x1 - x2;
-		var yDist = y1 - y2;
-		var distSquare = xDist*xDist + yDist*yDist;
-		return distSquare;
-	}
-
-	function generateID(){	
-		if(releasedIDs.length == 0){
-			farthestAvailableID++;
-			return (farthestAvailableID-1);
-		}
-		else{	//still some old (smaller) IDs available
-			var reusedID = releasedIDs[releasedIDs.length - 1];	//value of last vaccant ID (LIFO)
-			releasedIDs.pop();
-			return reusedID;
-		}
-	}
 
 	function destroyTouchedNode(){
 		for(var i = 0 ; i < nodes.length ; i++){
@@ -591,6 +640,42 @@ function createGame(){
 	}
 
 
+
+	//////////////////////////boolean functions
+
+
+	function isNodeITouchedByMouse(i){
+		if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(mouseX , mouseY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
+			return true;
+		else
+			return false;
+	}
+
+	function isInDrawableArea(){
+		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
+			if(nodeRadius < mouseY && mouseY < height - nodeRadius)
+				if(!isMouseOverCollapseButton() && !isMouseOverExpandButton()){
+					for(var i = 0 ; i < buttons.length ; i++){
+						if(isMouseOverButton(i))
+							return false;
+					}
+					return true;
+				}
+
+		return false;
+	}
+
+
+	function isCircleNotTouchingOtherNodes(x , y , rad){
+		var radiusesCombined;
+		for(var i = 0 ; i < nodes.length ; i++){
+			radiusesCombined = rad + nodes[i].radius;
+			if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
+				return false;	//intersecting with each other
+		}
+		return true;
+	}
+
 	function isMouseOverEdgeArea(nodeIndex1 , nodeIndex2){
 
 		//..../..../
@@ -610,15 +695,15 @@ function createGame(){
 		var node1Y = nodes[nodeIndex1].y + nodes[nodeIndex1].radius;
 		var node2Y = nodes[nodeIndex2].y + nodes[nodeIndex2].radius;
 
-		
-		
+
+
 		if((mouseX > node1X && mouseX > node2X) || (mouseX < node1X && mouseX < node2X))
 			return false;
 		if((mouseY > node1Y && mouseY > node2Y) || (mouseY < node1Y && mouseY < node2Y))
 			return false;
 
-		
-		
+
+
 
 		var dx = node1X - node2X;
 		var dy = node1Y - node2Y;
@@ -702,7 +787,7 @@ function createGame(){
 		if(currentMode == buttons.indexOf(createNodeButton)){	//Create Nodes
 			if(isInDrawableArea()){
 				if(isCircleNotTouchingOtherNodes(mouseX , mouseY , nodeRadius)){
-					addNode(false);
+					addNode(mouseX , mouseY , false);
 				}
 				else{
 					if(allowConsoleMessages)
@@ -742,7 +827,7 @@ function createGame(){
 							}
 
 							if(!nahForgetItAlreadyExists){	//if doesn't exist, set edges
-								addEdgeBetween(lastClickedNodeIndex , i);	//TODO move the randomization of color here and send it as a parameter
+								addEdgeBetween(lastClickedNodeIndex , i);
 								if(allowConsoleMessages)
 									console.log("created edge between node IDs: " + lastClickedNodeID + " and " + nodes[i].id);
 							}
@@ -756,18 +841,17 @@ function createGame(){
 		}
 
 
-		//TODO
 		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
 			for(var i = 0 ; i < nodes.length ; i++){
 				for(var j = 0 ; j < nodes[i].edges.length ; j++){
-					//if(nodes[i].id > nodes[i].edges[j].pointedNodeID)	//check in only one direction
-						if(isMouseOverEdgeArea(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID))){
-							
-							if(allowConsoleMessages)
-								console.log("removed edges of indexes: " + i + " and " + (getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)) );
-							
-							removeEdgeBetween(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
-						}
+					//if(nodes[i].id > nodes[i].edges[j].pointedNodeID)	//don't use this, it screws up the checking
+					if(isMouseOverEdgeArea(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID))){
+
+						if(allowConsoleMessages)
+							console.log("removed edges of indexes: " + i + " and " + (getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)) );
+
+						removeEdgeBetween(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
+					}
 				}
 			}
 		}
@@ -782,7 +866,7 @@ function createGame(){
 						}
 					}
 
-					addNode(true);
+					addNode(mouseX , mouseY , true);
 
 					setMode(buttons.indexOf(createNodeButton));
 				}
