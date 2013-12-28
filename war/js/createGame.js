@@ -360,16 +360,16 @@ function createGame(){
 			//TODO check if map is legal (every node is reachable)
 			//Ajax.post()	//"not this way exactly, find a tutorial"
 
-			
-		var json = JSON.stringify(nodes);
-		console.log(json);
 
-		jQuery.ajax({
+			var json = JSON.stringify(nodes);
+			console.log(json);
+
+			jQuery.ajax({
 				url : "SaveNewMap",
 				data : { nodes : json },
 				error : function(data) {
 					console.log("Error: ", data);
-				}  ,
+				},
 				type : "post",
 				timeout : 30000
 			});

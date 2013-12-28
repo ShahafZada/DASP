@@ -99,7 +99,7 @@ public final class DataBaseManager
 		Map map = null;
 		try {
 			Query query = Manager.getPM().newQuery(Map.class);
-			query.setFilter("map_num == mapNum");
+			query.setFilter("mapNum == map_num");
 			query.declareParameters("String map_num");
 
 			@SuppressWarnings("unchecked")

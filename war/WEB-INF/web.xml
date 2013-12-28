@@ -151,6 +151,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>SaveNewMap</servlet-name>
 		<url-pattern>/SaveNewMap</url-pattern>
 	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>CreateMapServlet</servlet-name>
+		<servlet-class>datastoreEntities.CreateMapServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateMapServlet</servlet-name>
+		<url-pattern>/CreateMap</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>SignInServlet</servlet-name>
