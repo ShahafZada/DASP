@@ -32,7 +32,7 @@
 		<table id="popup_table">
 			<tr>
 				<td><label for="nameField">Your Name: </label></td>
-				<td><input type="text" id="nameField" name="theNameField" required></td>
+				<td><% out.println(user_name);%></td>
 			</tr>
 			<tr>
 				<!--  <td><label for="scoreField">Your Score</label></td> -->
