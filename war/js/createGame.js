@@ -361,6 +361,7 @@ function createGame(){
 			//{}
 			var json = JSON.stringify(nodes);
 			console.log(json);
+			setMode(buttons.indexOf(createNodeButton));
 			
 //			jQuery.ajax({
 //		        url : "ajax/map-generation-ruls.json",
