@@ -39,7 +39,7 @@ public class SaveGameScores extends HttpServlet {
 	
 		HttpSession session = request.getSession(true);
 		String email = (String)session.getAttribute("theEmailName");
-		
+
 		
 		Player player = DataBaseManager.getInstance().getPlayerByEmail(email);
 		Object score = request.getParameter("theScoreField");

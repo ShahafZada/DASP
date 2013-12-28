@@ -23,7 +23,7 @@
 				<td><input type="password" name="userPassword"></td>
 			</tr>
 			<tr>
-				<td><button >Sign up</button></td>
+				<td><button>Sign in</button></td>
 			</tr>
 		</table>
 	</form>
