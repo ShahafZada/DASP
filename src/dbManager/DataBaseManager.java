@@ -120,6 +120,10 @@ public final class DataBaseManager
 
 	}
 
+	public void insertNewMap(Map map) {
+		Manager.getPM().makePersistent(map);
+	}
+
 
 }
 

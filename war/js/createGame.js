@@ -359,7 +359,62 @@ function createGame(){
 			showedSaveAlready = true;
 			//TODO check if map is legal (every node is reachable)
 			//Ajax.post()	//"not this way exactly, find a tutorial"
-			//{}
+
+			
+		var json = JSON.stringify(nodes);
+		console.log(json);
+
+		jQuery.ajax({
+				url : "SaveNewMap",
+				data : { nodes : json },
+				error : function(data) {
+					console.log("Error: ", data);
+				}  ,
+				type : "post",
+				timeout : 30000
+			});
+
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToGameMenu";
+			window.dispatchEvent(event);
+			this.removeEventListener("mouseup", checkClick);
+
+			/*/
+			var xmlhttp;
+			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else{ // code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+				xmlhttp.open("POST","SaveNewMap",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");  
+
+			xmlhttp.send(json);
+
+			/*/
+			/*/
+
+
+			var xmlhttp;
+			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else{// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				}
+			}
+
+			xmlhttp.open("POST","ajax_info.txt",true);
+			xmlhttp.send();
+			/*/
+
 		}
 
 	}
@@ -597,10 +652,10 @@ function createGame(){
 		if(doesEdgeAlreadyExistBetweenNodes(nodeIndex1 , nodeIndex2)){
 			if(allowConsoleMessages)
 				console.log("tried to add an edge between nodes indexed " + nodeIndex1 + " and " + nodeIndex2 + ", but it already existed");
-			
+
 			return;
 		}
-			
+
 		if(!allowingMultiColoredEdges){
 			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , defaultEdgeColor , defaultEdgeWeight));
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , defaultEdgeColor , defaultEdgeWeight));
@@ -610,11 +665,11 @@ function createGame(){
 			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , randomColor , defaultEdgeWeight));
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
 		}
-		
+
 		if(allowConsoleMessages)
 			console.log("created edge between nodes indexed " + nodeIndex1 + " and " + nodeIndex2);
 	}
-	
+
 	function addEdgeRandomly(i){
 		var randomIndex;
 
@@ -628,7 +683,7 @@ function createGame(){
 			if(isEdgeObstructed(i , randomIndex))	//no good, other nodes are in the way
 				return;
 		}
-		
+
 		addEdgeBetween(i , randomIndex);
 	}
 
@@ -725,7 +780,7 @@ function createGame(){
 			return false;
 		else
 			alreadyVisitedIndexes.push(i);
-			
+
 		for(var j = 0 ; j < nodes[i].edges.length ; j++){
 			if(nodes[getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)].isStart)	//owned edge points to start
 				return true;
@@ -743,7 +798,7 @@ function createGame(){
 			if(!isNodeIProperlyConnectedToTheSystem(i , alreadyVisitedIndexes)){
 				return false;
 			}
-				
+
 		}
 		return true;
 	}
@@ -821,33 +876,33 @@ function createGame(){
 		}
 		return false;
 	}
-	
+
 	//TODO - 
 	function isNodeIObstructingEdge(i , nodeIndex1 , nodeIndex2){
 		//TODO - write properly? not really worth it... we'll just treat the nodes as squares
 //		var node1X = nodes[nodeIndex1].x + nodes[nodeIndex1].radius;
 //		var node2X = nodes[nodeIndex2].x + nodes[nodeIndex2].radius;
-//
+
 //		var node1Y = nodes[nodeIndex1].y + nodes[nodeIndex1].radius;
 //		var node2Y = nodes[nodeIndex2].y + nodes[nodeIndex2].radius;
-//		
-//		
-//
+
+
+
 //		var dx = node1X - node2X;
 //		var dy = node1Y - node2Y;
 //		var hypotenuse = Math.sqrt(dx*dx + dy*dy);
-//
+
 //		var cosinus = dx / hypotenuse;
 //		var verticalEdgeWidth = defaultEdgeWidth / cosinus;
-//
+
 //		var	m = dy / dx;
 //		var maxY = node1Y + m * (mouseX - node1X) + (verticalEdgeWidth/2);
 //		var minY = node1Y + m * (mouseX - node1X) - (verticalEdgeWidth/2);
-//
+
 //		if(minY < mouseY && mouseY < maxY)
-//			return true;
+//		return true;
 //		else
-//			return false;
+//		return false;
 		return true;
 
 	}
