@@ -13,7 +13,9 @@
 
 <body>
 	<%@ include file="header.jsp"%>
-	<% String MapNum = null; %>
+	<% 	String MapNum = null;
+		Statistics stat = new Statistics();
+	%>
 	<div id="center">
 	
 	<form action="">
@@ -23,12 +25,12 @@
 		
 		<% 
 			MapNum = request.getParameter("StatisticsByLevel"); 
-			Vector<Double> vec = StatisticsManager.getInstance().ScoreListToVector(MapNum.toString());
+			Vector<Double> vec = StatisticsManager.getInstance().ScoreListToVector(1);
 		%>	
 	</form>
 	
-	<% if(MapNum!=null && vec!=null) %>
-	<p><% Statistics.this.analyze_one_vector(vec); %></p>
+	<% if(vec!=null)%>
+	<p><% stat.average(vec); %></p>
 	
 	
 	</div>
