@@ -762,10 +762,11 @@ function createGame(){
 				for(var j = 0 ; j < nodes[i].edges.length ; j++){
 					//if(nodes[i].id > nodes[i].edges[j].pointedNodeID)	//check in only one direction
 						if(isMouseOverEdgeArea(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID))){
-							removeEdgeBetween(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
 							
 							if(allowConsoleMessages)
-								console.log("removed edges of indexes: " + i + " and " + getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
+								console.log("removed edges of indexes: " + i + " and " + (getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)) );
+							
+							removeEdgeBetween(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
 						}
 				}
 			}
