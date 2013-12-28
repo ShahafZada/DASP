@@ -27,6 +27,7 @@ function createGame(){
 
 	var nodesInRandomizedMap = 10;
 	var maxRandomizingAttempts = 1000;
+	var connectRandomNodesElegantly = false;
 
 
 	var buttons = [];
@@ -289,7 +290,12 @@ function createGame(){
 
 				//destroy all nodes (or better described: start over)
 				nodes = [];
+				farthestAvailableID = 0;
+				releasedIDs = [];
+				lastClickedNodeID = ARBITRARY_NEGATIVE;
 
+
+				//add nodes
 				var nodeRandomX , nodeRandomY;
 				var randomizingAttempts;
 				var successfullyAddedNode;
@@ -297,10 +303,10 @@ function createGame(){
 				for(var i = 0 ; i < nodesInRandomizedMap ; i++){
 					randomizingAttempts = 0;
 					successfullyAddedNode = false;
-					
+
 					do{
 						randomizingAttempts++;
-						
+
 						nodeRandomX = Math.random();
 						nodeRandomX *= width - backButtonSize/2 - backButtonDistFromEdges - 2*nodeRadius;
 						nodeRandomX += nodeRadius;
@@ -314,7 +320,7 @@ function createGame(){
 							successfullyAddedNode = true;
 						}
 					}while( (!successfullyAddedNode) && (randomizingAttempts < maxRandomizingAttempts) );
-					
+
 					if(randomizingAttempts >= maxRandomizingAttempts){	//quit because couldn't add node
 						alert("Was able to create " + i + " nodes (out of " + nodesInRandomizedMap + ")before failing to place the recent one");
 						break;
@@ -322,11 +328,17 @@ function createGame(){
 
 				}
 
-				//add edges
-
 				//setting a start point (it's all random, so why not the first...)
 				nodes[0].isStart = true;
 				nodes[0].isMarked = true;
+
+				do{
+					for(var i = 0 ; i < nodes.length ; i++){
+						addEdgeRandomly(i);
+					}
+				}while(!areAllNodesConnectedToTheSystem());
+
+
 
 			}
 
@@ -341,12 +353,14 @@ function createGame(){
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
 			if(allowConsoleMessages)
 				console.log("tool isn't ready yet");
-			//TODO check if map is legal (every node is reachable)
+			//areAllNodesConnectedToTheSystem()		//TODO check if map is legal (every node is reachable) and act accordingly
+
 			//Ajax.post()	//"not this way exactly, find a tutorial"
 			//{}
 		}
 
 	}
+
 
 
 	this.draw = function(){
@@ -419,14 +433,14 @@ function createGame(){
 
 
 
-	//-------------------------------------------------------------
+//	-------------------------------------------------------------
 
 
-	//other private functions :
+//	other private functions :
 
 
 
-	//////////////////////////draw functions
+//////////////////////////draw functions
 
 
 
@@ -488,7 +502,7 @@ function createGame(){
 
 
 
-	//////////////////////////measurement functions
+//////////////////////////measurement functions
 
 
 
@@ -501,7 +515,7 @@ function createGame(){
 
 
 
-	//////////////////////////generation functions
+//////////////////////////generation functions
 
 
 
@@ -523,7 +537,7 @@ function createGame(){
 
 
 
-	//////////////////////////getting, setting, creating and destroying functions
+//////////////////////////getting, setting, creating and destroying functions
 
 
 
@@ -579,6 +593,13 @@ function createGame(){
 
 
 	function addEdgeBetween(nodeIndex1 , nodeIndex2){
+		if(doesEdgeAlreadyExistBetweenNodes(nodeIndex1 , nodeIndex2)){
+			if(allowConsoleMessages)
+				console.log("tried to add an edge between nodes indexed " + nodeIndex1 + " and " + nodeIndex2 + ", but it already existed");
+			
+			return;
+		}
+			
 		if(!allowingMultiColoredEdges){
 			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , defaultEdgeColor , defaultEdgeWeight));
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , defaultEdgeColor , defaultEdgeWeight));
@@ -588,6 +609,26 @@ function createGame(){
 			nodes[nodeIndex1].edges.push(new Edge(nodes[nodeIndex2].id , randomColor , defaultEdgeWeight));
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
 		}
+		
+		if(allowConsoleMessages)
+			console.log("created edge between nodes indexed " + nodeIndex1 + " and " + nodeIndex2);
+	}
+	
+	function addEdgeRandomly(i){
+		var randomIndex;
+
+		do{
+			randomIndex = Math.random();
+			randomIndex *= (nodes.length - 1);
+			randomIndex = Math.round(randomIndex);
+		}while(randomIndex == i);
+
+		if(connectRandomNodesElegantly){
+			if(isEdgeObstructed(i , randomIndex))	//no good, other nodes are in the way
+				return;
+		}
+		
+		addEdgeBetween(i , randomIndex);
 	}
 
 	function addNode(x , y , isStartNode){
@@ -641,15 +682,9 @@ function createGame(){
 
 
 
-	//////////////////////////boolean functions
+//////////////////////////boolean functions
 
 
-	function isNodeITouchedByMouse(i){
-		if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(mouseX , mouseY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
-			return true;
-		else
-			return false;
-	}
 
 	function isInDrawableArea(){
 		if(nodeRadius < mouseX && mouseX < width - backButtonSize/2 - backButtonDistFromEdges - nodeRadius)	//can draw until reaching the vertical area of back button
@@ -674,6 +709,42 @@ function createGame(){
 				return false;	//intersecting with each other
 		}
 		return true;
+	}
+
+
+	function isNodeIProperlyConnectedToTheSystem(i){
+		for(var j = 0 ; j < nodes[i].edges.length ; j++){
+			if(nodes[getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)].isStart)	//owned edge points to start
+				return true;
+			if(isNodeIProperlyConnectedToTheSystem(getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)))	//go check at other connected node...
+				return true;
+		}
+
+		return false;
+	}
+
+	function areAllNodesConnectedToTheSystem(){
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(!isNodeIProperlyConnectedToTheSystem(i))
+				return false;
+		}
+		return true;
+	}
+
+	function doesEdgeAlreadyExistBetweenNodes(index1 , index2){
+		for(var j = 0 ; j < nodes[index1].edges.length ; j++){
+			if(nodes[index1].edges[j].pointedNodeID == nodes[index2].id)
+				return true;
+		}
+		return false;
+	}
+
+
+	function isNodeITouchedByMouse(i){
+		if(nodes[i].radius * nodes[i].radius > pitagorasSquareDistance(mouseX , mouseY , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
+			return true;
+		else
+			return false;
 	}
 
 	function isMouseOverEdgeArea(nodeIndex1 , nodeIndex2){
@@ -722,6 +793,47 @@ function createGame(){
 			return false;
 	}
 
+
+
+	function isEdgeObstructed(nodeIndex1 , nodeIndex2){
+		for(var i = 0 ; i < nodes.length ; i++){
+			if(i != nodeIndex1 && i != nodeIndex2){
+				if(isNodeIObstructingEdge(i , nodeIndex1 , nodeIndex2))
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	//TODO - 
+	function isNodeIObstructingEdge(i , nodeIndex1 , nodeIndex2){
+		//TODO - write properly? not really worth it... we'll just treat the nodes as squares
+//		var node1X = nodes[nodeIndex1].x + nodes[nodeIndex1].radius;
+//		var node2X = nodes[nodeIndex2].x + nodes[nodeIndex2].radius;
+//
+//		var node1Y = nodes[nodeIndex1].y + nodes[nodeIndex1].radius;
+//		var node2Y = nodes[nodeIndex2].y + nodes[nodeIndex2].radius;
+//		
+//		
+//
+//		var dx = node1X - node2X;
+//		var dy = node1Y - node2Y;
+//		var hypotenuse = Math.sqrt(dx*dx + dy*dy);
+//
+//		var cosinus = dx / hypotenuse;
+//		var verticalEdgeWidth = defaultEdgeWidth / cosinus;
+//
+//		var	m = dy / dx;
+//		var maxY = node1Y + m * (mouseX - node1X) + (verticalEdgeWidth/2);
+//		var minY = node1Y + m * (mouseX - node1X) - (verticalEdgeWidth/2);
+//
+//		if(minY < mouseY && mouseY < maxY)
+//			return true;
+//		else
+//			return false;
+		return true;
+
+	}
 
 
 	function isMouseOverButton(i){
@@ -819,18 +931,8 @@ function createGame(){
 							lastClickedNodeID = ARBITRARY_NEGATIVE;
 						}
 						else{
-							var nahForgetItAlreadyExists = false;
-
-							for(var j = 0 ; j < nodes[i].edges.length ; j++){	//checking if the node we're connecting holds an edge which leads back to our previous one
-								if(nodes[i].edges[j].pointedNodeID == lastClickedNodeID)	//checks if there's an edge from clicked node
-									nahForgetItAlreadyExists = true;
-							}
-
-							if(!nahForgetItAlreadyExists){	//if doesn't exist, set edges
-								addEdgeBetween(lastClickedNodeIndex , i);
-								if(allowConsoleMessages)
-									console.log("created edge between node IDs: " + lastClickedNodeID + " and " + nodes[i].id);
-							}
+							//the following call includes the check we make: is the node we're connecting holding an edge which leads back to our previous one
+							addEdgeBetween(lastClickedNodeIndex , i);
 							setEdgeOrigin(i);	//anyway the next origin should be the clicked node
 						}
 					}
