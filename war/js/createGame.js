@@ -617,9 +617,6 @@ function createGame(){
 		if((mouseY > node1Y && mouseY > node2Y) || (mouseY < node1Y && mouseY < node2Y))
 			return false;
 
-		if(allowConsoleMessages)
-			console.log("considering the removal of the edge between nodes indexed " + nodeIndex1 + " and " + nodeIndex2);
-
 		
 		
 
@@ -633,7 +630,6 @@ function createGame(){
 		var	m = dy / dx;
 		var maxY = node1Y + m * (mouseX - node1X) + (verticalEdgeWidth/2);
 		var minY = node1Y + m * (mouseX - node1X) - (verticalEdgeWidth/2);
-
 
 		if(minY < mouseY && mouseY < maxY)
 			return true;
@@ -764,9 +760,13 @@ function createGame(){
 		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
 			for(var i = 0 ; i < nodes.length ; i++){
 				for(var j = 0 ; j < nodes[i].edges.length ; j++){
-					if(nodes[i].id > nodes[i].edges[j].pointedNodeID)	//check in only one direction
-						if(isMouseOverEdgeArea(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)))
+					//if(nodes[i].id > nodes[i].edges[j].pointedNodeID)	//check in only one direction
+						if(isMouseOverEdgeArea(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID))){
 							removeEdgeBetween(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
+							
+							if(allowConsoleMessages)
+								console.log("removed edges of indexes: " + i + " and " + getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
+						}
 				}
 			}
 		}
