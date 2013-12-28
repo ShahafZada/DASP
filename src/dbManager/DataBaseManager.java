@@ -4,7 +4,6 @@ package dbManager;
 import java.util.List;
 
 import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import datastoreEntities.GameScore;
