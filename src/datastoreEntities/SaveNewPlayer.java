@@ -6,9 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
+import java.security.NoSuchAlgorithmException;
+
 
 import datastoreEntities.Player;
 import dbManager.DataBaseManager;
@@ -41,7 +44,7 @@ public class SaveNewPlayer extends HttpServlet {
 	
 		Object first_name = request.getParameter("theFirstName");
 		Object last_name = request.getParameter("theLastName");
-		Object password = request.getParameter("thePassword");//TODO use hash
+		Object password = request.getParameter("thePassword");
 		Object email = request.getParameter("theEmail");
 		Object age = request.getParameter("theAge");
 		Object sex = request.getParameter("theSex");
@@ -51,33 +54,28 @@ public class SaveNewPlayer extends HttpServlet {
 		Object picture = request.getParameter("thePicture"); //TODO add functionality choose picture from database
 		Object checkbox = request.getParameter("theCheckbox");
 	
+
 		if (first_name != null && last_name != null && password != null && email != null && age != null && sex != null && education != null && country != null && city != null && picture != null && checkbox != null)
 		{
 			boolean exists = DataBaseManager.getInstance().findElementById(email);
 			if(exists) {
 				request.setAttribute("message", "Error: User with this email is already exists");
-				request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				return;
 			}
-			Player player = new Player(first_name.toString(), last_name.toString(), email.toString(), password.toString(), age.toString(), sex.toString(), country.toString(), city.toString(), education.toString(), picture.toString() );
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("Player", player.getFirstName()+" "+player.getLastName());
-	
-			DataBaseManager.getInstance().insertNewPlayer(player);
+			try {
+				Player player = new Player(first_name.toString(), last_name.toString(), email.toString(), password.toString(), age.toString(), sex.toString(), country.toString(), city.toString(), education.toString(), picture.toString() );
+				DataBaseManager.getInstance().insertNewPlayer(player);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			
-			Gson gson = new Gson(); // GSON - java json library from Google. I prefer it
-			String content = gson.toJson(player);
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-		    response.getWriter().write(content);
-		    
-			//response.getWriter().write(content);
-			//response.getWriter().print(content);
-			
-		}
-		request.setAttribute("message", "Welcome "+first_name+ " "+last_name+", You are now logged in!");
-		request.getRequestDispatcher("/WEB-INF/sign_up.jsp").forward(request, response);
+			HttpSession session = request.getSession(true);
+			session.setAttribute("theFullName", first_name+" "+last_name);
+		}		 
+		
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 }

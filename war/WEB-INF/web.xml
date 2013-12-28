@@ -143,6 +143,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/SaveNewPlayer</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>SignInServlet</servlet-name>
+		<servlet-class>datastoreEntities.SignInServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SignInServlet</servlet-name>
+		<url-pattern>/sign_in</url-pattern>
+	</servlet-mapping>
 
 	<security-constraint>
 		<display-name>SecurityConstraint</display-name>
@@ -170,6 +178,8 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<role-name>*</role-name>
 	</security-role>
 
-
+ <session-config>
+      <session-timeout>0</session-timeout> 
+ </session-config>
 
 </web-app>

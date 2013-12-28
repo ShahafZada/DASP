@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
-
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <link type="text/css" rel="stylesheet" href="css/score_popup.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/form.js"></script>
+<script type="text/javascript" src="js/Jquery/form.js"></script>
 <script type="text/javascript" src="js/createGame.js"></script>
 <script type="text/javascript" src="js/gameChoice.js"></script>
 <script type="text/javascript" src="js/gameCredits.js"></script>

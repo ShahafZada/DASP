@@ -3,6 +3,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <img alt="logo" src="images/logo.png" id="logo">
+
+<span id="login_icon">Welcome
+<%
+		String full_name = (String)session.getAttribute("theFullName");
+		if(full_name == null) {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}
+		else {
+       		out.println(full_name);
+		}
+%>
+</span>
 <table id="header_linkes">
 	<tr>
 		<td><img src="images/navigation/tool_bar.png"></td>
