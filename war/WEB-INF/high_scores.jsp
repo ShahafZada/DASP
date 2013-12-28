@@ -17,13 +17,13 @@
 		list = DataBaseManager.getInstance().getAllScores(); //results from previous games
 		/*
 		if (session.getAttribute("userName") == null) {
-			list = DataBaseManager.getInstance().getAllScores();
+			//list = DataBaseManager.getInstance().getAllScores();
 			//results from previous games:
 		} else {
 			//list = DataBaseManager.getInstance().getScoreForPlayer(session.getAttribute("userName").toString());	
 			//results from your games:
 		}
-		*/
+	*/
 	%>
 	<table id="high_scores">
 		<tr>
@@ -34,7 +34,7 @@
 		<% for (GameScore item : list) { %>
 		<tr>
 			<td><img src="images/high_scores/Derp.png"></td> 
-			<td><%=item.name%></td>
+			<td><%=item.player.getFirstName()%></td>
 			<td><%=item.score%></td>
 		</tr>
 		<% } %>

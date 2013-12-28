@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
+<%@page import="statistics.Statistics"%>
+<%@page import="statistics.StatisticsManager"%>
+<%@page import="java.util.Vector;"%>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -10,6 +13,7 @@
 
 <body>
 	<%@ include file="header.jsp"%>
+	<% String MapNum = null; %>
 	<div id="center">
 	
 	<form action="">
@@ -18,12 +22,14 @@
 		<a href="statistics/?by='player'" title="Try solving it!"><button type="submit">Submit</button></a>
 		
 		<% 
-			String i = request.getParameter("StatisticsByLevel"); 
-			if(i != null)
-				response.getWriter().write(i);
-		%>
-		
+			MapNum = request.getParameter("StatisticsByLevel"); 
+			Vector<Double> vec = StatisticsManager.getInstance().ScoreListToVector(MapNum.toString());
+		%>	
 	</form>
+	
+	<% if(MapNum!=null && vec!=null) %>
+	<p><% Statistics.this.analyze_one_vector(vec); %></p>
+	
 	
 	</div>
 	<%@ include file="footer.jsp"%>

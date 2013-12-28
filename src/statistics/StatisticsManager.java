@@ -23,15 +23,29 @@ public final class StatisticsManager
         return instance;
     }
     
-    @SuppressWarnings("unchecked")
-	public Vector<Double> getScoreForMap(int MapNum)
+	@SuppressWarnings("null")
+	public List<GameScore> getScoreForMap(int MapNum)
     {
-    	System.out.println("getting scores for Map " + MapNum);
-    	javax.jdo.Query q = Manager.getPM().newQuery(GameScore.class);
-    	q.setFilter("SELECT Player,score ");//"MapNum==MapNum");
-    	q.declareParameters("int MapNum");
-    	return (Vector<Double>)q.execute(MapNum);
+    	List<GameScore> after_filter = null;
+    	List<GameScore> list = getAllScores();
+    	for (GameScore item : list)
+    		if( Integer.parseInt( item.map.getmapNum() ) == MapNum )
+    			after_filter.add(item);
+		return after_filter;
     }
+	
+	@SuppressWarnings("null")
+	public Vector<Double> ScoreListToVector(int MapNum)
+    {
+		Vector<Double> vec = null;
+    	List<GameScore> list = getScoreForMap(MapNum);
+    	if (list == null)
+    		return null;
+    	for (GameScore item : list)
+    		vec.add( (double) Integer.parseInt( item.map.getmapNum() ));
+		return vec;
+    }
+	
     @SuppressWarnings("unchecked")
 	public List<GameScore> getAllScores()
     {
