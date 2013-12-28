@@ -28,6 +28,7 @@ function createGame(){
 	var nodesInRandomizedMap = 10;
 	var maxRandomizingAttempts = 1000;
 	var connectRandomNodesElegantly = false;
+	var alreadyVisitedIndexes = [];
 
 
 	var buttons = [];
@@ -436,8 +437,6 @@ function createGame(){
 
 	}
 
-
-
 	this.draw = function(){
 
 		//drawing map elements
@@ -786,8 +785,20 @@ function createGame(){
 		return true;
 	}
 
+	function isNodeIndexInList(i){
+		for(var j = 0 ; j < alreadyVisitedIndexes.length ; j++){
+			if(alreadyVisitedIndexes[j] == i)
+				return true;
+		}
+		return false;
+	}
 
 	function isNodeIProperlyConnectedToTheSystem(i){
+		if(isNodeIndexInList(i))
+			return false;
+		else
+			alreadyVisitedIndexes.push(i);
+			
 		for(var j = 0 ; j < nodes[i].edges.length ; j++){
 			if(nodes[getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)].isStart)	//owned edge points to start
 				return true;
@@ -799,9 +810,13 @@ function createGame(){
 	}
 
 	function areAllNodesConnectedToTheSystem(){
+
 		for(var i = 0 ; i < nodes.length ; i++){
-			if(!isNodeIProperlyConnectedToTheSystem(i))
+			alreadyVisitedIndexes = [];
+			if(!isNodeIProperlyConnectedToTheSystem(i , alreadyVisitedIndexes)){
 				return false;
+			}
+				
 		}
 		return true;
 	}
