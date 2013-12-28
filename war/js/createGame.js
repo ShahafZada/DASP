@@ -143,7 +143,7 @@ function createGame(){
 	// edges :
 
 	var defaultEdgeWeight = 1;
-	var defaultEdgeWidth = 1;
+	var defaultEdgeWidth = 5;
 	var defaultEdgeColor = "cyan";
 
 	var lastClickedNodeID = ARBITRARY_NEGATIVE;	//while it's negative: no node was touched. Use this to know if node was touched, for that DO NOT use the index identifier (lastClickedNodeIndex) 
@@ -152,9 +152,6 @@ function createGame(){
 	var allowingMultiColoredEdges = true;
 	var restColorRandomizing = 2;	//there's a certain edge which would get randomized every 'restColorRandomizing' cycles. In other words, this is sleep for randomize
 	var restRandomizingCounter = 0;
-
-
-
 
 
 	buttons.push(createNodeButton);
@@ -480,7 +477,7 @@ function createGame(){
 			nodes[nodeIndex2].edges.push(new Edge(nodes[nodeIndex1].id , randomColor , defaultEdgeWeight));
 		}
 	}
-	
+
 	function addNode(isStartNode){
 		nodes.push(new Node(generateID() , mouseX-nodeRadius , mouseY-nodeRadius , nodeRadius , isStartNode));
 		if(allowConsoleMessages){
@@ -592,6 +589,58 @@ function createGame(){
 
 		}
 	}
+
+
+	function isMouseOverEdgeArea(nodeIndex1 , nodeIndex2){
+
+		//..../..../
+		//.../|.../
+		//../.|<-/----verticalEdgeWidth
+		//./..|./
+		///___|/	
+		//..../
+		//.../
+		//../
+		//./ 
+		///
+
+		var node1X = nodes[nodeIndex1].x + nodes[nodeIndex1].radius;
+		var node2X = nodes[nodeIndex2].x + nodes[nodeIndex2].radius;
+
+		var node1Y = nodes[nodeIndex1].y + nodes[nodeIndex1].radius;
+		var node2Y = nodes[nodeIndex2].y + nodes[nodeIndex2].radius;
+
+		
+		
+		if((mouseX > node1X && mouseX > node2X) || (mouseX < node1X && mouseX < node2X))
+			return false;
+		if((mouseY > node1Y && mouseY > node2Y) || (mouseY < node1Y && mouseY < node2Y))
+			return false;
+
+		if(allowConsoleMessages)
+			console.log("considering the removal of the edge between nodes indexed " + nodeIndex1 + " and " + nodeIndex2);
+
+		
+		
+
+		var dx = node1X - node2X;
+		var dy = node1Y - node2Y;
+		var hypotenuse = Math.sqrt(dx*dx + dy*dy);
+
+		var cosinus = dx / hypotenuse;
+		var verticalEdgeWidth = defaultEdgeWidth / cosinus;
+
+		var	m = dy / dx;
+		var maxY = node1Y + m * (mouseX - node1X) + (verticalEdgeWidth/2);
+		var minY = node1Y + m * (mouseX - node1X) - (verticalEdgeWidth/2);
+
+
+		if(minY < mouseY && mouseY < maxY)
+			return true;
+		else
+			return false;
+	}
+
 
 
 	function isMouseOverButton(i){
@@ -713,7 +762,13 @@ function createGame(){
 
 		//TODO
 		else if(currentMode == buttons.indexOf(eraseEdgeButton)){	//Erase Edges
-			;
+			for(var i = 0 ; i < nodes.length ; i++){
+				for(var j = 0 ; j < nodes[i].edges.length ; j++){
+					if(nodes[i].id > nodes[i].edges[j].pointedNodeID)	//check in only one direction
+						if(isMouseOverEdgeArea(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID)))
+							removeEdgeBetween(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID));
+				}
+			}
 		}
 		else if(currentMode == buttons.indexOf(setStartButton)){	//Set Start
 			if(isInDrawableArea()){
