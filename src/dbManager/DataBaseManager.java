@@ -4,9 +4,11 @@ package dbManager;
 import java.util.List;
 
 import javax.jdo.JDOObjectNotFoundException;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import datastoreEntities.GameScore;
+import datastoreEntities.Map;
 import datastoreEntities.Player;
 import Manager.*;
 
@@ -67,7 +69,7 @@ public final class DataBaseManager
 		Player player = null;
 
 		try {
-			 player = Manager.getPM().getObjectById(Player.class, email);
+			player = Manager.getPM().getObjectById(Player.class, email);
 		}
 		catch (JDOObjectNotFoundException  e) {
 			return null;  
@@ -76,7 +78,7 @@ public final class DataBaseManager
 			return player;
 		}
 		return null; //password not correct case
-		 
+
 	}
 
 
@@ -84,12 +86,40 @@ public final class DataBaseManager
 		Player player = null;
 
 		try {
-			 player = Manager.getPM().getObjectById(Player.class, email);
+			player = Manager.getPM().getObjectById(Player.class, email);
 		}
 		catch (JDOObjectNotFoundException  e) {
 			return null;  
 		}
 		return player; //password not correct case
+	}
+
+
+	public Map getMapByNum(String map_num) {
+
+		Map map = null;
+		PersistenceManager pm = Manager.getPM();
+
+		try {
+			Query query = pm.newQuery(Map.class);
+			query.setFilter("map_num == mapNum");
+			query.declareParameters("String map_num");
+
+			@SuppressWarnings("unchecked")
+			List<Map> maps = (List<Map>) query.execute(map_num);
+			for (Map resultmap : maps) {
+				map = resultmap;
+				break;
+			}
+			if (map != null){
+				return map;
+			} else {
+				return null;  
+			}
+		} catch (JDOObjectNotFoundException  e) {
+			return null;  
+		}
+
 	}
 
 
