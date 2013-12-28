@@ -39,13 +39,12 @@ public class SaveGameScores extends HttpServlet {
 	
 		HttpSession session = request.getSession(true);
 		String email = (String)session.getAttribute("theEmailName");
-
 		
 		Player player = DataBaseManager.getInstance().getPlayerByEmail(email);
 		Object score = request.getParameter("theScoreField");
 		//Object map_num = request.getParameter("mapNum");
 		//Map map = DataBaseManager.getInstance().getMapByNum(map_num.toString());
-		Map map = new Map("1".toString(), null, null, null);// TODO testing
+		Map map = new Map("1", null, null, null);// TODO testing
 		if (player != null || score != null) {
 			GameScore game_score = new GameScore(player, map, score.toString());
 			DataBaseManager.getInstance().insertNewScore(game_score);
