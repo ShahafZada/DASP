@@ -98,10 +98,8 @@ public final class DataBaseManager
 	public Map getMapByNum(String map_num) {
 
 		Map map = null;
-		PersistenceManager pm = Manager.getPM();
-
 		try {
-			Query query = pm.newQuery(Map.class);
+			Query query = Manager.getPM().newQuery(Map.class);
 			query.setFilter("map_num == mapNum");
 			query.declareParameters("String map_num");
 
