@@ -86,7 +86,6 @@ function game(){
 	//this data is supposed to be taken from another file (a "stage" file)
 
 
-
 	jQuery.ajax({
 		url : "CreateMap",
 		data : { map_num : mapNum },
@@ -96,7 +95,8 @@ function game(){
 		type : "post",
 		timeout : 30000
 	});
-	/*/
+	
+	
 	setTimeout(function() {  
 
 		var nodes = [];
@@ -112,11 +112,11 @@ function game(){
 	            alert(data);
 	        }
 		});
-	}, 1000); //defer the execution of anonymous function for 3 seconds and go to next line of code.
+	}, 30000); //defer the execution of anonymous function for 3 seconds and go to next line of code.
 	
 	var numOfNodes = nodesList.length;
 	nodes.length = numOfNodes;
-	/*/
+	
 //	$.getJSON('CreateMap', function(data) {
 //		alert('entered getJSON()');
 //		for (var i = 0; i < data.length; i++) {
@@ -127,7 +127,7 @@ function game(){
 //	});
 
 
-	
+	/*/
 	var numOfNodes = 5;
 	var nodes = [];
 	nodes.length = numOfNodes;
@@ -147,7 +147,7 @@ function game(){
 				addEdge(i , j);
 		}		
 	}
-	
+	/*/
 	
 
 

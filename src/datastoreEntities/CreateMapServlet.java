@@ -41,9 +41,9 @@ public class CreateMapServlet extends HttpServlet {
 	    String json = gson.toJson(nodesList);
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
-	   response.getWriter().write(json);
+	    response.getWriter().write(json);
 	   
-	   response.getWriter().print(json);
+	    response.getWriter().print(json);
 
 	    System.out.println(json);
 	  

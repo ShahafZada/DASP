@@ -381,12 +381,15 @@ function createGame(){
 //				}
 
 
+
 				var json = JSON.stringify(nodes);
 				console.log(json);
+							
+				var mapN = prompt("Enter map num");
 
 				jQuery.ajax({
 					url : "SaveNewMap",
-					data : { nodes : json },
+					data : { nodes : json , map : mapN },
 					error : function(data) {
 						console.log("Error: ", data);
 					},
