@@ -1,9 +1,11 @@
 package statistics;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import javax.jdo.JDOObjectNotFoundException;
+import javax.jdo.Query;
 
 import datastoreEntities.*;
 import Manager.*;
@@ -23,26 +25,25 @@ public final class StatisticsManager
         return instance;
     }
     
-	@SuppressWarnings("null")
+	@SuppressWarnings( "unchecked" )
 	public List<GameScore> getScoreForMap(int MapNum)
     {
-    	List<GameScore> after_filter = null;
-    	List<GameScore> list = getAllScores();
-    	for (GameScore item : list)
-    		if( Integer.parseInt( item.map.getmapNum() ) == MapNum )
-    			after_filter.add(item);
-		return after_filter;
+		System.out.println("getting scores for map " + MapNum);
+		Query q = Manager.getPM().newQuery(GameScore.class);
+		q.setFilter("mapNum==MapNum");
+		q.declareParameters("String MapNum");
+		return (List<GameScore>)q.execute(MapNum);
     }
 	
 	@SuppressWarnings("null")
 	public Vector<Double> ScoreListToVector(int MapNum)
     {
-		Vector<Double> vec = null;
+		Vector<Double> vec = new Vector<Double>();
     	List<GameScore> list = getScoreForMap(MapNum);
     	if (list == null)
     		return null;
     	for (GameScore item : list)
-    		vec.add( (double) Integer.parseInt( item.map.getmapNum() ));
+    		vec.add( (double)item.score);
 		return vec;
     }
 	

@@ -39,6 +39,10 @@
 				<td><input type="hidden" id="scoreField" name="theScoreField"></td>
 			</tr>
 			<tr>
+				<!--  <td><label for="mapNumField">Your MapNum</label></td> -->
+				<td><input type="hidden" id="mapNumField" name="themapNumField"></td>
+			</tr>
+			<tr>
 				<td><label for="picField">Your Picture: </label></td>
 				<!--  <td><input type="text" id="picField" name="thePicField"></td> -->
 				<td><img src="images/high_scores/Derp.png"></td>

@@ -15,19 +15,19 @@ public class GameScore {
 	private Key key;
 	
 	@Persistent
-	public Player player;
+	private String email;
 	
 	@Persistent
-	public Map map;
+	private int mapNum;
 	
 	@Persistent
 	public int score;
 	
 	
-	public GameScore(Player player, Map map, int score) {
+	public GameScore(String email, int mapNum, int score) {
 		super();
-		this.player = player;
-		this.map = map;
+		this.email = email;
+		this.mapNum = mapNum;
 		this.score = score;
 	}
 	
@@ -39,20 +39,20 @@ public class GameScore {
 		this.key = key;
 	}
 
-	public Player getPlayer() {
-		return player;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
+	public void setEmail(String	email) {
+		this.email = email;
 	}
 
-	public Map getMap() {
-		return map;
+	public int getmapNum() {
+		return mapNum;
 	}
 
-	public void setMap(Map map) {
-		this.map = map;
+	public void setMap(int mapNum) {
+		this.mapNum = mapNum;
 	}
 
 	public int getScore() {

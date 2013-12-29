@@ -38,21 +38,19 @@ public class SaveGameScores extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		HttpSession session = request.getSession(true);
-		//String email = (String)session.getAttribute("theEmailName");
-		String email = "aaa@aaa";
-		System.out.println(email);
-		Player player = DataBaseManager.getInstance().getPlayerByEmail(email);
-		Player player2 = new Player(player);
+		String email = (String)session.getAttribute("theEmailName");	
 		Object score = request.getParameter("theScoreField");
-		Object map_num = request.getParameter("mapNum");
-		//Map map = DataBaseManager.getInstance().getMapByNum(map_num.toString());
-		Map map = DataBaseManager.getInstance().getMapByNum("1");
-		Map map2 = new Map(map);
-		
-		if (player2 != null || score != null) {
+		Object map_num = request.getParameter("themapNumField");	
+
+		if (email != null && score != null && map_num != null) {
+			
+			int mapNum = Integer.parseInt((String) map_num);
+			
 			int steps = Integer.parseInt((String)score);
-			GameScore game_score = new GameScore(null, null, steps);
+				
+			GameScore game_score = new GameScore(email, mapNum, steps);
 			DataBaseManager.getInstance().insertNewScore(game_score);
+			
 		}
 		response.sendRedirect("high_scores");
 	}

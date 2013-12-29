@@ -15,6 +15,7 @@
 	<%@ include file="header.jsp"%>
 	<% 	String MapNum = null;
 		Statistics stat = new Statistics();
+		Vector<Double> vec = null;
 	%>
 	<div id="center">
 	
@@ -24,14 +25,17 @@
 		<a href="statistics/?by='player'" title="Try solving it!"><button type="submit">Submit</button></a>
 		
 		<% 
-			MapNum = request.getParameter("StatisticsByLevel"); 
-			Vector<Double> vec = StatisticsManager.getInstance().ScoreListToVector(1);
+		MapNum = request.getParameter("StatisticsByLevel"); 
+		if(MapNum != null) {
+		int map_num = Integer.parseInt(MapNum);
+		vec = StatisticsManager.getInstance().ScoreListToVector(map_num);
+		}
 		%>	
 	</form>
 	
-	<% if(vec!=null)%>
-	<p><% stat.average(vec); %></p>
-	
+	<% if(vec != null) {
+		%><%=stat.analyze_one_vector(vec)%><%
+	}	%>
 	
 	</div>
 	<%@ include file="footer.jsp"%>

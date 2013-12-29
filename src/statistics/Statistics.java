@@ -277,10 +277,10 @@ public class Statistics
 	{
 	return(
 				"Average = " + average(d) 
-				+ "  variance = " + variance(d) 
-				+ "  Standard deviation = " + Standard_deviation(d) 
-				+ "  Standard error = "+ Standard_error(d) +"  min = "
-				+ min(d) + "  max = " + max(d)
+				+ "<br></br>   variance = " + variance(d) 
+				+ "<br></br>   Standard deviation = " + Standard_deviation(d) 
+				+ "<br></br>   Standard error = "+ Standard_error(d) +"<br></br>   min = "
+				+ min(d) + "<br></br>   max = " + max(d)
 				);
 	}
 	
@@ -293,10 +293,10 @@ public class Statistics
 	{
 		return(
 				"Average = " + average(v) 
-				+ "  variance = " + variance(v) 
-				+ "  Standard deviation = " + Standard_deviation(v) 
-				+ "  Standard error = "+ Standard_error(v) +"  min = "
-				+ min(v) + "  max = " + max(v)
+				+ "<br></br>   variance = " + variance(v) 
+				+ "<br></br>   Standard deviation = " + Standard_deviation(v) 
+				+ "<br></br>   Standard error = "+ Standard_error(v) +"<br></br>  min = "
+				+ min(v) + "<br></br>   max = " + max(v)
 				);
 	}
 	
@@ -304,7 +304,7 @@ public class Statistics
 	{
 		return(
 				"Covariance = " + co_variance(d1,d2) 
-				+ "  correlation = " + correlation(d1,d2) 
+				+ "<br></br>   correlation = " + correlation(d1,d2) 
 				);
 	}
 	
@@ -317,7 +317,7 @@ public class Statistics
 	{
 		return(
 				"Covariance = " + co_variance(v1,v2) 
-				+ "  correlation = " + correlation(v1,v2) 
+				+ "<br></br>   correlation = " + correlation(v1,v2) 
 				);
 	}
 }

@@ -427,6 +427,7 @@ function game(){
 		this.removeEventListener("mouseup", checkClick);
 		$("#score").text(clickHistory.length);
 		$("#scoreField").val(clickHistory.length);
+		$("#mapNumField").val(1);
 		score_popup();
 		//$("#scoreField").text("is"+ clickHistory.length);
 

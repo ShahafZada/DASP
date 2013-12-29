@@ -10,7 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Map {
 	@PrimaryKey
     @Persistent
-    private String mapNum;
+    private int mapNum;
 
     @Persistent
     private String mapName;
@@ -21,25 +21,18 @@ public class Map {
 	@Persistent
     private List<Node> nodes;
 
-	public Map(String mapNum, String mapName, String level, List<Node> nodes) {
+	public Map(int mapNum, String mapName, String level, List<Node> nodes) {
 		this.mapNum = mapNum;
 		this.mapName = mapName;
 		this.level = level;
 		this.nodes = nodes;
 	}
 
-	public Map(Map map) {
-		map.mapNum = this.mapNum;
-		map.mapName = this.mapName;
-		map.level = this.level;
-		map.nodes = this.nodes;
-	}
-
-	public String getmapNum() {
+	public int getmapNum() {
 		return mapNum;
 	}
 
-	public void setmapNum(String mapNum) {
+	public void setmapNum(int mapNum) {
 		this.mapNum = mapNum;
 	}
 

@@ -1,4 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@page import="datastoreEntities.Player"%>
 <%@page import="datastoreEntities.GameScore"%>
 <%@page import="dbManager.DataBaseManager"%>
 <%@page import="java.util.List;"%>
@@ -15,6 +16,7 @@
 	<%
 		List<GameScore> list;
 		list = DataBaseManager.getInstance().getAllScores(); //results from previous games
+		DataBaseManager DBManager = DataBaseManager.getInstance();
 		/*
 		if (session.getAttribute("userName") == null) {
 			//list = DataBaseManager.getInstance().getAllScores();
@@ -31,10 +33,13 @@
 			<td>Name</td>
 			<td>Map 1</td>
 		</tr>
-		<% for (GameScore item : list) { %>
+		<% for (GameScore item : list) { 
+				Player p = DBManager.getPlayerByEmail( item.getEmail() );
+				String Fname = p.getFirstName();
+		%>
 		<tr>
 			<td><img src="images/high_scores/Derp.png"></td> 
-			<td></td>
+			<td><%=Fname%></td>
 			<td><%=item.score%></td>
 		</tr>
 		<% } %>
