@@ -20,7 +20,7 @@ public final class StatisticsManager
     
     public static StatisticsManager getInstance()
     {
-        if (instance == null)
+         if (instance == null)
             instance = new StatisticsManager();
         return instance;
     }
