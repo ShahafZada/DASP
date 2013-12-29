@@ -31,7 +31,6 @@ public final class DataBaseManager
 	@SuppressWarnings("unchecked")
 	public List<GameScore> getScoreForPlayer(String name)
 	{
-		System.out.println("getting scores for player " + name);
 		Query q = Manager.getPM().newQuery(GameScore.class);
 		q.setFilter("name==theName");
 		q.declareParameters("String theName");
