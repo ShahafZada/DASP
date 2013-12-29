@@ -18,13 +18,13 @@ public class GameScore {
 	private String email;
 	
 	@Persistent
-	private int mapNum;
+	private String mapNum;
 	
 	@Persistent
 	public int score;
 	
 	
-	public GameScore(String email, int mapNum, int score) {
+	public GameScore(String email, String mapNum, int score) {
 		super();
 		this.email = email;
 		this.mapNum = mapNum;
@@ -47,11 +47,11 @@ public class GameScore {
 		this.email = email;
 	}
 
-	public int getmapNum() {
+	public String getmapNum() {
 		return mapNum;
 	}
 
-	public void setMap(int mapNum) {
+	public void setMap(String mapNum) {
 		this.mapNum = mapNum;
 	}
 

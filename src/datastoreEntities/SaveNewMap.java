@@ -38,16 +38,21 @@ public class SaveNewMap extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		List<Map> maps = DataBaseManager.getInstance().getAllMaps();
+		String num_of_maps = "1";
 		String nodes = request.getParameter("nodes");
-		//System.out.println(nodes);
+		System.out.println(nodes);
 		Type type = new TypeToken<List<Node>>(){}.getType();
 		List<Node> nodesList = new Gson().fromJson(nodes, type);
-		//		for (int i = 0; i<nodesList.size(); i++) {
-		//			Node node = nodesList.get(i);
-		//			System.out.println(node.getX());
-		//		}
-
-		Map map = new Map(1, "1", "1", nodesList);
+		for (int i = 0; i<nodesList.size(); i++) {
+			Node node = nodesList.get(i);
+			System.out.println(node.getX());
+		}
+		
+		if(maps != null)
+			num_of_maps = "2";
+		
+		Map map = new Map(num_of_maps, num_of_maps, num_of_maps, nodesList);
 		DataBaseManager.getInstance().insertNewMap(map);
 
 

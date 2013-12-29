@@ -27,8 +27,7 @@
 		<% 
 		MapNum = request.getParameter("StatisticsByLevel"); 
 		if(MapNum != null) {
-		int map_num = Integer.parseInt(MapNum);
-		vec = StatisticsManager.getInstance().ScoreListToVector(map_num);
+		vec = StatisticsManager.getInstance().ScoreListToVector(MapNum);
 		}
 		%>	
 	</form>

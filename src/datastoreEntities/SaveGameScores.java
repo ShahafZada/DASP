@@ -43,12 +43,9 @@ public class SaveGameScores extends HttpServlet {
 		Object map_num = request.getParameter("themapNumField");	
 
 		if (email != null && score != null && map_num != null) {
-			
-			int mapNum = Integer.parseInt((String) map_num);
-			
 			int steps = Integer.parseInt((String)score);
 				
-			GameScore game_score = new GameScore(email, mapNum, steps);
+			GameScore game_score = new GameScore(email, (String) map_num, steps);
 			DataBaseManager.getInstance().insertNewScore(game_score);
 			
 		}

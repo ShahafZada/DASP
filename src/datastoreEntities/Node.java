@@ -22,7 +22,22 @@ public class Node {
 	
     @Persistent
     private double x;
+
+    @Persistent
+    private double y;
     
+    @Persistent
+    private double radius;
+    
+    @Persistent
+    private boolean isStart;
+    
+    @Persistent
+    private boolean isMarked;
+	
+	@Persistent
+    private List<Node> edges;
+
     public Node(Key key, int id, double x, double y, double radius, boolean isStart, boolean isMarked, List<Node> edges) {
 
 		this.key = key;
@@ -66,21 +81,6 @@ public class Node {
 	public void setMarked(boolean isMarked) {
 		this.isMarked = isMarked;
 	}
-
-	@Persistent
-    private double y;
-    
-    @Persistent
-    private double radius;
-    
-    @Persistent
-    private boolean isStart;
-    
-    @Persistent
-    private boolean isMarked;
-	
-	@Persistent
-    private List<Node> edges;
 
 	public Key getKey() {
 		return key;

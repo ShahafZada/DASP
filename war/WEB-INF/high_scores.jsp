@@ -31,7 +31,7 @@
 		<tr>
 			<td>Picture</td>
 			<td>Name</td>
-			<td>Map 1</td>
+			<td>Score</td>
 		</tr>
 		<% for (GameScore item : list) { 
 				Player p = DBManager.getPlayerByEmail( item.getEmail() );

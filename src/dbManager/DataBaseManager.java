@@ -117,6 +117,13 @@ public final class DataBaseManager
 		}
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map> getAllMaps()
+	{
+		Query q = Manager.getPM().newQuery(Map.class);
+		return (List<Map>)q.execute();
+	}
 
 	public void insertNewMap(Map map) {
 		Manager.getPM().makePersistent(map);

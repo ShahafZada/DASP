@@ -1,6 +1,5 @@
 package statistics;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -26,7 +25,7 @@ public final class StatisticsManager
     }
     
 	@SuppressWarnings( "unchecked" )
-	public List<GameScore> getScoreForMap(int MapNum)
+	public List<GameScore> getScoreForMap(String MapNum)
     {
 		Query q = Manager.getPM().newQuery(GameScore.class);
 		q.setFilter("mapNum==MapNum");
@@ -34,8 +33,7 @@ public final class StatisticsManager
 		return (List<GameScore>)q.execute(MapNum);
     }
 	
-	@SuppressWarnings("null")
-	public Vector<Double> ScoreListToVector(int MapNum)
+	public Vector<Double> ScoreListToVector(String MapNum)
     {
 		Vector<Double> vec = new Vector<Double>();
     	List<GameScore> list = getScoreForMap(MapNum);
