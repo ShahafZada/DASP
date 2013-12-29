@@ -376,9 +376,9 @@ function createGame(){
 //						console.log("Index: " + i + " id: " + nodes[i].id);
 //					}
 //				}
-				for(var i = 0 ; i < nodes.length ; i++){
-					nodes[i].id = i;
-				}
+//				for(var i = 0 ; i < nodes.length ; i++){	//TODO sort edge destinations first
+//					nodes[i].id = i;
+//				}
 
 
 				var json = JSON.stringify(nodes);
