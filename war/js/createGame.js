@@ -374,11 +374,7 @@ function createGame(){
 				timeout : 30000
 			});
 
-			var event = document.createEvent("Event");
-			event.initEvent("changePage", true, true);
-			event.customData = "goToGameMenu";
-			window.dispatchEvent(event);
-			this.removeEventListener("mouseup", checkClick);
+			setMode(buttons.indexOf(createNodeButton));
 
 		}
 
