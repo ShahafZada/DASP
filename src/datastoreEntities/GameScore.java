@@ -21,10 +21,10 @@ public class GameScore {
 	public Map map;
 	
 	@Persistent
-	public String score;
+	public int score;
 	
 	
-	public GameScore(Player player, Map map, String score) {
+	public GameScore(Player player, Map map, int score) {
 		super();
 		this.player = player;
 		this.map = map;
@@ -55,11 +55,11 @@ public class GameScore {
 		this.map = map;
 	}
 
-	public String getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 

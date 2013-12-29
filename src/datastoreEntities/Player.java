@@ -80,6 +80,23 @@ public class Player {
 	}
 
 
+	public Player(Player player) {
+		player.firstName = this.firstName;
+		player.lastName = this.lastName;
+		player.email = this.email;
+		player.age = this.age;
+		player.sex = this.sex;
+		player.country = this.country;
+		player.city = this.city;
+		player.education = this.education;
+		player.totalPlayTime = this.totalPlayTime;
+		player.picture = this.picture;
+		player.userType = this.userType;
+		player.passwordHash = this.passwordHash;
+		player.passwordSalt = this.passwordSalt;
+	}
+
+
 	public String getUserType() {
 		return userType;
 	}

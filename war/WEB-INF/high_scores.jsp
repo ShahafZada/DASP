@@ -34,7 +34,7 @@
 		<% for (GameScore item : list) { %>
 		<tr>
 			<td><img src="images/high_scores/Derp.png"></td> 
-			<td><%=item.player.getFirstName()%></td>
+			<td></td>
 			<td><%=item.score%></td>
 		</tr>
 		<% } %>

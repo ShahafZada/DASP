@@ -196,8 +196,4 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<role-name>*</role-name>
 	</security-role>
 
- <session-config>
-      <session-timeout>0</session-timeout> 
- </session-config>
-
 </web-app>

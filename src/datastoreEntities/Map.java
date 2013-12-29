@@ -28,6 +28,13 @@ public class Map {
 		this.nodes = nodes;
 	}
 
+	public Map(Map map) {
+		map.mapNum = this.mapNum;
+		map.mapName = this.mapName;
+		map.level = this.level;
+		map.nodes = this.nodes;
+	}
+
 	public String getmapNum() {
 		return mapNum;
 	}
