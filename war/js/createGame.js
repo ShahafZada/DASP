@@ -352,27 +352,30 @@ function createGame(){
 		}
 		//TODO
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
-			if(allowConsoleMessages)
-				console.log("tool isn't ready yet");
-			//areAllNodesConnectedToTheSystem()		//TODO check if map is legal (every node is reachable) and act accordingly
 
-			showedSaveAlready = true;
-			//TODO check if map is legal (every node is reachable)
-			//Ajax.post()	//"not this way exactly, find a tutorial"
+			if(!areAllNodesConnectedToTheSystem()){
+				if(allowConsoleMessages)
+					console.log("Map is illegal ; did not save");
+			}
 
+			else{
 
-			var json = JSON.stringify(nodes);
-			console.log(json);
+				//TODO organize the nodes array
+				
+				var json = JSON.stringify(nodes);
+				console.log(json);
 
-			jQuery.ajax({
-				url : "SaveNewMap",
-				data : { nodes : json },
-				error : function(data) {
-					console.log("Error: ", data);
-				},
-				type : "post",
-				timeout : 30000
-			});
+				jQuery.ajax({
+					url : "SaveNewMap",
+					data : { nodes : json },
+					error : function(data) {
+						console.log("Error: ", data);
+					},
+					type : "post",
+					timeout : 30000
+				});
+
+			}
 
 			setMode(buttons.indexOf(createNodeButton));
 
