@@ -28,7 +28,6 @@ public final class StatisticsManager
 	@SuppressWarnings( "unchecked" )
 	public List<GameScore> getScoreForMap(int MapNum)
     {
-		System.out.println("getting scores for map " + MapNum);
 		Query q = Manager.getPM().newQuery(GameScore.class);
 		q.setFilter("mapNum==MapNum");
 		q.declareParameters("String MapNum");
