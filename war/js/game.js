@@ -89,7 +89,7 @@ function game(){
 
 	jQuery.ajax({
 		url : "CreateMap",
-		data : { map_num : "1" },
+		data : { map_num : mapNum },
 		error : function(data) {
 			console.log("Error: ", data);
 		}  ,
@@ -427,7 +427,8 @@ function game(){
 		this.removeEventListener("mouseup", checkClick);
 		$("#score").text(clickHistory.length);
 		$("#scoreField").val(clickHistory.length);
-		$("#mapNumField").val(1);
+		//TODO change the "val(1)" to mapNum
+		$("#mapNumField").val(mapNum);
 		score_popup();
 		//$("#scoreField").text("is"+ clickHistory.length);
 

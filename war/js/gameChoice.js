@@ -9,7 +9,6 @@ function gameChoice(){
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var buttonDistFromEdges = height/8;
 
-	var mapNum = 0;
 
 
 
@@ -120,10 +119,11 @@ function gameChoice(){
 				if(isMouseOverMap(x,y))				
 				{
 					//clickMap(x,y);	//using a function to cancel the event listener doesn't work!!!!!!!!!!!!!!
-					if(y < 3)        mapNum = 0;
-					else if(y < 6)   mapNum = 3;
-					else if(y < 9)   mapNum = 6;
-					var mapNum = mapNum + x;
+//					if(y < 3)        mapNum = 0;
+//					else if(y < 6)   mapNum = 3;
+//					else if(y < 9)   mapNum = 6;
+//					var mapNum = mapNum + x;
+					mapNum = x*cols + y + 1;					
 					//temporarily - until we'd have actual maps
 					var event = document.createEvent("Event");
 					event.initEvent("changePage", true, true);

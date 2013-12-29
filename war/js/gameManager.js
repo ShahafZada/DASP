@@ -7,6 +7,7 @@ function gameManager(){
 	//Global variables:
 	mouseX = 0;
 	mouseY = 0;
+	mapNum = 1;
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
 	width = canvas.getAttribute('width');	//canvas.scrollWidth;
