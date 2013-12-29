@@ -358,10 +358,29 @@ function createGame(){
 					console.log("Map is illegal ; did not save");
 			}
 
-			else{
+			else{	//all nodes can be reached from start
 
-				//TODO organize the nodes array
-				
+				//organize the nodes array
+				for(var i = 0 ; i < nodes.length ; i++){	//bubble sort!!
+					for(var j = 0 ; j < nodes.length - 1 ; j++){
+						if(nodes[j].id > nodes[j+1].id){	//switch
+							var temp = nodes[j];
+							nodes[j] = nodes[j+1];
+							nodes[j+1] = temp;
+						}
+					}
+				}
+//				if(allowConsoleMessages){
+//					console.log("Array arrangement:");
+//					for(var i = 0 ; i < nodes.length ; i++){
+//						console.log("Index: " + i + " id: " + nodes[i].id);
+//					}
+//				}
+				for(var i = 0 ; i < nodes.length ; i++){
+					nodes[i].id = i;
+				}
+
+
 				var json = JSON.stringify(nodes);
 				console.log(json);
 
