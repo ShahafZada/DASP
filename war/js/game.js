@@ -21,6 +21,7 @@ function game(){
 	//TODO add an array of edges in history (so they'll get drawn after the rest of the edges)
 
 	//nodes:
+	var nodes = [];
 	var nodeSize = height/10; //height and width are the same
 	var mouseOverEnlarger = 0.3;
 	var lastClickedID = 0;
@@ -53,7 +54,7 @@ function game(){
 
 //	classes :
 
-	function Node(id , x, y, radius , color, isStart){
+	function Node(id , x, y, radius , color, isStart , edges){
 		this.id = id;
 		this.x = x;
 		this.y = y;
@@ -68,7 +69,7 @@ function game(){
 			this.isMarked = false;
 		}
 
-		this.edges = [];
+		this.edges = edges;
 	}
 
 
@@ -86,7 +87,7 @@ function game(){
 	//this data is supposed to be taken from another file (a "stage" file)
 
 
-	jQuery.ajax({
+	$.ajax({
 		url : "CreateMap",
 		data : { map_num : mapNum },
 		error : function(data) {
@@ -96,59 +97,58 @@ function game(){
 		timeout : 30000
 	});
 	
+	setTimeout(function() {
+		
+	$.ajax({			
+		url : "CreateMap",
+		type: "get",
+		dataType : "json",
+		contentType:"application/json",
+		error : function() {
+			alert("Error");
+		},
+		success : function(data) {
+			nodes = data;
+		}
+	}) //defer the execution of anonymous function for 3 seconds and go to next line of code.
 	
-	setTimeout(function() {  
+	} , 100);
+	//var numOfNodes = nodesList.length;
+	//nodes.length = numOfNodes;
 
-		var nodes = [];
-	
-		$.ajax({			
-	        url : "CreateMap",
-	        dataType : 'json',
-	        contentType:"application/json",
-	        error : function() {
-	            alert("Error");
-	        },
-	        success : function(data) {
-	            alert(data);
-	        }
-		});
-	}, 30000); //defer the execution of anonymous function for 3 seconds and go to next line of code.
-	
-	var numOfNodes = nodesList.length;
-	nodes.length = numOfNodes;
-	
 //	$.getJSON('CreateMap', function(data) {
-//		alert('entered getJSON()');
-//		for (var i = 0; i < data.length; i++) {
-//			nodes[i] = data[i];
-//		}
-//
-//		alert('done with javascirpt');
+//	alert('entered getJSON()');
+//	for (var i = 0; i < data.length; i++) {
+//	nodes[i] = data[i];
+//	}
+
+//	alert('done with javascirpt');
 //	});
 
 
-	/*/
-	var numOfNodes = 5;
-	var nodes = [];
-	nodes.length = numOfNodes;
-	var xPosition = 0;
-	var yPosition = 0;
 
-	for(var i = 0 ; i < numOfNodes ; i++){
+//	var numOfNodes = 5;
+//	var nodes = [];
 
-		randomPoint(i);
-		if(i ==0)
-			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , true);
-		else
-			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , false);
+//	nodes.length = numOfNodes;
+//	var xPosition = 0;
+//	var yPosition = 0;
 
-		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
-			if(i != j)							//creating edges from Node i to Node j
-				addEdge(i , j);
-		}		
-	}
-	/*/
-	
+//	for(var i = 0 ; i < numOfNodes ; i++){
+
+//	randomPoint(i);
+//	if(i ==0)
+//	nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , true);
+//	else
+//	nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , false);
+
+//	for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
+//	if(i != j)							//creating edges from Node i to Node j
+//	addEdge(i , j);
+//	}		
+//	}
+
+
 
 
 
@@ -447,7 +447,5 @@ function game(){
 	canvas.addEventListener("mouseup", checkClick);
 
 //	-------------------------------------------------------------
-
-
 }
 

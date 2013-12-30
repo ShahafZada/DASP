@@ -14,7 +14,7 @@ import dbManager.DataBaseManager;
 
 public class CreateMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private String map_num;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -27,14 +27,6 @@ public class CreateMapServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String map_num = request.getParameter("map_num");
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
 		List<Node> nodesList = map.getNodes();
 		Gson gson = new Gson();
@@ -42,10 +34,26 @@ public class CreateMapServlet extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(json);
-	   
-	    response.getWriter().print(json);
+	    
+	    System.out.println(json);// TODO
+	}
 
-	    System.out.println(json);
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		map_num = request.getParameter("map_num");
+//		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
+//		List<Node> nodesList = map.getNodes();
+//		Gson gson = new Gson();
+//	    String json = gson.toJson(nodesList);
+//	    response.setContentType("application/json");
+//	    response.setCharacterEncoding("UTF-8");
+//	    response.getWriter().write(json);
+//	   
+//	    response.getWriter().print(json);
+//
+//	    System.out.println(json);
 	  
 	}
 }

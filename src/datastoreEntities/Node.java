@@ -36,9 +36,9 @@ public class Node {
     private boolean isMarked;
 	
 	@Persistent
-    private List<Node> edges;
+    private List<Edge> edges;
 
-    public Node(Key key, int id, double x, double y, double radius, boolean isStart, boolean isMarked, List<Node> edges) {
+    public Node(Key key, int id, double x, double y, double radius, boolean isStart, boolean isMarked, List<Edge> edges) {
 
 		this.key = key;
 		this.id = id;
@@ -106,11 +106,11 @@ public class Node {
 		this.y = y;
 	}
 
-	public List<Node> getEdges() {
+	public List<Edge> getEdges() {
 		return edges;
 	}
 
-	public void setEdges(List<Node> edges) {
+	public void setEdges(List<Edge> edges) {
 		this.edges = edges;
 	}
 }
