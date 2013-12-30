@@ -250,7 +250,7 @@ function gameMenu(){
 
 	createButtonOver.onload = function(){
 		if(isAdmin)
-			setButtonStats(createButton , buttons);
+			setButtonStats(createButtonOver , buttonsOver);
 }
 
 
