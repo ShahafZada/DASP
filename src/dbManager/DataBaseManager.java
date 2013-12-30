@@ -6,9 +6,7 @@ import java.util.List;
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.Query;
 
-import datastoreEntities.GameScore;
-import datastoreEntities.Map;
-import datastoreEntities.Player;
+import datastoreEntities.*;
 import Manager.*;
 
 public final class DataBaseManager
@@ -117,7 +115,7 @@ public final class DataBaseManager
 		}
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Map> getAllMaps()
 	{
@@ -129,6 +127,34 @@ public final class DataBaseManager
 		Manager.getPM().makePersistent(map);
 	}
 
+	public void deleteTheMap(Map map) {
+		
+		for(Node n : map.getNodes())
+			deleteTheNode(n);
+		
+		List<GameScore> gs = getAllScores();
+		
+		for(GameScore g : gs)
+			if( map.getmapNum().equals(g.getmapNum()) )
+				deleteTheGameScore(g);
+		
+		Manager.getPM().deletePersistent(map);
+	}
+	
+	public void deleteTheNode(Node node) {
+		for(Edge e : node.getEdges())
+			deleteTheEdge(e);
+		Manager.getPM().deletePersistent(node);
+	}
+	
+	public void deleteTheEdge(Edge edge) {
 
+		Manager.getPM().deletePersistent(edge);
+	}
+	
+	public void deleteTheGameScore(GameScore g ) {
+		
+		Manager.getPM().deletePersistent(g);
+	}
 }
 

@@ -47,8 +47,12 @@ public class SaveNewMap extends HttpServlet {
 			Node node = nodesList.get(i);
 			System.out.println(node.getX());
 		}
-		
-		Map map = new Map(mapNum, 	mapNum, mapNum, nodesList);
+		Map m = DataBaseManager.getInstance().getMapByNum(mapN);
+		System.out.println(m);
+		if( m != null)
+			DataBaseManager.getInstance().deleteTheMap(m);
+		System.out.println(m);
+		Map map = new Map(mapNum, mapNum, mapNum, nodesList);
 		DataBaseManager.getInstance().insertNewMap(map);
 
 
