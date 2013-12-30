@@ -30,13 +30,20 @@ public class Edge {
     @Persistent
     private int weight;
 
-    public Edge(int pointedNodeID , boolean isMarked , boolean passedThrough, String color, int weight){
-
+    public Edge(Key key,int pointedNodeID , boolean isMarked , boolean passedThrough, String color, int weight){
 		this.pointedNodeID = pointedNodeID;
 		this.isMarked = isMarked;
 		this.passedThrough = passedThrough;
 		this.color = color;
 		this.weight = weight;
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
 	}
 
 	public int getPointedNodeID() {
