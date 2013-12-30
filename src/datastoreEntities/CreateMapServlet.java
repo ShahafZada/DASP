@@ -39,8 +39,6 @@ public class CreateMapServlet extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(json);
-	    
-	    System.out.println(json);// TODO
 	}
 
 	/**
@@ -48,17 +46,5 @@ public class CreateMapServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		map_num = request.getParameter("map_num");
-//		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
-//		List<Node> nodesList = map.getNodes();
-//		Gson gson = new Gson();
-//	    String json = gson.toJson(nodesList);
-//	    response.setContentType("application/json");
-//	    response.setCharacterEncoding("UTF-8");
-//	    response.getWriter().write(json);
-//	   
-//	    response.getWriter().print(json);
-//
-//	    System.out.println(json);
-	  
 	}
 }

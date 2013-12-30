@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import javax.servlet.http.HttpSession;
-
+//import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
+
 
 
 import datastoreEntities.Player;
@@ -21,8 +21,7 @@ import dbManager.DataBaseManager;
  */
 public class SaveNewPlayer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    /**
+        /**
      * @see HttpServlet#HttpServlet()
      */
     public SaveNewPlayer() {
@@ -34,7 +33,7 @@ public class SaveNewPlayer extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -65,18 +64,21 @@ public class SaveNewPlayer extends HttpServlet {
 			}
 			
 			try {
+				
 				Player player = new Player(first_name.toString(), last_name.toString(), email.toString(), password.toString(), age.toString(), sex.toString(), country.toString(), city.toString(), education.toString(), picture.toString() );
+				
 				DataBaseManager.getInstance().insertNewPlayer(player);
+				
 			} catch (NoSuchAlgorithmException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			HttpSession session = request.getSession(true);
-			session.setAttribute("theFullName", first_name+" "+last_name);	
-			session.setAttribute("theEmailName", email);	
+//			HttpSession session = request.getSession(true);
+//			session.setAttribute("theFullName", first_name+" "+last_name);	
+//			session.setAttribute("theEmailName", email);	
 		}		 
-		
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		request.setAttribute("message", "You have succesfully signed up!");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 }

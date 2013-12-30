@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.List;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -37,24 +38,25 @@ public class SaveNewMap extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String nodes = request.getParameter("nodes");
 		String mapN = request.getParameter("map");
-		System.out.println(nodes);
-		Type type = new TypeToken<List<Node>>(){}.getType();
-		List<Node> nodesList = new Gson().fromJson(nodes, type);
-		String mapNum = new Gson().fromJson(mapN, String.class);
-		for (int i = 0; i<nodesList.size(); i++) {
-			Node node = nodesList.get(i);
-			System.out.println(node.getX());
-		}
-		Map m = DataBaseManager.getInstance().getMapByNum(mapN);
-		System.out.println(m);
-		if( m != null)
-			DataBaseManager.getInstance().deleteTheMap(m);
-		System.out.println(m);
-		Map map = new Map(mapNum, mapNum, mapNum, nodesList);
-		DataBaseManager.getInstance().insertNewMap(map);
 
+		if (nodes != null && mapN != null) {
+
+			Type type = new TypeToken<List<Node>>(){}.getType();
+			List<Node> nodesList = new Gson().fromJson(nodes, type);
+
+			String mapNum = new Gson().fromJson(mapN, String.class);
+
+			Map m = DataBaseManager.getInstance().getMapByNum(mapN);
+
+			if( m != null)
+				DataBaseManager.getInstance().deleteTheMap(m);
+
+			Map map = new Map(mapNum, mapNum, mapNum, nodesList);
+			DataBaseManager.getInstance().insertNewMap(map);
+		}
 
 	}
 }

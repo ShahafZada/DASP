@@ -96,8 +96,6 @@ function game(){
 		type : "post",
 		timeout : 30000
 	});
-	
-	setTimeout(function() {
 		
 	$.ajax({			
 		url : "CreateMap",
@@ -110,9 +108,8 @@ function game(){
 		success : function(data) {
 			nodes = data;
 		}
-	}) //defer the execution of anonymous function for 3 seconds and go to next line of code.
+	}); //defer the execution of anonymous function for 3 seconds and go to next line of code.
 	
-	} , 100);
 	//var numOfNodes = nodesList.length;
 	//nodes.length = numOfNodes;
 
