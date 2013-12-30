@@ -98,8 +98,7 @@ function game(){
 		timeout : 30000
 	});
 
-	//setTimeout(function() {} , 100);
-
+	setTimeout(function() {
 	$.ajax({			
 		url : "CreateMap",
 		type: "get",
@@ -119,6 +118,7 @@ function game(){
 			nodes = data;
 		}
 	});
+	} , 1000);
 
 
 	//var numOfNodes = nodesList.length;
