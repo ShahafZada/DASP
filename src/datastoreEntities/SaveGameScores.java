@@ -49,6 +49,12 @@ public class SaveGameScores extends HttpServlet {
 			DataBaseManager.getInstance().insertNewScore(game_score);
 			
 		}
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.sendRedirect("high_scores");
 	}
 
