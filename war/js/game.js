@@ -89,6 +89,7 @@ function game(){
 
 	$.ajax({
 		url : "CreateMap",
+		async: false,
 		data : { map_num : mapNum },
 		error : function(data) {
 			console.log("Error: ", data);
@@ -96,20 +97,30 @@ function game(){
 		type : "post",
 		timeout : 30000
 	});
-		
+
+	//setTimeout(function() {} , 100);
+
 	$.ajax({			
 		url : "CreateMap",
 		type: "get",
+		async: false,
 		dataType : "json",
 		contentType:"application/json",
+		timeout : 30000,
 		error : function() {
-			alert("Error");
+			console.log("Error: loading the map failed");			
+			var event = document.createEvent("Event");
+			event.initEvent("changePage", true, true);
+			event.customData = "goToGameMenu";
+			window.dispatchEvent(event);
+			this.removeEventListener("mouseup", checkClick);
 		},
 		success : function(data) {
 			nodes = data;
 		}
-	}); //defer the execution of anonymous function for 3 seconds and go to next line of code.
-	
+	});
+
+
 	//var numOfNodes = nodesList.length;
 	//nodes.length = numOfNodes;
 
@@ -204,7 +215,7 @@ function game(){
 
 	this.draw = function(){     	
 		drawEdges();
-		drawNodes();
+		drawNodes();	
 
 		//back button drawing
 		drawBackButton();

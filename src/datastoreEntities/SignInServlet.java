@@ -38,6 +38,7 @@ public class SignInServlet extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(json);
+	    System.out.println(json);
 	}
 
 	/**
@@ -65,6 +66,8 @@ public class SignInServlet extends HttpServlet {
 			
 			if( player.getUserType().equals("Admin") )
 				isAdmin = true;
+			else
+				isAdmin = false;
 		}
 	}
 

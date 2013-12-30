@@ -153,7 +153,8 @@ function gameMenu(){
 	buttons.push(instructionsButton);
 	buttons.push(settingsButton);
 	buttons.push(creditsButton);
-	buttons.push(createButton);
+	if(isAdmin)
+		buttons.push(createButton);
 
 
 	setButtonHeightAndYPosition(buttons , buttonToPageHeightRatio);
@@ -163,7 +164,8 @@ function gameMenu(){
 	buttonsOver.push(instructionsButtonOver);
 	buttonsOver.push(settingsButtonOver);
 	buttonsOver.push(creditsButtonOver);
-	buttonsOver.push(createButtonOver);
+	if(isAdmin)
+		buttonsOver.push(createButtonOver);
 
 
 	setButtonHeightAndYPosition(buttonsOver , buttonOverToPageHeightRatio);

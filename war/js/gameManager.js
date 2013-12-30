@@ -11,10 +11,13 @@ function gameManager(){
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
 	width = canvas.getAttribute('width');	//canvas.scrollWidth;
-	height = canvas.getAttribute('height'); //canvas.scrollHeight;
-	
+	height = canvas.getAttribute('height'); //canvas.scrollHeight;		
+	isAdmin = false;
+	loadAdmin();							//automatically changes "IsAdmin"
+		
 	//other constants:
 	var everyXmiliseconds = 40;
+	
 
 	
 	
@@ -60,12 +63,33 @@ function gameManager(){
 			mouseY = mouseEvent.offsetY;
 		}
     }
+//	-------------------------------------------------------------
+
+//	function implementations :
     
 	function update() {	//every js script in the game needs to implement these
 		page.clear();
 		page.logic();
 		page.draw();
 	}	
+	
+	function loadAdmin(){
+		$.ajax({			
+			url : "sign_in",
+			type: "get",
+			async: false,
+			dataType : "json",
+			contentType:"application/json",
+			timeout : 30000,
+			error : function() {
+				alert("Error: loading the admin option");			
+			},
+			success : function(data) {
+				isAdmin = data;
+			}
+		});
+	}
+	
 
     window.addEventListener("changePage", this.onChangePage);
     canvas.addEventListener("mousemove", this.repositionMouse);
