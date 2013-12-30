@@ -234,7 +234,10 @@ function gameMenu(){
 
 	creditsButton.onload = function(){setButtonStats(creditsButton , buttons);}
 	
-	createButton.onload = function(){setButtonStats(createButton , buttons);}
+	createButton.onload = function(){
+		if(isAdmin)
+			setButtonStats(createButton , buttons);
+	}
 
 
 	playButtonOver.onload = function(){setButtonStats(playButtonOver , buttonsOver);}
@@ -245,7 +248,10 @@ function gameMenu(){
 
 	creditsButtonOver.onload = function(){setButtonStats(creditsButtonOver , buttonsOver);}
 
-	createButtonOver.onload = function(){setButtonStats(createButtonOver , buttonsOver);}
+	createButtonOver.onload = function(){
+		if(isAdmin)
+			setButtonStats(createButton , buttons);
+}
 
 
 	leftArrow.onload = function(){	//technically could have been rightArrow.onload, because we assume they're the same width
