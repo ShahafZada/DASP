@@ -27,12 +27,12 @@ public final class DataBaseManager
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<GameScore> getScoreForPlayer(String name)
+	public List<GameScore> getScoreForEmail(String Email)
 	{
 		Query q = Manager.getPM().newQuery(GameScore.class);
-		q.setFilter("name==theName");
-		q.declareParameters("String theName");
-		return (List<GameScore>)q.execute(name);
+		q.setFilter("email==Email");
+		q.declareParameters("String Email");
+		return (List<GameScore>)q.execute(Email);
 	}
 	@SuppressWarnings("unchecked")
 	public List<GameScore> getAllScores()

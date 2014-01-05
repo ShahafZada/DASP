@@ -1,7 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <%@page import="datastoreEntities.Player"%>
 <%@page import="datastoreEntities.GameScore"%>
 <%@page import="dbManager.DataBaseManager"%>
+<%@page import="statistics.StatisticsManager"%>
 <%@page import="java.util.List;"%>
 <html>
 <head>
@@ -15,34 +16,71 @@
 
 	<%
 		List<GameScore> list;
-		list = DataBaseManager.getInstance().getAllScores(); //results from previous games
-		DataBaseManager DBManager = DataBaseManager.getInstance();
-		/*
-		if (session.getAttribute("userName") == null) {
-			//list = DataBaseManager.getInstance().getAllScores();
-			//results from previous games:
-		} else {
-			//list = DataBaseManager.getInstance().getScoreForPlayer(session.getAttribute("userName").toString());	
-			//results from your games:
-		}
-	*/
+		String MapNum = null;
+		String PlayerEmail = null;
+		String myMail = null;
 	%>
+
+	<form method="post">
+		<label for="HighscoresByMapNum">Get High Scores By Map number:</label>
+		<input name="HighscoresByMapNum" type="number" min="1" max="9"
+			required placeholder="Your Map number">
+		<button type="submit">Submit</button>
+	</form>
+
+	<form method="post">
+		<label for="HighscoresByEmail">Get High Scores By Email:</label> <input
+			name="HighscoresByEmail" type="text" required
+			placeholder="Your Email">
+		<button type="submit">Submit</button>
+	</form>
+
+	<form method="post">
+		<label for="HighscoresByMyEmail">Get Your High Scores:</label> <input
+			name="HighscoresByMyEmail" type="hidden"
+			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
+		<button type="submit">Submit</button>
+	</form>
+
+	<%
+		MapNum = request.getParameter("HighscoresByMapNum");
+		PlayerEmail = request.getParameter("HighscoresByEmail");
+		myMail = request.getParameter("HighscoresByMyEmail");
+
+		if (myMail != null)
+			list = DataBaseManager.getInstance().getScoreForEmail(myMail);
+		else if (MapNum != null)
+			list = StatisticsManager.getInstance().getScoreForMap(MapNum);
+		else if (PlayerEmail != null)
+			list = DataBaseManager.getInstance().getScoreForEmail(
+					PlayerEmail);
+		else
+			list = DataBaseManager.getInstance().getAllScores(); //results from previous games
+	%>
+
 	<table id="high_scores">
 		<tr>
 			<td>Picture</td>
-			<td>Name</td>
+			<td>First name</td>
+			<td>Last name</td>
+			<td>Map number</td>
 			<td>Score</td>
 		</tr>
-		<% for (GameScore item : list) { 
-				Player p = DBManager.getPlayerByEmail( item.getEmail() );
-				String Fname = p.getFirstName();
+		<%
+			for (GameScore item : list) {
+				Player p = DataBaseManager.getInstance().getPlayerByEmail(
+						item.getEmail());
 		%>
 		<tr>
-			<td><img src="images/high_scores/Derp.png"></td> 
-			<td><%=Fname%></td>
+			<td><img src="images/high_scores/Derp.png"></td>
+			<td><%=p.getFirstName()%></td>
+			<td><%=p.getLastName()%></td>
+			<td><%=item.getmapNum()%></td>
 			<td><%=item.score%></td>
 		</tr>
-		<% } %>
+		<%
+			}
+		%>
 	</table>
 	<%@ include file="footer.jsp"%>
 </body>

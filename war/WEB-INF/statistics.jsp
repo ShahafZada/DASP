@@ -13,29 +13,31 @@
 
 <body>
 	<%@ include file="header.jsp"%>
-	<% 	String MapNum = null;
+	<%
+		String MapNum = null;
 		Statistics stat = new Statistics();
 		Vector<Double> vec = null;
 	%>
 	<div id="center">
-	
-	<form action="">
-		<label for="StatisticsByLevel">Get Statistics By Level:</label>
-		<input name="StatisticsByLevel" type="number" min="1" max="10" required placeholder="Your Level">
-		<a href="statistics/?by='player'" title="Try solving it!"><button type="submit">Submit</button></a>
-		
-		<% 
-		MapNum = request.getParameter("StatisticsByLevel"); 
-		if(MapNum != null) {
-		vec = StatisticsManager.getInstance().ScoreListToVector(MapNum);
-		}
-		%>	
-	</form>
-	
-	<% if(vec != null) {
-		%><%=stat.analyze_one_vector(vec)%><%
-	}	%>
-	
+
+		<form method="post">
+			<label for="StatisticsByMapNum">Get Statistics By Map number:</label>
+			<input name="StatisticsByMapNum" type="number" min="1" max="9"
+				required placeholder="Your Map number"><button
+					type="submit">Submit</button>
+		</form>
+
+		<%
+			MapNum = request.getParameter("StatisticsByMapNum");
+			if (MapNum != null) {
+				vec = StatisticsManager.getInstance().ScoreListToVector(MapNum);
+			}
+			if (vec != null) {
+		%><%=stat.analyze_one_vector(vec)%>
+		<%
+			}
+		%>
+
 	</div>
 	<%@ include file="footer.jsp"%>
 
