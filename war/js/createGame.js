@@ -376,9 +376,18 @@ function createGame(){
 //						console.log("Index: " + i + " id: " + nodes[i].id);
 //					}
 //				}
-//				for(var i = 0 ; i < nodes.length ; i++){	//TODO sort edge destinations first
-//					nodes[i].id = i;
-//				}
+				for(var i = 0 ; i < nodes.length ; i++){
+					for(var j = 0 ; j < nodes[i].edges.length ; j++){	//makes pointing edges use a correct pointedID 
+						var otherNodeIndex;
+						otherNodeIndex = getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID);
+						for(var k = 0 ; k < nodes[otherNodeIndex].edges.length ; k++){
+							if(nodes[otherNodeIndex].edges[k].pointedNodeID == nodes[i].id)
+								nodes[otherNodeIndex].edges[k].pointedNodeID = i;
+						}
+					}
+					
+					nodes[i].id = i;	//changes node's id (to that of its index)
+				}
 
 
 
