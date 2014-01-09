@@ -7,7 +7,7 @@ function gameChoice(){
 	//back-button:
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
-	var buttonDistFromEdges = height/8;
+	var buttonDistFromEdges = height/16;
 
 
 

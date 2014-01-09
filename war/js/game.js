@@ -14,7 +14,7 @@ function game(){
 	var undoButtonEnlargedSize = height/8;	// the button area is square
 
     //universal
-    var buttonDistFromEdges = height/12;
+    var buttonDistFromEdges = height/16;
 	
 	// edges :
 	var lineColor = "cyan";
@@ -273,8 +273,8 @@ function game(){
 
 	function mouseInNodeRange(node){
 		var r = node.radius;
-		var xDist = node.x - mouseX;
-		var yDist = node.y - mouseY;
+		var xDist = node.x + node.radius - mouseX;
+		var yDist = node.y + node.radius - mouseY;
 
 		if(r*r > xDist*xDist + yDist*yDist)
 			return true;
@@ -394,9 +394,9 @@ function game(){
 
 	function drawNode(imageHolder , node , isMouseOver){
 		if(isMouseOver)
-			context.drawImage(imageHolder , node.x - nodeSize*(1 + mouseOverEnlarger)/2 , node.y - nodeSize*(1 + mouseOverEnlarger)/2 , nodeSize*(1 + mouseOverEnlarger) , nodeSize*(1 + mouseOverEnlarger));
+			context.drawImage(imageHolder , node.x - node.radius*mouseOverEnlarger , node.y - node.radius*mouseOverEnlarger , 2*node.radius*(1 + mouseOverEnlarger) , 2*node.radius*(1 + mouseOverEnlarger));
 		else
-			context.drawImage(imageHolder , node.x - nodeSize/2 , node.y - nodeSize/2 , nodeSize , nodeSize);
+			context.drawImage(imageHolder , node.x , node.y , 2*node.radius , 2*node.radius);
 	}
 
 
@@ -405,8 +405,8 @@ function game(){
 		context.beginPath();
 		context.lineWidth = lineW;
 		context.strokeStyle = color;
-		context.moveTo(nodes[nodeID].x , nodes[nodeID].y);					
-		context.lineTo(nodes[indexTo].x , nodes[indexTo].y);
+		context.moveTo(nodes[nodeID].x + nodes[nodeID].radius , nodes[nodeID].y + nodes[nodeID].radius);
+		context.lineTo(nodes[indexTo].x + nodes[nodeID].radius , nodes[indexTo].y + nodes[nodeID].radius);
 		context.stroke();
 	}
 
