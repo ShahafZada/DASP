@@ -45,7 +45,7 @@
 			<tr>
 				<td><label for="picField">Your Picture: </label></td>
 				<!--  <td><input type="text" id="picField" name="thePicField"></td> -->
-				<td><img src="images/high_scores/Derp.png"></td>
+				<td><img src="<% out.println(session.getAttribute("thePicture")); %>"></td>
 			</tr>
 			</table>
 			<input type="submit" id="send" value="send" />

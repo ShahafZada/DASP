@@ -15,15 +15,17 @@
 	href="css/lib/control/iconselect.css">
 <script type="text/javascript" src="lib/control/iconselect.js"></script>
 <script type="text/javascript" src="lib/iscroll.js"></script>
+
 </head>
 <body>
 	<%
-		session = request.getSession(true);
-		String full_name = (String)session.getAttribute("theFullName");
-		
-        if (full_name != null) {
-        	request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-        }
+	//	session = request.getSession(true);
+		String full_name = (String) session.getAttribute("theFullName");
+
+		if (full_name != null) {
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(
+					request, response);
+		}
 	%>
 	<div class="container">
 		<div id="container_demo">
@@ -81,46 +83,46 @@
 								password</label> <input name="thePassword" required="required"
 								type="password" placeholder="eg. X8df!90EO" />
 						</p>
-						<label for="age" class="yourAge">Age</label> <input id="age"
-							name="theAge" type="number" min="1" max="200" required="required" />
-						</p>
-						</p>
-						<label for="sex" class="yourSex">Sex</label> <select id="sex"
-							name="theSex" required="required" />
-						<option>Male</option>
-						<option>Female</option>
-						</select>
-						</p>
-						</p>
-						<label for="education" class="yourEducation">Education</label> <select
-							id="education" name="theEducation" required="required" />
-						<option>Kindergarten</option>
-						<option>Elementary school</option>
-						<option>High School</option>
-						<option>Student</option>
-						<option>Bachelor Degree</option>
-						<option>Masters Degree</option>
-						</select>
-						</p>
-						</p>
-						<label for="country" class="yourCountry">Country</label> <input
-							id="country" name="theCountry" type="text" size="15"
-							required="required" placeholder="Your Country">
-						</p>
-						</p>
-						<label for="age" class="yourAge">City</label> <input id="city"
-							name="theCity" type="text" size="15" required="required"
-							placeholder="Your City" />
+						<p>
+							<label for="age" class="yourAge">Age</label> <input id="age"
+								name="theAge" type="number" min="1" max="200"
+								required="required" />
 						</p>
 						<p>
-						<!--  
-							<label for="picture" class="yourPicture">Picture</label> <input
-								id="picture" name="thePicture" type="file" required="required" />
-						-->
-							<label for="picture" class="yourPicture">Picture</label>
-							<div id="my-icon-select"></div>
-							<input type="text" id="selected-text" name="thePicture" hidden="true" required="required" style="width: 65px;">
+							<label for="sex" class="yourSex">Sex</label> 
+							<select id="sex" name="theSex" required="required" >
+							<option>Male</option>
+							<option>Female</option>
+							</select>
 						</p>
+						<p>
+							<label for="education" class="yourEducation">Education</label> 
+							<select id="education" name="theEducation" required="required" >
+							<option>Kindergarten</option>
+							<option>Elementary school</option>
+							<option>High School</option>
+							<option>Student</option>
+							<option>Bachelor Degree</option>
+							<option>Masters Degree</option>
+							</select>
+						</p>
+						<p>
+							<label for="country" class="yourCountry">Country</label> <input
+								id="country" name="theCountry" type="text" size="15"
+								required="required" placeholder="Your Country">
+						</p>
+						<p>
+							<label for="age" class="yourAge">City</label> <input id="city"
+								name="theCity" type="text" size="15" required="required"
+								placeholder="Your City" />
+						</p>
+						<p>
+							<label for="picture" class="yourPicture">Picture</label> <input
+								type="text" id="selected-text" name="thePicture" hidden="true"
+								required="required" style="width: 65px;">
+						<div id="my-icon-select"></div>
+
+
 						<p>
 							<label for="checkbox" class="yourCheckbox"></label> <input
 								id="checkbox" name="theCheckbox" type="checkbox"
@@ -133,11 +135,10 @@
 							Already a member ? <a href="#tologin" class="to_register"> Go
 								and log in </a>
 						</p>
+						</form>
 				</div>
-
 			</div>
 		</div>
-		</section>
 	</div>
 </body>
 </html>

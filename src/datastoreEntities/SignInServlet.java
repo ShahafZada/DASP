@@ -61,6 +61,8 @@ public class SignInServlet extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("theFullName", player.getFirstName()+" "+player.getLastName());
 			session.setAttribute("theEmailName", email.toString());
+			session.setAttribute("thePicture", player.getPicture());
+			System.out.println(player.getPicture());
 			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 			
 			if( player.getUserType().equals("Admin") )
