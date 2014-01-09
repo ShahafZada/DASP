@@ -479,7 +479,7 @@ function createGame(){
             //drawing over the chosen node
             context.drawImage(ghostNode , nodes[selectedNodeToMove].x , nodes[selectedNodeToMove].y , nodeSize , nodeSize);
             for(var j = 0 ; j < nodes[selectedNodeToMove].edges.length ; j++){
-                //drawLineFromPointToPoint(mouseX , mouseY , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].x , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[i].pointedNodeID)].y , randomRGBColor());
+                drawLineFromPointToPoint(mouseX , mouseY , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].x + nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].radius , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].y + nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].radius , randomRGBColor());
             }
         }
 
@@ -787,8 +787,14 @@ function createGame(){
 
 
     function isCircleNotTouchingOtherNodes(x , y , rad){
+        return isCircleNotTouchingOtherNodesExcludeOne(x , y , rad , ARBITRARY_NEGATIVE);
+    }
+
+    function isCircleNotTouchingOtherNodesExcludeOne(x , y , rad , index){
         var radiusesCombined;
         for(var i = 0 ; i < nodes.length ; i++){
+            if(i == index)
+                continue;
             radiusesCombined = rad + nodes[i].radius;
             if(radiusesCombined*radiusesCombined > pitagorasSquareDistance(x , y , nodes[i].x + nodes[i].radius , nodes[i].y + nodes[i].radius))
                 return false;	//intersecting with each other
@@ -1119,7 +1125,7 @@ function createGame(){
             }
             else{
                 if(isInDrawableArea){
-                    if(isCircleNotTouchingOtherNodes(mouseX , mouseY , nodeRadius)){
+                    if(isCircleNotTouchingOtherNodesExcludeOne(mouseX , mouseY , nodeRadius , selectedNodeToMove)){
                         nodes[selectedNodeToMove].x = mouseX - nodes[selectedNodeToMove].radius;
                         nodes[selectedNodeToMove].y = mouseY - nodes[selectedNodeToMove].radius;
                         selectedNodeToMove = ARBITRARY_NEGATIVE;
