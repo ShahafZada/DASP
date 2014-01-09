@@ -8,7 +8,7 @@ function gameManager(){
 	mouseX = 0;
 	mouseY = 0;
 	mapNum = 1;
-	canvas = document.getElementById("canvas");
+	canvas = document.getElementById("GameCanvas");
 	context = canvas.getContext("2d");
 	width = canvas.getAttribute('width');	//canvas.scrollWidth;
 	height = canvas.getAttribute('height'); //canvas.scrollHeight;		

@@ -121,21 +121,16 @@ function gameChoice(){
 		//Map click check
 		for(var x = 0; x < cols; x++)
 			for(var y = 0; y < rows; y++)
-				if(isMouseOverMap(x,y))				
+				if(isMouseOverMap(x,y))								
 				{
-					//clickMap(x,y);	//using a function to cancel the event listener doesn't work!!!!!!!!!!!!!!
-//					if(y < 3)        mapNum = 0;
-//					else if(y < 6)   mapNum = 3;
-//					else if(y < 9)   mapNum = 6;
-//					var mapNum = mapNum + x;
-					mapNum = x*cols + y + 1;					
-					//temporarily - until we'd have actual maps
+					mapNum = x*cols + y + 1;									
 					var event = document.createEvent("Event");
 					event.initEvent("changePage", true, true);
 					event.customData = "goToGame";
 					window.dispatchEvent(event);
 					this.removeEventListener("mouseup" , checkClick);
 				}
+				
 
 
 		//Back-button check

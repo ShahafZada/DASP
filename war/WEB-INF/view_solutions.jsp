@@ -24,7 +24,7 @@
 	</div> -->
 	
 	<div id="SolutionsDiv">
-		<canvas id="canvas" width="950" height="580"></canvas>
+		<canvas id="SolutionsCanvas" width="950" height="580"></canvas>
 	</div>
 	
 	<%@ include file="footer.jsp"%>

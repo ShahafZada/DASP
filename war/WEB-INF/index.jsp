@@ -55,7 +55,7 @@
 	<div id="shadow" class="popup"></div>
 
 	<div id="GameDiv">
-		<canvas id="canvas" width="950" height="580"></canvas>
+		<canvas id="GameCanvas" width="950" height="580"></canvas>
 	</div>
 
 	<%@ include file="footer.jsp"%>

@@ -1,7 +1,6 @@
 function solutionsChoice () {
 
 //	-------------------------------------------------------------
-
 	//		variant definitions :
 
 	//		Display settings	
@@ -49,8 +48,6 @@ function solutionsChoice () {
 	var imageWidth = Math.abs(leftLimit-rightLimit) / cols;
 	var imageHeight = Math.abs(topLimit-bottomLimit) / rows;
 
-
-
 //	-------------------------------------------------------------
 
 //	page-function implementations :
@@ -92,8 +89,7 @@ function solutionsChoice () {
 		//Map click check
 		for(var x = 0; x < cols; x++)
 			for(var y = 0; y < rows; y++)
-				if(isMouseOverMap(x,y))				
-				{					
+				if(isMouseOverMap(x,y)){
 					mapNum = x*cols + y + 1;					
 					var event = document.createEvent("Event");
 					event.initEvent("changePage", true, true);
@@ -101,7 +97,7 @@ function solutionsChoice () {
 					event.mapNum = mapNum;
 					window.dispatchEvent(event);
 					this.removeEventListener("mouseup" , checkClick);
-				}
+				}				
 	}
 
 	function isMouseOverMap(x,y){
@@ -113,7 +109,7 @@ function solutionsChoice () {
 	}
 
 	function clickMap(x,y){
-		
+
 	}
 
 	//-------------------------------------------------------------
