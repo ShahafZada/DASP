@@ -139,7 +139,9 @@ function createGame(){
 	//var markedNode = new Image();
 	//var marked_currentNode = new Image();
 	var nonvisitedNode = new Image();
+    var ghostNode = new Image();
 
+    var selectedNodeToMove = ARBITRARY_NEGATIVE;
 	var farthestAvailableID = 0;	//the value here is the lowest ID (the count's start) 
 	var releasedIDs = [];	//IDs of erased nodes, yet to be re-used in new nodes
 
@@ -152,6 +154,7 @@ function createGame(){
 	//markedNode.src = "images/game/marked_node.png";
 	//marked_currentNode.src = "images/game/marked_current_node.png";
 	nonvisitedNode.src = "images/game/nonvisited_node.png";
+    ghostNode.src = "images/createGame/ghost_node.png";
 
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
@@ -218,7 +221,7 @@ function createGame(){
 		frameSize *= 0.95;
 		arrowHeight *= 0.95;
 		arrowOverHeight *= 0.95;
-		buttonDistFromEdges = (height - backButtonSize/2 - backButtonDistFromEdges - ((buttons.length/2 + 1) * buttonHeight)) / (buttons.length/2);	//average of free height per button
+		buttonDistFromEdges = (height - backButtonSize - backButtonDistFromEdges - (((buttons.length-1)/2 + 1) * buttonHeight)) / ((buttons.length-1)/2);	//average of free height per button
 	}
 
 //	-------------------------------------------------------------
@@ -462,6 +465,13 @@ function createGame(){
 				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , defaultEdgeColor);	//drawing line from node to nothing (where the mouse is)	
 		}
 
+        if(selectedNodeToMove >= 0){
+            context.drawImage(ghostNode , mouseX-nodeSize/2 , mouseY-nodeSize/2 , nodeSize , nodeSize);
+            for(var j = 0 ; j < nodes[selectedNodeToMove].edges ; j++){
+                drawLineFromPointToPoint(mouseX , mouseY , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].x , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[i].pointedNodeID)].y , randomRGBColor())
+            }
+        }
+
 		//nodes
 		for(var i = 0 ; i < nodes.length ; i++){
 			if(nodes[i].isStart)
@@ -651,6 +661,7 @@ function createGame(){
 		if(currentMode == buttons.indexOf(createEdgeButton))	//canceling the previously chosen node in edge creation
 			lastClickedNodeID = ARBITRARY_NEGATIVE;
 
+        selectedNodeToMove = ARBITRARY_NEGATIVE;
 
 		for(var i = 0 ; i < modes.length ; i++){	//initializing in mode setStart
 			if(i == index)
@@ -1094,7 +1105,20 @@ function createGame(){
 
 
 		}
+        else if(currentMode == buttons.indexOf(moveNodesButton)){
+            if(selectedNodeToMove < 0){
+                for(var i = 0 ; i < nodes.length ; i++){
+                    if(isNodeITouchedByMouse(i)){
+                        selectedNodeToMove = i;
+                        break;
+                    }
+                }
+            }
+            else{
 
+            }
+
+        }
 
 
 

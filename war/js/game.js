@@ -17,6 +17,7 @@ function game(){
     var buttonDistFromEdges = height/16;
 	
 	// edges :
+    var allowingMultiColoredEdges = false;  //determines if edges could have different colors
 	var lineColor = "cyan";
 	var markedLineColor = "cyan";
     var lineWidth = "4";
@@ -242,11 +243,18 @@ function game(){
 
 					if(nodes[i].edges[j].passedThrough)
 						drawAFuckingLine(i , j , boldLineColor , boldLineWidth);
-
-					if(nodes[i].edges[j].isMarked)
-						drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
-					else
-						drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
+                    if(allowingMultiColoredEdges){
+                        if(nodes[i].edges[j].isMarked)
+                            drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
+                        else
+                            drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
+                    }
+                    else{
+                        if(nodes[i].edges[j].isMarked)
+                            drawAFuckingLine(i , j , markedLineColor , lineWidth);
+                        else
+                            drawAFuckingLine(i , j , lineColor , lineWidth);
+                    }
 
 					//TODO place the bold/marked lines above others
 				}
