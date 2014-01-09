@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/war/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="36" selection-start="662" selection-end="662" vertical-scroll-proportion="0.69815195" vertical-offset="0" max-vertical-offset="6375">
+            <state line="24" column="23" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="6375">
               <folding>
                 <element signature="e#3627#3673#0" expanded="false" />
                 <element signature="e#3700#4514#0" expanded="false" />
@@ -42,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createGame.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="createGame.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1127" column="112" selection-start="41024" selection-end="41024" vertical-scroll-proportion="-13.04" vertical-offset="14005" max-vertical-offset="15640">
+            <state line="1152" column="18" selection-start="41945" selection-end="41945" vertical-scroll-proportion="0.74891776" vertical-offset="14410" max-vertical-offset="15742">
               <folding>
                 <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
@@ -103,8 +103,8 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/war/js/gameChoice.js" />
-        <option value="$PROJECT_DIR$/war/js/createGame.js" />
         <option value="$PROJECT_DIR$/war/js/game.js" />
+        <option value="$PROJECT_DIR$/war/js/createGame.js" />
       </list>
     </option>
   </component>
@@ -279,9 +279,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="23" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="6375">
+          <folding>
+            <element signature="e#3627#3673#0" expanded="false" />
+            <element signature="e#3700#4514#0" expanded="false" />
+            <element signature="e#4541#4750#0" expanded="false" />
+            <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawAFuckingLine#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#exit#0;n#!!block;n#game#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1127" column="112" selection-start="41024" selection-end="41024" vertical-scroll-proportion="-13.04" vertical-offset="14005" max-vertical-offset="15640">
+        <state line="1152" column="18" selection-start="41945" selection-end="41945" vertical-scroll-proportion="0.74891776" vertical-offset="14410" max-vertical-offset="15742">
           <folding>
             <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
@@ -311,23 +328,6 @@
             <element signature="n#!!block;n#isMouseOverCollapseButton#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isMouseOverExpandButton#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#createGame#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/war/js/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="36" selection-start="662" selection-end="662" vertical-scroll-proportion="0.69815195" vertical-offset="0" max-vertical-offset="6375">
-          <folding>
-            <element signature="e#3627#3673#0" expanded="false" />
-            <element signature="e#3700#4514#0" expanded="false" />
-            <element signature="e#4541#4750#0" expanded="false" />
-            <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#drawAFuckingLine#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#exit#0;n#!!block;n#game#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -1148,6 +1148,12 @@ function createGame(){
             }
 
         }
+        else if(currentMode == buttons.indexOf(setEdgePropertiesButton)){
+
+            //TODO
+
+        }
+
 
 
 
