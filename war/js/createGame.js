@@ -1120,8 +1120,8 @@ function createGame(){
             else{
                 if(isInDrawableArea){
                     if(isCircleNotTouchingOtherNodes(mouseX , mouseY , nodeRadius)){
-                        nodes[selectedNodeToMove].x = mouseX;
-                        nodes[selectedNodeToMove].y = mouseY;
+                        nodes[selectedNodeToMove].x = mouseX - nodes[selectedNodeToMove].radius;
+                        nodes[selectedNodeToMove].y = mouseY - nodes[selectedNodeToMove].radius;
                         selectedNodeToMove = ARBITRARY_NEGATIVE;
                         if(allowConsoleMessages)
                             console.log("relocated node!");
