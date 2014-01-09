@@ -26,7 +26,7 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/war/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="32" selection-start="762" selection-end="762" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5610">
+            <state line="21" column="19" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5610">
               <folding>
                 <element signature="e#3591#3637#0" expanded="false" />
                 <element signature="e#3664#4478#0" expanded="false" />
@@ -45,49 +45,8 @@
       <file leaf-file-name="createGame.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="472" column="0" selection-start="15140" selection-end="15140" vertical-scroll-proportion="0.8138528" vertical-offset="5353" max-vertical-offset="11866">
-              <folding>
-                <element signature="e#8706#8752#0" expanded="false" />
-                <element signature="e#8782#12438#0" expanded="false" />
-                <element signature="e#12115#12373#0" expanded="false" />
-                <element signature="n#!!block;n#drawButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#drawFrame#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#drawCollapseArrow#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#drawExpandArrow#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#drawBackButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#drawNode#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#drawLineFromPointToPoint#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#pitagorasSquareDistance#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#generateID#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#randomRGBColor#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#setEdgeOrigin#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#addEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#addEdgeRandomly#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#addNode#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#removeEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#removeEdgeSingleDirection#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#destroyTouchedNode#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isInDrawableArea#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isCircleNotTouchingOtherNodes#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeIndexInList#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeIProperlyConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#areAllNodesConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#doesEdgeAlreadyExistBetweenNodes#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeITouchedByMouse#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverEdgeArea#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isEdgeObstructed#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeIObstructingEdge#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverCollapseButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverExpandButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#34051#34078#0" expanded="false" />
-                <element signature="e#34115#34141#0" expanded="false" />
-                <element signature="e#34210#34259#0" expanded="false" />
-                <element signature="e#34314#34662#0" expanded="false" />
-              </folding>
+            <state line="67" column="19" selection-start="2119" selection-end="2119" vertical-scroll-proportion="-0.3225108" vertical-offset="1288" max-vertical-offset="20366">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -293,7 +252,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/war/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="32" selection-start="762" selection-end="762" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5610">
+        <state line="21" column="19" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5610">
           <folding>
             <element signature="e#3591#3637#0" expanded="false" />
             <element signature="e#3664#4478#0" expanded="false" />
@@ -310,49 +269,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="472" column="0" selection-start="15140" selection-end="15140" vertical-scroll-proportion="0.8138528" vertical-offset="5353" max-vertical-offset="11866">
-          <folding>
-            <element signature="e#8706#8752#0" expanded="false" />
-            <element signature="e#8782#12438#0" expanded="false" />
-            <element signature="e#12115#12373#0" expanded="false" />
-            <element signature="n#!!block;n#drawButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#drawFrame#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#drawCollapseArrow#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#drawExpandArrow#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#drawBackButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#drawNode#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#drawLineFromPointToPoint#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#pitagorasSquareDistance#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#generateID#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#randomRGBColor#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#setEdgeOrigin#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#addEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#addEdgeRandomly#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#addNode#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#removeEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#removeEdgeSingleDirection#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#destroyTouchedNode#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isInDrawableArea#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isCircleNotTouchingOtherNodes#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeIndexInList#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeIProperlyConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#areAllNodesConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#doesEdgeAlreadyExistBetweenNodes#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeITouchedByMouse#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverEdgeArea#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isEdgeObstructed#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeIObstructingEdge#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverCollapseButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverExpandButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#34051#34078#0" expanded="false" />
-            <element signature="e#34115#34141#0" expanded="false" />
-            <element signature="e#34210#34259#0" expanded="false" />
-            <element signature="e#34314#34662#0" expanded="false" />
-          </folding>
+        <state line="67" column="19" selection-start="2119" selection-end="2119" vertical-scroll-proportion="-0.3225108" vertical-offset="1288" max-vertical-offset="20366">
+          <folding />
         </state>
       </provider>
     </entry>
