@@ -465,12 +465,6 @@ function createGame(){
 				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , defaultEdgeColor);	//drawing line from node to nothing (where the mouse is)	
 		}
 
-        if(selectedNodeToMove >= 0){
-            context.drawImage(ghostNode , mouseX-nodeSize/2 , mouseY-nodeSize/2 , nodeSize , nodeSize);
-            for(var j = 0 ; j < nodes[selectedNodeToMove].edges ; j++){
-                drawLineFromPointToPoint(mouseX , mouseY , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].x , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[i].pointedNodeID)].y , randomRGBColor())
-            }
-        }
 
 		//nodes
 		for(var i = 0 ; i < nodes.length ; i++){
@@ -479,6 +473,15 @@ function createGame(){
 			else
 				drawNode(nonvisitedNode , nodes[i]);
 		}
+
+        if(selectedNodeToMove >= 0){
+            context.drawImage(ghostNode , mouseX-nodeSize/2 , mouseY-nodeSize/2 , nodeSize , nodeSize); //drawing  at mouse location
+            //drawing over the chosen node
+            context.drawImage(ghostNode , nodes[selectedNodeToMove].x , nodes[selectedNodeToMove].y , nodeSize , nodeSize);
+            for(var j = 0 ; j < nodes[selectedNodeToMove].edges.length ; j++){
+                //drawLineFromPointToPoint(mouseX , mouseY , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[j].pointedNodeID)].x , nodes[getNodesIndexFromNodeID(nodes[selectedNodeToMove].edges[i].pointedNodeID)].y , randomRGBColor());
+            }
+        }
 
 
 		//drawing buttons and collapse arrow
@@ -1115,6 +1118,26 @@ function createGame(){
                 }
             }
             else{
+                if(isInDrawableArea){
+                    if(isCircleNotTouchingOtherNodes(mouseX , mouseY , nodeRadius)){
+                        nodes[selectedNodeToMove].x = mouseX;
+                        nodes[selectedNodeToMove].y = mouseY;
+                        selectedNodeToMove = ARBITRARY_NEGATIVE;
+                        if(allowConsoleMessages)
+                            console.log("relocated node!");
+                    }
+                    else{
+                        if(allowConsoleMessages)
+                            console.log("that's over other nodes, can't place here");
+                        return;
+                    }
+
+                }
+                else{
+                    if(allowConsoleMessages)
+                        console.log("not in drawable area");
+                    return;
+                }
 
             }
 
