@@ -55,6 +55,8 @@ function createGame(){
 	var eraseEdgeButton = new Image();
 	var setStartButton = new Image();
 	var randomizeButton = new Image();
+    var moveNodesButton = new Image();
+    var setEdgePropertiesButton = new Image();
 	var saveButton = new Image();
 
 	var createNodeButton_Over = new Image();
@@ -63,6 +65,8 @@ function createGame(){
 	var eraseEdgeButton_Over = new Image();
 	var setStartButton_Over = new Image();
 	var randomizeButton_Over = new Image();
+    var moveNodesButton_Over = new Image();
+    var setEdgePropertiesButton_Over = new Image();
 	var saveButton_Over = new Image();
 
 	var createNodeButton_Active = new Image();
@@ -71,6 +75,8 @@ function createGame(){
 	var eraseEdgeButton_Active = new Image();
 	var setStartButton_Active = new Image();
 	var randomizeButton_Active = new Image();
+    var moveNodesButton_Active = new Image();
+    var setEdgePropertiesButton_Active = new Image();
 	var saveButton_Active = new Image();
 
 	var buttonFrame = new Image();
@@ -86,6 +92,8 @@ function createGame(){
 	eraseEdgeButton.src = "images/createGame/Erase_Edges_Button.png";
 	setStartButton.src = "images/createGame/Set_Start_Button.png";
 	randomizeButton.src = "images/createGame/Rand_Button.png";
+    moveNodesButton.src = "images/createGame/Move_Nodes_Button.png";   //TODO - own version
+    setEdgePropertiesButton.src = "images/createGame/Set_Edge_Properties_Button.png";   //TODO - own version
 	saveButton.src = "images/createGame/Save_Button.png";
 
 	createNodeButton_Over.src = "images/createGame/Create_Nodes_Button_Over.png";
@@ -94,6 +102,8 @@ function createGame(){
 	eraseEdgeButton_Over.src = "images/createGame/Erase_Edges_Button_Over.png";
 	setStartButton_Over.src = "images/createGame/Set_Start_Button_Over.png";
 	randomizeButton_Over.src = "images/createGame/Rand_Button_Over.png";
+    moveNodesButton_Over.src = "images/createGame/Move_Nodes_Button.png";   //TODO - own version
+    setEdgePropertiesButton_Over.src = "images/createGame/Set_Edge_Properties_Button.png";   //TODO - own version
 	saveButton_Over.src = "images/createGame/Save_Button_Over.png";
 
 	createNodeButton_Active.src = "images/createGame/Create_Nodes_Button_Active.png";
@@ -102,7 +112,9 @@ function createGame(){
 	eraseEdgeButton_Active.src = "images/createGame/Erase_Edges_Button_Active.png";
 	setStartButton_Active.src = "images/createGame/Set_Start_Button_Active.png";
 	randomizeButton_Active.src = "images/createGame/Rand_Button_Active.png";
-	saveButton_Active.src = "images/createGame/Save_Button_Active.png";
+    moveNodesButton_Active.src = "images/createGame/Move_Nodes_Button.png";
+    setEdgePropertiesButton_Active.src = "images/createGame/Set_Edge_Properties_Button.png";   //TODO - own version
+	saveButton_Active.src = "images/createGame/Save_Button_Active.png";//TODO - own version
 
 	buttonFrame.src = "images/createGame/frame.png";
 
@@ -110,7 +122,7 @@ function createGame(){
 	//back-button : (not counted as a mode button)
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
-	var backButtonDistFromEdges = height/8;
+	var backButtonDistFromEdges = height/16;
 
 	var backButton = new Image();
 	var backButton_over = new Image();
@@ -166,6 +178,8 @@ function createGame(){
 	buttons.push(eraseEdgeButton);
 	buttons.push(setStartButton);
 	buttons.push(randomizeButton);
+    buttons.push(moveNodesButton);
+    buttons.push(setEdgePropertiesButton);
 	buttons.push(saveButton);
 
 	buttonsOver.push(createNodeButton_Over);
@@ -174,6 +188,8 @@ function createGame(){
 	buttonsOver.push(eraseEdgeButton_Over);
 	buttonsOver.push(setStartButton_Over);
 	buttonsOver.push(randomizeButton_Over);
+    buttonsOver.push(moveNodesButton_Over);
+    buttonsOver.push(setEdgePropertiesButton_Over);
 	buttonsOver.push(saveButton_Over);
 
 	buttonsActive.push(createNodeButton_Active);
@@ -182,6 +198,8 @@ function createGame(){
 	buttonsActive.push(eraseEdgeButton_Active);
 	buttonsActive.push(setStartButton_Active);
 	buttonsActive.push(randomizeButton_Active);
+    buttonsActive.push(moveNodesButton_Active);
+    buttonsActive.push(setEdgePropertiesButton_Active);
 	buttonsActive.push(saveButton_Active);
 
 
@@ -349,7 +367,6 @@ function createGame(){
 
 			setMode(buttons.indexOf(createNodeButton));
 		}
-		//TODO
 		else if(currentMode == buttons.indexOf(saveButton)){	//Save
 
 			if(!areAllNodesConnectedToTheSystem()){
