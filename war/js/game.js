@@ -8,16 +8,22 @@ function game(){
 	//back-button:
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
-	var buttonDistFromEdges = height/8;
+	
+	//undo-button:
+	var undoButtonSize = height/10;	// the button area is square
+	var undoButtonEnlargedSize = height/8;	// the button area is square
 
+    //universal
+    var buttonDistFromEdges = height/12;
+	
 	// edges :
-	var lineWidth = "4";
 	var lineColor = "cyan";
 	var markedLineColor = "cyan";
-	var boldLineWidth = "8";	//must be larger than lineWidth
+    var lineWidth = "4";
+	var boldLineWidth = "8";
 	var boldLineColor = "black";
 //	var passedThroughEdges = [];
-//	var
+
 	//TODO add an array of edges in history (so they'll get drawn after the rest of the edges)
 
 	//nodes:
@@ -25,6 +31,7 @@ function game(){
 	var nodeSize = height/10; //height and width are the same
 	var mouseOverEnlarger = 0.3;
 	var lastClickedID = 0;
+    var stepsPlayed = 0;
 	var clickHistory = [];
 	clickHistory.push(lastClickedID);
 
@@ -37,6 +44,9 @@ function game(){
 
 	var backButton = new Image();
 	var backButton_over = new Image();
+	
+	var undoButton = new Image();
+    var undoButton_over = new Image();
 
 
 	startNode.src = "images/game/start_node.png";
@@ -45,6 +55,9 @@ function game(){
 	marked_currentNode.src = "images/game/marked_current_node.png";
 	nonvisitedNode.src = "images/game/nonvisited_node.png";
 
+    undoButton.src = "images/game/undo.jpg";
+    undoButton_over.src = "images/game/undo.jpg";
+	
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
 
@@ -105,57 +118,19 @@ function game(){
 		async: false,
 		dataType : "json",
 		contentType:"application/json",
-		timeout : 30000,
+		timeout : 150000,
 		error : function() {
 			console.log("Error: loading the map failed");			
 			var event = document.createEvent("Event");
 			event.initEvent("changePage", true, true);
 			event.customData = "goToGameMenu";
 			window.dispatchEvent(event);
-			this.removeEventListener("mouseup", checkClick);
 		},
 		success : function(data) {
 			nodes = data;
 		}
 	});
 	} , 1000);
-
-
-	//var numOfNodes = nodesList.length;
-	//nodes.length = numOfNodes;
-
-//	$.getJSON('CreateMap', function(data) {
-//	alert('entered getJSON()');
-//	for (var i = 0; i < data.length; i++) {
-//	nodes[i] = data[i];
-//	}
-
-//	alert('done with javascirpt');
-//	});
-
-
-
-//	var numOfNodes = 5;
-//	var nodes = [];
-
-//	nodes.length = numOfNodes;
-//	var xPosition = 0;
-//	var yPosition = 0;
-
-//	for(var i = 0 ; i < numOfNodes ; i++){
-
-//	randomPoint(i);
-//	if(i ==0)
-//	nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , true);
-//	else
-//	nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , false);
-
-//	for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
-//	if(i != j)							//creating edges from Node i to Node j
-//	addEdge(i , j);
-//	}		
-//	}
-
 
 
 
@@ -219,6 +194,10 @@ function game(){
 
 		//back button drawing
 		drawBackButton();
+        drawUndoButton();
+
+        context.font="30px Arial";
+        context.fillText("Steps: " + stepsPlayed, 10 , 50);
 
 	}
 
@@ -265,9 +244,9 @@ function game(){
 						drawAFuckingLine(i , j , boldLineColor , boldLineWidth);
 
 					if(nodes[i].edges[j].isMarked)
-						drawAFuckingLine(i , j , markedLineColor , lineWidth);
+						drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
 					else
-						drawAFuckingLine(i , j , lineColor , lineWidth);	
+						drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
 
 					//TODO place the bold/marked lines above others
 				}
@@ -278,11 +257,18 @@ function game(){
 
 
 	function drawBackButton(){
-		if(isMouseOverBackButton())
-			context.drawImage(backButton_over , width - backButtonEnlargedSize/2 - buttonDistFromEdges , height - backButtonEnlargedSize/2 - buttonDistFromEdges , backButtonEnlargedSize , backButtonEnlargedSize);
-		else
+        if(isMouseOverBackButton())
+            context.drawImage(backButton_over , width - backButtonEnlargedSize/2 - buttonDistFromEdges , height - backButtonEnlargedSize/2 - buttonDistFromEdges , backButtonEnlargedSize , backButtonEnlargedSize);
+        else
 			context.drawImage(backButton , width - backButtonSize/2 - buttonDistFromEdges , height - backButtonSize/2 - buttonDistFromEdges , backButtonSize , backButtonSize);
 	}
+
+    function drawUndoButton(){
+        if(isMouseOverUndoButton())
+            context.drawImage(undoButton_over , width - undoButtonEnlargedSize/2 - buttonDistFromEdges , buttonDistFromEdges - 0.5*(undoButtonEnlargedSize - undoButtonSize) , undoButtonEnlargedSize , undoButtonEnlargedSize);
+        else
+            context.drawImage(undoButton , width - undoButtonSize/2 - buttonDistFromEdges , buttonDistFromEdges , undoButtonSize , undoButtonSize);
+    }
 
 
 	function mouseInNodeRange(node){
@@ -300,19 +286,26 @@ function game(){
 	function checkClick(){
 		//Node click check
 		for(var i = 0 ; i < nodes.length ; i++){
-			if(mouseInNodeRange(nodes[i]))				
+			if(mouseInNodeRange(nodes[i]))
 				clickNode(i);
 		}
 
+        if(isMouseOverUndoButton()){	//clicked on back arrow
+            unclickNode();
+        }
+
 		//Back-button check
 		if(isMouseOverBackButton()){	//clicked on back arrow
-			var event = document.createEvent("Event");
-			event.initEvent("changePage", true, true);
-			event.customData = "goToGameMenu";
-			window.dispatchEvent(event);
-			this.removeEventListener("mouseup", checkClick);
-
+            var screwThisImQuitting = confirm("Your progress won't be saved, are you sure you want to quit?");
+            if(screwThisImQuitting == true){
+			    var event = document.createEvent("Event");
+			    event.initEvent("changePage", true, true);
+                event.customData = "goToGameMenu";
+                window.dispatchEvent(event);
+                this.removeEventListener("mouseup", checkClick);
+            }
 		}
+
 	}
 
 
@@ -323,8 +316,9 @@ function game(){
 
 		for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
+                stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
 				nodes[lastClickedID].edges[j].passedThrough = true;
-				nodes[i].edges[getEdge(i , lastClickedID)].passedThrough = true;
+				nodes[i].edges[getEdgeIndex(i , lastClickedID)].passedThrough = true;
 				nodes[i].isMarked = true;
 				lastClickedID = i;
 				clickHistory.push(lastClickedID);
@@ -333,7 +327,45 @@ function game(){
 		}
 	}
 
-	function getEdge(from , to){
+    function unclickNode(){
+        if(clickHistory.length == 1)    //back at start node
+            return;
+
+
+        var nodeWasVisitedBefore = false;
+        var prevNodeVisitedCurrentNodeBefore = false;
+        for(var i = 0 ; i < clickHistory.length - 1 ; i++){
+            if(clickHistory[i] == lastClickedID){
+                nodeWasVisitedBefore = true;
+                if(i != 0){
+                    if(clickHistory[i - 1] == clickHistory[clickHistory.length - 2]){
+                        prevNodeVisitedCurrentNodeBefore = true;
+                    }
+                }
+                if(i != clickHistory.length - 2){
+                    if(clickHistory[i + 1] == clickHistory[clickHistory.length - 2]){
+                        prevNodeVisitedCurrentNodeBefore = true;
+                    }
+                }
+            }
+        }
+        if(!nodeWasVisitedBefore){
+            nodes[lastClickedID].isMarked = false;
+        }
+        //otherwise, we leave it marked
+        if(!prevNodeVisitedCurrentNodeBefore){
+            nodes[lastClickedID].edges[getEdgeIndex(lastClickedID , clickHistory[clickHistory.length - 2])].passedThrough = false;
+            nodes[clickHistory[clickHistory.length - 2]].edges[getEdgeIndex(clickHistory[clickHistory.length - 2] , lastClickedID)].passedThrough = false;
+        }
+        //otherwise, we leave them (edges in both directions) marked
+
+        stepsPlayed -= nodes[clickHistory[clickHistory.length - 1]].edges[getEdgeIndex(clickHistory[clickHistory.length - 1] , clickHistory[clickHistory.length - 2])].weight;
+
+        clickHistory.pop(lastClickedID);
+        lastClickedID = clickHistory[clickHistory.length - 1];
+    }
+
+	function getEdgeIndex(from , to){
 		for(var i = 0 ; i < nodes[from].edges.length ; i++){
 			if(nodes[from].edges[i].pointedNodeID == to){
 				return i;	//edge index
@@ -342,7 +374,13 @@ function game(){
 
 	}
 
-
+	function isMouseOverUndoButton(){
+		if((width - undoButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + undoButtonSize/2) &&
+				(buttonDistFromEdges < mouseY && mouseY < buttonDistFromEdges + undoButtonSize))	//clicked on back arrow
+			return true;
+		else
+			return false;
+	}
 
 	function isMouseOverBackButton(){
 		if((width - backButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + backButtonSize/2) &&
@@ -373,73 +411,14 @@ function game(){
 	}
 
 
-	function addEdge(fromNodeID , toNodeID){
-		var newEdge = new Edge(toNodeID , lineColor , 1);
-		nodes[fromNodeID].edges.push(newEdge);
-	}	
-
-	function randomPoint(i){		
-		var randX;
-		var randY;
-		var spreadFactor = width - backButtonEnlargedSize - buttonDistFromEdges;
-		var rightLimit = nodeSize/2;
-		var leftLimit = width - nodeSize/2;
-		var topLimit = nodeSize/2;
-		var bottomLimit = height - nodeSize/2;	
-		do{
-			randX = Math.random();			
-			randY = Math.random();
-			xPosition =  randX*spreadFactor;
-			yPosition =  randY*spreadFactor;
-//			width - backButtonEnlargedSize - buttonDistFromEdges
-		}while(!isInsideWindow(xPosition, yPosition, rightLimit, leftLimit, topLimit, bottomLimit)
-				|| areNodesCollide(i, xPosition, yPosition, (nodeSize/2)*(1+mouseOverEnlarger)));
-
-
-		if(i ==0)
-			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , true);
-		else
-			nodes[i] = new Node(i , xPosition , yPosition , nodeSize/2 , "rgb(155, 0, 0)" , false);
-
-		for(var j = 0 ; j < numOfNodes ; j++){	//each node connects to every other node!
-			if(i != j)	//creating edges from Node i to Node j
-				addEdge(i , j);
-		}
-
-	}
-
-	function isInsideWindow(x, y, right, left, top, bottom){
-		if(x > right && x < left && y > top && y < bottom)
-			return true;
-		else
-			return false;
-	}
-
-	function areNodesCollide(i,x,y,radius){
-		var xDist;
-		var yDist;
-		var minRadius;		
-		for(i = i-1 ;i >= 0; i--){			
-			xDist = Math.abs(nodes[i].x - x);
-			yDist = Math.abs(nodes[i].y - y);
-			circularDistance = nodes[i].radius + radius;
-			if(xDist*xDist + yDist*yDist < circularDistance*circularDistance){
-				//alert("BOOM!");				
-				return true;
-			}
-		}
-		return false;
-	}
-
-
 	function exit(){
 		var event = document.createEvent("Event");
 		event.initEvent("changePage", true, true);
 		event.customData = "goToGameMenu";
 		window.dispatchEvent(event);
 		this.removeEventListener("mouseup", checkClick);
-		$("#score").text(clickHistory.length);
-		$("#scoreField").val(clickHistory.length);
+		$("#score").text(stepsPlayed);
+		$("#scoreField").val(stepsPlayed);
 		//TODO change the "val(1)" to mapNum
 		$("#mapNumField").val(mapNum);
 		score_popup();

@@ -284,7 +284,6 @@ function createGame(){
 
 	this.logic = function() {
 
-		//TODO
 		if(currentMode == buttons.indexOf(randomizeButton)){	//Randomize
 			var screwThisImStartingOver = confirm("A map would be generated with " + nodesInRandomizedMap + " nodes.\nYou do know that the current layout would be wiped out... right?");
 			if(screwThisImStartingOver == true){
