@@ -23,27 +23,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="game.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/war/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="0" selection-start="2041" selection-end="2091" vertical-scroll-proportion="0.0" vertical-offset="1024" max-vertical-offset="3298">
+            <state line="381" column="44" selection-start="11657" selection-end="11657" vertical-scroll-proportion="0.25322998" vertical-offset="3663" max-vertical-offset="5253">
               <folding>
                 <element signature="n#!!block;n#Node#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#Edge#0;n#!!block;n#game#0" expanded="false" />
-                <element signature="e#3667#3841#0" expanded="false" />
-                <element signature="e#3868#4309#0" expanded="false" />
-                <element signature="e#4452#4498#0" expanded="false" />
-                <element signature="e#4525#5339#0" expanded="false" />
-                <element signature="e#5366#5575#0" expanded="false" />
+                <element signature="e#4389#4563#0" expanded="false" />
+                <element signature="e#4590#5031#0" expanded="false" />
+                <element signature="e#5174#5220#0" expanded="false" />
                 <element signature="n#!!block;n#drawNodes#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#drawEdges#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#drawBackButton#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#drawUndoButton#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#mouseInNodeRange#0;n#!!block;n#game#0" expanded="false" />
-                <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#unclickNode#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
+                <element signature="n#!!block;n#isMouseOverMuteButton#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#isMouseOverUndoButton#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
@@ -56,36 +54,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createGame.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="createGame.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="232" column="4" selection-start="8982" selection-end="8982" vertical-scroll-proportion="0.68085104" vertical-offset="3400" max-vertical-offset="12410">
+            <state line="1168" column="18" selection-start="42417" selection-end="42417" vertical-scroll-proportion="0.0" vertical-offset="10625" max-vertical-offset="12206">
               <folding>
                 <element signature="e#9214#9437#0" expanded="false" />
-                <element signature="e#9475#9648#0" expanded="false" />
-                <element signature="e#9687#9870#0" expanded="false" />
+                <element signature="e#9474#9647#0" expanded="false" />
+                <element signature="e#9686#9869#0" expanded="false" />
                 <element signature="n#!!block;n#coord#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#Node#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#10805#10860#0" expanded="false" />
-                <element signature="e#10952#13442#0" expanded="false" />
-                <element signature="e#13502#15801#0" expanded="false" />
-                <element signature="e#15837#19513#0" expanded="false" />
+                <element signature="n#!!block;n#Edge#0;n#!!block;n#createGame#0" expanded="false" />
+                <element signature="e#10804#10859#0" expanded="false" />
+                <element signature="e#10889#15806#0" expanded="false" />
+                <element signature="e#10951#13441#0" expanded="false" />
+                <element signature="e#13501#15800#0" expanded="false" />
+                <element signature="e#15834#19510#0" expanded="false" />
                 <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#setEdgeOrigin#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#setMode#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#25215#25425#0" expanded="false" />
-                <element signature="e#25465#25702#0" expanded="false" />
-                <element signature="e#25715#25990#0" expanded="false" />
+                <element signature="e#25212#25422#0" expanded="false" />
+                <element signature="e#25462#25699#0" expanded="false" />
+                <element signature="e#25712#25987#0" expanded="false" />
                 <element signature="n#!!block;n#addEdgeRandomly#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#26447#26570#0" expanded="false" />
+                <element signature="e#26444#26567#0" expanded="false" />
                 <element signature="n#!!block;n#removeEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#removeEdgeSingleDirection#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#destroyTouchedNode#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#isInDrawableArea#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#isNodeIndexInList#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#isNodeIProperlyConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#30429#30763#0" expanded="false" />
+                <element signature="e#30426#30760#0" expanded="false" />
                 <element signature="n#!!block;n#areAllNodesConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#doesEdgeAlreadyExistBetweenNodes#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#isNodeITouchedByMouse#0;n#!!block;n#createGame#0" expanded="false" />
@@ -127,8 +127,8 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/war/js/gameChoice.js" />
-        <option value="$PROJECT_DIR$/war/js/game.js" />
         <option value="$PROJECT_DIR$/war/js/createGame.js" />
+        <option value="$PROJECT_DIR$/war/js/game.js" />
       </list>
     </option>
   </component>
@@ -292,7 +292,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -306,66 +306,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/war/js/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="0" selection-start="2041" selection-end="2091" vertical-scroll-proportion="0.0" vertical-offset="820" max-vertical-offset="3298">
-          <folding>
-            <element signature="n#!!block;n#Node#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#Edge#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="e#3667#3841#0" expanded="false" />
-            <element signature="e#3868#4309#0" expanded="false" />
-            <element signature="e#4452#4498#0" expanded="false" />
-            <element signature="e#4525#5339#0" expanded="false" />
-            <element signature="e#5366#5575#0" expanded="false" />
-            <element signature="n#!!block;n#drawNodes#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#drawEdges#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#drawBackButton#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#drawUndoButton#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#mouseInNodeRange#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#unclickNode#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverUndoButton#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#drawAFuckingLine#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#playSFX#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#exit#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="n#!!block;n#sendSolutionPath#0;n#!!block;n#game#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="4" selection-start="8982" selection-end="8982" vertical-scroll-proportion="0.68085104" vertical-offset="3400" max-vertical-offset="12410">
+        <state line="1168" column="18" selection-start="42417" selection-end="42417" vertical-scroll-proportion="0.0" vertical-offset="10625" max-vertical-offset="12206">
           <folding>
             <element signature="e#9214#9437#0" expanded="false" />
-            <element signature="e#9475#9648#0" expanded="false" />
-            <element signature="e#9687#9870#0" expanded="false" />
+            <element signature="e#9474#9647#0" expanded="false" />
+            <element signature="e#9686#9869#0" expanded="false" />
             <element signature="n#!!block;n#coord#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#Node#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#10805#10860#0" expanded="false" />
-            <element signature="e#10952#13442#0" expanded="false" />
-            <element signature="e#13502#15801#0" expanded="false" />
-            <element signature="e#15837#19513#0" expanded="false" />
+            <element signature="n#!!block;n#Edge#0;n#!!block;n#createGame#0" expanded="false" />
+            <element signature="e#10804#10859#0" expanded="false" />
+            <element signature="e#10889#15806#0" expanded="false" />
+            <element signature="e#10951#13441#0" expanded="false" />
+            <element signature="e#13501#15800#0" expanded="false" />
+            <element signature="e#15834#19510#0" expanded="false" />
             <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#setEdgeOrigin#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#setMode#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#25215#25425#0" expanded="false" />
-            <element signature="e#25465#25702#0" expanded="false" />
-            <element signature="e#25715#25990#0" expanded="false" />
+            <element signature="e#25212#25422#0" expanded="false" />
+            <element signature="e#25462#25699#0" expanded="false" />
+            <element signature="e#25712#25987#0" expanded="false" />
             <element signature="n#!!block;n#addEdgeRandomly#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#26447#26570#0" expanded="false" />
+            <element signature="e#26444#26567#0" expanded="false" />
             <element signature="n#!!block;n#removeEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#removeEdgeSingleDirection#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#destroyTouchedNode#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isInDrawableArea#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isNodeIndexInList#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isNodeIProperlyConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#30429#30763#0" expanded="false" />
+            <element signature="e#30426#30760#0" expanded="false" />
             <element signature="n#!!block;n#areAllNodesConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#doesEdgeAlreadyExistBetweenNodes#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isNodeITouchedByMouse#0;n#!!block;n#createGame#0" expanded="false" />
@@ -376,6 +347,35 @@
             <element signature="n#!!block;n#isMouseOverCollapseButton#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isMouseOverExpandButton#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#createGame#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="381" column="44" selection-start="11657" selection-end="11657" vertical-scroll-proportion="0.25322998" vertical-offset="3663" max-vertical-offset="5253">
+          <folding>
+            <element signature="n#!!block;n#Node#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#Edge#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="e#4389#4563#0" expanded="false" />
+            <element signature="e#4590#5031#0" expanded="false" />
+            <element signature="e#5174#5220#0" expanded="false" />
+            <element signature="n#!!block;n#drawNodes#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawEdges#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawBackButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawUndoButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#mouseInNodeRange#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#unclickNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#isMouseOverMuteButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#isMouseOverUndoButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawAFuckingLine#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#playSFX#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#exit#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#sendSolutionPath#0;n#!!block;n#game#0" expanded="false" />
           </folding>
         </state>
       </provider>

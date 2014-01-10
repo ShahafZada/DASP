@@ -245,7 +245,6 @@ function createGame(){
         determinePositions(buttonPositions , buttons);
     }
 
-
     expandArrow.onload = function(){
         expandArrowWidth = expandArrow.width * (arrowHeight / expandArrow.height);
         expandArrowOverWidth = expandArrowWidth * (arrowOverHeight / arrowHeight);
@@ -441,8 +440,6 @@ function createGame(){
 
         }
     }
-
-
 
     this.draw = function(){
 
@@ -1169,6 +1166,7 @@ function createGame(){
         }
         else if(currentMode == buttons.indexOf(setEdgePropertiesButton)){
             //var color = prompt("Enter map num");
+            //TODO
         }
 
 

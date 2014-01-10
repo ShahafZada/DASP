@@ -11,11 +11,18 @@ function game(){
     var buttonDistFromEdges = height/16;
 	
 	//undo-button:
-	var undoButtonHeight = height/10;	// the button area is square
+	var undoButtonHeight = height/10;
     var undoButtonWidth;
-	var undoButtonEnlargedHeight = height/8;	// the button area is square
+	var undoButtonEnlargedHeight = height/8;
     var undoButtonEnlargedWidth;
     var undoButtonDistFromEdges = height/64;
+
+    //mute-button:
+    var muteButtonHeight = height/10;
+    var muteButtonWidth;
+    var muteButtonEnlargedHeight = height/8;
+    var muteButtonEnlargedWidth;
+    var muteButtonDistFromEdges = height/64;
 
 	
 	// edges :
@@ -52,6 +59,11 @@ function game(){
 	var undoButton = new Image();
     var undoButton_over = new Image();
 
+    var soundOn = new Image();
+    var soundOn_Over = new Image();
+    var soundOff = new Image();
+    var soundOff_Over = new Image();
+
 
 	startNode.src = "images/game/start_node.png";
 	start_currentNode.src = "images/game/start_current_node.png";
@@ -65,8 +77,16 @@ function game(){
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
 
+    soundOn.src = "images/game/sound_on.png";
+    soundOn_Over.src = "images/game/sound_on.png";
+    soundOff.src = "images/game/sound_off.png";
+    soundOff_Over.src = "images/game/sound_off.png";
+
+
 
     //sound:    (might not suit Internet Explorer)
+
+    var isSoundOn = true;
 
     var sfxNewNode = new Audio("sounds/game/box.wav");
     var sfxVisitedNode = new Audio("sounds/game/bi3.wav");
@@ -118,6 +138,11 @@ function game(){
     undoButton.onload = function(){
         undoButtonWidth = undoButton.width*(undoButtonHeight/undoButton.height);
         undoButtonEnlargedWidth = undoButtonWidth*(undoButtonEnlargedHeight/undoButtonHeight);
+    }
+
+    soundOn.onload = function(){
+        muteButtonWidth = soundOn.width*(muteButtonHeight/soundOn.height);
+        muteButtonEnlargedWidth = muteButtonWidth*(muteButtonEnlargedHeight/muteButtonHeight);
     }
 
 //	-------------------------------------------------------------
@@ -211,8 +236,6 @@ function game(){
 
 	}
 
-
-
 	this.draw = function(){     	
 		drawEdges();
 		drawNodes();	
@@ -220,6 +243,7 @@ function game(){
 		//back button drawing
 		drawBackButton();
         drawUndoButton();
+        drawMuteButton();
 
         context.font="30px Arial";
         context.fillText("Steps: " + stepsPlayed, 10 , 50);
@@ -346,6 +370,21 @@ function game(){
             context.drawImage(undoButton , width - undoButtonDistFromEdges - undoButtonWidth , undoButtonDistFromEdges , undoButtonWidth , undoButtonHeight);
     }
 
+    function drawMuteButton(){
+        if(isSoundOn){
+            if(isMouseOverMuteButton())
+                context.drawImage(soundOn_Over , width - muteButtonDistFromEdges - (muteButtonWidth + 0.5*(muteButtonEnlargedWidth-muteButtonWidth)) , undoButtonDistFromEdges + undoButtonHeight + muteButtonDistFromEdges - 0.5*(muteButtonEnlargedHeight - muteButtonHeight) , muteButtonEnlargedWidth , muteButtonEnlargedHeight);
+            else
+                context.drawImage(soundOn , width - muteButtonDistFromEdges - muteButtonWidth , undoButtonDistFromEdges + undoButtonHeight + muteButtonDistFromEdges , muteButtonWidth , muteButtonHeight);
+        }
+        else{
+            if(isMouseOverMuteButton())
+                context.drawImage(soundOff_Over , width - muteButtonDistFromEdges - (muteButtonWidth + 0.5*(muteButtonEnlargedWidth-muteButtonWidth)) , undoButtonDistFromEdges + undoButtonHeight + muteButtonDistFromEdges - 0.5*(muteButtonEnlargedHeight - muteButtonHeight) , muteButtonEnlargedWidth , muteButtonEnlargedHeight);
+            else
+                context.drawImage(soundOff , width - muteButtonDistFromEdges - muteButtonWidth , undoButtonDistFromEdges + undoButtonHeight + muteButtonDistFromEdges , muteButtonWidth , muteButtonHeight);
+        }
+
+    }
 
 	function mouseInNodeRange(node){
 		var r = node.radius;
@@ -366,7 +405,11 @@ function game(){
 				clickNode(i);
 		}
 
-        if(isMouseOverUndoButton()){	//clicked on back arrow
+        if(isMouseOverMuteButton()){	//clicked on mute button
+            isSoundOn = !isSoundOn;
+        }
+
+        if(isMouseOverUndoButton()){	//clicked on undo
             unclickNode();
         }
 
@@ -384,8 +427,6 @@ function game(){
 
 	}
 
-
-
 	function clickNode(i){
 		if(i == lastClickedID)
 			return;
@@ -393,6 +434,7 @@ function game(){
 		for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
                 //playing sound:
+
                 if(nodes[i].isMarked)
                     playSFX(sfxVisitedNode);
                 else
@@ -459,6 +501,14 @@ function game(){
 
 	}
 
+    function isMouseOverMuteButton(){
+        if((width - muteButtonWidth - muteButtonDistFromEdges < mouseX && mouseX < width - muteButtonDistFromEdges) &&
+            (undoButtonDistFromEdges + undoButtonHeight + muteButtonDistFromEdges < mouseY && mouseY < undoButtonDistFromEdges + undoButtonHeight + muteButtonDistFromEdges + muteButtonHeight))	//clicked on back arrow
+            return true;
+        else
+            return false;
+    }
+
 	function isMouseOverUndoButton(){
 		if((width - undoButtonWidth - undoButtonDistFromEdges < mouseX && mouseX < width - undoButtonDistFromEdges) &&
 				(undoButtonDistFromEdges < mouseY && mouseY < undoButtonDistFromEdges + undoButtonHeight))	//clicked on back arrow
@@ -496,6 +546,9 @@ function game(){
 	}
 
     function playSFX(sound){
+        if(!isSoundOn)
+            return;
+
         sound.play();
         sound.currentTime = 0;
     }
