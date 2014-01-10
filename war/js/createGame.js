@@ -224,6 +224,9 @@ function createGame(){
         buttonDistFromEdges = (height - backButtonSize - backButtonDistFromEdges - (((buttons.length-1)/2 + 1) * buttonHeight)) / ((buttons.length-1)/2);	//average of free height per button
     }
 
+    var createdNode = new Audio("sounds/game/NodeNoise1.wav");
+    var createdEdge = new Audio("sounds/game/bu.wav");
+
 //	-------------------------------------------------------------
 
 //	onload functions : 
@@ -697,6 +700,8 @@ function createGame(){
 
         if(allowConsoleMessages)
             console.log("created edge between nodes indexed " + nodeIndex1 + " and " + nodeIndex2);
+
+        playSFX(createdEdge);
     }
 
     function addEdgeRandomly(i){
@@ -721,6 +726,8 @@ function createGame(){
         if(allowConsoleMessages){
             console.log("created node; index: " + (nodes.length-1) + " id: " + nodes[nodes.length-1].id);
         }
+
+        playSFX(createdNode);
 
     }
 
@@ -766,6 +773,14 @@ function createGame(){
     }
 
 
+
+//////////////////////////sound functions
+
+
+    function playSFX(sound){
+        sound.play();
+        sound.currentTime = 0;
+    }
 
 //////////////////////////boolean functions
 

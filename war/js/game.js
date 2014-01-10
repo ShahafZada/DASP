@@ -8,13 +8,15 @@ function game(){
 	//back-button:
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
+    var buttonDistFromEdges = height/16;
 	
 	//undo-button:
-	var undoButtonSize = height/10;	// the button area is square
-	var undoButtonEnlargedSize = height/8;	// the button area is square
+	var undoButtonHeight = height/10;	// the button area is square
+    var undoButtonWidth;
+	var undoButtonEnlargedHeight = height/8;	// the button area is square
+    var undoButtonEnlargedWidth;
+    var undoButtonDistFromEdges = height/64;
 
-    //universal
-    var buttonDistFromEdges = height/16;
 	
 	// edges :
     var allowingMultiColoredEdges = false;  //determines if edges could have different colors
@@ -105,6 +107,15 @@ function game(){
 
 //	-------------------------------------------------------------
 
+
+//	onload :
+
+    undoButton.onload = function(){
+        undoButtonWidth = undoButton.width*(undoButtonHeight/undoButton.height);
+        undoButtonEnlargedWidth = undoButtonWidth*(undoButtonEnlargedHeight/undoButtonHeight);
+    }
+
+//	-------------------------------------------------------------
 //	object creation :
 	//this data is supposed to be taken from another file (a "stage" file)
 
@@ -325,9 +336,9 @@ function game(){
 
     function drawUndoButton(){
         if(isMouseOverUndoButton())
-            context.drawImage(undoButton_over , width - undoButtonEnlargedSize/2 - buttonDistFromEdges , buttonDistFromEdges - 0.5*(undoButtonEnlargedSize - undoButtonSize) , undoButtonEnlargedSize , undoButtonEnlargedSize);
+            context.drawImage(undoButton_over , width - undoButtonDistFromEdges - (undoButtonWidth + 0.5*(undoButtonEnlargedWidth-undoButtonWidth)) , undoButtonDistFromEdges - 0.5*(undoButtonEnlargedHeight - undoButtonHeight) , undoButtonEnlargedWidth , undoButtonEnlargedHeight);
         else
-            context.drawImage(undoButton , width - undoButtonSize/2 - buttonDistFromEdges , buttonDistFromEdges , undoButtonSize , undoButtonSize);
+            context.drawImage(undoButton , width - undoButtonDistFromEdges - undoButtonWidth , undoButtonDistFromEdges , undoButtonWidth , undoButtonHeight);
     }
 
 
@@ -444,8 +455,8 @@ function game(){
 	}
 
 	function isMouseOverUndoButton(){
-		if((width - undoButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + undoButtonSize/2) &&
-				(buttonDistFromEdges < mouseY && mouseY < buttonDistFromEdges + undoButtonSize))	//clicked on back arrow
+		if((width - undoButtonWidth - undoButtonDistFromEdges < mouseX && mouseX < width - undoButtonDistFromEdges) &&
+				(undoButtonDistFromEdges < mouseY && mouseY < undoButtonDistFromEdges + undoButtonHeight))	//clicked on back arrow
 			return true;
 		else
 			return false;
