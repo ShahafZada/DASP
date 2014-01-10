@@ -57,8 +57,8 @@ function game(){
 	marked_currentNode.src = "images/game/marked_current_node.png";
 	nonvisitedNode.src = "images/game/nonvisited_node.png";
 
-    undoButton.src = "images/game/undo.jpg";
-    undoButton_over.src = "images/game/undo.jpg";
+    undoButton.src = "images/game/undo.png";
+    undoButton_over.src = "images/game/undo.png";
 	
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
