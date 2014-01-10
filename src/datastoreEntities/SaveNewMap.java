@@ -12,8 +12,8 @@ import java.util.List;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import dataBaseManager.DataBaseManager;
 import datastoreEntities.Node;
-import dbManager.DataBaseManager;
 
 
 public class SaveNewMap extends HttpServlet {
@@ -54,7 +54,7 @@ public class SaveNewMap extends HttpServlet {
 			if( m != null)
 				DataBaseManager.getInstance().deleteTheMap(m);
 
-			Map map = new Map(mapNum, mapNum, mapNum, nodesList);
+			Map map = new Map(mapNum, mapNum, mapNum, nodesList, null);
 			DataBaseManager.getInstance().insertNewMap(map);
 		}
 

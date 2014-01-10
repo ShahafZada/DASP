@@ -1,6 +1,9 @@
 package datastoreEntities;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import dataBaseManager.DataBaseManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,17 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 import java.io.IOException;
+import java.lang.reflect.Type;
 
-import dataBaseManager.DataBaseManager;
-import datastoreEntities.Node;
-
-public class CreateMapServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class SolutionPathServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;	
 	private String map_num = null;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CreateMapServlet() {
+	public SolutionPathServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -30,22 +31,20 @@ public class CreateMapServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
+		List<Integer> solutionPath = null;
 		Gson gson = null;
-		List<Node> nodesList = null;
+		String json = null;
 		
-		if(map != null)
-		{
-			nodesList = map.getNodes();
-			for (int i = 0; i<nodesList.size(); i++) {
-				Node node = nodesList.get(i);
-				node.getEdges();
-			}
+		if(map != null) {
+			
+			solutionPath = map.getSolutionPath();
 			gson = new Gson();
-		    String json = gson.toJson(nodesList);
+		    json = gson.toJson(solutionPath);
 		    response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().write(json);
-			}
+		    response.getWriter().write(json);	 
+		}
+		
 	}
 
 	/**
@@ -53,5 +52,23 @@ public class CreateMapServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		map_num = request.getParameter("map_num");
+		String path = request.getParameter("path");
+		if(path != null)
+		{
+			Map map = DataBaseManager.getInstance().getMapByNum(map_num);
+			
+			Type type = new TypeToken<List<Integer>>(){}.getType();
+			List<Integer> solutionPath = new Gson().fromJson(path, type);
+
+			map.setSolutionPath(solutionPath);
+		}				
 	}
 }
+
+
+
+
+
+
+
+

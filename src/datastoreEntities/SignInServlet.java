@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import dbManager.DataBaseManager;
+import dataBaseManager.DataBaseManager;
 
 /**
  * Servlet implementation class SaveGameScores
@@ -53,7 +53,7 @@ public class SignInServlet extends HttpServlet {
 			Player player = DataBaseManager.getInstance().findPlayer(email, password);
 
 			if(player == null) {
-				request.setAttribute("message", "Error: Inncorrect Email or password, try again");
+				request.setAttribute("err_message", "Inncorrect Email or password, Please try again");
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				return;
 			}
@@ -62,13 +62,14 @@ public class SignInServlet extends HttpServlet {
 			session.setAttribute("theFullName", player.getFirstName()+" "+player.getLastName());
 			session.setAttribute("theEmailName", email.toString());
 			session.setAttribute("thePicture", player.getPicture());
-			System.out.println(player.getPicture());
-			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-			
+
 			if( player.getUserType().equals("Admin") )
 				isAdmin = true;
 			else
 				isAdmin = false;
+			
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			
 		}
 	}
 

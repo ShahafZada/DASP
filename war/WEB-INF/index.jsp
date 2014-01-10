@@ -19,7 +19,6 @@
 <script type="text/javascript" src="js/gameMenu.js"></script>
 <script type="text/javascript" src="js/gameManager.js"></script>
 
-
 <title>Breaking Code</title>
 </head>
 

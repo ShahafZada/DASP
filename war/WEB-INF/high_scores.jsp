@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <%@page import="datastoreEntities.Player"%>
 <%@page import="datastoreEntities.GameScore"%>
-<%@page import="dbManager.DataBaseManager"%>
+<%@page import="dataBaseManager.DataBaseManager"%>
 <%@page import="statistics.StatisticsManager"%>
 <%@page import="java.util.List;"%>
 <html>
@@ -9,6 +9,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <link type="text/css" rel="stylesheet" href="css/form_css.css" />
+<link type="text/css" rel="stylesheet" href="css/hs_table.css" />
 
 <title>Breaking Code</title>
 </head>
@@ -60,21 +61,20 @@
 			list = DataBaseManager.getInstance().getAllScores(); //results from previous games
 	%>
 
-	<table id="high_scores">
+	<table id="high_scores" class="flat-table flat-table-3">
 		<tr>
-			<td>Picture</td>
-			<td>First name</td>
-			<td>Last name</td>
-			<td>Map number</td>
-			<td>Score</td>
+			<th>Picture</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Map number</th>
+			<th>Score</th>
 		</tr>
 		<%
 			for (GameScore item : list) {
-				Player p = DataBaseManager.getInstance().getPlayerByEmail(
-						item.getEmail());
+				Player p = DataBaseManager.getInstance().getPlayerByEmail(item.getEmail());
 		%>
 		<tr>
-			<td><img src="images/high_scores/Derp.png"></td>
+			<td><img src="<%=p.getPicture().toString()%>"></td>
 			<td><%=p.getFirstName()%></td>
 			<td><%=p.getLastName()%></td>
 			<td><%=item.getmapNum()%></td>

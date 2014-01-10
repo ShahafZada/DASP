@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+ <%
+  response.setHeader("Cache-Control","no-cache");
+  response.setHeader("Cache-Control","no-store");
+  response.setHeader("Pragma","no-cache");
+  response.setDateHeader ("Expires", 0);
+  %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <img alt="logo" src="images/logo.png" id="logo">
@@ -9,6 +15,7 @@
 		String user_name = (String)session.getAttribute("theFullName");
 		if(user_name == null) {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			return;
 		}
 		else {
        		out.println(user_name);

@@ -1,5 +1,5 @@
 
-package dbManager;
+package dataBaseManager;
 
 import java.util.List;
 
@@ -45,6 +45,13 @@ public final class DataBaseManager
 	public void insertNewPlayer(Player player) {
 		Manager.getPM().makePersistent(player);
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Player> getAllPlayers()
+	{
+		Query q = Manager.getPM().newQuery(Player.class);
+		return (List<Player>)q.execute();
 	}
 
 
