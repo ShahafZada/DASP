@@ -179,7 +179,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/GetData</url-pattern>
 	</servlet-mapping>
 	
-		<servlet>
+	<servlet>
 		<servlet-name>SolutionPathServlet</servlet-name>
 		<servlet-class>datastoreEntities.SolutionPathServlet</servlet-class>
 	</servlet>

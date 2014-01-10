@@ -35,9 +35,9 @@ function solutions (mapNum) {
 	var lastClickedID = 0;
     var stepsPlayed = 0;
 	var solutionPath = [];
-	var clickHistory = [1,2,3,4];
-//	var clickHistory = [];			
-//	loadSolution();
+//	var clickHistory = [1,2,3,4];
+	var clickHistory = [];			
+	loadSolution();
 	var step = 0;
 	solutionPath.push(lastClickedID);
 
