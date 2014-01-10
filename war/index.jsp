@@ -24,7 +24,7 @@
 	href="css/lib/control/iconselect.css">
 <script type="text/javascript" src="lib/control/iconselect.js"></script>
 <script type="text/javascript" src="lib/iscroll.js"></script>
-<script type="text/javascript" src="js/notify.js"></script>
+<script type="text/javascript" src="js/Jquery/notify.js"></script>
 
 </head>
 <body >
