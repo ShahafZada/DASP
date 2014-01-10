@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import SolutionPathServlet.DataBaseManager;
-
 import com.google.gson.Gson;
+
+import dataBaseManager.DataBaseManager;
 
 /**
  * Servlet implementation class SaveGameScores

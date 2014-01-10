@@ -1,9 +1,9 @@
 package datastoreEntities;
 
-import SolutionPathServlet.DataBaseManager;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import dataBaseManager.DataBaseManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,23 +31,20 @@ public class SolutionPathServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
-		
+		List<Integer> solutionPath = null;
 		Gson gson = null;
-		List<Integer> solutionPath = map.getSolutionPath();
-		/*/
-		for (int i = 0; i<nodesList.size(); i++) {
-			Node node = nodesList.get(i);
-			node.getEdges();
-		}
-		/*/
+		String json = null;
 		
-		if(solutionPath != null) {
+		if(map != null) {
+			
+			solutionPath = map.getSolutionPath();
 			gson = new Gson();
-		    String json = gson.toJson(solutionPath);
+		    json = gson.toJson(solutionPath);
 		    response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");
 		    response.getWriter().write(json);	 
 		}
+		
 	}
 
 	/**

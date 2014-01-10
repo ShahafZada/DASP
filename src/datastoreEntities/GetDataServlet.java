@@ -1,8 +1,8 @@
 package datastoreEntities;
 
-import SolutionPathServlet.DataBaseManager;
-
 import com.google.gson.Gson;
+
+import dataBaseManager.DataBaseManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

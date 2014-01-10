@@ -1,7 +1,5 @@
 package datastoreEntities;
 
-import SolutionPathServlet.DataBaseManager;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,6 +12,7 @@ import java.util.List;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import dataBaseManager.DataBaseManager;
 import datastoreEntities.Node;
 
 

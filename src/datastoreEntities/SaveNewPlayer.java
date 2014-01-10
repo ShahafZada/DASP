@@ -9,7 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-import SolutionPathServlet.DataBaseManager;
+
+
+
+
+
+
 
 //import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
@@ -17,6 +22,10 @@ import java.security.NoSuchAlgorithmException;
 
 
 
+
+
+
+import dataBaseManager.DataBaseManager;
 import datastoreEntities.Player;
 
 /**
