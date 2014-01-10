@@ -9,6 +9,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <link type="text/css" rel="stylesheet" href="css/form_css.css" />
+<link type="text/css" rel="stylesheet" href="css/hs_table.css" />
 
 <title>Breaking Code</title>
 </head>
@@ -60,20 +61,20 @@
 			list = DataBaseManager.getInstance().getAllScores(); //results from previous games
 	%>
 
-	<table id="high_scores">
+	<table id="high_scores" class="flat-table flat-table-3">
 		<tr>
-			<td>Picture</td>
-			<td>First name</td>
-			<td>Last name</td>
-			<td>Map number</td>
-			<td>Score</td>
+			<th>Picture</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Map number</th>
+			<th>Score</th>
 		</tr>
 		<%
 			for (GameScore item : list) {
 				Player p = DataBaseManager.getInstance().getPlayerByEmail(item.getEmail());
 		%>
 		<tr>
-			<td><img src="<%=p.getPicture().toString()%>" alt="s"></td>
+			<td><img src="<%=p.getPicture().toString()%>"></td>
 			<td><%=p.getFirstName()%></td>
 			<td><%=p.getLastName()%></td>
 			<td><%=item.getmapNum()%></td>

@@ -15,7 +15,6 @@
             icons.push({'iconFilePath':'images/high_scores/Derp.png', 'iconValue':'images/high_scores/Derp.png'});
             icons.push({'iconFilePath':'images/high_scores/Artificial_intelligence.png', 'iconValue':'images/high_scores/Artificial_intelligence.png'});
             icons.push({'iconFilePath':'images/high_scores/Bruce.png', 'iconValue':'images/high_scores/Bruce.png'});
-            icons.push({'iconFilePath':'images/high_scores/Derp.png', 'iconValue':'images/high_scores/Derp.png'});
             icons.push({'iconFilePath':'images/high_scores/Fa_Q.png', 'iconValue':'images/high_scores/Fa_Q.png'});
             icons.push({'iconFilePath':'images/high_scores/Impossibru.png', 'iconValue':'images/high_scores/Impossibru.png'});
             icons.push({'iconFilePath':'images/high_scores/mi_smartest.png', 'iconValue':'images/high_scores/mi_smartest.png'});
