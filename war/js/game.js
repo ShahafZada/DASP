@@ -63,6 +63,13 @@ function game(){
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
 
+
+    //sound:    (might not suit Internet Explorer)
+
+    var sfxNewNode = new Audio("sounds/game/box.wav");
+    var sfxVisitedNode = new Audio("sounds/game/bi3.wav");
+    var undoMove = new Audio("sounds/game/ba.wav");
+
 //	-------------------------------------------------------------
 
 
@@ -367,6 +374,13 @@ function game(){
 		if(i == lastClickedID)
 			return;
 
+
+        //playing sound:
+        if(nodes[i].isMarked)
+            playSFX(sfxVisitedNode);
+        else
+            playSFX(sfxNewNode);
+
 		for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
                 stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
@@ -376,7 +390,6 @@ function game(){
 				lastClickedID = i;
 				clickHistory.push(lastClickedID);
 			}
-			//TODO cancel node mark
 		}
 	}
 
@@ -384,6 +397,7 @@ function game(){
         if(clickHistory.length == 1)    //back at start node
             return;
 
+        playSFX(undoMove);
 
         var nodeWasVisitedBefore = false;
         var prevNodeVisitedCurrentNodeBefore = false;
@@ -409,6 +423,8 @@ function game(){
         if(!prevNodeVisitedCurrentNodeBefore){
             nodes[lastClickedID].edges[getEdgeIndex(lastClickedID , clickHistory[clickHistory.length - 2])].passedThrough = false;
             nodes[clickHistory[clickHistory.length - 2]].edges[getEdgeIndex(clickHistory[clickHistory.length - 2] , lastClickedID)].passedThrough = false;
+            nodes[lastClickedID].edges[getEdgeIndex(lastClickedID , clickHistory[clickHistory.length - 2])].isMarked = false;
+            nodes[clickHistory[clickHistory.length - 2]].edges[getEdgeIndex(clickHistory[clickHistory.length - 2] , lastClickedID)].isMarked = false;
         }
         //otherwise, we leave them (edges in both directions) marked
 
@@ -463,6 +479,10 @@ function game(){
 		context.stroke();
 	}
 
+    function playSFX(sound){
+        sound.play();
+        sound.currentTime = 0;
+    }
 
 	function exit(){
 		var event = document.createEvent("Event");
