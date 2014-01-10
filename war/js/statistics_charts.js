@@ -1,46 +1,45 @@
+var Splayers = false;
+var Smaps = false;
+var Sscores = false;
+
+var Plist;
+var Mlist;
+var GSlist;
+
+var ret;
+
 document.onload = statistics_charts();
 
 function statistics_charts(){
-
-	var DataType=["players","maps","scores"];
-
-	var ret=[];
 	
-	var Male = 0 ;var Female = 0;
-
-	$.ajax({
-		url : "GetData",
-		async: false,
-		data : { data_type : DataType[0] },
-		error : function(data) {
-			console.log("Error: ", data);
-		}  ,
-		type : "post",
-		timeout : 30000
-	});
-
 	$.ajax({			
-		url : "GetData",
+		url : "DataServlet",
 		type: "get",
 		async: false,
 		dataType : "json",
 		contentType:"application/json",
 		timeout : 150000,
 		error : function() {
-			console.log("Error: loading the "+DataType[0]+" failed");			
+			console.log("Error: loading failed");			
 		},
 		success : function(data) {
 			ret = data;
 		}
 	});
 	
-	for(var i = 0 ; i < ret.length ; i++){
-		if(ret[i].sex === "Male")
-			Male++;
-		else
-			Female++;
+	if(ret.data_type == "players") {
+		Splayers = true;
+		Plist = ret.Plist;
 	}
-
+	else if(ret.data_type == "maps") {
+		Smaps = true;
+		Mlist = ret.Mlist;
+	}
+	else if(ret.data_type == "scores") {
+		Sscores = true;
+		GSlist = ret.GSlist;
+	}
+	
 	// Load the Visualization API and the piechart package.
 	google.load('visualization', '1.0', {'packages':['corechart']});
 
@@ -50,15 +49,35 @@ function statistics_charts(){
 	// Callback that creates and populates a data table,
 	// instantiates the pie chart, passes in the data and
 	// draws it.
-	function drawChart() {
+}
 
+function drawChart() {
+
+	if(Splayers)
+		PlayersStatistics();
+	if(Smaps)
+		MapsStatistics();
+	if(Sscores)
+		ScoresStatistics();
+}
+
+function PlayersStatistics() {
+	
+		var m = 0 , f = 0;
+		for(var i = 0 ; i < Plist.length ; i++)
+			if(Plist[i].sex == "Male")
+				m++;
+			else
+				f++;
+		
 		// Create the data table.
 		var data = new google.visualization.DataTable();
+		
 		data.addColumn('string', 'Sex');
 		data.addColumn('number', 'Age');
 		data.addRows([
-		              ['Male', Male],
-		              ['Female', Female]
+		              ['Male', m],
+		              ['Female', f]
 		              ]);
 
 		// Set chart options
@@ -69,5 +88,12 @@ function statistics_charts(){
 		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 		chart.draw(data, options);
-	}
+}
+
+function MapsStatistics() {
+	alert("nothing yet!");
+}
+
+function ScoresStatistics() {
+	alert("nothing yet!");
 }

@@ -171,12 +171,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>GetDataServlet</servlet-name>
-		<servlet-class>datastoreEntities.GetDataServlet</servlet-class>
+		<servlet-name>DataServlet</servlet-name>
+		<servlet-class>datastoreEntities.DataServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>GetDataServlet</servlet-name>
-		<url-pattern>/GetData</url-pattern>
+		<servlet-name>DataServlet</servlet-name>
+		<url-pattern>/DataServlet</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
