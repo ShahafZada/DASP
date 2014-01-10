@@ -3,16 +3,22 @@ function solutions (mapNum) {
 
 //	variant definitions :
 
-	//back-button:
-	var backButtonSize = height/10;	// the button area is square
-	var backButtonEnlargedSize = height/8;	// the button area is square
-	
-	//undo-button:
-	var undoButtonSize = height/10;	// the button area is square
-	var undoButtonEnlargedSize = height/8;	// the button area is square
+	//bottom toolbar:
+	var toolbar = new Object();
+	toolbar.y = height/8;	
+	toolbar.buttons = [];
+	toolbar.buttonsOver = [];
 
+	//back-button:
+	var toolbarButtonSize = height/10;	// the button area is square
+	var toolbarButtonEnlargedSize = height/8;	// the button area is square
+
+	//arrow-buttons (next & previous):
+	var arrowsY = toolbar.y;
+	var arrowsX = width/3;
+	
     //universal
-    var buttonDistFromEdges = height/16;
+    var buttonDistFromEdges = height/16;       
 	
 	// edges :
 	var lineColor = "cyan";
@@ -33,9 +39,10 @@ function solutions (mapNum) {
 //	var clickHistory = [];
 //	var solutionPath = [0,1,2,1,2,1,,2,3,4,5];
 	var solutionPath = [];
-	var clickHistory = [1,2,1,2,1,2,3,4];
+	//var clickHistory = [1,2,1,2,1,2,3,4];
+	var clickHistory = [1,2,3,4];
 	var step = 0;
-	clickHistory.push(lastClickedID);
+	solutionPath.push(lastClickedID);
 
 //	images : 
 	var startNode = new Image();
@@ -47,8 +54,10 @@ function solutions (mapNum) {
 	var backButton = new Image();
 	var backButton_over = new Image();
 	
-	var undoButton = new Image();
-    var undoButton_over = new Image();
+	var nextArrow = new Image();
+	var nextArrow_over = new Image();
+	var previousArrow = new Image();
+	var previousArrow_over = new Image();
 
 
 	startNode.src = "images/game/start_node.png";
@@ -56,13 +65,22 @@ function solutions (mapNum) {
 	markedNode.src = "images/game/marked_node.png";
 	marked_currentNode.src = "images/game/marked_current_node.png";
 	nonvisitedNode.src = "images/game/nonvisited_node.png";
-
-    undoButton.src = "images/game/undo.jpg";
-    undoButton_over.src = "images/game/undo.jpg";
 	
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
-
+	
+	nextArrow.src = "images/view_solutions/arrow_pointing_right.png";
+	nextArrow_over.src = "images/view_solutions/arrow_pointing_right.png";
+	previousArrow.src = "images/view_solutions/arrow_pointing_left.png";
+	previousArrow_over.src = "images/view_solutions/arrow_pointing_left.png";
+	
+	toolbar.buttons.push(backButton);
+	toolbar.buttons.push(nextArrow);
+	toolbar.buttons.push(previousArrow);
+	
+	toolbar.buttonsOver.push(backButton_over);
+	toolbar.buttonsOver.push(nextArrow);
+	toolbar.buttonsOver.push(previousArrow);
 //	-------------------------------------------------------------
 
 
@@ -195,8 +213,11 @@ function solutions (mapNum) {
 		drawNodes();	
 
 		//back button drawing
-		drawBackButton();
-        drawUndoButton();
+//		drawToolbar();
+
+		drawBackButton();        
+		drawNextArrowButton();
+		drawPreviousArrowButton();
 
         context.font="30px Arial";
         context.fillText("Steps: " + stepsPlayed, 10 , 50);
@@ -257,20 +278,45 @@ function solutions (mapNum) {
 	}
 
 
-
+/*/
+	function drawToolbar(){
+		var buttonSpace = width / toolbar.buttons.length-1;
+		for(var i = toolbar.buttons.length; i > 0; i--){
+			
+			context.drawImage(toolbar.buttons[i-1] , width - buttonSpace*i , height - toolbarButtonSize/2 - buttonDistFromEdges , toolbarButtonSize , toolbarButtonSize);
+		}
+			//context.drawImage(toolbar.buttons[i-1] , width - toolbarButtonSize/2 - buttonDistFromEdges*(2*i) , height - toolbarButtonSize/2 - buttonDistFromEdges , toolbarButtonSize , toolbarButtonSize);
+			
+		
+	}
+/*/
+	function drawButton(){		
+        if(isMouseOverBackButton())
+            context.drawImage(backButton_over , width - toolbarButtonEnlargedSize/2 - buttonDistFromEdges , height - toolbarButtonEnlargedSize/2 - buttonDistFromEdges , toolbarButtonEnlargedSize , toolbarButtonEnlargedSize);
+        else
+			context.drawImage(backButton , width - toolbarButtonSize/2 - buttonDistFromEdges , height - toolbarButtonSize/2 - buttonDistFromEdges , toolbarButtonSize , toolbarButtonSize);
+	}
+	
 	function drawBackButton(){
         if(isMouseOverBackButton())
-            context.drawImage(backButton_over , width - backButtonEnlargedSize/2 - buttonDistFromEdges , height - backButtonEnlargedSize/2 - buttonDistFromEdges , backButtonEnlargedSize , backButtonEnlargedSize);
+            context.drawImage(backButton_over , width - toolbarButtonEnlargedSize/2 - buttonDistFromEdges , height - toolbarButtonEnlargedSize/2 - buttonDistFromEdges , toolbarButtonEnlargedSize , toolbarButtonEnlargedSize);
         else
-			context.drawImage(backButton , width - backButtonSize/2 - buttonDistFromEdges , height - backButtonSize/2 - buttonDistFromEdges , backButtonSize , backButtonSize);
+			context.drawImage(backButton , width - toolbarButtonSize/2 - buttonDistFromEdges , height - toolbarButtonSize/2 - buttonDistFromEdges , toolbarButtonSize , toolbarButtonSize);
 	}
-
-    function drawUndoButton(){
-        if(isMouseOverUndoButton())
-            context.drawImage(undoButton_over , width - undoButtonEnlargedSize/2 - buttonDistFromEdges , buttonDistFromEdges - 0.5*(undoButtonEnlargedSize - undoButtonSize) , undoButtonEnlargedSize , undoButtonEnlargedSize);
+	
+	function drawNextArrowButton(){
+        if(isMouseOverNextArrowButton())
+            context.drawImage(nextArrow_over , width - toolbarButtonEnlargedSize/2 - arrowsX , height - toolbarButtonEnlargedSize/2 - buttonDistFromEdges , toolbarButtonEnlargedSize , toolbarButtonEnlargedSize);
         else
-            context.drawImage(undoButton , width - undoButtonSize/2 - buttonDistFromEdges , buttonDistFromEdges , undoButtonSize , undoButtonSize);
-    }
+			context.drawImage(nextArrow , width - toolbarButtonSize/2 - arrowsX , height - toolbarButtonSize/2 - buttonDistFromEdges , toolbarButtonSize , toolbarButtonSize);
+	}
+	
+	function drawPreviousArrowButton(){
+        if(isMouseOverPreviousArrowButton())
+            context.drawImage(previousArrow_over , width - toolbarButtonEnlargedSize/2 - arrowsX*2 , height - toolbarButtonEnlargedSize/2 - buttonDistFromEdges , toolbarButtonEnlargedSize , toolbarButtonEnlargedSize);
+        else
+			context.drawImage(previousArrow , width - toolbarButtonSize/2 - arrowsX*2 , height - toolbarButtonSize/2 - buttonDistFromEdges , toolbarButtonSize , toolbarButtonSize);
+	}
 
 
 	function mouseInNodeRange(node){
@@ -286,18 +332,6 @@ function solutions (mapNum) {
 
 
 	function checkClick(){		
-		
-		
-		//Node click check
-/*/
-			for(var i = 0 ; i < nodes.length ; i++){
-			if(mouseInNodeRange(nodes[i]))
-				clickNode(i);
-		}	
-        if(isMouseOverUndoButton()){	//clicked on back arrow
-            unclickNode();
-        }
-/*/
 		//Back-button check
 		if(isMouseOverBackButton()){	//clicked on back arrow
             var screwThisImQuitting = confirm("Your progress won't be saved, are you sure you want to quit?");
@@ -310,12 +344,11 @@ function solutions (mapNum) {
             }
 		}
 		
-		else{
-			nextStep();			
-			return;
-		}
-			
-
+		if(isMouseOverNextArrowButton())
+				nextStep();		
+		
+		if(isMouseOverPreviousArrowButton())
+			previousStep();		
 	}
 
 
@@ -334,23 +367,23 @@ function solutions (mapNum) {
 		}		
 	}
 
-    function unclickNode(){
-        if(clickHistory.length == 1)    //back at start node
+	function unclickNode(){
+        if(solutionPath.length == 1)    //back at start node
             return;
 
 
         var nodeWasVisitedBefore = false;
         var prevNodeVisitedCurrentNodeBefore = false;
-        for(var i = 0 ; i < clickHistory.length - 1 ; i++){
-            if(clickHistory[i] == lastClickedID){
+        for(var i = 0 ; i < solutionPath.length - 1 ; i++){
+            if(solutionPath[i] == lastClickedID){
                 nodeWasVisitedBefore = true;
                 if(i != 0){
-                    if(clickHistory[i - 1] == clickHistory[clickHistory.length - 2]){
+                    if(solutionPath[i - 1] == solutionPath[solutionPath.length - 2]){
                         prevNodeVisitedCurrentNodeBefore = true;
                     }
                 }
-                if(i != clickHistory.length - 2){
-                    if(clickHistory[i + 1] == clickHistory[clickHistory.length - 2]){
+                if(i != solutionPath.length - 2){
+                    if(solutionPath[i + 1] == solutionPath[solutionPath.length - 2]){
                         prevNodeVisitedCurrentNodeBefore = true;
                     }
                 }
@@ -361,15 +394,17 @@ function solutions (mapNum) {
         }
         //otherwise, we leave it marked
         if(!prevNodeVisitedCurrentNodeBefore){
-            nodes[lastClickedID].edges[getEdgeIndex(lastClickedID , clickHistory[clickHistory.length - 2])].passedThrough = false;
-            nodes[clickHistory[clickHistory.length - 2]].edges[getEdgeIndex(clickHistory[clickHistory.length - 2] , lastClickedID)].passedThrough = false;
+            nodes[lastClickedID].edges[getEdgeIndex(lastClickedID , solutionPath[solutionPath.length - 2])].passedThrough = false;
+            nodes[solutionPath[solutionPath.length - 2]].edges[getEdgeIndex(solutionPath[solutionPath.length - 2] , lastClickedID)].passedThrough = false;
         }
         //otherwise, we leave them (edges in both directions) marked
 
-        stepsPlayed -= nodes[clickHistory[clickHistory.length - 1]].edges[getEdgeIndex(clickHistory[clickHistory.length - 1] , clickHistory[clickHistory.length - 2])].weight;
+        stepsPlayed -= nodes[solutionPath[solutionPath.length - 1]].edges[getEdgeIndex(solutionPath[solutionPath.length - 1] , solutionPath[solutionPath.length - 2])].weight;
 
-        clickHistory.pop(lastClickedID);
-        lastClickedID = clickHistory[clickHistory.length - 1];
+        var clickedNode = solutionPath[solutionPath.length-1];
+		solutionPath.pop();
+		clickHistory.unshift(clickedNode);	
+        lastClickedID = solutionPath[solutionPath.length - 1];
     }
 
 	function getEdgeIndex(from , to){
@@ -381,23 +416,29 @@ function solutions (mapNum) {
 
 	}
 
-	function isMouseOverUndoButton(){
-		if((width - undoButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + undoButtonSize/2) &&
-				(buttonDistFromEdges < mouseY && mouseY < buttonDistFromEdges + undoButtonSize))	//clicked on back arrow
-			return true;
-		else
-			return false;
-	}
-
 	function isMouseOverBackButton(){
-		if((width - backButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + backButtonSize/2) &&
-				(height - backButtonSize/2 - buttonDistFromEdges < mouseY && mouseY < height - buttonDistFromEdges + backButtonSize/2))	//clicked on back arrow
+		if((width - toolbarButtonSize/2 - buttonDistFromEdges < mouseX && mouseX < width - buttonDistFromEdges + toolbarButtonSize/2) &&
+				(height - toolbarButtonSize/2 - buttonDistFromEdges < mouseY && mouseY < height - buttonDistFromEdges + toolbarButtonSize/2))	//clicked on back arrow
 			return true;
 		else
 			return false;
 	}
-
-
+	
+	function isMouseOverNextArrowButton(){
+		if((width - toolbarButtonSize/2 - arrowsX < mouseX && mouseX < width - arrowsX + toolbarButtonSize/2) &&
+				(height - toolbarButtonSize/2 - buttonDistFromEdges < mouseY && mouseY < height - buttonDistFromEdges + toolbarButtonSize/2))	//clicked on back arrow
+			return true;
+		else
+			return false;
+	}
+	
+	function isMouseOverPreviousArrowButton(){
+		if((width - toolbarButtonSize/2 - arrowsX*2 < mouseX && mouseX < width - arrowsX*2 + toolbarButtonSize/2) &&
+				(height - toolbarButtonSize/2 - buttonDistFromEdges < mouseY && mouseY < height - buttonDistFromEdges + toolbarButtonSize/2))	//clicked on back arrow
+			return true;
+		else
+			return false;
+	}
 
 	function drawNode(imageHolder , node , isMouseOver){
 		if(isMouseOver)
@@ -434,6 +475,10 @@ function solutions (mapNum) {
 		clickHistory.shift();
 		solutionPath.push(clickedNode);		
 		clickNode(clickedNode);
+	}
+	
+	function previousStep(){		
+		unclickNode();					
 	}
 
 
