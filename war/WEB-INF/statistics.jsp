@@ -21,43 +21,31 @@
 	<%@ include file="header.jsp"%>
 	
 	<%
-		String MapNum = null;
 		Statistics stat = new Statistics();
 		Vector<Double> vec = null;
 	%>
-	<div id="center">
+	<div >
 
-	<form method="post">
-		<label for="Statistics">Get Your High Scores:</label> <input
-			name="HighscoresByMyEmail" type="hidden"
-			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
-		<button type="submit">Submit</button>
+	<form  action="DataServlet" method="post">
+		<label for="StatisticsOfPlayers">See Statistics of players:</label> <input
+			name="StatisticsOfPlayers" type="hidden"
+			value="players"></input>
+		<button type="submit">Here!</button>
+		</form>
+		
+	<form  action="DataServlet" method="post">
+		<label for="StatisticsOfMaps">See Statistics of maps:</label> <input
+			name="StatisticsOfMaps" type="hidden"
+			value="maps"></input>
+		<button type="submit">Here!</button>
+		</form>
+		
+	<form  action="DataServlet" method="post">
+		<label for="StatisticsOfScores">See Statistics of scores:</label> <input
+			name="StatisticsOfScores" type="hidden"
+			value="scores"></input>
+		<button type="submit">Here!</button>		
 	</form>
-	
-	<form method="post">
-		<label for="HighscoresByMyEmail">Get Your High Scores:</label> <input
-			name="HighscoresByMyEmail" type="hidden"
-			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
-		<button type="submit">Submit</button>
-	</form>
-	
-	<form method="post">
-		<label for="HighscoresByMyEmail">Get Your High Scores:</label> <input
-			name="HighscoresByMyEmail" type="hidden"
-			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
-		<button type="submit">Submit</button>
-	</form>
-	
-		<%
-			MapNum = request.getParameter("StatisticsByMapNum");
-			if (MapNum != null) {
-				vec = StatisticsManager.getInstance().ScoreListToVector(MapNum);
-			}
-			if (vec != null) {
-		%><%=stat.analyze_one_vector(vec)%>
-		<%
-			}
-		%>
 
 	</div>
 
