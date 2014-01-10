@@ -31,7 +31,7 @@ public class SolutionPathServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		map_num = request.getParameter("map");
+		map_num = request.getParameter("map_num");
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
 		
 		List<Integer> solutionPath = map.getSolutionPath();
@@ -52,7 +52,7 @@ public class SolutionPathServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		map_num = request.getParameter("map");
+		map_num = request.getParameter("map_num");
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
 		
 		String path = request.getParameter("path");		
