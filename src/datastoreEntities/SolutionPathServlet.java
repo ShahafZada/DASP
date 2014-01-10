@@ -55,12 +55,17 @@ public class SolutionPathServlet extends HttpServlet {
 		map_num = request.getParameter("map_num");
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
 		
-		String path = request.getParameter("path");		
-		Type type = new TypeToken<List<Integer>>(){}.getType();
-		List<Integer> solutionPath = new Gson().fromJson(path, type);
+		String path = request.getParameter("path");
+		System.out.println("path: " + path);
+		if(path != null)
+		{
+			System.out.println("path2: " + path);	
+			Type type = new TypeToken<List<Integer>>(){}.getType();
+			List<Integer> solutionPath = new Gson().fromJson(path, type);
 
-		map.setSolutionPath(solutionPath);
-				
+			map.setSolutionPath(solutionPath);
+
+		}				
 	}
 }
 

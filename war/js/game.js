@@ -485,7 +485,7 @@ function game(){
 		var json = JSON.stringify(clickHistory);
 		jQuery.ajax({
             url : "SolutionPathServlet",
-            data : { path : json , map : mapNum },
+            data : { path : json , map_num : mapNum },
             error : function(data) {
                 console.log("Error: ", data);
             },
