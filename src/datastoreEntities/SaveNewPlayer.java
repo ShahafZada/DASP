@@ -41,17 +41,17 @@ public class SaveNewPlayer extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		Object first_name = request.getParameter("theFirstName");
-		Object last_name = request.getParameter("theLastName");
-		Object password = request.getParameter("thePassword");
-		Object email = request.getParameter("theEmail");
-		Object age = request.getParameter("theAge");
-		Object sex = request.getParameter("theSex");
-		Object education = request.getParameter("theEducation");
-		Object country = request.getParameter("theCountry");
-		Object city = request.getParameter("theCity");
-		Object picture = request.getParameter("thePicture"); //TODO add functionality choose picture from database
-		Object checkbox = request.getParameter("theCheckbox");
+		String first_name = request.getParameter("theFirstName");
+		String last_name = request.getParameter("theLastName");
+		String password = request.getParameter("thePassword");
+		String email = request.getParameter("theEmail");
+		String age = request.getParameter("theAge");
+		String sex = request.getParameter("theSex");
+		String education = request.getParameter("theEducation");
+		String country = request.getParameter("theCountry");
+		String city = request.getParameter("theCity");
+		String picture = request.getParameter("thePicture"); //TODO add functionality choose picture from database
+		String checkbox = request.getParameter("theCheckbox");
 	
 
 		if (first_name != null && last_name != null && password != null && email != null && age != null && sex != null && education != null && country != null && city != null && picture != null && checkbox != null)
@@ -64,8 +64,9 @@ public class SaveNewPlayer extends HttpServlet {
 			}
 			
 			try {
-				
-				Player player = new Player(first_name.toString(), last_name.toString(), email.toString(), password.toString(), age.toString(), sex.toString(), country.toString(), city.toString(), education.toString(), picture.toString() );
+				first_name = first_name.substring(0, 1).toUpperCase() + first_name.substring(1);
+				last_name = last_name.substring(0, 1).toUpperCase() + last_name.substring(1);
+				Player player = new Player(first_name, last_name, email, password, age, sex, country, city, education, picture);
 				
 				DataBaseManager.getInstance().insertNewPlayer(player);
 				
