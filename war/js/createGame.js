@@ -224,8 +224,14 @@ function createGame(){
         buttonDistFromEdges = (height - backButtonSize - backButtonDistFromEdges - (((buttons.length-1)/2 + 1) * buttonHeight)) / ((buttons.length-1)/2);	//average of free height per button
     }
 
+    //sound:    (might not suit Internet Explorer)
+
     var createdNode = new Audio("sounds/game/NodeNoise1.wav");
     var createdEdge = new Audio("sounds/game/bu.wav");
+
+    //defining sounds again to fix a certain error in chrome
+    createdNode = new Audio("sounds/game/NodeNoise1.wav");
+    createdEdge = new Audio("sounds/game/bu.wav");
 
 //	-------------------------------------------------------------
 
@@ -302,9 +308,6 @@ function createGame(){
     this.clear = function(){
         context.clearRect(0, 0, width, height);
     }
-
-
-
 
     this.logic = function() {
 
@@ -437,8 +440,9 @@ function createGame(){
             setMode(buttons.indexOf(createNodeButton));
 
         }
-
     }
+
+
 
     this.draw = function(){
 
@@ -1164,9 +1168,7 @@ function createGame(){
 
         }
         else if(currentMode == buttons.indexOf(setEdgePropertiesButton)){
-
-            //TODO
-
+            //var color = prompt("Enter map num");
         }
 
 

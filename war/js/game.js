@@ -72,6 +72,11 @@ function game(){
     var sfxVisitedNode = new Audio("sounds/game/bi3.wav");
     var undoMove = new Audio("sounds/game/ba.wav");
 
+    //defining sounds again to fix a certain error in chrome
+    sfxNewNode = new Audio("sounds/game/box.wav");
+    sfxVisitedNode = new Audio("sounds/game/bi3.wav");
+    undoMove = new Audio("sounds/game/ba.wav");
+
 //	-------------------------------------------------------------
 
 
