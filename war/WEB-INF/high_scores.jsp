@@ -70,11 +70,10 @@
 		</tr>
 		<%
 			for (GameScore item : list) {
-				Player p = DataBaseManager.getInstance().getPlayerByEmail(
-						item.getEmail());
+				Player p = DataBaseManager.getInstance().getPlayerByEmail(item.getEmail());
 		%>
 		<tr>
-			<td><img src="images/high_scores/Derp.png"></td>
+			<td><img src="<%=p.getPicture().toString()%>" alt="s"></td>
 			<td><%=p.getFirstName()%></td>
 			<td><%=p.getLastName()%></td>
 			<td><%=item.getmapNum()%></td>
