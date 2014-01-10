@@ -1,6 +1,4 @@
-function solutions (mapNum) {		 
-	alert("solution for: " + mapNum);
-
+function solutions (mapNum) {		 	
 //	variant definitions :
 
 	//bottom toolbar:
@@ -36,11 +34,10 @@ function solutions (mapNum) {
 	var mouseOverEnlarger = 0.3;
 	var lastClickedID = 0;
     var stepsPlayed = 0;
-//	var clickHistory = [];
-//	var solutionPath = [0,1,2,1,2,1,,2,3,4,5];
 	var solutionPath = [];
-	//var clickHistory = [1,2,1,2,1,2,3,4];
 	var clickHistory = [1,2,3,4];
+//	var clickHistory = [];			
+//	loadSolution();
 	var step = 0;
 	solutionPath.push(lastClickedID);
 
@@ -83,8 +80,6 @@ function solutions (mapNum) {
 	toolbar.buttonsOver.push(previousArrow);
 //	-------------------------------------------------------------
 
-
-
 //	classes :
 
 	function Node(id , x, y, radius , color, isStart , edges){
@@ -105,7 +100,6 @@ function solutions (mapNum) {
 		this.edges = edges;
 	}
 
-
 	function Edge(pointedNodeID , color , weight){
 		this.pointedNodeID = pointedNodeID;	//the other edge being pointed to
 		this.isMarked = false;
@@ -119,7 +113,7 @@ function solutions (mapNum) {
 //	object creation :
 	//this data is supposed to be taken from another file (a "stage" file)
 
-
+	//Send request - get layout of map: mapNum
 	$.ajax({
 		url : "CreateMap",
 		async: false,
@@ -131,6 +125,7 @@ function solutions (mapNum) {
 		timeout : 30000
 	});
 
+	//Receive response from server
 	setTimeout(function() {
 	$.ajax({			
 		url : "CreateMap",
@@ -143,7 +138,7 @@ function solutions (mapNum) {
 			console.log("Error: loading the map failed");			
 			var event = document.createEvent("Event");
 			event.initEvent("changePage", true, true);
-			event.customData = "goToGameMenu";
+			event.customData = "goToSolutionsChoice";
 			window.dispatchEvent(event);
 		},
 		success : function(data) {
@@ -153,10 +148,7 @@ function solutions (mapNum) {
 	} , 1000);
 
 
-
-
 //	-------------------------------------------------------------
-
 
 
 //	page-function implementations :
@@ -223,9 +215,6 @@ function solutions (mapNum) {
         context.fillText("Steps: " + stepsPlayed, 10 , 50);
 
 	}
-
-
-
 
 //	-------------------------------------------------------------
 
@@ -333,15 +322,12 @@ function solutions (mapNum) {
 
 	function checkClick(){		
 		//Back-button check
-		if(isMouseOverBackButton()){	//clicked on back arrow
-            var screwThisImQuitting = confirm("Your progress won't be saved, are you sure you want to quit?");
-            if(screwThisImQuitting == true){
-			    var event = document.createEvent("Event");
-			    event.initEvent("changePage", true, true);
-                event.customData = "goToSolutionsChoice";
-                window.dispatchEvent(event);
-                this.removeEventListener("mouseup", checkClick);
-            }
+		if(isMouseOverBackButton()){	//clicked on back arrow            
+		    var event = document.createEvent("Event");
+		    event.initEvent("changePage", true, true);
+            event.customData = "goToSolutionsChoice";
+            window.dispatchEvent(event);
+            this.removeEventListener("mouseup", checkClick);        
 		}
 		
 		if(isMouseOverNextArrowButton())
@@ -479,6 +465,42 @@ function solutions (mapNum) {
 	
 	function previousStep(){		
 		unclickNode();					
+	}
+	
+	function loadSolution(){
+		//Send request solution for map: mapNum
+		$.ajax({
+			url : "CreateSolution",
+			async: false,
+			data : { map_num : mapNum },
+			error : function(data) {
+				console.log("Error: ", data);
+			}  ,
+			type : "post",
+			timeout : 30000
+		});
+
+		//Receive response from server
+		setTimeout(function() {
+		$.ajax({			
+			url : "CreateSolution",
+			type: "get",
+			async: false,
+			dataType : "json",
+			contentType:"application/json",
+			timeout : 150000,
+			error : function() {
+				console.log("Error: loading the map solution failed");			
+				var event = document.createEvent("Event");
+				event.initEvent("changePage", true, true);
+				event.customData = "goToSolutionsChoice";
+				window.dispatchEvent(event);
+			},
+			success : function(data) {
+				clickHistory = data;
+			}
+		});
+		} , 1000);
 	}
 
 

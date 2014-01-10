@@ -472,13 +472,32 @@ function game(){
 		this.removeEventListener("mouseup", checkClick);
 		$("#score").text(stepsPlayed);
 		$("#scoreField").val(stepsPlayed);
-		//TODO change the "val(1)" to mapNum
 		$("#mapNumField").val(mapNum);
-		score_popup();
+		//sendSolutionPath();
+		score_popup();		
 		//$("#scoreField").text("is"+ clickHistory.length);
 
 	}
 
+	//Saving the solution path 
+	//Solution path is index array, meaning it's type is int []
+	function sendSolutionPath(){
+		var json = JSON.stringify(clickHistory);
+		jQuery.ajax({
+            url : "SaveSolutionPath",
+            data : { path : json , map : mapNum },
+            error : function(data) {
+                console.log("Error: ", data);
+            },
+            success : function(){
+                alert("Saved!");
+            },
+            type : "post",
+            timeout : 30000
+        });
+	
+	}
+	
 
 //	-------------------------------------------------------------
 
