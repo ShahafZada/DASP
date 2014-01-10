@@ -484,7 +484,7 @@ function game(){
 	function sendSolutionPath(){
 		var json = JSON.stringify(clickHistory);
 		jQuery.ajax({
-            url : "SetSolutionPathServlet",
+            url : "SolutionPathServlet",
             data : { path : json , map : mapNum },
             error : function(data) {
                 console.log("Error: ", data);

@@ -1,5 +1,7 @@
 package datastoreEntities;
 
+import SolutionPathServlet.DataBaseManager;
+
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -11,7 +13,6 @@ import java.util.List;
 import java.io.IOException;
 
 import datastoreEntities.Node;
-import dbManager.DataBaseManager;
 
 public class CreateMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

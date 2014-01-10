@@ -1,5 +1,7 @@
 package datastoreEntities;
 
+import SolutionPathServlet.DataBaseManager;
+
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -9,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 import java.io.IOException;
-
-import dbManager.DataBaseManager;
 
 public class GetDataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

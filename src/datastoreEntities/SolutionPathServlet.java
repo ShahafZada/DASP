@@ -1,5 +1,7 @@
 package datastoreEntities;
 
+import SolutionPathServlet.DataBaseManager;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -13,14 +15,14 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 import datastoreEntities.Node;
-import dbManager.DataBaseManager;
 
-public class SetSolutionPathServlet extends HttpServlet {
+public class SolutionPathServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;	
+	private String map_num;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SetSolutionPathServlet() {
+	public SolutionPathServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -29,21 +31,34 @@ public class SetSolutionPathServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		map_num = request.getParameter("map");
+		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
 		
+		List<Integer> solutionPath = map.getSolutionPath();
+		/*/
+		for (int i = 0; i<nodesList.size(); i++) {
+			Node node = nodesList.get(i);
+			node.getEdges();
+		}
+		/*/
+		Gson gson = new Gson();
+	    String json = gson.toJson(solutionPath);
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(json);	    
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String map_num = request.getParameter("map");
+		map_num = request.getParameter("map");
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
 		
 		String path = request.getParameter("path");		
 		Type type = new TypeToken<List<Integer>>(){}.getType();
 		List<Integer> solutionPath = new Gson().fromJson(path, type);
 
-		//String mapNum = new Gson().fromJson(map_num, String.class);			
 		map.setSolutionPath(solutionPath);
 				
 	}

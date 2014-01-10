@@ -8,13 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
+import SolutionPathServlet.DataBaseManager;
+
 //import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 
 
 
+
 import datastoreEntities.Player;
-import dbManager.DataBaseManager;
 
 /**
  * Servlet implementation class SaveNewUser

@@ -1,5 +1,5 @@
 
-package dbManager;
+package SolutionPathServlet;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <%@page import="datastoreEntities.Player"%>
 <%@page import="datastoreEntities.GameScore"%>
-<%@page import="dbManager.DataBaseManager"%>
+<%@page import="SolutionPathServlet.DataBaseManager"%>
 <%@page import="statistics.StatisticsManager"%>
 <%@page import="java.util.List;"%>
 <html>

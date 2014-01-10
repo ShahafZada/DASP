@@ -180,12 +180,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet-mapping>
 	
 		<servlet>
-		<servlet-name>SetSolutionPathServlet</servlet-name>
-		<servlet-class>datastoreEntities.SetSolutionPathServlet</servlet-class>
+		<servlet-name>SolutionPathServlet</servlet-name>
+		<servlet-class>datastoreEntities.SolutionPathServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>SetSolutionPathServlet</servlet-name>
-		<url-pattern>/SetSolutionPathServlet</url-pattern>
+		<servlet-name>SolutionPathServlet</servlet-name>
+		<url-pattern>/SolutionPathServlet</url-pattern>
 	</servlet-mapping>
 
 	<security-constraint>

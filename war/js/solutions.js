@@ -470,7 +470,7 @@ function solutions (mapNum) {
 	function loadSolution(){
 		//Send request solution for map: mapNum
 		$.ajax({
-			url : "CreateSolution",
+			url : "SolutionPathServlet",
 			async: false,
 			data : { map_num : mapNum },
 			error : function(data) {
@@ -483,7 +483,7 @@ function solutions (mapNum) {
 		//Receive response from server
 		setTimeout(function() {
 		$.ajax({			
-			url : "CreateSolution",
+			url : "SolutionPathServlet",
 			type: "get",
 			async: false,
 			dataType : "json",
