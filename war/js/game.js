@@ -18,8 +18,9 @@ function game(){
 	
 	// edges :
     var allowingMultiColoredEdges = false;  //determines if edges could have different colors
+    var drawMarkedEdgesFirst = true;
 	var lineColor = "cyan";
-	var markedLineColor = "cyan";
+	var markedLineColor = "red";
     var lineWidth = "4";
 	var boldLineWidth = "8";
 	var boldLineColor = "black";
@@ -237,29 +238,73 @@ function game(){
 	}
 
 	function drawEdges(){
-		for(var i = 0 ; i < nodes.length ; i++){
-			for(var j = 0 ; j < nodes[i].edges.length ; j++){				
-				if(nodes[i].id > nodes[i].edges[j].pointedNodeID){	//connecting through one direction only
+        if(drawMarkedEdgesFirst){
+            //marked
+            for(var i = 0 ; i < nodes.length ; i++){
+                for(var j = 0 ; j < nodes[i].edges.length ; j++){
+                    if(nodes[i].id > nodes[i].edges[j].pointedNodeID){	//connecting through one direction only
 
-					if(nodes[i].edges[j].passedThrough)
-						drawAFuckingLine(i , j , boldLineColor , boldLineWidth);
-                    if(allowingMultiColoredEdges){
-                        if(nodes[i].edges[j].isMarked)
-                            drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
-                        else
-                            drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
-                    }
-                    else{
-                        if(nodes[i].edges[j].isMarked)
-                            drawAFuckingLine(i , j , markedLineColor , lineWidth);
-                        else
-                            drawAFuckingLine(i , j , lineColor , lineWidth);
-                    }
+                        if(nodes[i].edges[j].passedThrough)
+                            drawAFuckingLine(i , j , boldLineColor , boldLineWidth);
+                        if(allowingMultiColoredEdges){
+                            if(nodes[i].edges[j].isMarked)
+                                drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
+                        }
+                        else{
+                            if(nodes[i].edges[j].isMarked)
+                                drawAFuckingLine(i , j , markedLineColor , lineWidth);
+                        }
 
-					//TODO place the bold/marked lines above others
-				}
-			}
-		}
+                        //TODO place the bold/marked lines above others
+                    }
+                }
+            }
+
+            //unmarked
+            for(var i = 0 ; i < nodes.length ; i++){
+                for(var j = 0 ; j < nodes[i].edges.length ; j++){
+                    if(nodes[i].id > nodes[i].edges[j].pointedNodeID){	//connecting through one direction only
+
+
+                        if(allowingMultiColoredEdges){
+                            if(!nodes[i].edges[j].isMarked)
+                                drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
+                        }
+                        else{
+                            if(!nodes[i].edges[j].isMarked)
+                                drawAFuckingLine(i , j , lineColor , lineWidth);
+
+                        }
+
+                        //TODO place the bold/marked lines above others
+                    }
+                }
+            }
+
+        }
+        else{
+            for(var i = 0 ; i < nodes.length ; i++){
+                for(var j = 0 ; j < nodes[i].edges.length ; j++){
+                    if(nodes[i].id > nodes[i].edges[j].pointedNodeID){	//connecting through one direction only
+
+                        if(nodes[i].edges[j].passedThrough)
+                            drawAFuckingLine(i , j , boldLineColor , boldLineWidth);
+                        if(allowingMultiColoredEdges){
+                            drawAFuckingLine(i , j , nodes[i].edges[j].color , lineWidth);
+                        }
+                        else{
+                            if(nodes[i].edges[j].isMarked)
+                                drawAFuckingLine(i , j , markedLineColor , lineWidth);
+                            else
+                                drawAFuckingLine(i , j , lineColor , lineWidth);
+                        }
+
+                        //TODO place the bold/marked lines above others
+                    }
+                }
+            }
+        }
+
 	}
 
 

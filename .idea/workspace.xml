@@ -26,11 +26,11 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/war/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="19" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5610">
+            <state line="24" column="23" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="6375">
               <folding>
-                <element signature="e#3591#3637#0" expanded="false" />
-                <element signature="e#3664#4478#0" expanded="false" />
-                <element signature="e#4505#4714#0" expanded="false" />
+                <element signature="e#3627#3673#0" expanded="false" />
+                <element signature="e#3700#4514#0" expanded="false" />
+                <element signature="e#4541#4750#0" expanded="false" />
                 <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
@@ -45,7 +45,7 @@
       <file leaf-file-name="createGame.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1127" column="112" selection-start="41024" selection-end="41024" vertical-scroll-proportion="0.7056277" vertical-offset="14005" max-vertical-offset="15640">
+            <state line="1152" column="18" selection-start="41945" selection-end="41945" vertical-scroll-proportion="0.74891776" vertical-offset="14410" max-vertical-offset="15742">
               <folding>
                 <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
                 <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
@@ -281,11 +281,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/war/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="19" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5610">
+        <state line="24" column="23" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="6375">
           <folding>
-            <element signature="e#3591#3637#0" expanded="false" />
-            <element signature="e#3664#4478#0" expanded="false" />
-            <element signature="e#4505#4714#0" expanded="false" />
+            <element signature="e#3627#3673#0" expanded="false" />
+            <element signature="e#3700#4514#0" expanded="false" />
+            <element signature="e#4541#4750#0" expanded="false" />
             <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
@@ -298,7 +298,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1127" column="112" selection-start="41024" selection-end="41024" vertical-scroll-proportion="0.7056277" vertical-offset="14005" max-vertical-offset="15640">
+        <state line="1152" column="18" selection-start="41945" selection-end="41945" vertical-scroll-proportion="0.74891776" vertical-offset="14410" max-vertical-offset="15742">
           <folding>
             <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
             <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
