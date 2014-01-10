@@ -92,8 +92,8 @@ function createGame(){
     eraseEdgeButton.src = "images/createGame/Erase_Edges_Button.png";
     setStartButton.src = "images/createGame/Set_Start_Button.png";
     randomizeButton.src = "images/createGame/Rand_Button.png";
-    moveNodesButton.src = "images/createGame/Move_Nodes_Button.png";   //TODO - own version
-    setEdgePropertiesButton.src = "images/createGame/Set_Edge_Properties_Button.png";   //TODO - own version
+    moveNodesButton.src = "images/createGame/Move_Nodes_Button.png";
+    setEdgePropertiesButton.src = "images/createGame/Set_Edge_Properties_Button.png";
     saveButton.src = "images/createGame/Save_Button.png";
 
     createNodeButton_Over.src = "images/createGame/Create_Nodes_Button_Over.png";
@@ -102,8 +102,8 @@ function createGame(){
     eraseEdgeButton_Over.src = "images/createGame/Erase_Edges_Button_Over.png";
     setStartButton_Over.src = "images/createGame/Set_Start_Button_Over.png";
     randomizeButton_Over.src = "images/createGame/Rand_Button_Over.png";
-    moveNodesButton_Over.src = "images/createGame/Move_Nodes_Button.png";   //TODO - own version
-    setEdgePropertiesButton_Over.src = "images/createGame/Set_Edge_Properties_Button.png";   //TODO - own version
+    moveNodesButton_Over.src = "images/createGame/Move_Nodes_Button_Over.png";
+    setEdgePropertiesButton_Over.src = "images/createGame/Set_Edge_Properties_Button_Over.png";
     saveButton_Over.src = "images/createGame/Save_Button_Over.png";
 
     createNodeButton_Active.src = "images/createGame/Create_Nodes_Button_Active.png";
@@ -112,9 +112,9 @@ function createGame(){
     eraseEdgeButton_Active.src = "images/createGame/Erase_Edges_Button_Active.png";
     setStartButton_Active.src = "images/createGame/Set_Start_Button_Active.png";
     randomizeButton_Active.src = "images/createGame/Rand_Button_Active.png";
-    moveNodesButton_Active.src = "images/createGame/Move_Nodes_Button.png";
-    setEdgePropertiesButton_Active.src = "images/createGame/Set_Edge_Properties_Button.png";   //TODO - own version
-    saveButton_Active.src = "images/createGame/Save_Button_Active.png";//TODO - own version
+    moveNodesButton_Active.src = "images/createGame/Move_Nodes_Button_Active.png";
+    setEdgePropertiesButton_Active.src = "images/createGame/Set_Edge_Properties_Button_Active.png";
+    saveButton_Active.src = "images/createGame/Save_Button_Active.png";
 
     buttonFrame.src = "images/createGame/frame.png";
 
