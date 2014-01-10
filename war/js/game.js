@@ -385,15 +385,15 @@ function game(){
 		if(i == lastClickedID)
 			return;
 
-
-        //playing sound:
-        if(nodes[i].isMarked)
-            playSFX(sfxVisitedNode);
-        else
-            playSFX(sfxNewNode);
-
 		for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
+                //playing sound:
+                if(nodes[i].isMarked)
+                    playSFX(sfxVisitedNode);
+                else
+                    playSFX(sfxNewNode);
+
+
                 stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
 				nodes[lastClickedID].edges[j].passedThrough = true;
 				nodes[i].edges[getEdgeIndex(i , lastClickedID)].passedThrough = true;

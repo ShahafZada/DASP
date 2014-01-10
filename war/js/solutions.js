@@ -382,6 +382,8 @@ function solutions (mapNum) {
         if(!prevNodeVisitedCurrentNodeBefore){
             nodes[lastClickedID].edges[getEdgeIndex(lastClickedID , solutionPath[solutionPath.length - 2])].passedThrough = false;
             nodes[solutionPath[solutionPath.length - 2]].edges[getEdgeIndex(solutionPath[solutionPath.length - 2] , lastClickedID)].passedThrough = false;
+            nodes[lastClickedID].edges[getEdgeIndex(lastClickedID , solutionPath[solutionPath.length - 2])].isMarked = false;
+            nodes[solutionPath[solutionPath.length - 2]].edges[getEdgeIndex(solutionPath[solutionPath.length - 2] , lastClickedID)].isMarked = false;
         }
         //otherwise, we leave them (edges in both directions) marked
 
