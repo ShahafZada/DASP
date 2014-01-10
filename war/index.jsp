@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+ <%
+  response.setHeader("Cache-Control","no-cache");
+  response.setHeader("Cache-Control","no-store");
+  response.setHeader("Pragma","no-cache");
+  response.setDateHeader ("Expires", 0);
+  %> 
 <html lang="en">
 
 <head>
@@ -17,15 +25,18 @@
 <script type="text/javascript" src="lib/iscroll.js"></script>
 
 </head>
-<body>
+<body >
 	<%
-	//	session = request.getSession(true);
+	
+		session = request.getSession(true);
+		
 		String full_name = (String) session.getAttribute("theFullName");
 
 		if (full_name != null) {
-			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(
-					request, response);
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			
 		}
+
 	%>
 	<div class="container">
 		<div id="container_demo">
@@ -44,11 +55,6 @@
 							<label for="password" class="youpasswd" data-icon="p">
 								Your password </label> <input id="password" name="userPassword"
 								required="required" type="password" placeholder="eg. 123456" />
-						</p>
-						<p class="keeplogin">
-							<input type="checkbox" name="loginkeeping" id="loginkeeping"
-								value="loginkeeping" /> <label for="loginkeeping">Keep
-								me logged in</label>
 						</p>
 						<p class="login button">
 							<input type="submit" value="Login" />
