@@ -20,16 +20,29 @@ public class Map {
 
 	@Persistent
     private List<Node> nodes;
+	
+	@Persistent
+    private List<Integer> solutionPath;
+	
 
-	public Map(String mapNum, String mapName, String level, List<Node> nodes) {
+	public Map(String mapNum, String mapName, String level, List<Node> nodes, List<Integer> solutionPath) {
 		this.mapNum = mapNum;
 		this.mapName = mapName;
 		this.level = level;
 		this.nodes = nodes;
+		this.solutionPath = solutionPath;
 	}
 
 	public String getmapNum() {
 		return mapNum;
+	}
+
+	public List<Integer> getSolutionPath() {
+		return solutionPath;
+	}
+
+	public void setSolutionPath(List<Integer> solutionPath) {
+		this.solutionPath = solutionPath;
 	}
 
 	public void setmapNum(String mapNum) {
