@@ -473,7 +473,7 @@ function game(){
 		$("#score").text(stepsPlayed);
 		$("#scoreField").val(stepsPlayed);
 		$("#mapNumField").val(mapNum);
-		//sendSolutionPath();
+		sendSolutionPath();
 		score_popup();		
 		//$("#scoreField").text("is"+ clickHistory.length);
 
@@ -484,7 +484,7 @@ function game(){
 	function sendSolutionPath(){
 		var json = JSON.stringify(clickHistory);
 		jQuery.ajax({
-            url : "SaveSolutionPath",
+            url : "SetSolutionPathServlet",
             data : { path : json , map : mapNum },
             error : function(data) {
                 console.log("Error: ", data);

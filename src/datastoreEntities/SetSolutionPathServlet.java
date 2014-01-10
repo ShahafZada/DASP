@@ -15,14 +15,12 @@ import java.lang.reflect.Type;
 import datastoreEntities.Node;
 import dbManager.DataBaseManager;
 
-
-public class SaveNewMap extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+public class SetSolutionPathServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SaveNewMap() {
+	public SetSolutionPathServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -31,32 +29,30 @@ public class SaveNewMap extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String map_num = request.getParameter("map");
+		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
+		
+		String path = request.getParameter("path");		
+		Type type = new TypeToken<List<Integer>>(){}.getType();
+		List<Integer> solutionPath = new Gson().fromJson(path, type);
 
-		String nodes = request.getParameter("nodes");
-		String mapN = request.getParameter("map");
-
-		if (nodes != null && mapN != null) {
-
-			Type type = new TypeToken<List<Node>>(){}.getType();
-			List<Node> nodesList = new Gson().fromJson(nodes, type);
-
-			String mapNum = new Gson().fromJson(mapN, String.class);
-
-			Map m = DataBaseManager.getInstance().getMapByNum(mapN);
-
-			if( m != null)
-				DataBaseManager.getInstance().deleteTheMap(m);
-
-			Map map = new Map(mapNum, mapNum, mapNum, nodesList, null);
-			DataBaseManager.getInstance().insertNewMap(map);
-		}
-
+		//String mapNum = new Gson().fromJson(map_num, String.class);			
+		map.setSolutionPath(solutionPath);
+				
 	}
 }
+
+
+
+
+
+
+
+
