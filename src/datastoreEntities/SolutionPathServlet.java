@@ -14,11 +14,9 @@ import java.util.List;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import datastoreEntities.Node;
-
 public class SolutionPathServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;	
-	private String map_num;
+	private String map_num = null;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -31,9 +29,10 @@ public class SolutionPathServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		map_num = request.getParameter("map_num");
+		
 		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
 		
+		Gson gson = null;
 		List<Integer> solutionPath = map.getSolutionPath();
 		/*/
 		for (int i = 0; i<nodesList.size(); i++) {
@@ -41,11 +40,14 @@ public class SolutionPathServlet extends HttpServlet {
 			node.getEdges();
 		}
 		/*/
-		Gson gson = new Gson();
-	    String json = gson.toJson(solutionPath);
-	    response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().write(json);	    
+		
+		if(solutionPath != null) {
+			gson = new Gson();
+		    String json = gson.toJson(solutionPath);
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(json);	 
+		}
 	}
 
 	/**
@@ -53,18 +55,15 @@ public class SolutionPathServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		map_num = request.getParameter("map_num");
-		Map map = DataBaseManager.getInstance().getMapByNum(map_num);
-		
 		String path = request.getParameter("path");
-		System.out.println("path: " + path);
 		if(path != null)
 		{
-			System.out.println("path2: " + path);	
+			Map map = DataBaseManager.getInstance().getMapByNum(map_num);
+			
 			Type type = new TypeToken<List<Integer>>(){}.getType();
 			List<Integer> solutionPath = new Gson().fromJson(path, type);
 
 			map.setSolutionPath(solutionPath);
-
 		}				
 	}
 }
