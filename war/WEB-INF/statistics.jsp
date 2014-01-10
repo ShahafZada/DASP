@@ -19,6 +19,47 @@
 
 <body>
 	<%@ include file="header.jsp"%>
+	
+	<%
+		String MapNum = null;
+		Statistics stat = new Statistics();
+		Vector<Double> vec = null;
+	%>
+	<div id="center">
+
+	<form method="post">
+		<label for="Statistics">Get Your High Scores:</label> <input
+			name="HighscoresByMyEmail" type="hidden"
+			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
+		<button type="submit">Submit</button>
+	</form>
+	
+	<form method="post">
+		<label for="HighscoresByMyEmail">Get Your High Scores:</label> <input
+			name="HighscoresByMyEmail" type="hidden"
+			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
+		<button type="submit">Submit</button>
+	</form>
+	
+	<form method="post">
+		<label for="HighscoresByMyEmail">Get Your High Scores:</label> <input
+			name="HighscoresByMyEmail" type="hidden"
+			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
+		<button type="submit">Submit</button>
+	</form>
+	
+		<%
+			MapNum = request.getParameter("StatisticsByMapNum");
+			if (MapNum != null) {
+				vec = StatisticsManager.getInstance().ScoreListToVector(MapNum);
+			}
+			if (vec != null) {
+		%><%=stat.analyze_one_vector(vec)%>
+		<%
+			}
+		%>
+
+	</div>
 
 	<!--Div that will hold the pie chart-->
 	<div id="chart_div"></div>
