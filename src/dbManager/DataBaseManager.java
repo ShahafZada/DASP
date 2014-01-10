@@ -46,6 +46,13 @@ public final class DataBaseManager
 		Manager.getPM().makePersistent(player);
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Player> getAllPlayers()
+	{
+		Query q = Manager.getPM().newQuery(Player.class);
+		return (List<Player>)q.execute();
+	}
 
 
 	public boolean findElementById(Object oid) {

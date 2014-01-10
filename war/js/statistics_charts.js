@@ -2,6 +2,45 @@ document.onload = statistics_charts();
 
 function statistics_charts(){
 
+	var DataType=["players","maps","scores"];
+
+	var ret=[];
+	
+	var Male = 0 ;var Female = 0;
+
+	$.ajax({
+		url : "GetData",
+		async: false,
+		data : { data_type : DataType[0] },
+		error : function(data) {
+			console.log("Error: ", data);
+		}  ,
+		type : "post",
+		timeout : 30000
+	});
+
+	$.ajax({			
+		url : "GetData",
+		type: "get",
+		async: false,
+		dataType : "json",
+		contentType:"application/json",
+		timeout : 150000,
+		error : function() {
+			console.log("Error: loading the "+DataType[0]+" failed");			
+		},
+		success : function(data) {
+			ret = data;
+		}
+	});
+	
+	for(var i = 0 ; i < ret.length ; i++){
+		if(ret[i].sex === "Male")
+			Male++;
+		else
+			Female++;
+	}
+
 	// Load the Visualization API and the piechart package.
 	google.load('visualization', '1.0', {'packages':['corechart']});
 
@@ -15,18 +54,15 @@ function statistics_charts(){
 
 		// Create the data table.
 		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Topping');
-		data.addColumn('number', 'Slices');
+		data.addColumn('string', 'Sex');
+		data.addColumn('number', 'Age');
 		data.addRows([
-		              ['Mushrooms', 3],
-		              ['Onions', 1],
-		              ['Olives', 1],
-		              ['Zucchini', 1],
-		              ['Pepperoni', 2]
+		              ['Male', Male],
+		              ['Female', Female]
 		              ]);
 
 		// Set chart options
-		var options = {'title':'How Much Pizza I Ate Last Night',
+		var options = {'title':'Males vs. Females',
 				'width':400,
 				'height':300};
 
