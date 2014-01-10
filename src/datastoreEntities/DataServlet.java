@@ -62,6 +62,10 @@ public class DataServlet extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(json);
+	    
+	    data_types[0] = null;
+		data_types[1] = null;
+		data_types[2] = null;
 	}
 
 	/**
