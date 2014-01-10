@@ -78,7 +78,7 @@ public class SaveNewPlayer extends HttpServlet {
 //			session.setAttribute("theFullName", first_name+" "+last_name);	
 //			session.setAttribute("theEmailName", email);	
 		}		 
-		request.setAttribute("message", "You have succesfully signed up!");
+		request.setAttribute("succ_message", "You have succesfully signed up!");
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 }

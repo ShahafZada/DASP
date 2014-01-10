@@ -13,6 +13,7 @@
 <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
 <title>Breaking Code</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/Jquery/pictureSelector.js"></script>
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
 <link rel="shortcut icon" href="../favicon.ico">
@@ -23,11 +24,11 @@
 	href="css/lib/control/iconselect.css">
 <script type="text/javascript" src="lib/control/iconselect.js"></script>
 <script type="text/javascript" src="lib/iscroll.js"></script>
+<script type="text/javascript" src="js/notify.js"></script>
 
 </head>
 <body >
 	<%
-	
 		session = request.getSession(true);
 		
 		String full_name = (String) session.getAttribute("theFullName");
@@ -59,6 +60,19 @@
 						<p class="login button">
 							<input type="submit" value="Login" />
 						</p>
+						
+						<script type="text/javascript">$.notify("<% 
+								String err_msg = (String)request.getAttribute("err_message");
+								if(err_msg != null)
+								out.print(err_msg); 
+								%>", "error");
+						</script>
+						<script type="text/javascript">$.notify("<% 
+								String succ_msg = (String)request.getAttribute("succ_message");
+								if(succ_msg != null)
+								out.print(succ_msg); 
+								%>", "success");
+						</script>
 						<p class="change_link">
 							Not a member yet ? <a href="#toregister" class="to_register">Join
 								us</a>
@@ -99,6 +113,7 @@
 							<select id="sex" name="theSex" required="required" >
 							<option>Male</option>
 							<option>Female</option>
+							<option>Yes Please</option>
 							</select>
 						</p>
 						<p>

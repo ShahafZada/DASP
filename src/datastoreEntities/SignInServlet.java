@@ -53,7 +53,7 @@ public class SignInServlet extends HttpServlet {
 			Player player = DataBaseManager.getInstance().findPlayer(email, password);
 
 			if(player == null) {
-				request.setAttribute("message", "Error: Inncorrect Email or password, try again");
+				request.setAttribute("err_message", "Inncorrect Email or password, Please try again");
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				return;
 			}

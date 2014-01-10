@@ -73,7 +73,7 @@
 				Player p = DataBaseManager.getInstance().getPlayerByEmail(item.getEmail());
 		%>
 		<tr>
-			<td><img src="<%=p.getPicture().toString()%>" alt="s"></td>
+			<td><img src="<%=p.getPicture().toString()%>"></td>
 			<td><%=p.getFirstName()%></td>
 			<td><%=p.getLastName()%></td>
 			<td><%=item.getmapNum()%></td>
