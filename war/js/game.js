@@ -60,12 +60,19 @@ function game(){
 	var clickHistory = [];
 	clickHistory.push(lastClickedID);
 
+    var numOfHaloFrames = 20;
+    var haloList = [];
+    var currentFrameInHaloList = [];
+
+
 //	images : 
 	var startNode = new Image();
 	var start_currentNode = new Image();
 	var markedNode = new Image();
 	var marked_currentNode = new Image();
 	var nonvisitedNode = new Image();
+
+    var halo = new Image();
 
     var step = new Image();
     var zero = new Image();
@@ -97,6 +104,8 @@ function game(){
 	markedNode.src = "images/game/marked_node.png";
 	marked_currentNode.src = "images/game/marked_current_node.png";
 	nonvisitedNode.src = "images/game/nonvisited_node.png";
+
+    halo.src = "images/game/glow_ring.png";
 
     step.src = "images/game/step_presentation/step.png";
     zero.src = "images/game/step_presentation/zero.png";
@@ -130,6 +139,11 @@ function game(){
     var sfxNewNode = new Audio("sounds/game/box.wav");
     var sfxVisitedNode = new Audio("sounds/game/bi3.wav");
     var undoMove = new Audio("sounds/game/ba.wav");
+
+    //helps solve Crhome's audio problem (though not entirely)
+    sfxNewNode = new Audio("sounds/game/box.wav");
+    sfxVisitedNode = new Audio("sounds/game/bi3.wav");
+    undoMove = new Audio("sounds/game/ba.wav");
 
 //	-------------------------------------------------------------
 
@@ -339,6 +353,11 @@ function game(){
 
 		for(var i = 0 ; i < nodes.length ; i++){
 
+            if(haloList.indexOf(i) != -1){
+                drawHaloAroundNodeI(i);
+            }
+
+
 			if(nodes[i].isStart){
 				if(nodes[i].id == lastClickedID)	//current
 					drawNode(start_currentNode , nodes[i] , mouseInNodeRange(nodes[i]));
@@ -469,7 +488,7 @@ function game(){
             var scanner = 1;
 
             context.globalAlpha = (stepDisplayDuration - stepDisplayTimer)/stepDisplayDuration;
-            
+
             var currentDrawingLocationX = nodes[lastClickedID].x + nodes[lastClickedID].radius - stepTotalWidth/2; //knowing that lastClickedID is also the index
             var currentDrawingLocationY = nodes[lastClickedID].y + 2*nodes[lastClickedID].radius + spaceBetweenStepChars;
             context.drawImage(step , currentDrawingLocationX , currentDrawingLocationY , stepCharWidth[10] , stepCharHeight);
@@ -508,6 +527,27 @@ function game(){
             context.font="30px Arial";
             context.fillText("Steps: " + stepsPlayed, 10 , 50);
         }
+    }
+
+    function drawHaloAroundNodeI(i){
+        if(haloList.length == 0){
+            return;
+        }
+
+        context.globalAlpha = (numOfHaloFrames - currentFrameInHaloList[haloList.indexOf(i)])/numOfHaloFrames;
+        var sizeGain = currentFrameInHaloList[haloList.indexOf(i)] / numOfHaloFrames;
+        context.drawImage(halo , nodes[i].x -nodes[i].radius * sizeGain , nodes[i].y - nodes[i].radius * sizeGain , 2*nodes[i].radius *(1+ sizeGain) , 2*nodes[i].radius *(1+ sizeGain));
+        context.globalAlpha = 1;
+        currentFrameInHaloList[haloList.indexOf(i)]++;
+        if(currentFrameInHaloList[haloList.indexOf(i)] > numOfHaloFrames){
+            haloList[haloList.indexOf(i)] = haloList[haloList.length - 1];
+            haloList.pop();
+        }
+    }
+
+    function addNodeToHaloList(i){
+        haloList[length] = i;
+        currentFrameInHaloList[haloList.indexOf(i)] = 0;
     }
 
     function startStepsDisplay(){
@@ -577,10 +617,18 @@ function game(){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
                 //playing sound:
 
-                if(nodes[i].isMarked)
+                if(nodes[i].isMarked){
                     playSFX(sfxVisitedNode);
-                else
+                }
+                else{
                     playSFX(sfxNewNode);
+                    addNodeToHaloList(i);
+                    if(allowConsoleMessages)
+                        console.log("added node index: " + i + " to haloList in place: " + haloList.indexOf(i));
+                    if(allowConsoleMessages)
+                        console.log(haloList[0].passedThrough);
+                }
+
 
                 stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
 				nodes[lastClickedID].edges[j].passedThrough = true;

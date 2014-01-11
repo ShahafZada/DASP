@@ -229,6 +229,9 @@ function createGame(){
     var createdNode = new Audio("sounds/game/NodeNoise1.wav");
     var createdEdge = new Audio("sounds/game/bu.wav");
 
+    //helps solve Crhome's audio problem (though not entirely)
+    createdNode = new Audio("sounds/game/NodeNoise1.wav");
+    createdEdge = new Audio("sounds/game/bu.wav");
 //	-------------------------------------------------------------
 
 //	onload functions : 
@@ -1161,8 +1164,19 @@ function createGame(){
 
         }
         else if(currentMode == buttons.indexOf(setEdgePropertiesButton)){
-            //var color = prompt("Enter map num");
-            //TODO
+            for(var i = 0 ; i < nodes.length ; i++){
+                for(var j = 0 ; j < nodes[i].edges.length ; j++){
+                    if(isMouseOverEdgeArea(i , getNodesIndexFromNodeID(nodes[i].edges[j].pointedNodeID))){
+
+                        var color = prompt("Which color would you like it to be?\n(Leave blank if you don't want to change it\nCurrent color: " + nodes[i].edges[j].color + ")");
+                        if(!(color == ""))
+                            nodes[i].edges[j].color = color;
+                        var weight = prompt("What weight would you like it to be?\n(Leave blank if you don't want to change it\nCurrent weight: " + nodes[i].edges[j].weight + ")");
+                        if(!(weight == ""))
+                            nodes[i].edges[j].weight = weight;
+                    }
+                }
+            }
         }
 
 
