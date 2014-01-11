@@ -229,10 +229,6 @@ function createGame(){
     var createdNode = new Audio("sounds/game/NodeNoise1.wav");
     var createdEdge = new Audio("sounds/game/bu.wav");
 
-    //defining sounds again to fix a certain error in chrome
-    createdNode = new Audio("sounds/game/NodeNoise1.wav");
-    createdEdge = new Audio("sounds/game/bu.wav");
-
 //	-------------------------------------------------------------
 
 //	onload functions : 

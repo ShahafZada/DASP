@@ -28,10 +28,10 @@ function game(){
     var muteButtonDistFromEdges = height/64;
 
     //step counter:
-    var stepDisplayDuration = 100;
+    var stepDisplayDuration = 50;
     var stepDisplayTimer = stepDisplayDuration +1;
-    var timeoutToDisplayPlain = 10000;
-    var spaceBetweenStepChars = height/128;
+    var timeoutToDisplayPlain = 400;
+    var spaceBetweenStepChars = 0;
     var stepCharHeight = height/15;
     var stepTotalWidth = 0;
     var stepCharWidth = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]; //index 0: 0 , index 1: 1... index 9: 9 , index 10: step width
@@ -130,11 +130,6 @@ function game(){
     var sfxNewNode = new Audio("sounds/game/box.wav");
     var sfxVisitedNode = new Audio("sounds/game/bi3.wav");
     var undoMove = new Audio("sounds/game/ba.wav");
-
-    //defining sounds again to fix a certain error in chrome
-    sfxNewNode = new Audio("sounds/game/box.wav");
-    sfxVisitedNode = new Audio("sounds/game/bi3.wav");
-    undoMove = new Audio("sounds/game/ba.wav");
 
 //	-------------------------------------------------------------
 
@@ -329,7 +324,7 @@ function game(){
         drawUndoButton();
         drawMuteButton();
 
-        //drawSteps();
+        drawSteps();
 	}
 
 
@@ -483,11 +478,15 @@ function game(){
             }
             //scanner is 1 digit longer than numOfSteps
 
-            while(numOfSteps != 0){
+            if(scanner == 1){
+                currentDrawingLocationX += spaceBetweenStepChars;
+                context.drawImage(stepImages[0] , currentDrawingLocationX , currentDrawingLocationY , stepCharWidth[0] , stepCharHeight);
+            }
+            while(scanner != 1){
                 scanner /= 10;
 
                 var highestDigit = 0;
-                while(highestDigit * scanner < numOfSteps){
+                while(highestDigit * scanner <= numOfSteps){
                     highestDigit++;
                 }
                 highestDigit--;
@@ -497,7 +496,8 @@ function game(){
                 context.drawImage(stepImages[highestDigit] , currentDrawingLocationX , currentDrawingLocationY , stepCharWidth[highestDigit] , stepCharHeight);
                 currentDrawingLocationX += stepCharWidth[highestDigit];
 
-                numOfSteps -= highestDigit * scanner;
+                numOfSteps -= (highestDigit * scanner);
+
             }
 
         }
