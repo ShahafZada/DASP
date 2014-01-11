@@ -30,7 +30,7 @@ function game(){
     //step counter:
     var stepDisplayDuration = 50;
     var stepDisplayTimer = stepDisplayDuration +1;
-    var timeoutToDisplayPlain = 400;
+    var timeoutToDisplayPlain = 200;
     var spaceBetweenStepChars = 0;
     var stepCharHeight = height/15;
     var stepTotalWidth = 0;
@@ -468,6 +468,8 @@ function game(){
             var numOfSteps = stepsPlayed;
             var scanner = 1;
 
+            context.globalAlpha = (stepDisplayDuration - stepDisplayTimer)/stepDisplayDuration;
+            
             var currentDrawingLocationX = nodes[lastClickedID].x + nodes[lastClickedID].radius - stepTotalWidth/2; //knowing that lastClickedID is also the index
             var currentDrawingLocationY = nodes[lastClickedID].y + 2*nodes[lastClickedID].radius + spaceBetweenStepChars;
             context.drawImage(step , currentDrawingLocationX , currentDrawingLocationY , stepCharWidth[10] , stepCharHeight);
@@ -480,6 +482,7 @@ function game(){
 
             if(scanner == 1){
                 currentDrawingLocationX += spaceBetweenStepChars;
+
                 context.drawImage(stepImages[0] , currentDrawingLocationX , currentDrawingLocationY , stepCharWidth[0] , stepCharHeight);
             }
             while(scanner != 1){
@@ -499,7 +502,7 @@ function game(){
                 numOfSteps -= (highestDigit * scanner);
 
             }
-
+            context.globalAlpha = 1;
         }
         else if(stepDisplayTimer > timeoutToDisplayPlain){
             context.font="30px Arial";
