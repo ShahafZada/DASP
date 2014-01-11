@@ -5,6 +5,9 @@ function game(){
 
 //	variant definitions :
 
+    var ARBITRARY_NEGATIVE = -1;
+    var allowConsoleMessages = true;
+
 	//back-button:
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
@@ -23,6 +26,17 @@ function game(){
     var muteButtonEnlargedHeight = height/8;
     var muteButtonEnlargedWidth;
     var muteButtonDistFromEdges = height/64;
+
+    //step counter:
+    var stepDisplayDuration = 100;
+    var stepDisplayTimer = stepDisplayDuration +1;
+    var timeoutToDisplayPlain = 10000;
+    var spaceBetweenStepChars = height/128;
+    var stepCharHeight = height/15;
+    var stepTotalWidth = 0;
+    var stepCharWidth = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]; //index 0: 0 , index 1: 1... index 9: 9 , index 10: step width
+    var stepImages = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]; //index 0: 0 , index 1: 1... index 9: 9 , index 10: step image
+
 
 	
 	// edges :
@@ -53,6 +67,19 @@ function game(){
 	var marked_currentNode = new Image();
 	var nonvisitedNode = new Image();
 
+    var step = new Image();
+    var zero = new Image();
+    var one = new Image();
+    var two = new Image();
+    var three = new Image();
+    var four = new Image();
+    var five = new Image();
+    var six = new Image();
+    var seven = new Image();
+    var eight = new Image();
+    var nine = new Image();
+
+
 	var backButton = new Image();
 	var backButton_over = new Image();
 	
@@ -70,6 +97,18 @@ function game(){
 	markedNode.src = "images/game/marked_node.png";
 	marked_currentNode.src = "images/game/marked_current_node.png";
 	nonvisitedNode.src = "images/game/nonvisited_node.png";
+
+    step.src = "images/game/step_presentation/step.png";
+    zero.src = "images/game/step_presentation/zero.png";
+    one.src = "images/game/step_presentation/one.png";
+    two.src = "images/game/step_presentation/two.png";
+    three.src = "images/game/step_presentation/three.png";
+    four.src = "images/game/step_presentation/four.png";
+    five.src = "images/game/step_presentation/five.png";
+    six.src = "images/game/step_presentation/six.png";
+    seven.src = "images/game/step_presentation/seven.png";
+    eight.src = "images/game/step_presentation/eight.png";
+    nine.src = "images/game/step_presentation/nine.png";
 
     undoButton.src = "images/game/undo.png";
     undoButton_over.src = "images/game/undo.png";
@@ -145,6 +184,51 @@ function game(){
         muteButtonEnlargedWidth = muteButtonWidth*(muteButtonEnlargedHeight/muteButtonHeight);
     }
 
+    step.onload = function(){
+        stepCharWidth[10] = step.width*(stepCharHeight/step.height);
+        stepImages[10] = step;
+    }
+    zero.onload = function(){
+        stepCharWidth[0] = zero.width*(stepCharHeight/zero.height);
+        stepImages[0] = zero;
+    }
+    one.onload = function(){
+        stepCharWidth[1] = one.width*(stepCharHeight/one.height);
+        stepImages[1] = one;
+    }
+    two.onload = function(){
+        stepCharWidth[2] = two.width*(stepCharHeight/two.height);
+        stepImages[2] = two;
+    }
+    three.onload = function(){
+        stepCharWidth[3] = three.width*(stepCharHeight/three.height);
+        stepImages[3] = three;
+    }
+    four.onload = function(){
+        stepCharWidth[4] = four.width*(stepCharHeight/four.height);
+        stepImages[4] = four;
+    }
+    five.onload = function(){
+        stepCharWidth[5] = five.width*(stepCharHeight/five.height);
+        stepImages[5] = five;
+    }
+    six.onload = function(){
+        stepCharWidth[6] = six.width*(stepCharHeight/six.height);
+        stepImages[6] = six;
+    }
+    seven.onload = function(){
+        stepCharWidth[7] = seven.width*(stepCharHeight/seven.height);
+        stepImages[7] = seven;
+    }
+    eight.onload = function(){
+        stepCharWidth[8] = eight.width*(stepCharHeight/eight.height);
+        stepImages[8] = eight;
+    }
+    nine.onload = function(){
+        stepCharWidth[9] = nine.width*(stepCharHeight/nine.height);
+        stepImages[9] = nine;
+    }
+
 //	-------------------------------------------------------------
 //	object creation :
 	//this data is supposed to be taken from another file (a "stage" file)
@@ -197,7 +281,7 @@ function game(){
 	}
 
 	this.logic = function() {
-
+        stepDisplayTimer++;
 
 		//check "closed" edges
 		for(var i = 0 ; i < nodes.length - 1 ; i++){
@@ -245,9 +329,7 @@ function game(){
         drawUndoButton();
         drawMuteButton();
 
-        context.font="30px Arial";
-        context.fillText("Steps: " + stepsPlayed, 10 , 50);
-
+        //drawSteps();
 	}
 
 
@@ -386,6 +468,64 @@ function game(){
 
     }
 
+    function drawSteps(){
+        if(stepDisplayTimer < stepDisplayDuration){
+            var numOfSteps = stepsPlayed;
+            var scanner = 1;
+
+            var currentDrawingLocationX = nodes[lastClickedID].x + nodes[lastClickedID].radius - stepTotalWidth/2; //knowing that lastClickedID is also the index
+            var currentDrawingLocationY = nodes[lastClickedID].y + 2*nodes[lastClickedID].radius + spaceBetweenStepChars;
+            context.drawImage(step , currentDrawingLocationX , currentDrawingLocationY , stepCharWidth[10] , stepCharHeight);
+            currentDrawingLocationX += stepCharWidth[10];
+
+            while(scanner <= numOfSteps){
+                scanner *= 10
+            }
+            //scanner is 1 digit longer than numOfSteps
+
+            while(numOfSteps != 0){
+                scanner /= 10;
+
+                var highestDigit = 0;
+                while(highestDigit * scanner < numOfSteps){
+                    highestDigit++;
+                }
+                highestDigit--;
+
+                currentDrawingLocationX += spaceBetweenStepChars;
+
+                context.drawImage(stepImages[highestDigit] , currentDrawingLocationX , currentDrawingLocationY , stepCharWidth[highestDigit] , stepCharHeight);
+                currentDrawingLocationX += stepCharWidth[highestDigit];
+
+                numOfSteps -= highestDigit * scanner;
+            }
+
+        }
+        else if(stepDisplayTimer > timeoutToDisplayPlain){
+            context.font="30px Arial";
+            context.fillText("Steps: " + stepsPlayed, 10 , 50);
+        }
+    }
+
+    function startStepsDisplay(){
+        stepDisplayTimer = 0;
+
+        var numOfSteps = stepsPlayed;
+        var currentDigit;
+        stepTotalWidth = stepCharWidth[10];
+
+        while(numOfSteps != 0){
+            stepTotalWidth += spaceBetweenStepChars;
+            currentDigit = numOfSteps;
+
+            numOfSteps /= 10;
+            numOfSteps = Math.floor(numOfSteps);
+
+            currentDigit -= (numOfSteps*10);    //getting the digit we took out
+            stepTotalWidth += stepCharWidth[currentDigit];
+        }
+    }
+
 	function mouseInNodeRange(node){
 		var r = node.radius;
 		var xDist = node.x + node.radius - mouseX;
@@ -396,7 +536,6 @@ function game(){
 		else
 			return false;
 	}
-
 
 	function checkClick(){
 		//Node click check
@@ -440,13 +579,14 @@ function game(){
                 else
                     playSFX(sfxNewNode);
 
-
                 stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
 				nodes[lastClickedID].edges[j].passedThrough = true;
 				nodes[i].edges[getEdgeIndex(i , lastClickedID)].passedThrough = true;
 				nodes[i].isMarked = true;
 				lastClickedID = i;
 				clickHistory.push(lastClickedID);
+                startStepsDisplay();
+                break;
 			}
 		}
 	}
@@ -490,6 +630,7 @@ function game(){
 
         clickHistory.pop(lastClickedID);
         lastClickedID = clickHistory[clickHistory.length - 1];
+        startStepsDisplay();
     }
 
 	function getEdgeIndex(from , to){
@@ -533,7 +674,6 @@ function game(){
 		else
 			context.drawImage(imageHolder , node.x , node.y , 2*node.radius , 2*node.radius);
 	}
-
 
 	function drawAFuckingLine(nodeID , edgeIndex , color , lineW){
 		var indexTo = nodes[nodeID].edges[edgeIndex].pointedNodeID;
