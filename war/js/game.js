@@ -38,6 +38,7 @@ function game(){
     var stepImages = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]; //index 0: 0 , index 1: 1... index 9: 9 , index 10: step image
 
 
+
 	
 	// edges :
     var allowingMultiColoredEdges = false;  //determines if edges could have different colors
@@ -48,6 +49,12 @@ function game(){
 	var boldLineWidth = "8";
 	var boldLineColor = "black";
 //	var passedThroughEdges = [];
+
+    //passengers:
+    var transportFrames = 30;
+    var chanceToSend = 0.03;
+    var passengerSize = lineWidth;
+    var passengers = [];
 
 	//TODO add an array of edges in history (so they'll get drawn after the rest of the edges)
 
@@ -73,6 +80,8 @@ function game(){
 	var nonvisitedNode = new Image();
 
     var halo = new Image();
+
+    var passengerImage = new Image();
 
     var step = new Image();
     var zero = new Image();
@@ -107,6 +116,8 @@ function game(){
 
     halo.src = "images/game/glow_ring.png";
 
+    passengerImage.src = "images/game/passenger.png";
+
     step.src = "images/game/step_presentation/step.png";
     zero.src = "images/game/step_presentation/zero.png";
     one.src = "images/game/step_presentation/one.png";
@@ -140,7 +151,7 @@ function game(){
     var sfxVisitedNode = new Audio("sounds/game/bi3.wav");
     var undoMove = new Audio("sounds/game/ba.wav");
 
-    //helps solve Crhome's audio problem (though not entirely)
+    //helps solve Chrome's audio problem (though not entirely)
     sfxNewNode = new Audio("sounds/game/box.wav");
     sfxVisitedNode = new Audio("sounds/game/bi3.wav");
     undoMove = new Audio("sounds/game/ba.wav");
@@ -177,6 +188,16 @@ function game(){
 		this.color = color;	//TODO call this instead of the global variable. change it in edges whenever a node gets clicked
 		this.weight = weight; 
 	}
+
+    function Passenger(x , y , destinationX , destinationY){
+        this.x = x - passengerSize/2;
+        this.y = y - passengerSize/2;
+        this.originX = x;
+        this.originY = y;
+        this.destinationX = destinationX;
+        this.destinationY = destinationY;
+        this.progress = 0;
+    }
 
 //	-------------------------------------------------------------
 
@@ -292,6 +313,11 @@ function game(){
 	this.logic = function() {
         stepDisplayTimer++;
 
+        for(var i = 0 ; i < nodes.length ; i++){
+            sendPassengerFromNodeIByChance(i);
+        }
+
+
 		//check "closed" edges
 		for(var i = 0 ; i < nodes.length - 1 ; i++){
 			for(var j = i+1 ; j < nodes.length ; j++){
@@ -331,7 +357,9 @@ function game(){
 
 	this.draw = function(){     	
 		drawEdges();
-		drawNodes();	
+        drawPassengers();
+        drawNodes();
+
 
 		//back button drawing
 		drawBackButton();
@@ -450,7 +478,32 @@ function game(){
 
 	}
 
+    function drawPassengers(){
+        for(var i = 0 ; i < passengers.length ; i++){
+            context.drawImage(passengerImage , passengers[i].x , passengers[i].y , passengerSize , passengerSize);
 
+            passengers[i].x += (passengers[i].destinationX - passengers[i].originX)/transportFrames;
+            passengers[i].y += (passengers[i].destinationY - passengers[i].originY)/transportFrames;
+
+            passengers[i].progress++;
+        }
+
+        var passengerMark = 0;
+        while(passengerMark < passengers.length){
+            if(passengers[passengerMark].progress > transportFrames){
+                removePassenger(passengerMark);
+                continue;
+            }
+            else{
+                passengerMark++;
+            }
+        }
+    }
+
+    function removePassenger(i){
+        passengers[i] = passengers[passengers.length - 1];
+        passengers.pop();
+    }
 
 	function drawBackButton(){
         if(isMouseOverBackButton())
@@ -569,6 +622,23 @@ function game(){
         }
     }
 
+    function sendPassengerFromNodeIByChance(i){
+        if(nodes[i].isMarked){
+            for(var j = 0 ; j < nodes[i].edges.length ; j++){
+                if(nodes[i].edges[j].passedThrough){
+                    chance = Math.random();
+                    if(chance < chanceToSend){
+                        initiatePassengerTransport(i , nodes[i].edges[j].pointedNodeID);
+                    }
+                }
+            }
+        }
+    }
+
+    function initiatePassengerTransport(from , to){
+        passengers[passengers.length] = new Passenger(nodes[from].x+nodes[from].radius , nodes[from].y+nodes[from].radius , nodes[to].x+nodes[from].radius , nodes[to].y+nodes[from].radius);
+    }
+
 	function mouseInNodeRange(node){
 		var r = node.radius;
 		var xDist = node.x + node.radius - mouseX;
@@ -623,10 +693,6 @@ function game(){
                 else{
                     playSFX(sfxNewNode);
                     addNodeToHaloList(i);
-                    if(allowConsoleMessages)
-                        console.log("added node index: " + i + " to haloList in place: " + haloList.indexOf(i));
-                    if(allowConsoleMessages)
-                        console.log(haloList[0].passedThrough);
                 }
 
 
