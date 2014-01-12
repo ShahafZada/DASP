@@ -39,7 +39,8 @@ function solutions (mapNum) {
 	var clickHistory = [];			
 	loadSolution();
 	var step = 0;
-	solutionPath.push(lastClickedID);
+	
+	//solutionPath.push(lastClickedID);
 
 //	images : 
 	var startNode = new Image();
@@ -499,7 +500,8 @@ function solutions (mapNum) {
 				window.dispatchEvent(event);
 			},
 			success : function(data) {
-				clickHistory = data;
+				clickHistory = data;				
+				nextStep();	//Removing the first node (since we already know where we start)				
 			}
 		});
 		} , 1000);

@@ -836,7 +836,7 @@ function game(){
                 console.log("Error: ", data);
             },
             success : function(){
-                alert("Saved!");
+                
             },
             type : "post",
             timeout : 30000
