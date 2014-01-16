@@ -14,7 +14,14 @@ function gameManager(){
 	height = canvas.getAttribute('height'); //canvas.scrollHeight;		
 	isAdmin = false;
 	loadAdmin();							//automatically changes "IsAdmin"
-		
+
+	nodeSize = height/10; //height and width are the same
+	globalVolume = 0.2;
+	lineColor = "cyan";
+	markedLineColor = "red";
+	allowingMultiColoredEdges = false;  //determines if edges could have different colors
+	defaultEdgeWidth = 10;
+	
 	//other constants:
 	var everyXmiliseconds = 40;
 	

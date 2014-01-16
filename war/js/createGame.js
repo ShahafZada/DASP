@@ -131,7 +131,7 @@ function createGame(){
 
 
     // nodes :
-    var nodeSize = height/10; //height and width are the same
+    //var nodeSize = height/10; //height and width are the same
     var nodeRadius = nodeSize/2;
 
     var startNode = new Image();
@@ -164,13 +164,13 @@ function createGame(){
     // edges :
 
     var defaultEdgeWeight = 1;
-    var defaultEdgeWidth = 5;
-    var defaultEdgeColor = "cyan";
+    //var defaultEdgeWidth = 5;
+    var defaultEdgeColor = lineColor;
 
     var lastClickedNodeID = ARBITRARY_NEGATIVE;	//while it's negative: no node was touched. Use this to know if node was touched, for that DO NOT use the index identifier (lastClickedNodeIndex)
     var lastClickedNodeIndex;
 
-    var allowingMultiColoredEdges = true;
+    //var allowingMultiColoredEdges = true;
     var restColorRandomizing = 2;	//there's a certain edge which would get randomized every 'restColorRandomizing' cycles. In other words, this is sleep for randomize
     var restRandomizingCounter = 0;
 

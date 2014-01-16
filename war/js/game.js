@@ -41,12 +41,10 @@ function game(){
 
 	
 	// edges :
-    var allowingMultiColoredEdges = false;  //determines if edges could have different colors
+    //var allowingMultiColoredEdges = true;  //determines if edges could have different colors
     var drawMarkedEdgesFirst = true;
-	var lineColor = "cyan";
-	var markedLineColor = "red";
-    var lineWidth = "4";
-	var boldLineWidth = "8";
+    var lineWidth = defaultEdgeWidth;
+	var boldLineWidth = lineWidth + 4;
 	var boldLineColor = "black";
 //	var passedThroughEdges = [];
 
@@ -60,7 +58,7 @@ function game(){
 
 	//nodes:
 	var nodes = [];
-	var nodeSize = height/10; //height and width are the same
+	//var nodeSize = height/10; //height and width are the same
 	var mouseOverEnlarger = 0.3;
 	var lastClickedID = 0;
     var stepsPlayed = 0;
@@ -155,6 +153,10 @@ function game(){
     sfxNewNode = new Audio("sounds/game/box.wav");
     sfxVisitedNode = new Audio("sounds/game/bi3.wav");
     undoMove = new Audio("sounds/game/ba.wav");
+    
+    sfxNewNode.volume = globalVolume;
+    sfxVisitedNode.volume = globalVolume;
+    undoMove.volume = globalVolume;
 
 //	-------------------------------------------------------------
 

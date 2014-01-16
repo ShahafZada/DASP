@@ -99,7 +99,7 @@ function gameCredits(){
 	var creditsEpicBGM = new Audio("sounds/credits/Credits_BGM.mp3");
 	var creditsEpicBGM = new Audio("sounds/credits/Credits_BGM.mp3");
 	creditsEpicBGM.loop = true;
-	creditsEpicBGM.volume = .12;
+	creditsEpicBGM.volume = globalVolume;
 	creditsEpicBGM.load();
 	creditsEpicBGM.play();
 //	-------------------------------------------------------------
