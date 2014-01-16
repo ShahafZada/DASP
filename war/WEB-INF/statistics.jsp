@@ -34,27 +34,22 @@
 		</form>
 		
 	<form  action="DataServlet" method="post">
-		<label for="StatisticsOfMaps">See Statistics of maps:</label> <input
-			name="StatisticsOfMaps" type="hidden"
-			value="maps"></input>
+		<label for="StatisticsOfMapsAndScores">See Statistics of maps and scores:</label> <input
+			name="StatisticsOfMapsAndScores" type="hidden"
+			value="maps&scores"></input>
 		<button type="submit">Here!</button>
 		</form>
-		
-	<form  action="DataServlet" method="post">
-		<label for="StatisticsOfScores">See Statistics of scores:</label> <input
-			name="StatisticsOfScores" type="hidden"
-			value="scores"></input>
-		<button type="submit">Here!</button>		
-	</form>
 
 	</div>
 
 	<!--Div that will hold the pie chart-->
-	<table id="charts_table">
-		<tr id="charts_row"></tr>
+	<table id="Piecharts_table">
+		<tr id="Piecharts_row"></tr>
 	</table>
 
 	<div id="MapChart_div"></div>
+	
+	<div id="ColumnChart_div"></div>
 	
 	<%@ include file="footer.jsp"%>
 </body>

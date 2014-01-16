@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class DataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String[] data_types = new String[3];
+	private String[] data_types = new String[2];
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,23 +39,19 @@ public class DataServlet extends HttpServlet {
 		
 		if(data_types[0] != null) 
 			Plist = DataBaseManager.getInstance().getAllPlayers();
-		else if(data_types[1] != null) 
+		else if(data_types[1] != null) {
 			Mlist = DataBaseManager.getInstance().getAllMaps();
-		else if(data_types[2] != null) 
 			GSlist = DataBaseManager.getInstance().getAllScores();
+		}
 		
 		if(Plist != null) {
 			d.setPlist(Plist);
 			d.setData_type("players");
 		}
-		if(Mlist != null) {
-			d.setMlist(Mlist);
-			d.setData_type("maps");
-		}
-		if(GSlist != null) {
+		if(Mlist != null || GSlist != null) {
+			d.setMlist(Mlist);	
 			d.setGSlist(GSlist);
-			d.setData_type("scores");
-		}
+			d.setData_type("maps&scores");		}
 		
 		json = gson.toJson(d);
 		
@@ -65,7 +61,6 @@ public class DataServlet extends HttpServlet {
 	    
 	    data_types[0] = null;
 		data_types[1] = null;
-		data_types[2] = null;
 	}
 
 	/**
@@ -73,8 +68,7 @@ public class DataServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		data_types[0] = request.getParameter("StatisticsOfPlayers");
-		data_types[1] = request.getParameter("StatisticsOfMaps");
-		data_types[2] = request.getParameter("StatisticsOfScores");
+		data_types[1] = request.getParameter("StatisticsOfMapsAndScores");
 		
 		response.sendRedirect("statistics");
 	}
