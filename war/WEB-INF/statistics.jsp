@@ -50,8 +50,12 @@
 	</div>
 
 	<!--Div that will hold the pie chart-->
-	<div id="chart_div"></div>
+	<table id="charts_table">
+		<tr id="charts_row"></tr>
+	</table>
 
+	<div id="MapChart_div"></div>
+	
 	<%@ include file="footer.jsp"%>
 </body>
 </html>
