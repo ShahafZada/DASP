@@ -20,7 +20,7 @@
 	<%@ include file="header.jsp"%>
 	<div id="center">
 		<span onclick="donateFunction()"><img
-			src="images/donate/Tumbleweed.gif" style="width: 100%; height: 100%;"		
+			src="images/donate/Tumbleweed.gif" style="width: 100%; height: 100%;"></span>		
 	</div>
 	<%@ include file="footer.jsp"%>
 
