@@ -39,7 +39,8 @@ function solutions (mapNum) {
 	var clickHistory = [];			
 	loadSolution();
 	var step = 0;
-	solutionPath.push(lastClickedID);
+	
+	//solutionPath.push(lastClickedID);
 
 //	images : 
 	var startNode = new Image();
@@ -339,7 +340,7 @@ function solutions (mapNum) {
 
 
 
-	function clickNode(i){				
+	function clickNode(i){	
 		for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
                 stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
@@ -466,6 +467,8 @@ function solutions (mapNum) {
 	}
 	
 	function previousStep(){		
+		if(solutionPath.length == 1)	//We only have the initial node 
+			return;
 		unclickNode();					
 	}
 	
@@ -499,7 +502,8 @@ function solutions (mapNum) {
 				window.dispatchEvent(event);
 			},
 			success : function(data) {
-				clickHistory = data;
+				clickHistory = data;				
+				nextStep();	//Removing the first node (since we already know where we start)				
 			}
 		});
 		} , 1000);
