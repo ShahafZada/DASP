@@ -90,7 +90,7 @@ button {
 	margin-top: 5px;
 	background-color:#A9A9A9;
 	color: #FFFFFF;
-	width: 1500px;
+	width: auto;
 }
 
 #GameCanvas {
