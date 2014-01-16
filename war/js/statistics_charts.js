@@ -1,6 +1,5 @@
 var Splayers = false;
-var Smaps = false;
-var Sscores = false;
+var SmapsAndscores = false;
 
 var Plist;
 var Mlist;
@@ -19,7 +18,7 @@ var countycount=[];
 document.onload = statistics_charts();
 
 function statistics_charts(){
-	
+
 	$.ajax({			
 		url : "DataServlet",
 		type: "get",
@@ -34,50 +33,85 @@ function statistics_charts(){
 			ret = data;
 		}
 	});
-	
+
 	if(ret.data_type == "players") {
 		Splayers = true;
 		Plist = ret.Plist;
 	}
-	else if(ret.data_type == "maps") {
-		Smaps = true;
+	else if(ret.data_type == "maps&scores") {
+		SmapsAndscores = true;
 		Mlist = ret.Mlist;
-	}
-	else if(ret.data_type == "scores") {
-		Sscores = true;
 		GSlist = ret.GSlist;
 	}
 	
 	if(Splayers)
 		PlayersStatistics();
-	if(Smaps)
-		MapsStatistics();
-	if(Sscores)
-		ScoresStatistics();
+	if(SmapsAndscores)
+		MapsAndScoresStatistics();
 }
 
 function PlayersStatistics() {
-	
-	// Load the Visualization API and the piechart package.
-	google.load('visualization', '1.0', {'packages':['corechart']});
 
-	// Set a callback to run when the Google Visualization API is loaded.
+	google.load('visualization', '1.0', {'packages':['corechart']});
 	google.setOnLoadCallback(drawPlayerCharts);
 
-	// Callback that creates and populates a data table,
-	// instantiates the pie chart, passes in the data and
-	// draws it.
+	google.load('visualization', '1', {'packages': ['geochart']});
+	google.setOnLoadCallback(drawRegionsMap);
+}
+
+function drawMapsAndScoresCharts() {
 	
-	 google.load('visualization', '1', {'packages': ['geochart']});
-     google.setOnLoadCallback(drawRegionsMap);
+	var levelMaxScores = [0,0,0,0,0,0,0,0,0];
+	var levelMinScores = [0,0,0,0,0,0,0,0,0];
+	var levelAvgScores = [0,0,0,0,0,0,0,0,0];
+	var countScores = [0,0,0,0,0,0,0,0,0];
+		
+	for(var i = 0 ; i < GSlist.length ; i++) {
+		countScores[ (GSlist[i].mapNum) - 1 ]++;
+		
+		levelAvgScores[ (GSlist[i].mapNum) - 1 ]+=GSlist[i].score;
+		
+		if(GSlist[i].score > levelMaxScores[ (GSlist[i].mapNum) - 1 ])
+			levelMaxScores[ (GSlist[i].mapNum) - 1 ] = GSlist[i].score;
+		
+		if(GSlist[i].score < levelMaxScores[ (GSlist[i].mapNum) - 1 ])
+			levelMinScores[ (GSlist[i].mapNum) - 1 ] = GSlist[i].score;
+		else
+			levelMinScores[ (GSlist[i].mapNum) - 1 ] = levelMaxScores[ (GSlist[i].mapNum) - 1 ];
+	}
+	
+	for(var i = 0 ; i < levelAvgScores.length ; i++)
+		if(countScores[i] != 0)
+			levelAvgScores[i]/=countScores[i];
+
+	var data = google.visualization.arrayToDataTable([
+	['Maps', 'Minimum moves', 'Maximum moves' , 'Average moves' ],
+	['map 1',  levelMinScores[0],      levelMaxScores[0],		levelAvgScores[0]],  
+	['map 2',  levelMinScores[1],      levelMaxScores[1],		levelAvgScores[1]],
+	['map 3',  levelMinScores[2],      levelMaxScores[2],		levelAvgScores[2]],
+	['map 4',  levelMinScores[3],      levelMaxScores[3],		levelAvgScores[3]],
+	['map 5',  levelMinScores[4],      levelMaxScores[4],		levelAvgScores[4]],
+	['map 6',  levelMinScores[5],      levelMaxScores[5],		levelAvgScores[5]],
+	['map 7',  levelMinScores[6],      levelMaxScores[6],		levelAvgScores[6]],
+	['map 8',  levelMinScores[7],      levelMaxScores[7],		levelAvgScores[7]],
+	['map 9',  levelMinScores[8],      levelMaxScores[8],		levelAvgScores[8]]
+	]);
+
+	options = {
+			title: "Scores statistics for all levels",
+	        height: 400,
+	        legend: { position: 'bottom', maxLines: 3 },
+	        bar: { groupWidth: '75%' },
+	      };
+	AddColumnChartToHtml( data , 1);                                                 
 }
 
 function drawPlayerCharts(){
-	var males = 0 , females = 0;
-	
+	var males = 0 , females = 0 , yes_please = 0;
+
 	var malesEducations = [0,0,0,0,0,0];
 	var femalesEducations = [0,0,0,0,0,0];
-	
+
 	for(var i = 0 ; i < Plist.length ; i++)
 		if(Plist[i].sex == "Male") {
 			males++;
@@ -90,7 +124,7 @@ function drawPlayerCharts(){
 			case "Masters Degree":		malesEducations[5]++;break;
 			}
 		}
-		else {
+		else if(Plist[i].sex == "Female") {
 			females++;
 			switch( Plist[i].education ) {
 			case "Kindergarten":		femalesEducations[0]++;break;
@@ -101,108 +135,128 @@ function drawPlayerCharts(){
 			case "Masters Degree":		femalesEducations[5]++;break;
 			}
 		}
-	
+		else
+			yes_please++;
+
 	// Create the data1 table.
 	var data1 = new google.visualization.DataTable();
-	
+
 	data1.addColumn('string', 'Sex');
 	data1.addColumn('number', 'Age');
 	data1.addRows([
-	              ['Male', males],
-	              ['Female', females]
-	              ]);
+	               ['Male', males],
+	               ['Female', females],
+	               ['Yes Please!', yes_please]
+	               ]);
 
 	// Set chart options
 	options = {'title':'Males vs. Females',
 			'width':400,
 			'height':300};
-	
-	AddChartToHtml( data1 , 1);
-	
+
+	AddPieChartToHtml( data1 , 1);
+
 	var data2 = new google.visualization.DataTable();
-	
+
 	data2.addColumn('string', 'Education');
 	data2.addColumn('number', 'count');
 	data2.addRows([
-	              ['Kindergarten',		 malesEducations[0]],
-	              ['Elementary school',	 malesEducations[1]],
-	              ['High School',		 malesEducations[2]],
-	              ['Student',			 malesEducations[3]],
-	              ['Bachelor Degree',	 malesEducations[4]],
-	              ['Masters Degree', 	 malesEducations[5]],
-	              ]);
+	               ['Kindergarten',		 malesEducations[0]],
+	               ['Elementary school',	 malesEducations[1]],
+	               ['High School',		 malesEducations[2]],
+	               ['Student',			 malesEducations[3]],
+	               ['Bachelor Degree',	 malesEducations[4]],
+	               ['Masters Degree', 	 malesEducations[5]],
+	               ]);
 
 	// Set chart options
 	options = {'title':'Education of Males',
 			'width':400,
 			'height':300};
-	
-	AddChartToHtml( data2 , 2);
-	
+
+	AddPieChartToHtml( data2 , 2);
+
 	var data3 = new google.visualization.DataTable();
-	
+
 	data3.addColumn('string', 'Education');
 	data3.addColumn('number', 'count');
 	data3.addRows([
-	              ['Kindergarten',		 femalesEducations[0]],
-	              ['Elementary school',	 femalesEducations[1]],
-	              ['High School',		 femalesEducations[2]],
-	              ['Student',			 femalesEducations[3]],
-	              ['Bachelor Degree',	 femalesEducations[4]],
-	              ['Masters Degree', 	 femalesEducations[5]],
-	              ]);
+	               ['Kindergarten',		 femalesEducations[0]],
+	               ['Elementary school',	 femalesEducations[1]],
+	               ['High School',		 femalesEducations[2]],
+	               ['Student',			 femalesEducations[3]],
+	               ['Bachelor Degree',	 femalesEducations[4]],
+	               ['Masters Degree', 	 femalesEducations[5]],
+	               ]);
 
 	// Set chart options
 	options = {'title':'Education of Females',
 			'width':400,
 			'height':300};
 
-	AddChartToHtml( data3 , 3);
+	AddPieChartToHtml( data3 , 3);
 }
 
-function MapsStatistics() {
-	alert("nothing yet!");
+function MapsAndScoresStatistics() {
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawMapsAndScoresCharts);
 }
 
-function ScoresStatistics() {
-	alert("nothing yet!");
-}
+function AddPieChartToHtml( data , i ) {
 
-function AddChartToHtml( data , i ) {
-	
 	td = document.createElement('td');
-	td.id = "chart_td" + i ;
-	document.getElementById('charts_row').appendChild(td);
-	
+	td.id = "Piechart_td" + i ;
+	document.getElementById('Piecharts_row').appendChild(td);
+
 	div = document.createElement('div');
-	div.id = "chart_div" + i;
-	document.getElementById('chart_td'+i).appendChild(div);
+	div.id = "Piechart_div" + i;
+	document.getElementById('Piechart_td'+i).appendChild(div);
 
 	// Instantiate and draw our chart, passing in some options.
-	var chart = new google.visualization.PieChart(document.getElementById('chart_td'+i));
+	var chart = new google.visualization.PieChart(document.getElementById('Piechart_div'+i));
 	chart.draw(data, options);	
+}
+
+function AddColumnChartToHtml( data , i ) {
+
+	div = document.createElement('div');
+	div.id = "Columnchart_div" + i;
+	div.style = "width: 900px; height: 500px;";
+	document.getElementById('ColumnChart_div').appendChild(div);
+
+	// Instantiate and draw our chart, passing in some options.
+	var chart = new google.visualization.ColumnChart(document.getElementById('Columnchart_div'+i));
+	chart.draw(data, options);
 }
 
 
 function drawRegionsMap() {
-	
+
 	div = document.createElement('div');
 	div.id = "Mapchart" ;
 	document.getElementById('MapChart_div').appendChild(div);
-	
+
 	var c=[];
 	loadArr(c);
-	
-    var data = google.visualization.arrayToDataTable(c);
 
-      var options = {};
+	var data = google.visualization.arrayToDataTable(c);
 
-      var chart = new google.visualization.GeoChart(document.getElementById('Mapchart'));
-      chart.draw(data, options);
-  };
-  
+	options = {
+	        sizeAxis: { minValue: 0, maxValue: 1000 },
+	        backgroundColor : { fill:'#F0F0F0' ,  stroke:'black' , strokeWidth: '5'},
+	        datalessRegionColor: '#D0D0D0', 
+	        displayMode: 'regions',
+	        colorAxis: {colors: ['#e7711c', '#4374e0']}, // orange to blue
+	        keepAspectRatio : true,
+	        height : '800px'
+	      };
+
+	var chart = new google.visualization.GeoChart(document.getElementById('Mapchart'));
+	chart.draw(data, options);
+};
+
 function loadArr(arr) {
-	
+
 	arr.push( ['Country', 'Number of Players'] );
 	addNamesToArr();
 	countCountries();
@@ -215,10 +269,11 @@ function loadArr(arr) {
 }
 
 function RemoveChrtsFromHtml( NumOfCharts ) {
-	
+
 	for( var i = 0 ; i < NumOfCharts ; i++ ) {
 		document.getElementById('chart_td'+i).remove('chart_div'+i);
 		document.getElementById('charts_row').remove('chart_td'+i);
+		document.getElementById('MapChart_div').removeChild('Mapchart');
 	}
 }
 
@@ -226,7 +281,7 @@ function countCountries()
 {
 	for(var i = 0 ; i < 247 ; i ++)
 		countycount.push(0);
-	
+
 	for(var i = 0 ; i < Plist.length ; i++)
 		countycount[ countyNames.indexOf(Plist[i].country) ]++;
 }

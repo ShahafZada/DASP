@@ -24,26 +24,40 @@
 		String myMail = null;
 	%>
 
-	<form method="post">
-		<label for="HighscoresByMapNum">Get High Scores By Map number:</label>
-		<input name="HighscoresByMapNum" type="number" min="1" max="9"
-			required placeholder="Your Map number">
-		<button type="submit">Submit</button>
-	</form>
-
-	<form method="post">
-		<label for="HighscoresByEmail">Get High Scores By Email:</label> <input
-			name="HighscoresByEmail" type="text" required
-			placeholder="Your Email">
-		<button type="submit">Submit</button>
-	</form>
-
-	<form method="post">
-		<label for="HighscoresByMyEmail">Get Your High Scores:</label> <input
-			name="HighscoresByMyEmail" type="hidden"
-			value=<%=(session.getAttribute("theEmailName")).toString()%>></input>
-		<button type="submit">Submit</button>
-	</form>
+	<table id="high_scores" class="filter-table flat-table-3">
+		<tr>
+			<td>				
+				<form method="post">
+					<table class="filter-table">
+						<tr><td><label for="HighscoresByMapNum">Filter scores by map number:</label></td></tr>						
+						<tr><td><input name="HighscoresByMapNum" type="number" min="1" max="9"
+								required placeholder="Map number"></td></tr>
+						<tr><td><button type="submit" id="submit">Submit</button></td></tr>
+					</table>
+				</form>				
+			</td>
+			<td>
+				<form method="post">
+					<table class="filter-table">
+						<tr><td><label for="HighscoresByEmail">Filter scores by Email:</label> </td></tr>					
+						<tr><td><input name="HighscoresByEmail" type="text", required
+							placeholder="Email"> </td></tr>
+						 <tr><td><button type="submit" id="submit">Submit</button> </td></tr>
+					 </table>
+				</form>			
+			</td>
+			<td>
+				<form method="post">
+					<table class="filter-table">
+						<tr><td><label for="HighscoresByMyEmail">Display your scores only</label>				
+						<input name="HighscoresByMyEmail" type="hidden"
+							value=<%=(session.getAttribute("theEmailName")).toString()%>></input></td></tr>
+						<tr><td><button type="submit" id="submit" >Submit</button></td></tr>
+					</table>
+				</form>
+			</td>
+		</tr>	
+	</table>		
 
 	<%
 		MapNum = request.getParameter("HighscoresByMapNum");
