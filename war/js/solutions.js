@@ -340,7 +340,7 @@ function solutions (mapNum) {
 
 
 
-	function clickNode(i){				
+	function clickNode(i){	
 		for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
                 stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
@@ -467,6 +467,8 @@ function solutions (mapNum) {
 	}
 	
 	function previousStep(){		
+		if(solutionPath.length == 1)	//We only have the initial node 
+			return;
 		unclickNode();					
 	}
 	

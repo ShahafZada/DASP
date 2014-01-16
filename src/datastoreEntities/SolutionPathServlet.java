@@ -59,8 +59,15 @@ public class SolutionPathServlet extends HttpServlet {
 			
 			Type type = new TypeToken<List<Integer>>(){}.getType();
 			List<Integer> solutionPath = new Gson().fromJson(path, type);
-
-			map.setSolutionPath(solutionPath);
+			
+			if(map.getSolutionPath() != null){
+				if(solutionPath.size() < map.getSolutionPath().size())
+					map.setSolutionPath(solutionPath);
+			}
+			else
+				map.setSolutionPath(solutionPath);
+			
+				
 		}				
 	}
 }
