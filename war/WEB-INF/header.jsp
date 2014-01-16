@@ -22,7 +22,7 @@
 		}
 %>
 </span>
-<table id="header_linkes">
+<table id="header_linkes" style="width=auto">
 	<tr>
 		<td><img src="images/navigation/tool_bar.png"></td>
 		<td><a href="index" title="Try solving it!"><img
