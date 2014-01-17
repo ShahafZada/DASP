@@ -7,9 +7,9 @@ function createGame(){
 
 	//		variant definitions :
 
-	var ARBITRARY_NEGATIVE = -1;
+	//var ARBITRARY_NEGATIVE = -1;
 
-	var allowConsoleMessages = true;
+	//var allowConsoleMessages = true;
 
 
 	//mode (chosen tool) :
