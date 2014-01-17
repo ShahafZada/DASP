@@ -102,7 +102,7 @@ function gameSettings(){
 		context.fillStyle = color1;
 
 		context.fillRect(squareX, squareY1, colorSquareSize, colorSquareSize);
-		context.strokeRect(squareX, squareY1, colorSquareSize, colorSquareSize);
+	//	context.strokeRect(squareX, squareY1, colorSquareSize, colorSquareSize);
 
 	}
 	
@@ -111,7 +111,7 @@ function gameSettings(){
 		context.fillStyle = color2;
 
 		context.fillRect(squareX, squareY2, colorSquareSize, colorSquareSize);
-		context.strokeRect(squareX, squareY2, colorSquareSize, colorSquareSize);
+	//	context.strokeRect(squareX, squareY2, colorSquareSize, colorSquareSize);
 		
 	}
 	
@@ -216,7 +216,10 @@ function gameSettings(){
 			event.customData = "goToGameMenu";
 			window.dispatchEvent(event);
 			this.removeEventListener("mouseup", checkClick);
-
+			
+			this.removeEventListener("mousedown", mouseDown);
+			this.removeEventListener("mousemove", mouseMove);
+			
 		}
 
 		if(isMouseOverColorSquare(1)){
@@ -373,20 +376,13 @@ function gameSettings(){
 		alert("Saved Settings");
 	}
 
-	//-------------------------------------------------------------
-
-	//event listeners :
-
-	canvas.addEventListener("mouseup", checkClick);
-
-	canvas.addEventListener('mousedown', function() {
+	function mouseDown() {
 		showRGBPlate = false;
 		lineColorClicked = false;
 		markedLineClicked = false;
-	}, false);
-
-	canvas.addEventListener('mousemove', function(evt) {
-			
+	}
+	
+	function mouseMove(evt) {
 		if(lineColorClicked && showRGBPlate && mouseX > squareX + colorSquareSize && mouseX < squareX + colorSquareSize + imageObj.width 
 				&& mouseY > squareY1 + colorSquareSize && mouseY < squareY1 + colorSquareSize + imageObj.height) {
 
@@ -420,8 +416,16 @@ function gameSettings(){
 			color2 = 'rgb(' + red + ',' + green + ',' + blue + ')';
 			drawColorSquare2();
 		}
-		
-	}, false);
+	}
+	//-------------------------------------------------------------
+
+	//event listeners :
+
+	canvas.addEventListener("mouseup", checkClick);
+
+	canvas.addEventListener('mousedown', mouseDown, false);
+
+	canvas.addEventListener('mousemove', mouseMove, false);
 
 
 	//-------------------------------------------------------------
