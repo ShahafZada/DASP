@@ -38,10 +38,10 @@ function gameInstructions(){
 	var rightArrow = new Image();
 	var leftArrow = new Image();
 	
-	slide0.src = "images/gameInstructions/slide0.jpg";
-	slide1.src = "images/gameInstructions/slide1.jpg";
-	slide2.src = "images/gameInstructions/slide2.jpg";
-	slide3.src = "images/gameInstructions/slide3.jpg";
+	slide0.src = "images/gameInstructions/slide0.png";
+	slide1.src = "images/gameInstructions/slide1.png";
+	slide2.src = "images/gameInstructions/slide2.png";
+	slide3.src = "images/gameInstructions/slide3.png";
 	rightArrow.src = "images/gameInstructions/right_arrow.png";
 	leftArrow.src = "images/gameInstructions/left_arrow.png";
 
