@@ -16,11 +16,11 @@ function gameManager(){
 	loadAdmin();							//automatically changes "IsAdmin"
 
 	nodeSize = height/10; //height and width are the same
-	globalVolume = 0.2;
 	lineColor = "cyan";
 	markedLineColor = "red";
-	allowingMultiColoredEdges = false;  //determines if edges could have different colors
 	defaultEdgeWidth = 10;
+	allowingMultiColoredEdges = false;  //determines if edges could have different colors	
+	globalVolume = 0.2;
 	
 	//other constants:
 	var everyXmiliseconds = 40;

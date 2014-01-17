@@ -19,10 +19,10 @@ function solutions (mapNum) {
     var buttonDistFromEdges = height/16;       
 	
 	// edges :
-	var lineColor = "cyan";
-	var markedLineColor = "cyan";
-    var lineWidth = "4";
-	var boldLineWidth = "8";
+	//var lineColor = "cyan";
+	//var markedLineColor = "cyan";
+    var lineWidth = defaultEdgeWidth;
+	var boldLineWidth = lineWidth+4;
 	var boldLineColor = "black";
 //	var passedThroughEdges = [];
 
@@ -30,7 +30,7 @@ function solutions (mapNum) {
 
 	//nodes:
 	var nodes = [];
-	var nodeSize = height/10; //height and width are the same
+	//var nodeSize = height/10; //height and width are the same
 	var mouseOverEnlarger = 0.3;
 	var lastClickedID = 0;
     var stepsPlayed = 0;
