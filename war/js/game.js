@@ -802,8 +802,15 @@ function game(){
 	}
 
     function drawCircleInsideNode(certainNode){    //so that edges won't start and end in nothing
+        var rad;
+        if(certainNode.isMarked){
+            rad = boldLineWidth/2;
+        }
+        else{
+            rad = lineWidth/2;
+        }
     	context.closePath();
-    	context.arc(certainNode.x + certainNode.radius , certainNode.y + certainNode.radius , boldLineWidth/2 , 0 , 2 * Math.PI, false);
+    	context.arc(certainNode.x + certainNode.radius , certainNode.y + certainNode.radius , rad , 0 , 2 * Math.PI, false);
         context.fillStyle = connectorCircleColor;
         context.fill();
         context.closePath();
