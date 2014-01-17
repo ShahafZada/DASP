@@ -21,7 +21,7 @@ function solutions (mapNum) {
 	// edges :
 	//var lineColor = "cyan";
 	//var markedLineColor = "cyan";
-    var lineWidth = 10;
+    var lineWidth = 10;	//defaultEdgeWidth
 	var boldLineWidth = lineWidth+4;
 	var boldLineColor = "black";
 //	var passedThroughEdges = [];
@@ -340,7 +340,7 @@ function solutions (mapNum) {
 
 
 
-	function clickNode(i){	
+	function clickNode(i){
 		for(var j = 0 ; j < nodes[lastClickedID].edges.length ; j++){
 			if(nodes[lastClickedID].edges[j].pointedNodeID == i){
                 stepsPlayed += nodes[i].edges[getEdgeIndex(i , lastClickedID)].weight;
@@ -462,7 +462,7 @@ function solutions (mapNum) {
 		
 		var clickedNode = clickHistory[0];
 		clickHistory.shift();
-		solutionPath.push(clickedNode);		
+		solutionPath.push(clickedNode);
 		clickNode(clickedNode);
 	}
 	

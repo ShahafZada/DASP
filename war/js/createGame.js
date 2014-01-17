@@ -469,7 +469,7 @@ function createGame(){
 		}
 
         //edges hub
-        drawNodesEdgeHub();
+        //drawNodesEdgeHub();	//there's a bug involved if you use this. So just don't.
 
 		//nodes
 		for(var i = 0 ; i < nodes.length ; i++){
