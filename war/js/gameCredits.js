@@ -5,13 +5,15 @@ function gameCredits(){
 	//		variant definitions :
 
 	var creditsX = width/2;
-	var creditsSpeed = 1;	//going up when positive
+	var creditsSpeed = 180/144;	//3:00 credit time , 2:24 song time so that's (180 min / 144 min) 
 	var distanceWords = 40;
 
 	var letUserWaitInSilence = false;
 	var names = [];
 	var namesY = [];
-	var developerFont = "30px Harlow Solid Italic";
+	//var developerFont = "30px Harlow Solid Italic";	//http://www.lalit.org/lab/javascript-css-font-detect/
+	var developerFont = "30px Monotype Corsiva";
+	//var developerFont = "30px Bookman Old Style";
 	var titleFont = "italic bold 10pt Courier";
 	var developerColor = '#ffffff';
 	var titleColor = '#eeeeee';
@@ -58,9 +60,9 @@ function gameCredits(){
 	names.push("Superconductors");
 	names.push("Superfluids");
 	names.push("Superpositions");
+	names.push("Superstitions");
 	names.push("Soup");
 	names.push("Soap");
-	names.push("SoundForge");
 	names.push("Marshmallows that don't burn too easily");
 	names.push("Series with good SFX/BGM to steal");
 	names.push("");
@@ -171,7 +173,6 @@ function gameCredits(){
 		names.push("Phillip Katz");
 		names.push("Shahaf Zada");
 		names.push("Daniel Portnoy");
-		names.push("");
 		names.push("");
 		names.push("");
 		names.push("");
