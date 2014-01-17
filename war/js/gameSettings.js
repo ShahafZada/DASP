@@ -19,6 +19,10 @@ function gameSettings(){
 	var minusPic = new Image();
 	var savePic = new Image();
 	var background = new Image();
+	var checkedCheckbox = new Image();
+	var uncheckedCheckbox = new Image();
+	
+	var sfxVisitedNode = new Audio("sounds/game/bi3.wav");
 
 	backButton.src = "images/backButton.png";
 	backButton_over.src = "images/backButton.png";
@@ -27,6 +31,10 @@ function gameSettings(){
 	minusPic.src = 'images/gameSettings/minus.png';
 	savePic.src = 'images/gameSettings/save_button.png';
 	background.src = 'images/gameSettings/background1.jpg';
+	checkedCheckbox.src = 'images/gameSettings/checked_checkbox.png';
+	uncheckedCheckbox.src = 'images/gameSettings/unchecked_checkbox.png';
+	
+	sfxVisitedNode.volume = globalVolume;
 	
 	var UP_KEY = 38;
 	var DOWN_KEY = 40;
@@ -72,6 +80,9 @@ function gameSettings(){
 	
 	var saveXPos = width - 400;
 	var saveYPos = height - 70;
+	
+	var checkXPos = 440;
+	var checkYPos = 320;
 	
 	insertSettingsTextToArray();
 	
@@ -139,6 +150,15 @@ function gameSettings(){
 		drawAdjustButtons();
 		drawSaveButton();
 		
+	
+		if(coloredEdges) {
+			context.drawImage(checkedCheckbox ,checkXPos , checkYPos);
+		}
+		else {
+			context.drawImage(uncheckedCheckbox ,checkXPos , checkYPos);
+		}
+		
+		
 		if(showRGBPlate && lineColorClicked) {
 			context.drawImage(imageObj, squareX + colorSquareSize, squareY1 + colorSquareSize);
 			context.strokeRect(squareX + colorSquareSize, squareY1 + colorSquareSize, imageObj.width, imageObj.height);
@@ -200,33 +220,45 @@ function gameSettings(){
 		}
 
 		if(isMouseOverColorSquare(1)){
+			sfxVisitedNode.play();
 			showRGBPlate = !showRGBPlate;
 		}
 		if(isMouseOverColorSquare(2)){
+			sfxVisitedNode.play();
 			showRGBPlate = !showRGBPlate;
 		}
 		
 		if(isMouseOverNodePlus() && nodeChangeSize < maxNodeSize) {
+			sfxVisitedNode.play();
 			nodeChangeSize++;
 		}
 		if(isMouseOverNodeMinus() && nodeChangeSize > minNodeSize) {
+			sfxVisitedNode.play();
 			nodeChangeSize--;
 		}
 		if(isMouseOverEdgePlus() && edgeChangeWidth < maxEdgeeSize) {
+			sfxVisitedNode.play();
 			edgeChangeWidth++;
 		}
 		if(isMouseOverEdgeMinus() && edgeChangeWidth > minEdgeeSize) {
+			sfxVisitedNode.play();
 			edgeChangeWidth--;
 		}
 		if(isMouseOverVolumePlus() && volume < maxVolume) {
+			sfxVisitedNode.play();
 			volume += 0.1;
 		}
 		if(isMouseOverVolumeMinus() && volume > minVolume) {
+			sfxVisitedNode.play();
 			volume -= 0.1;
 		}
-		
 		if(isMouseOverSaveButton()) {
+			sfxVisitedNode.play();
 			saveSettings();
+		}
+		if(isMouseOverCheckbox()) {
+			sfxVisitedNode.play();
+			coloredEdges = !coloredEdges;
 		}
 
 	}
@@ -313,6 +345,15 @@ function gameSettings(){
 		}
 	}
 	
+	function isMouseOverCheckbox(){
+		if((mouseX > checkXPos && mouseX < checkXPos + checkedCheckbox.width) && (mouseY > checkYPos && mouseY < checkYPos + checkedCheckbox.height)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	function isMouseOverSaveButton() {
 		if((mouseX > saveXPos && mouseX < saveXPos + savePic.width) && (mouseY > saveYPos && mouseY < saveYPos + savePic.height)) {
 			return true;
@@ -329,7 +370,7 @@ function gameSettings(){
 		allowingMultiColoredEdges = coloredEdges;
 		lineColor = color1;
 		markedLineColor = color2;
-
+		alert("Saved Settings");
 	}
 
 	//-------------------------------------------------------------
