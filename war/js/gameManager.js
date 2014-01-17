@@ -12,6 +12,8 @@ function gameManager(){
 	context = canvas.getContext("2d");
 	width = canvas.getAttribute('width');	//canvas.scrollWidth;
 	height = canvas.getAttribute('height'); //canvas.scrollHeight;		
+	allowConsoleMessages = true;
+	ARBITRARY_NEGATIVE = -1;
 	isAdmin = false;
 	loadAdmin();							//automatically changes "IsAdmin"
 

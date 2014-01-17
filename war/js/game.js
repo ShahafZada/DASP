@@ -5,8 +5,8 @@ function game(){
 
 //	variant definitions :
 
-    var ARBITRARY_NEGATIVE = -1;
-    var allowConsoleMessages = true;
+    //var ARBITRARY_NEGATIVE = -1;
+    //var allowConsoleMessages = true;
 
 	//back-button:
 	var backButtonSize = height/10;	// the button area is square

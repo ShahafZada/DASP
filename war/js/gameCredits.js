@@ -142,24 +142,6 @@ function gameCredits(){
 	}
 
 
-	function isLastCreditAtEnd(){
-		if(namesY[namesY.length-1] <= height/2) {
-			return true;
-		}
-		else
-			return false;
-	}
-
-
-	function drawLastCredit(){
-		currentFrame++;
-		context.font = developerFont;
-		context.fillStyle = developerColor;
-		context.textAlign="center";
-		context.globalAlpha = 1 - currentFrame * fadeStep;
-		context.fillText(names[names.length - 1], creditsX , namesY[namesY.length - 1]);
-		context.globalAlpha = 1;
-	}
 
 
 
@@ -213,6 +195,18 @@ function gameCredits(){
 			context.fillText(names[i], creditsX , namesY[i]);
 		}
 	}
+	
+
+	function drawLastCredit(){
+		currentFrame++;
+		context.font = developerFont;
+		context.fillStyle = developerColor;
+		context.textAlign="center";
+		context.globalAlpha = 1 - currentFrame * fadeStep;
+		context.fillText(names[names.length - 1], creditsX , namesY[namesY.length - 1]);
+		context.globalAlpha = 1;
+	}
+
 
 
 
@@ -252,6 +246,16 @@ function gameCredits(){
 		else
 			return false;
 	}
+	
+	function isLastCreditAtEnd(){
+		if(namesY[namesY.length-1] <= height/2) {
+			return true;
+		}
+		else
+			return false;
+	}
+
+
 
 
 	//-------------------------------------------------------------
