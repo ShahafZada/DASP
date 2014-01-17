@@ -10,8 +10,7 @@ function gameSettings(){
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var buttonDistFromEdges = height/8;
 
-	var settings = [];
-	
+
 	var backButton = new Image();
 	var backButton_over = new Image();
 
@@ -20,66 +19,24 @@ function gameSettings(){
 
 
 	var imageObj = new Image();
-	var plusPic = new Image();
-	var minusPic = new Image();
-
-	imageObj.src = 'images/gameSettings/color_picker.png';
-	plusPic.src = 'images/gameSettings/plus.png';
-	minusPic.src = 'images/gameSettings/minus.png';
+	imageObj.src = 'images/gameSettings/colorwheel5.png';
 	
-	var UP_KEY = 38;
-	var DOWN_KEY = 40;
-	var currentOption = 1;
+	var color = undefined;
 	
-	var titleFont = "70px Harlow Solid Italic";
-	var optionsFont = "40px Harlow Solid Italic";
-	var distanceOpt = 20;
-	var titlePixelSize = 70;
-	var textColor = '#000000';
-	var selectedColor = '#ff0000';
-	var distanceWords = 70;
-	var textXStartPos = 60;
-	var textYStartPos = 80;
-	
-	var color1 = lineColor;
-	var color2 = markedLineColor;
-	var colorSquareSize = parseInt(height/30);
-	var squareX = parseInt((width - colorSquareSize) / 2);
-	var squareY1 = textYStartPos - distanceOpt + distanceWords;
-	var squareY2 = textYStartPos - distanceOpt + distanceWords*2;
+	var squareX = 0;
+	var squareY = 0;
+	var colorSquareSize = 50;
 	
 	var showRGBPlate = false;
-	var lineColorClicked = false;
-	var markedLineClicked = false;
-	
-	var volume = globalVolume;
-	var coloredEdges = allowingMultiColoredEdges
-	
-	settings.push("Settings");
-	settings.push("Change line color");
-	settings.push("Change marked line color");
-	settings.push("Change node size");
-	settings.push("Allow Multi Colored Edges");
-	settings.push("Set edge width");
-	settings.push("Adjust volume");
-	
 
-	function drawColorSquare1() {		
+	function drawColorSquare(color) {
+		squareX = (width - colorSquareSize) / 2;
+		squareY = (height - colorSquareSize) / 2;
+
 		context.beginPath();
-		context.fillStyle = color1;
-
-		context.fillRect(squareX, squareY1, colorSquareSize, colorSquareSize);
-		context.strokeRect(squareX, squareY1, colorSquareSize, colorSquareSize);
-
-	}
-	
-	function drawColorSquare2() {
-		context.beginPath();
-		context.fillStyle = color2;
-
-		context.fillRect(squareX, squareY2, colorSquareSize, colorSquareSize);
-		context.strokeRect(squareX, squareY2, colorSquareSize, colorSquareSize);
-		
+		context.fillStyle = color;
+		context.fillRect(squareX, squareY, colorSquareSize, colorSquareSize);
+		context.strokeRect(squareX, squareY, colorSquareSize, colorSquareSize);
 	}
 	
 
@@ -98,30 +55,9 @@ function gameSettings(){
 
 
 	this.draw = function(){
-		
-		drawSettings();
-		context.drawImage(plusPic, 400, 250);
-		context.drawImage(minusPic, 450, 250);
-		
-		context.drawImage(plusPic, 400, 390);
-		context.drawImage(minusPic, 450, 390);
-		
-		context.drawImage(plusPic, 400, 460);
-		context.drawImage(minusPic, 450, 460);
-		
-		
-		if(showRGBPlate && lineColorClicked) {
-			context.drawImage(imageObj, squareX + colorSquareSize, squareY1 + colorSquareSize);
-			context.strokeRect(squareX + colorSquareSize, squareY1 + colorSquareSize, imageObj.width, imageObj.height);
-		}
-		if(showRGBPlate && markedLineClicked) {
-			context.drawImage(imageObj, squareX + colorSquareSize, squareY2 + colorSquareSize);
-			context.strokeRect(squareX + colorSquareSize, squareY2 + colorSquareSize, imageObj.width, imageObj.height);
-		}
-		
-		
-		drawColorSquare1();
-		drawColorSquare2();
+
+		if(showRGBPlate) context.drawImage(imageObj, squareX + colorSquareSize, squareY + colorSquareSize);
+		drawColorSquare(color);
 		drawBackButton();
 	}
 
@@ -131,19 +67,6 @@ function gameSettings(){
 
 	//other private functions :
 
-	function drawSettings() {
-		context.font = titleFont;
-		context.fillStyle = textColor;
-		context.fillText(settings[0], textXStartPos , textYStartPos);
-		
-		context.font = optionsFont;
-		for(var i = 1; i < settings.length; i++) {
-			if(currentOption == i) context.fillStyle = selectedColor;
-			context.fillText(settings[i], textXStartPos , i*distanceWords + textYStartPos);
-			context.fillStyle = textColor;
-		}
-	}
-	
 
 	function drawBackButton(){
 		if(isMouseOverBackButton())
@@ -165,10 +88,7 @@ function gameSettings(){
 
 		}
 
-		if(isMouseOverColorSquare(1)){
-			showRGBPlate = !showRGBPlate;
-		}
-		if(isMouseOverColorSquare(2)){
+		if(isMouseOverColorSquare()){
 			showRGBPlate = !showRGBPlate;
 		}
 
@@ -183,39 +103,16 @@ function gameSettings(){
 			return false;
 	}
 	
-	function isMouseOverColorSquare(i){
-		if((squareX < mouseX && mouseX < squareX +colorSquareSize)
-			&&(squareY1 < mouseY && mouseY <  squareY1 +colorSquareSize)&&(i == 1)) {
-			lineColorClicked = true;
-			markedLineClicked = false;
-			return true;
-		}
-		else if((squareX < mouseX && mouseX < squareX +colorSquareSize )
-				&&(squareY2 < mouseY && mouseY <  squareY2 +colorSquareSize)&&(i == 2)) {
-			markedLineClicked = true;
-			lineColorClicked = false;
+	function isMouseOverColorSquare(){
+		if((squareX < mouseX && mouseX < squareX +colorSquareSize )
+			&&(squareY < mouseY && mouseY <  squareY +colorSquareSize)) {
 			return true;
 		}
 		else {
 			return false;
 		}
-		
 	}
 
-	function doKeyDown(e) {
-		
-		e.preventDefault();
-
-	    switch (e.keyCode) {
-	    	case DOWN_KEY: 
-	    		if(currentOption != settings.length-1) currentOption++;
-	    		break;
-	    	case UP_KEY: 
-	    		if(currentOption != 1) currentOption--;
-	    		break;
-
-	    }
-	}
 
 	//-------------------------------------------------------------
 
@@ -223,51 +120,27 @@ function gameSettings(){
 
 	canvas.addEventListener("mouseup", checkClick);
 
-	canvas.addEventListener('mousedown', function() {
-		showRGBPlate = false;
-		lineColorClicked = false;
-		markedLineClicked = false;
-	}, false);
+	canvas.addEventListener('mousedown', function() {showRGBPlate = false;}, false);
 
 	canvas.addEventListener('mousemove', function(evt) {
-			
-		if(lineColorClicked && showRGBPlate && mouseX > squareX + colorSquareSize && mouseX < squareX + colorSquareSize + imageObj.width 
-				&& mouseY > squareY1 + colorSquareSize && mouseY < squareY1 + colorSquareSize + imageObj.height) {
+		
+		if(showRGBPlate && mouseX > squareX + colorSquareSize && mouseX < squareX + colorSquareSize + imageObj.width && mouseY > squareY + colorSquareSize && mouseY < squareY + colorSquareSize + imageObj.height) {
 
 			// color picker image is 256x256 and is offset by 10px
 			// from top and bottom
-			var imageData = context.getImageData(squareX + colorSquareSize, squareY1 + colorSquareSize, imageObj.width, imageObj.height);
+			var imageData = context.getImageData(squareX + colorSquareSize, squareY + colorSquareSize, imageObj.width, imageObj.height);
 			var data = imageData.data;
 			var x = mouseX - squareX - colorSquareSize;
-			var y = mouseY - squareY1 - colorSquareSize;
-
+			var y = mouseY - squareY - colorSquareSize;
+				
 			var red = data[((imageObj.width * y) + x) * 4];
 			var green = data[((imageObj.width * y) + x) * 4 + 1];
 			var blue = data[((imageObj.width * y) + x) * 4 + 2];
-			color1 = 'rgb(' + red + ',' + green + ',' + blue + ')';
-			drawColorSquare1();
-		}
-		
-		if(markedLineClicked && showRGBPlate && mouseX > squareX + colorSquareSize && mouseX < squareX + colorSquareSize + imageObj.width 
-				&& mouseY > squareY2 + colorSquareSize && mouseY < squareY2 + colorSquareSize + imageObj.height) {
+			color = 'rgb(' + red + ',' + green + ',' + blue + ')';
+			drawColorSquare(color);
 
-			// color picker image is 256x256 and is offset by 10px
-			// from top and bottom
-			var imageData = context.getImageData(squareX + colorSquareSize, squareY2 + colorSquareSize, imageObj.width, imageObj.height);
-			var data = imageData.data;
-			var x = mouseX - squareX - colorSquareSize;
-			var y = mouseY - squareY2 - colorSquareSize;
-
-			var red = data[((imageObj.width * y) + x) * 4];
-			var green = data[((imageObj.width * y) + x) * 4 + 1];
-			var blue = data[((imageObj.width * y) + x) * 4 + 2];
-			color2 = 'rgb(' + red + ',' + green + ',' + blue + ')';
-			drawColorSquare2();
 		}
-		
 	}, false);
-	
-	window.addEventListener('keydown',doKeyDown,false);
 
 	//-------------------------------------------------------------
 

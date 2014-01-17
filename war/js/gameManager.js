@@ -20,7 +20,7 @@ function gameManager(){
 	lineColor = "cyan";
 	markedLineColor = "red";
 	allowingMultiColoredEdges = false;  //determines if edges could have different colors
-	defaultEdgeWidth = 1;
+	defaultEdgeWidth = 10;
 	
 	//other constants:
 	var everyXmiliseconds = 40;
