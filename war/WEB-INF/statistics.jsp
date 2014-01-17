@@ -9,6 +9,7 @@
 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="css/hs_table.css" />
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -25,21 +26,30 @@
 		Vector<Double> vec = null;
 	%>
 	<div >
-
-	<form  action="DataServlet" method="post">
-		<label for="StatisticsOfPlayers">See Statistics of players:</label> <input
-			name="StatisticsOfPlayers" type="hidden"
-			value="players"></input>
-		<button type="submit">Here!</button>
-		</form>
-		
-	<form  action="DataServlet" method="post">
-		<label for="StatisticsOfMapsAndScores">See Statistics of maps and scores:</label> <input
-			name="StatisticsOfMapsAndScores" type="hidden"
-			value="maps&scores"></input>
-		<button type="submit">Here!</button>
-		</form>
-
+		<table id="high_scores" class="filter-table flat-table-3">
+			<tr>
+				<td>
+					<form  action="DataServlet" method="post">
+						<table class="filter-table">
+							<tr><td><label for="StatisticsOfPlayers">Display players statistics :</label>	<input
+								name="StatisticsOfPlayers" type="hidden"
+								value="players"></input></td></tr> 
+							<tr><td><button type="submit" id="submit">Here!</button></td></tr> 
+						</table>
+					</form>
+				</td>
+				<td>	
+					<form  action="DataServlet" method="post">
+						<table class="filter-table">
+							<tr><td><label for="StatisticsOfMapsAndScores">Display maps and scores statistics:</label> <input
+								name="StatisticsOfMapsAndScores" type="hidden"
+								value="maps&scores"></input></td></tr>
+							<tr><td><button type="submit" id="submit">Here!</button></td></tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 	<!--Div that will hold the pie chart-->
