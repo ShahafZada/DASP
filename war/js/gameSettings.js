@@ -22,17 +22,19 @@ function gameSettings(){
 	var imageObj = new Image();
 	var plusPic = new Image();
 	var minusPic = new Image();
+	var savePic = new Image();
 
 	imageObj.src = 'images/gameSettings/color_picker.png';
 	plusPic.src = 'images/gameSettings/plus.png';
 	minusPic.src = 'images/gameSettings/minus.png';
+	savePic.src = 'images/gameSettings/save_button.png';
 	
 	var UP_KEY = 38;
 	var DOWN_KEY = 40;
 	var currentOption = 1;
 	
-	var titleFont = "70px Harlow Solid Italic";
-	var optionsFont = "40px Harlow Solid Italic";
+	var titleFont = "70px Cambria Solid Italic";
+	var optionsFont = "30px Cambria";
 	var distanceOpt = 20;
 	var titlePixelSize = 70;
 	var textColor = '#000000';
@@ -69,6 +71,9 @@ function gameSettings(){
 	var maxVolume = 0.999;
 	var minVolume = 0.001;
 	
+	var saveXPos = width - 400;
+	var saveYPos = height - 70;
+	
 	insertSettingsTextToArray();
 	
 	function insertSettingsTextToArray() {
@@ -100,6 +105,20 @@ function gameSettings(){
 		
 	}
 	
+	function drawAdjustButtons() {
+		context.drawImage(plusPic, plusXPos, nodeYPos);
+		context.drawImage(minusPic, minusXPos, nodeYPos);
+		
+		context.drawImage(plusPic, plusXPos, edgeYPos);
+		context.drawImage(minusPic, minusXPos, edgeYPos);
+		
+		context.drawImage(plusPic, plusXPos, volumeYPos);
+		context.drawImage(minusPic, minusXPos, volumeYPos);
+	}
+
+	function drawSaveButton() {
+		context.drawImage(savePic, saveXPos, saveYPos);
+	}
 
 
 //	-------------------------------------------------------------
@@ -117,15 +136,8 @@ function gameSettings(){
 	this.draw = function(){
 		
 		drawSettings();
-		context.drawImage(plusPic, plusXPos, nodeYPos);
-		context.drawImage(minusPic, minusXPos, nodeYPos);
-		
-		context.drawImage(plusPic, plusXPos, edgeYPos);
-		context.drawImage(minusPic, minusXPos, edgeYPos);
-		
-		context.drawImage(plusPic, plusXPos, volumeYPos);
-		context.drawImage(minusPic, minusXPos, volumeYPos);
-		
+		drawAdjustButtons();
+		drawSaveButton();
 		
 		if(showRGBPlate && lineColorClicked) {
 			context.drawImage(imageObj, squareX + colorSquareSize, squareY1 + colorSquareSize);
@@ -158,6 +170,7 @@ function gameSettings(){
 		context.fillText(settings[0], textXStartPos , textYStartPos);
 		
 		context.font = optionsFont;
+		context.textAlign = 'left';
 		for(var i = 1; i < settings.length; i++) {
 			context.fillText(settings[i], textXStartPos , i*distanceWords + textYStartPos);
 			context.fillStyle = textColor;
@@ -207,11 +220,13 @@ function gameSettings(){
 		}
 		if(isMouseOverVolumePlus() && volume < maxVolume) {
 			volume += 0.1;
-			console.log("vol: "+volume);
 		}
 		if(isMouseOverVolumeMinus() && volume > minVolume) {
 			volume -= 0.1;
-			console.log("vol: "+volume);
+		}
+		
+		if(isMouseOverSaveButton()) {
+			saveSettings();
 		}
 
 	}
@@ -296,6 +311,25 @@ function gameSettings(){
 		else {
 			return false;
 		}
+	}
+	
+	function isMouseOverSaveButton() {
+		if((mouseX > saveXPos && mouseX < saveXPos + savePic.width) && (mouseY > saveYPos && mouseY < saveYPos + savePic.height)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	function saveSettings() {
+		globalVolume = volume;
+		nodeSize = nodeChangeSize;
+		defaultEdgeWidth = edgeChangeWidth;
+		allowingMultiColoredEdges = coloredEdges;
+		lineColor = color1;
+		markedLineColor = color2;
+
 	}
 
 	//-------------------------------------------------------------
