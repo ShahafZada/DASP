@@ -11,9 +11,6 @@ function gameSettings(){
 	var buttonDistFromEdges = height/8;
 
 
-
-
-
 	var backButton = new Image();
 	var backButton_over = new Image();
 
@@ -22,26 +19,19 @@ function gameSettings(){
 
 
 	var imageObj = new Image();
-	imageObj.src = 'images/gameSettings/color_picker.png';
+	imageObj.src = 'images/gameSettings/colorwheel5.png';
 	
-	
-	var padding = 10;
-	var mouseDown = false;
 	var color = undefined;
-
-	context.strokeStyle = '#444';
-	context.lineWidth = 2;
-
-	context.drawImage(imageObj, padding, padding);
 	
+	var squareX = 0;
+	var squareY = 0;
+	var colorSquareSize = 50;
+	
+	var showRGBPlate = false;
 
-
-
-	function drawColorSquare(color, imageObj) {
-		var colorSquareSize = 100;
-		var padding = 10;
-		var squareX = (width - colorSquareSize + imageObj.width) / 2;
-		var squareY = (height - colorSquareSize) / 2;
+	function drawColorSquare(color) {
+		squareX = (width - colorSquareSize) / 2;
+		squareY = (height - colorSquareSize) / 2;
 
 		context.beginPath();
 		context.fillStyle = color;
@@ -49,18 +39,6 @@ function gameSettings(){
 		context.strokeRect(squareX, squareY, colorSquareSize, colorSquareSize);
 	}
 	
-
-//	imageObj.onload = function() {
-//		init(this);
-//	};
-	
-
-
-
-
-
-
-
 
 
 //	-------------------------------------------------------------
@@ -78,18 +56,10 @@ function gameSettings(){
 
 	this.draw = function(){
 
-
-		context.strokeStyle = '#444';
-		context.lineWidth = 2;
-
-		context.drawImage(imageObj, padding, padding);
-		drawColorSquare(color, imageObj);
+		if(showRGBPlate) context.drawImage(imageObj, squareX + colorSquareSize, squareY + colorSquareSize);
+		drawColorSquare(color);
 		drawBackButton();
 	}
-
-
-
-
 
 
 
@@ -108,7 +78,6 @@ function gameSettings(){
 
 	function checkClick(){
 
-
 		//Back-button check
 		if(isMouseOverBackButton()){	//clicked on back arrow
 			var event = document.createEvent("Event");
@@ -119,6 +88,11 @@ function gameSettings(){
 
 		}
 
+		if(isMouseOverColorSquare()){
+			showRGBPlate = !showRGBPlate;
+		}
+
+
 	}
 
 	function isMouseOverBackButton(){
@@ -128,6 +102,16 @@ function gameSettings(){
 		else
 			return false;
 	}
+	
+	function isMouseOverColorSquare(){
+		if((squareX < mouseX && mouseX < squareX +colorSquareSize )
+			&&(squareY < mouseY && mouseY <  squareY +colorSquareSize)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 
 	//-------------------------------------------------------------
@@ -136,26 +120,25 @@ function gameSettings(){
 
 	canvas.addEventListener("mouseup", checkClick);
 
-	canvas.addEventListener('mousedown', function() {mouseDown = true;}, false);
-
-	canvas.addEventListener('mouseup', function() {mouseDown = false;}, false);
+	canvas.addEventListener('mousedown', function() {showRGBPlate = false;}, false);
 
 	canvas.addEventListener('mousemove', function(evt) {
 		
-
-		if(mouseDown && mouseX > padding && mouseX < padding + imageObj.width && mouseY > padding && mouseY < padding + imageObj.height) {
+		if(showRGBPlate && mouseX > squareX + colorSquareSize && mouseX < squareX + colorSquareSize + imageObj.width && mouseY > squareY + colorSquareSize && mouseY < squareY + colorSquareSize + imageObj.height) {
 
 			// color picker image is 256x256 and is offset by 10px
 			// from top and bottom
-			var imageData = context.getImageData(padding, padding, imageObj.width, imageObj.width);
+			var imageData = context.getImageData(squareX + colorSquareSize, squareY + colorSquareSize, imageObj.width, imageObj.height);
 			var data = imageData.data;
-			var x = mouseX - padding;
-			var y = mouseY - padding;
+			var x = mouseX - squareX - colorSquareSize;
+			var y = mouseY - squareY - colorSquareSize;
+				
 			var red = data[((imageObj.width * y) + x) * 4];
 			var green = data[((imageObj.width * y) + x) * 4 + 1];
 			var blue = data[((imageObj.width * y) + x) * 4 + 2];
-			var color = 'rgb(' + red + ',' + green + ',' + blue + ')';
-			drawColorSquare(color, imageObj);
+			color = 'rgb(' + red + ',' + green + ',' + blue + ')';
+			drawColorSquare(color);
+
 		}
 	}, false);
 
