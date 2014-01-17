@@ -14,20 +14,19 @@ function gameSettings(){
 	
 	var backButton = new Image();
 	var backButton_over = new Image();
-
-	backButton.src = "images/backButton.png";
-	backButton_over.src = "images/backButton.png";
-
-
 	var imageObj = new Image();
 	var plusPic = new Image();
 	var minusPic = new Image();
 	var savePic = new Image();
+	var background = new Image();
 
+	backButton.src = "images/backButton.png";
+	backButton_over.src = "images/backButton.png";
 	imageObj.src = 'images/gameSettings/color_picker.png';
 	plusPic.src = 'images/gameSettings/plus.png';
 	minusPic.src = 'images/gameSettings/minus.png';
 	savePic.src = 'images/gameSettings/save_button.png';
+	background.src = 'images/gameSettings/background1.jpg';
 	
 	var UP_KEY = 38;
 	var DOWN_KEY = 40;
@@ -37,7 +36,7 @@ function gameSettings(){
 	var optionsFont = "30px Cambria";
 	var distanceOpt = 20;
 	var titlePixelSize = 70;
-	var textColor = '#000000';
+	var textColor = '#FF8C00';
 	var distanceWords = 70;
 	var textXStartPos = 60;
 	var textYStartPos = 80;
@@ -64,9 +63,9 @@ function gameSettings(){
 	var edgeYPos = 390;
 	var volumeYPos = 460;
 	
-	var maxNodeSize = height/9;
-	var minNodeSize = height/11;
-	var maxEdgeeSize = 15;
+	var maxNodeSize = parseInt(height/5);
+	var minNodeSize = parseInt(height/25);
+	var maxEdgeeSize = 15  ;
 	var minEdgeeSize = 5;
 	var maxVolume = 0.999;
 	var minVolume = 0.001;
@@ -135,6 +134,7 @@ function gameSettings(){
 
 	this.draw = function(){
 		
+		context.drawImage(background ,0 , 0, width, height);
 		drawSettings();
 		drawAdjustButtons();
 		drawSaveButton();
