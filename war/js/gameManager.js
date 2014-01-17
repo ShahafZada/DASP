@@ -12,14 +12,17 @@ function gameManager(){
 	context = canvas.getContext("2d");
 	width = canvas.getAttribute('width');	//canvas.scrollWidth;
 	height = canvas.getAttribute('height'); //canvas.scrollHeight;		
+	
 	allowConsoleMessages = true;
 	ARBITRARY_NEGATIVE = -1;
 	isAdmin = false;
 	loadAdmin();							//automatically changes "IsAdmin"
 
-	nodeSize = height/10; //height and width are the same
+	//can change in settings
+	nodeSize = height/10; //height and width are the same	//used for createGame only
 	lineColor = "cyan";
-	markedLineColor = "red";
+	markedLineColor = "red";    //used only in game
+    connectorCircleColor = 'gray';
 	defaultEdgeWidth = 10;
 	allowingMultiColoredEdges = true;  //determines if edges could have different colors
 	globalVolume = 0.2;

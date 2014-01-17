@@ -468,6 +468,8 @@ function createGame(){
 				drawLineFromPointToPoint(nodes[lastClickedNodeIndex].x + nodes[lastClickedNodeIndex].radius , nodes[lastClickedNodeIndex].y + nodes[lastClickedNodeIndex].radius , mouseX , mouseY , defaultEdgeColor);	//drawing line from node to nothing (where the mouse is)
 		}
 
+        //edges hub
+        drawNodesEdgeHub();
 
 		//nodes
 		for(var i = 0 ; i < nodes.length ; i++){
@@ -583,6 +585,22 @@ function createGame(){
 		context.lineTo(xB , yB);
 		context.stroke();
 	}
+
+    function drawNodesEdgeHub(){
+        for(var i = 0 ; i < nodes.length ; i++){
+
+            drawCircleInsideNode(nodes[i]);
+        }
+    }
+
+
+    function drawCircleInsideNode(certainNode){    //so that edges won't start and end in nothing
+        context.closePath();
+        context.arc(certainNode.x + certainNode.radius , certainNode.y + certainNode.radius , defaultEdgeWidth/2 , 0 , 2 * Math.PI, false);
+        context.fillStyle = connectorCircleColor;
+        context.fill();
+        context.closePath();
+    }
 
 
 

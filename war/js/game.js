@@ -360,6 +360,7 @@ function game(){
 	this.draw = function(){     	
 		drawEdges();
         drawPassengers();
+        drawNodesEdgeHub();
         drawNodes();
 
 
@@ -378,6 +379,12 @@ function game(){
 
 //	other private functions :
 
+    function drawNodesEdgeHub(){
+        for(var i = 0 ; i < nodes.length ; i++){
+
+            drawCircleInsideNode(nodes[i]);
+        }
+    }
 
 	function drawNodes(){     
 
@@ -788,11 +795,26 @@ function game(){
 
 
 	function drawNode(imageHolder , node , isMouseOver){
-		if(isMouseOver)
+        if(isMouseOver)
 			context.drawImage(imageHolder , node.x - node.radius*mouseOverEnlarger , node.y - node.radius*mouseOverEnlarger , 2*node.radius*(1 + mouseOverEnlarger) , 2*node.radius*(1 + mouseOverEnlarger));
 		else
 			context.drawImage(imageHolder , node.x , node.y , 2*node.radius , 2*node.radius);
 	}
+
+    function drawCircleInsideNode(certainNode){    //so that edges won't start and end in nothing
+        var rad;
+        if(certainNode.isMarked){
+            rad = boldLineWidth/2;
+        }
+        else{
+            rad = lineWidth/2;
+        }
+    	context.closePath();
+    	context.arc(certainNode.x + certainNode.radius , certainNode.y + certainNode.radius , rad , 0 , 2 * Math.PI, false);
+        context.fillStyle = connectorCircleColor;
+        context.fill();
+        context.closePath();
+    }
 
 	function drawAFuckingLine(nodeID , edgeIndex , color , lineW){
 		var indexTo = nodes[nodeID].edges[edgeIndex].pointedNodeID;

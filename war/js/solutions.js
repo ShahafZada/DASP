@@ -21,7 +21,7 @@ function solutions (mapNum) {
 	// edges :
 	//var lineColor = "cyan";
 	//var markedLineColor = "cyan";
-    var lineWidth = defaultEdgeWidth;
+    var lineWidth = 10;
 	var boldLineWidth = lineWidth+4;
 	var boldLineColor = "black";
 //	var passedThroughEdges = [];
