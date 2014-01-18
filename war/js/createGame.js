@@ -134,6 +134,13 @@ function createGame(){
     var isAdaptingTraceBG;
     var traceWasChosen = false;
     var bgChoice = prompt("Would you like a template for tracing?\nOptions are (insert number or name):\n " + bgChoiceOptionsStr);
+    if(bgChoice == null){
+        var event = document.createEvent("Event");
+        event.initEvent("changePage", true, true);
+        event.customData = "goToGameMenu";
+        window.dispatchEvent(event);
+        this.removeEventListener("mouseup", checkClick);    //keep this to return to menu (even though it throws an error)
+    }
     for(var i = 0 ; i < bgChoiceOptions.length ; i++){
         if(bgChoice == bgChoiceOptions[i] || bgChoice == i+1){
             traceWasChosen = true;

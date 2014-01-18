@@ -23,26 +23,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/war/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="359" column="25" selection-start="9959" selection-end="9959" vertical-scroll-proportion="0.5707257" vertical-offset="4670" max-vertical-offset="7344">
+            <state line="8" column="38" selection-start="237" selection-end="237" vertical-scroll-proportion="-5.44" vertical-offset="0" max-vertical-offset="6528">
               <folding>
-                <element signature="n#!!block;n#Node#0;n#!!block;n#game#0" expanded="false" />
-                <element signature="e#6039#6222#0" expanded="false" />
-                <element signature="e#6255#6432#0" expanded="false" />
-                <element signature="e#6462#6569#0" expanded="false" />
-                <element signature="e#6598#6703#0" expanded="false" />
-                <element signature="e#6731#6833#0" expanded="false" />
-                <element signature="e#6861#6963#0" expanded="false" />
-                <element signature="e#6993#7101#0" expanded="false" />
-                <element signature="e#7130#7235#0" expanded="false" />
-                <element signature="e#7264#7369#0" expanded="false" />
-                <element signature="e#7397#7499#0" expanded="false" />
-                <element signature="e#7529#7637#0" expanded="false" />
-                <element signature="e#7667#7775#0" expanded="false" />
-                <element signature="e#7804#7909#0" expanded="false" />
-                <element signature="e#8864#8910#0" expanded="false" />
+                <element signature="n#!!block;n#Edge#0;n#!!block;n#game#0" expanded="false" />
+                <element signature="e#6135#6318#0" expanded="false" />
+                <element signature="e#6351#6528#0" expanded="false" />
+                <element signature="e#6558#6665#0" expanded="false" />
+                <element signature="e#6694#6799#0" expanded="false" />
+                <element signature="e#6827#6929#0" expanded="false" />
+                <element signature="e#6957#7059#0" expanded="false" />
+                <element signature="e#7089#7197#0" expanded="false" />
+                <element signature="e#7226#7331#0" expanded="false" />
+                <element signature="e#7360#7465#0" expanded="false" />
+                <element signature="e#7493#7595#0" expanded="false" />
+                <element signature="e#7625#7733#0" expanded="false" />
+                <element signature="e#7763#7871#0" expanded="false" />
+                <element signature="e#7900#8005#0" expanded="false" />
+                <element signature="e#8960#9006#0" expanded="false" />
+                <element signature="e#9033#9982#0" expanded="false" />
                 <element signature="n#!!block;n#drawNodes#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#drawEdges#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#drawPassengers#0;n#!!block;n#game#0" expanded="false" />
@@ -54,6 +55,7 @@
                 <element signature="n#!!block;n#drawHaloAroundNodeI#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#addNodeToHaloList#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#startStepsDisplay#0;n#!!block;n#game#0" expanded="false" />
+                <element signature="n#!!block;n#sendPassengerFromNodeIByChance#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#initiatePassengerTransport#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#mouseInNodeRange#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
@@ -66,59 +68,55 @@
                 <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#drawAFuckingLine#0;n#!!block;n#game#0" expanded="false" />
                 <element signature="n#!!block;n#playSFX#0;n#!!block;n#game#0" expanded="false" />
-                <element signature="e#27626#27653#0" expanded="false" />
+                <element signature="n#!!block;n#exit#0;n#!!block;n#game#0" expanded="false" />
+                <element signature="e#28406#28433#0" expanded="false" />
+                <element signature="n#!!block;n#sendSolutionPath#0;n#!!block;n#game#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createGame.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="solutions.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/war/js/solutions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="465" column="8" selection-start="14818" selection-end="14818" vertical-scroll-proportion="-316.2" vertical-offset="0" max-vertical-offset="8942">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gameSettings.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/war/js/gameSettings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="225" column="34" selection-start="6322" selection-end="6322" vertical-scroll-proportion="0.0" vertical-offset="3363" max-vertical-offset="7463">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="solutionsChoice.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/war/js/solutionsChoice.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="97" column="40" selection-start="2512" selection-end="2525" vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="2176">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createGame.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="379" column="0" selection-start="13564" selection-end="13670" vertical-scroll-proportion="-10.32" vertical-offset="4655" max-vertical-offset="10574">
-              <folding>
-                <element signature="e#9475#9648#0" expanded="false" />
-                <element signature="e#9687#9870#0" expanded="false" />
-                <element signature="n#!!block;n#coord#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#Node#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#10805#10860#0" expanded="false" />
-                <element signature="e#10952#13442#0" expanded="false" />
-                <element signature="e#15835#19511#0" expanded="false" />
-                <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#setEdgeOrigin#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#setMode#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#addEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#25213#25423#0" expanded="false" />
-                <element signature="e#25463#25700#0" expanded="false" />
-                <element signature="e#25713#25988#0" expanded="false" />
-                <element signature="n#!!block;n#addEdgeRandomly#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#26445#26568#0" expanded="false" />
-                <element signature="n#!!block;n#addNode#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#removeEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#removeEdgeSingleDirection#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#destroyTouchedNode#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isInDrawableArea#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isCircleNotTouchingOtherNodes#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isCircleNotTouchingOtherNodesExcludeOne#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeIndexInList#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeIProperlyConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#30427#30761#0" expanded="false" />
-                <element signature="n#!!block;n#areAllNodesConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#doesEdgeAlreadyExistBetweenNodes#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeITouchedByMouse#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isEdgeObstructed#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isNodeIObstructingEdge#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverCollapseButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverExpandButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="n#!!block;n#checkClick#0;n#!!block;n#createGame#0" expanded="false" />
-                <element signature="e#37946#38670#0" expanded="false" />
-                <element signature="e#38734#40932#0" expanded="false" />
-                <element signature="e#40997#42274#0" expanded="false" />
-                <element signature="e#42347#43209#0" expanded="false" />
-              </folding>
+            <state line="141" column="90" selection-start="5894" selection-end="5894" vertical-scroll-proportion="0.4845815" vertical-offset="1957" max-vertical-offset="23137">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gameManager.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/war/js/gameManager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="38" selection-start="209" selection-end="243" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1938">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -126,10 +124,10 @@
       <file leaf-file-name="gameChoice.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/war/js/gameChoice.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="89" selection-end="89" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="3145">
+            <state line="163" column="12" selection-start="4310" selection-end="4310" vertical-scroll-proportion="0.0" vertical-offset="1204" max-vertical-offset="3145">
               <folding>
-                <marker date="1389293738591" expanded="true" signature="2946:3679" placeholder="{...}" />
-                <marker date="1389293738591" expanded="true" signature="2960:3378" placeholder="{...}" />
+                <marker date="1389968899644" expanded="true" signature="2946:3679" placeholder="{...}" />
+                <marker date="1389968899644" expanded="true" signature="2960:3378" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -149,8 +147,10 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/war/js/gameChoice.js" />
-        <option value="$PROJECT_DIR$/war/js/createGame.js" />
+        <option value="$PROJECT_DIR$/war/js/gameManager.js" />
+        <option value="$PROJECT_DIR$/war/js/solutions.js" />
         <option value="$PROJECT_DIR$/war/js/game.js" />
+        <option value="$PROJECT_DIR$/war/js/createGame.js" />
       </list>
     </option>
   </component>
@@ -186,7 +186,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -219,8 +218,27 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DASP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DASP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="war" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -228,14 +246,6 @@
     <property name="recentsLimit" value="5" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -246,15 +256,23 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -279,21 +297,21 @@
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11404435" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17447917" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.123958334" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11404435" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -314,88 +332,30 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/war/js/gameChoice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="89" selection-end="89" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="3145">
-          <folding>
-            <marker date="1389293738591" expanded="true" signature="2946:3679" placeholder="{...}" />
-            <marker date="1389293738591" expanded="true" signature="2960:3378" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="379" column="0" selection-start="13564" selection-end="13670" vertical-scroll-proportion="-10.32" vertical-offset="4655" max-vertical-offset="10574">
-          <folding>
-            <element signature="e#9475#9648#0" expanded="false" />
-            <element signature="e#9687#9870#0" expanded="false" />
-            <element signature="n#!!block;n#coord#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#Node#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#10805#10860#0" expanded="false" />
-            <element signature="e#10952#13442#0" expanded="false" />
-            <element signature="e#15835#19511#0" expanded="false" />
-            <element signature="n#!!block;n#determinePositions#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#getNodesIndexFromNodeID#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#setEdgeOrigin#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#setMode#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#addEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#25213#25423#0" expanded="false" />
-            <element signature="e#25463#25700#0" expanded="false" />
-            <element signature="e#25713#25988#0" expanded="false" />
-            <element signature="n#!!block;n#addEdgeRandomly#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#26445#26568#0" expanded="false" />
-            <element signature="n#!!block;n#addNode#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#removeEdgeBetween#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#removeEdgeSingleDirection#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#destroyTouchedNode#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isInDrawableArea#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isCircleNotTouchingOtherNodes#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isCircleNotTouchingOtherNodesExcludeOne#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeIndexInList#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeIProperlyConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#30427#30761#0" expanded="false" />
-            <element signature="n#!!block;n#areAllNodesConnectedToTheSystem#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#doesEdgeAlreadyExistBetweenNodes#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeITouchedByMouse#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isEdgeObstructed#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isNodeIObstructingEdge#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverCollapseButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverExpandButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="n#!!block;n#checkClick#0;n#!!block;n#createGame#0" expanded="false" />
-            <element signature="e#37946#38670#0" expanded="false" />
-            <element signature="e#38734#40932#0" expanded="false" />
-            <element signature="e#40997#42274#0" expanded="false" />
-            <element signature="e#42347#43209#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/war/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="359" column="25" selection-start="9959" selection-end="9959" vertical-scroll-proportion="0.5707257" vertical-offset="4670" max-vertical-offset="7344">
+        <state line="359" column="25" selection-start="9959" selection-end="9959" vertical-scroll-proportion="0.0" vertical-offset="6103" max-vertical-offset="7344">
           <folding>
-            <element signature="n#!!block;n#Node#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="e#6039#6222#0" expanded="false" />
-            <element signature="e#6255#6432#0" expanded="false" />
-            <element signature="e#6462#6569#0" expanded="false" />
-            <element signature="e#6598#6703#0" expanded="false" />
-            <element signature="e#6731#6833#0" expanded="false" />
-            <element signature="e#6861#6963#0" expanded="false" />
-            <element signature="e#6993#7101#0" expanded="false" />
-            <element signature="e#7130#7235#0" expanded="false" />
-            <element signature="e#7264#7369#0" expanded="false" />
-            <element signature="e#7397#7499#0" expanded="false" />
-            <element signature="e#7529#7637#0" expanded="false" />
-            <element signature="e#7667#7775#0" expanded="false" />
-            <element signature="e#7804#7909#0" expanded="false" />
-            <element signature="e#8864#8910#0" expanded="false" />
+            <element signature="n#!!block;n#Edge#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="e#6135#6318#0" expanded="false" />
+            <element signature="e#6351#6528#0" expanded="false" />
+            <element signature="e#6558#6665#0" expanded="false" />
+            <element signature="e#6694#6799#0" expanded="false" />
+            <element signature="e#6827#6929#0" expanded="false" />
+            <element signature="e#6957#7059#0" expanded="false" />
+            <element signature="e#7089#7197#0" expanded="false" />
+            <element signature="e#7226#7331#0" expanded="false" />
+            <element signature="e#7360#7465#0" expanded="false" />
+            <element signature="e#7493#7595#0" expanded="false" />
+            <element signature="e#7625#7733#0" expanded="false" />
+            <element signature="e#7763#7871#0" expanded="false" />
+            <element signature="e#7900#8005#0" expanded="false" />
+            <element signature="e#8960#9006#0" expanded="false" />
+            <element signature="e#9033#9982#0" expanded="false" />
             <element signature="n#!!block;n#drawNodes#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#drawEdges#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#drawPassengers#0;n#!!block;n#game#0" expanded="false" />
@@ -407,6 +367,7 @@
             <element signature="n#!!block;n#drawHaloAroundNodeI#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#addNodeToHaloList#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#startStepsDisplay#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#sendPassengerFromNodeIByChance#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#initiatePassengerTransport#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#mouseInNodeRange#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
@@ -419,8 +380,123 @@
             <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#drawAFuckingLine#0;n#!!block;n#game#0" expanded="false" />
             <element signature="n#!!block;n#playSFX#0;n#!!block;n#game#0" expanded="false" />
-            <element signature="e#27626#27653#0" expanded="false" />
+            <element signature="n#!!block;n#exit#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="e#28406#28433#0" expanded="false" />
+            <element signature="n#!!block;n#sendSolutionPath#0;n#!!block;n#game#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="379" column="0" selection-start="13564" selection-end="13670" vertical-scroll-proportion="0.0" vertical-offset="6443" max-vertical-offset="20995">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/gameChoice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="89" selection-end="89" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="3145">
+          <folding>
+            <marker date="1389968899644" expanded="true" signature="2946:3679" placeholder="{...}" />
+            <marker date="1389968899644" expanded="true" signature="2960:3378" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/gameChoice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="163" column="12" selection-start="4310" selection-end="4310" vertical-scroll-proportion="0.0" vertical-offset="1204" max-vertical-offset="3145">
+          <folding>
+            <marker date="1389968899644" expanded="true" signature="2946:3679" placeholder="{...}" />
+            <marker date="1389968899644" expanded="true" signature="2960:3378" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/solutions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="465" column="8" selection-start="14818" selection-end="14818" vertical-scroll-proportion="-316.2" vertical-offset="0" max-vertical-offset="8942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/gameSettings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="225" column="34" selection-start="6322" selection-end="6322" vertical-scroll-proportion="0.0" vertical-offset="3363" max-vertical-offset="7463">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/solutionsChoice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="40" selection-start="2512" selection-end="2525" vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="2176">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/gameManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="38" selection-start="209" selection-end="243" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1938">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="38" selection-start="237" selection-end="237" vertical-scroll-proportion="-5.44" vertical-offset="0" max-vertical-offset="6528">
+          <folding>
+            <element signature="n#!!block;n#Edge#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="e#6135#6318#0" expanded="false" />
+            <element signature="e#6351#6528#0" expanded="false" />
+            <element signature="e#6558#6665#0" expanded="false" />
+            <element signature="e#6694#6799#0" expanded="false" />
+            <element signature="e#6827#6929#0" expanded="false" />
+            <element signature="e#6957#7059#0" expanded="false" />
+            <element signature="e#7089#7197#0" expanded="false" />
+            <element signature="e#7226#7331#0" expanded="false" />
+            <element signature="e#7360#7465#0" expanded="false" />
+            <element signature="e#7493#7595#0" expanded="false" />
+            <element signature="e#7625#7733#0" expanded="false" />
+            <element signature="e#7763#7871#0" expanded="false" />
+            <element signature="e#7900#8005#0" expanded="false" />
+            <element signature="e#8960#9006#0" expanded="false" />
+            <element signature="e#9033#9982#0" expanded="false" />
+            <element signature="n#!!block;n#drawNodes#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawEdges#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawPassengers#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#removePassenger#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawBackButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawUndoButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawMuteButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawSteps#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawHaloAroundNodeI#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#addNodeToHaloList#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#startStepsDisplay#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#sendPassengerFromNodeIByChance#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#initiatePassengerTransport#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#mouseInNodeRange#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#checkClick#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#clickNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#unclickNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#getEdgeIndex#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#isMouseOverMuteButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#isMouseOverUndoButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#isMouseOverBackButton#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawNode#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#drawAFuckingLine#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#playSFX#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="n#!!block;n#exit#0;n#!!block;n#game#0" expanded="false" />
+            <element signature="e#28406#28433#0" expanded="false" />
+            <element signature="n#!!block;n#sendSolutionPath#0;n#!!block;n#game#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/war/js/createGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="90" selection-start="5894" selection-end="5894" vertical-scroll-proportion="0.4845815" vertical-offset="1957" max-vertical-offset="23137">
+          <folding />
         </state>
       </provider>
     </entry>
