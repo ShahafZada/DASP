@@ -69,7 +69,7 @@ public class Player {
 		this.education = education;
 		this.totalPlayTime = 0;
 		this.picture = picture;
-		if(password.equals("dasp123")) {
+		if(password.equals("123")) {
 			this.userType = "Admin";
 		}
 		else {
