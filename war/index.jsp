@@ -62,7 +62,7 @@
 						</p>
 
 						<script type="text/javascript">$.notify("<%String err_msg = (String) request.getAttribute("err_message");
-			if (err_msg != null)
+			if (err_msg != null) 
 				out.print(err_msg);%>", "error");
 						</script>
 						<script type="text/javascript">$.notify("<%String succ_msg = (String) request.getAttribute("succ_message");
