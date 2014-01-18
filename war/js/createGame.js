@@ -133,7 +133,7 @@ function createGame(){
     var traceBG;
     var isAdaptingTraceBG;
     var traceWasChosen = false;
-    var bgChoice = prompt("Would you like a template for tracing?\nOptions are (insert number or name):\n " + bgChoiceOptionsStr);
+    var bgChoice = prompt("Would you like a template for tracing?\nOptions are (insert number or name):\n" + bgChoiceOptionsStr);
     if(bgChoice == null){
         var event = document.createEvent("Event");
         event.initEvent("changePage", true, true);
@@ -457,9 +457,10 @@ function createGame(){
 
 				var json = JSON.stringify(nodes);
 				//console.log(json);
-
 				var mapN = prompt("Enter map num");
-
+				while(isNaN(mapN) || mapN > 9 || mapN < 0){
+					mapN = prompt("Enter map num (1-9)");
+				}
 
 				jQuery.ajax({
 					url : "SaveNewMap",
