@@ -11,7 +11,6 @@ function createGame(){
 
 	//var allowConsoleMessages = true;
 
-
 	//mode (chosen tool) :
 	var currentMode = 0;
 	var modes = [];
@@ -119,7 +118,41 @@ function createGame(){
 	buttonFrame.src = "images/createGame/frame.png";
 
 
-	//back-button : (not counted as a mode button)
+    //tracing template
+    var bgChoiceOptions = ["JCE_area" , "diamond_1" , "diamond_2" , "maze" , "dinosaur" , "nihongo" , "world_map" ,
+    "cancer_cells_microscope" , "cancer_cells_marked" , "gears" , "human_targets" , "binladen_target" , "iran_nuclear_sites_1" ,
+    "iran_nuclear_sites_2" , "sugar_molecule" , "circuit" , "germany_on_d_day" , "rpg_town" , "comicon_map" , "gotham_city"];
+    var bgChoiceOptionsStr = "";
+    for(var i = 0 ; i < bgChoiceOptions.length ; i++){
+    	bgChoiceOptionsStr += (i+1) + ") ";
+        bgChoiceOptionsStr += bgChoiceOptions[i];
+        if(i != bgChoiceOptions.length -1)
+            bgChoiceOptionsStr += " , ";
+    }
+    var traceBG;
+    var isAdaptingTraceBG;
+    var traceWasChosen = false;
+    var bgChoice = prompt("Would you like a template for tracing?\nOptions are (insert number or name):\n " + bgChoiceOptionsStr);
+    for(var i = 0 ; i < bgChoiceOptions.length ; i++){
+        if(bgChoice == bgChoiceOptions[i] || bgChoice == i+1){
+            traceWasChosen = true;
+            traceBG = new Image();
+            traceBG.src = "images/createGame/tracing_templates/" + bgChoiceOptions[i] + ".png";
+            if(allowConsoleMessages)
+                console.log("using map: " + bgChoice);
+
+            bgChoice = prompt("Would you like your template to be stretched/condensed to fit the screen?\n y = yes , n = no");
+            if(bgChoice == "" || bgChoice == "y" || bgChoice == "t" || bgChoice == "u" || bgChoice =="yes" || bgChoice == "Y"
+                || bgChoice == "Yes" || bgChoice == "yup" || bgChoice == "yeah" || bgChoice == "bitch, please")
+                isAdaptingTraceBG = true;
+            else
+                isAdaptingTraceBG = false;
+
+            break;
+        }
+    }
+
+    //back-button : (not counted as a mode button)
 	var backButtonSize = height/10;	// the button area is square
 	var backButtonEnlargedSize = height/8;	// the button area is square
 	var backButtonDistFromEdges = height/16;
@@ -441,6 +474,16 @@ function createGame(){
 	}
 
 	this.draw = function(){
+
+        //drawing tracing map (if chosen)
+        if(traceWasChosen){
+            if(isAdaptingTraceBG){
+                context.drawImage(traceBG , 0 , 0 , width , height);
+            }
+            else{
+                context.drawImage(traceBG , 0 , 0);
+            }
+        }
 
 		//drawing map elements
 		//edges
