@@ -128,7 +128,7 @@ function createGame(){
     	bgChoiceOptionsStr += (i+1) + ") ";
         bgChoiceOptionsStr += bgChoiceOptions[i];
         if(i != bgChoiceOptions.length -1)
-            bgChoiceOptionsStr += " , ";
+            bgChoiceOptionsStr += "\n";
     }
     var traceBG;
     var isAdaptingTraceBG;
