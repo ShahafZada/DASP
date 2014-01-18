@@ -121,7 +121,8 @@ function createGame(){
     //tracing template
     var bgChoiceOptions = ["JCE_area" , "diamond_1" , "diamond_2" , "maze" , "dinosaur" , "nihongo" , "world_map" ,
     "cancer_cells_microscope" , "cancer_cells_marked" , "gears" , "human_targets" , "binladen_target" , "iran_nuclear_sites_1" ,
-    "iran_nuclear_sites_2" , "sugar_molecule" , "circuit" , "germany_on_d_day" , "rpg_town" , "comicon_map" , "gotham_city"];
+    "iran_nuclear_sites_2" , "sugar_molecule" , "circuit" , "germany_on_d_day" , "rpg_town" , "comicon_map" , "gotham_city" ,
+    "de_dust2"];
     var bgChoiceOptionsStr = "";
     for(var i = 0 ; i < bgChoiceOptions.length ; i++){
     	bgChoiceOptionsStr += (i+1) + ") ";
