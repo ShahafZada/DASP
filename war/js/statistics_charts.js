@@ -71,13 +71,16 @@ function drawMapsAndScoresCharts() {
 		
 		levelAvgScores[ (GSlist[i].mapNum) - 1 ]+=GSlist[i].score;
 		
-		if(GSlist[i].score > levelMaxScores[ (GSlist[i].mapNum) - 1 ])
+		if(GSlist[i].score > levelMaxScores[ (GSlist[i].mapNum) - 1 ]) {
 			levelMaxScores[ (GSlist[i].mapNum) - 1 ] = GSlist[i].score;
-		
-		if(GSlist[i].score < levelMaxScores[ (GSlist[i].mapNum) - 1 ])
 			levelMinScores[ (GSlist[i].mapNum) - 1 ] = GSlist[i].score;
-		else
-			levelMinScores[ (GSlist[i].mapNum) - 1 ] = levelMaxScores[ (GSlist[i].mapNum) - 1 ];
+		}
+	}
+	
+	for(var i = 0 ; i < GSlist.length ; i++) {
+		
+	if(GSlist[i].score < levelMinScores[ (GSlist[i].mapNum) - 1 ])
+		levelMinScores[ (GSlist[i].mapNum) - 1 ] = GSlist[i].score;
 	}
 	
 	for(var i = 0 ; i < levelAvgScores.length ; i++)
